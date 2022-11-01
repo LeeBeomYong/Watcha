@@ -1,3 +1,4 @@
+<%@page import="java.io.PrintWriter"%>
 <%@page import="com.wacha.model.UserDTO"%>
 <%@page import="com.wacha.model.UserDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -6,8 +7,16 @@
 <%
 	String memId = request.getParameter("paramId").trim();
 
+	System.out.println(memId);
+
 	UserDAO dao = UserDAO.getInstance();
 	
-	UserDTO dto = dao.findIdforPwd(memId);
+	String test = dao.findIdforPwd(memId);
 	
+	
+	System.out.println(test);
+	
+	PrintWriter writer = response.getWriter();
+	
+	writer.print(test);
 %>

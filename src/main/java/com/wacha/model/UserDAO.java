@@ -482,36 +482,7 @@ public class UserDAO {
 		}			
 		return list;
 	}// getUserKeywordList() end
-		
-		// 아이디 조회해서 비밀번호 알려주기
-	public UserDTO findIdforPwd(String mem_id) {
-		
-		UserDTO dto = null;
-		
-		try {
-			openConn();
-			
-			sql = "select member_id, member_pwd from member where member_id = ?";
-			
-			pstmt = con.prepareStatement(sql);
-			
-			pstmt.setString(1, mem_id);
-			
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				
-				dto = new UserDTO();
-				
-				dto.setMember_pwd(rs.getString("member_pwd"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeConn(rs, pstmt, con);
-		}
-		return dto;
-	}	// findIdforPwd() end
+	
 
 		// 로그인 메서드
 	public int LoginCheck(String member_id, String member_pwd) {
@@ -674,4 +645,31 @@ public class UserDAO {
 		}
 		return res;
 	}
+	
+	// 비밀번호 찾기
+	public String findIdforPwd(String mem_id) {
+
+		String res = "존재";
+		
+		try {
+			openConn();
+			
+			sql = "select member_pwd from member where member_id = ?";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, mem_id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				res = rs.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return res;
+	}	// findIdforPwd() end
 }

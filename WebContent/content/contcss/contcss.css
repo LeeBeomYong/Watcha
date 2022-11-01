@@ -1,0 +1,347 @@
+	#graydiv{
+		background-color: #F5F5F5;
+		display: flex;
+		justify-content: center;
+	}
+	#realTop{
+	 
+	 display: flex;
+	 flex-direction: row;
+	 margin : 0 15% 0 15% !important;
+	}
+	ul {
+		display: flex;
+	}
+	li{
+	 list-style: none;
+	 
+	}
+	#a1{
+	 color: black;
+	 text-decoration: none;
+	}
+	input,button{
+		border: none;
+	}
+	.moreCont{
+		color: red !important;
+		text-decoration: none;
+	}
+	
+	/* 상단 div css  */
+	#topImg{
+		position : relative;
+		display: block;
+		margin: 0 0 !important;
+	}
+	
+	#topDiv_img{
+		position: absolute;
+		top: 20%;
+		right: 130%;
+	}
+	#topShow{
+		position : absolute;
+		top : 90%;
+		left : 35%; 
+		display: flex;
+		flex-direction : row;
+		justify-content: center;
+	}
+	.topDiv_cont2 button{
+		margin: 8px;
+		background-color: white;
+	}
+	.dropdown{
+		color: black;
+	
+	}
+	
+	
+	#topDiv_bottom > div{
+		margin: 15px;
+	}
+	#topDiv{
+		border-bottom: 1px solid #efefef;
+	}
+	
+	#topDiv, #topDiv_bottom, .topDiv_cont2{
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items : center;
+		font-size: 15px;
+		
+	}
+	img{
+		margin: 0 !important;
+	}
+	
+	/* 세로줄 부분 */
+	.updown {
+    	border: 1px solid #a0a0a0;
+        height: 50px;
+    }
+	
+	.topDiv_cont1{
+		display: flex;
+		flex-direction: column;
+		align-items : center;
+		justify-content: center;
+		flex-wrap: nowrap;
+		margin-top: 5px !important;
+		margin-bottom: 0 !important;
+	}
+	p{
+		margin: 0 !important;
+	}
+	hr{
+		margin: 5px 0 !important;
+	}
+	
+	#topDiv_img{
+		border: solid white;
+	}
+	
+	#topDiv_cont{
+	 display: flex;
+	 flex-direction: column;
+	 justify-content: flex-end;
+	 color: white;
+	 z-index: 2;
+	}
+	.cont2_btn :hover{
+		transform : scale(1.5); 
+	}
+	.cont2_btn_span :hover{
+		transform : scale(1.2); 
+	}
+	
+	/* 중단 기본정보 css */
+	#centerDiv{
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-content : center;
+		background-color: #F5F5F5;
+		border-radius: 1%;
+	}
+	
+	#cd_hiden{
+		display: flex;
+		justify-content: space-between;
+		align-content: center;
+	}
+	#cd_hiden div{
+		display: flex;
+		flex-direction:row;
+		align-items: center;
+	}
+	
+	/* 중단 기본정보 css */
+	#cd_data{
+		display: flex;
+		flex-direction: column;
+		border-radius : 2%;
+		width : 600px;
+		background-color: white;
+	}
+	#cd_data > div{
+		margin: 2% 2% 0 2%;
+	
+	}
+	
+
+	/* 중단 기본정보 css */
+	#cd_cont1, #star_title, #coment_title{
+		display: flex;
+		flex-direction : row;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: nowrap;
+	}
+	
+	#cd_cont2{
+		margin-left : 10px;
+	}
+	#mainComent_div{
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		height: 200px;
+	}
+
+	/* 출연진 및 감독 영역 */
+	.director_actor{	
+		display: flex;
+		flex-direction: row;
+		justify-content : center;
+		align-items: center;
+		background-color: #F5F5F5;
+		border-radius: 5%;
+	}
+	.director_actor span{	
+		font-size: 10px;
+	}
+	#direcImg, #idImg{
+		border-radius: 50%;
+	
+	}	
+		
+	/* 별점 그래프 영역 */
+	#evalScore{
+		display : flex;
+		flex-wrap: nowrap;	
+	}
+	fieldset{
+	    display: block;
+	    direction: rtl;
+	    border:0;
+	}
+	fieldset legend{
+	    text-align: right;
+	}
+	input[type=radio]{
+	    display: none;
+	}
+	label{
+	    font-size: 1.5em;
+	    color: transparent;
+	    text-shadow: 0 0 0 #f0f0f0;
+	}
+	label:hover{
+	    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+	}
+	label:hover ~ label{
+	    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+	}
+	input[type=radio]:checked ~ label{
+	    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+	}
+	
+	#star_graph{
+		display : flex;
+		align-items : center;
+		justify-content: center;
+	}
+	
+	/* 코멘트 영역 */
+	.coment_div{
+		margin-left: 10px;
+		width: 100%;
+		background-color: #F5F5F5;
+		border-radius: 5%;
+		font-size: 10px;
+	}
+	.coment_top{
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
+	a{
+		color : black !important;
+		text-decoration: none !important;
+	}
+	.coment_midle{
+		height: 80px;
+	}
+	
+	/* 비슷한 작품 영역   */
+	#same_movie{
+		margin-left: 10px;
+	}
+	
+	.same_movie_list{
+	 	display: flex;
+	 	flex-direction: column;
+	}
+	/* 중단 유튜브공간 css */
+
+	#cd_youtube {
+		display: flex;
+		flex-direction: column;
+		align-content: center;
+		margin: 10px 5px 0 5px;
+	}
+	#cd_youFirst{
+		background-color: white;
+	}
+
+	#cd_youCont{
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+	
+	#galleryAndVedio{
+		display: flex;
+	 	flex-direction: column;
+	 	margin-top: 10px; 
+	}
+	#vedio, #gallery{
+		margin-top : 10px; 
+		background-color : white;
+		border-radius: 10%;
+		height: 200px;
+	} 	
+	/*슬라이드 구간  */
+	#carouselExampleControlsNoTouching2{
+		display : flex;
+		flex-direction : row;
+		background-color: #F5F5F5;
+		width : 300px;
+		height: 200px;
+	}
+	#carouselExampleControlsNoTouching2 > div{
+		width : 300px;
+		height: 200px;
+	}
+	
+	#carouselExampleControlsNoTouching{
+		background-color: #F5F5F5;
+		width : 300px;
+		height: 200px;
+	}
+	#carouselExampleControlsNoTouching img{
+		width : 300px;
+		height: 200px;
+	}
+
+	/* 반응형 구간 */
+	@media screen and (max-width: 700px) {
+    	#cd_data{
+    		justify-content: center;
+    		margin-left: 0;
+    	}
+    	
+    	#cd_youtube{
+    		visibility: hidden;
+    		position: absolute;
+    	}	
+    	/* 반응형 제목 옆 이미지 */
+    	
+    	*{
+    		font-size: 10px;
+    	}
+	}
+	
+	@media screen and (max-width: 1200px) {	
+		#topDiv_img{
+			position: absolute;
+			top: 0%;
+			right: 50%;
+		}
+		#topDiv_cont{
+			visibility: hidden;
+		}
+		#topShow{
+			position : absolute;
+			top : 45%;
+			left : 15%; 
+			display: flex;
+			flex-direction : row;
+			justify-content: center;
+		}
+	}
+

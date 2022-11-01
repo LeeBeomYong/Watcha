@@ -1,0 +1,107 @@
+@charset "UTF-8";
+
+	ul.tabs{
+	  margin: 0px;
+	  padding: 0px;
+	  list-style: none;
+	}
+	ul.tabs li{
+	  background: none;
+	  color: #222;
+	  display: inline-block;
+	  padding: 10px 15px;
+	  cursor: pointer;
+	}
+	
+	ul.tabs li.current{
+	  background: #ededed;
+	  color: #222;
+	  border-radius: 5px 5px 0px 0px;
+	}
+	
+	.tab-content{
+	  display: none;  
+	  padding: 15px 0;
+	  border-top:3px solid #eee;
+	}
+	
+	.tab-content.current{
+	  display: inherit;
+	}
+	
+	.tt{
+		height: 50px;
+		vertical-align:middle;	 /* 세로 가운데 정렬 */	
+	}
+	
+	#dd{
+		text-decoration: none;
+		color: red;
+	}
+	
+	#delete_btn{
+		color: red;
+		border: none;
+		background-color: rgba(0,0,0,0);
+	}
+
+	/* 게시판 정렬 */
+	
+	
+	/* 번호 */
+	.no{
+		width:100px;
+		text-align: center;
+	}
+	
+	/* 작성자 */
+	.wrt{
+		width:200px;
+		text-align: center;
+	}
+	
+	/* 작성일자 */
+	.date{
+		width: 300px;
+		text-align: center;}
+	
+	/* 제목 */
+	.tit{
+		text-align: center;
+	}
+	
+	/* 삭제 */
+	.del{
+		text-align: center;
+	}
+	
+	/* 진행상태 */
+	.now{
+		text-align: center;
+	}
+	
+	/* 전체 콘테이너 */
+	#con{
+		margin-left: 13%;
+		margin-right: 13%;
+	}
+	
+	
+	/* 답변 미완료, 완료 */
+	#fin_a{
+		width: 80px;
+		height: 25px; 
+		border-radius: 5px;
+		border: none;
+		background-color: #2E9E02;
+		color: white;
+	}
+	#fin_b{
+		width: 95px;
+		height: 25px; 
+		border-radius: 5px;
+		border: none;
+		background-color: #FF2727;
+		color: white;
+	}
+

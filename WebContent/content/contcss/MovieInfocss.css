@@ -1,0 +1,15 @@
+#Contdiv{
+	display: flex;
+	flex-direction : column;
+	justify-content : center;
+	margin: 0 20%; 
+}
+li{
+	
+	list-style: none;
+}
+#MovieCont{
+	display: flex;
+	justify-content : center;
+	
+}

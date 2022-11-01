@@ -1,0 +1,84 @@
+@charset "UTF-8";
+
+	/* 자주하는 질문 */
+	.title-area {
+		margin-top: 100px;
+		margin-bottom: 80px;
+		margin-left: 50px;
+	}
+	
+	/* section 1 부분 */
+	.s1 {
+	  margin-bottom: 500px;
+	}
+	
+	/* section 1부분에서 ul*/
+	.s1 ul {
+	  margin-top: 20px;
+	}
+	
+	.s1 ul li {
+	  border-bottom: 1px solid #e0e0e0;
+	  padding-bottom: 10px;
+	  margin-bottom: 20px;
+	}
+	
+	.s1 ul li p {
+	  display: none;
+	}
+	
+	* {
+	  list-style: none;
+	  text-decoration: none;
+	  padding: 0;
+	  margin: 0;
+	  box-sizing: border-box;
+	}
+	
+	.clearfix:after {
+	  content: '';
+	  display: block;
+	  clear: both;
+	}
+	
+	.container {
+	  width: 1100px;
+	  margin: 0 auto;
+	}
+	
+	/* 화살표 위치 */
+	#sp1{
+		margin-left: 830px;
+	}
+	#sp2{
+		margin-left: 500px;
+	}
+	#sp3{
+		margin-left: 723px;
+	}
+	#sp4{
+		margin-left: 842px;
+	}
+	#sp5{
+		margin-left: 488px;
+	}
+	#sp6{
+		margin-left: 645px;
+	}
+	#pp{
+		text-align: right;
+	}
+	
+	/* Q&A 버튼 */
+	#button{
+		width: 90px;
+		border: none;
+		height: 35px;
+		border-radius: 5px;
+	}
+	
+	/* 원하시는 답변 없으면 버튼  a 태그*/
+	#aa{
+		text-decoration: none;
+		color: #000;
+}

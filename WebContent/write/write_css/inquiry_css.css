@@ -1,0 +1,179 @@
+@charset "UTF-8";
+/* --------Q&A 문의 게시판 리스트 부분 --------------------------*/
+
+	/* 전체 콘테이너 */
+	#con{
+		margin-left: 13%;
+		margin-right: 13%;
+	}
+
+	/* 탭 메뉴 */
+	ul.tabs{
+	  margin: 0px;
+	  padding: 0px;
+	  list-style: none;
+	}
+	
+	/* 탭 메뉴 글 */
+	ul.tabs li{
+	  background: none;
+	  color: #222;
+	  display: inline-block;
+	  padding: 10px 15px;
+	  cursor: pointer;
+	}
+	
+	
+	ul.tabs li.current{
+	  background: #ededed;
+	  color: #222;
+	  border-radius: 0px 0px 0px 0px;
+	}
+	
+	/* 탭 콘텐츠 영역 */
+	.tab-content{
+	  display: none;  
+	  padding: 15px 0;
+	}
+	
+	.tab-content.current{
+	  display: inherit;
+	}
+	
+	/* 테이블 리스트 제목 */
+	.tt{
+		height: 50px;
+		vertical-align:middle;	 /* 세로 가운데 정렬 */
+	}
+	
+	/* 문의 등록 버튼 */
+	#btn1{
+		border: none;
+		width: 100px;
+		height: 40px;
+		border-radius: 10px;
+		margin-left: 530px;
+	}
+	
+	/* 문의 등록 버튼 글씨 */
+	#btn1 > a{
+		text-decoration: none;
+		color: #000;
+	}
+		
+	/* 문의 등록 버튼 글씨 */
+	#btn1:hover{
+		background-color: #ABABAB;
+	}
+	
+	/* 검색 기능 폼 큰 틀 div */
+	#btnId{
+		margin-bottom: 10px;
+	}
+	
+	/* 검색 버튼 */
+	#btn2{
+		height: 35px;
+	}
+
+	/* 두번째 탭 영역 div */
+	#tab2{
+		margin-left: 25%;
+	}
+	
+/* --------1:1 작성 문의 부분 ----------------------------------------*/	
+	
+	/* 1:1 작성 양식에서 등록 비행기 버튼 */
+	#img_a{
+		width: 30px;
+		height: 30px;
+		margin-left: 10px;
+	}
+
+	/* 1:1 작성 양식에서 등록 span 태그 */
+	#img_text{
+		font-size: 20px;
+		margin-left: 340px;
+	}
+	
+	/* 전체 목록 클릭 버튼 a태그 */
+	.total{
+		text-decoration: none;
+		color: #000;
+		margin-top: 5px;
+		margin-left: 15px;
+	}
+	
+	/* 전체 목록 클릭 버튼 a태그 */
+	.total:hover{
+		font-weight: bold;
+		color: #000;
+	}
+	
+		
+	/* 게시판 정렬 */
+	/*조회수*/
+	.hit{
+		width: 150px;
+		text-align: center;
+	}
+	
+	/* 작성일자 */
+	.date{
+		width: 300px;
+		text-align: center;
+	}
+	
+	/* 번호 */
+	.no{
+		width:150px;
+		text-align: center;
+	}
+	
+	/* 작성자 */
+	.wrt{
+		width:200px;
+		text-align: center;
+	}
+	
+	/* 제목 */
+	.tit{
+		text-align: center;
+	}
+	
+	/* 관리자 제목 */
+	.admin_tit{
+		text-decoration: underline;
+		font-weight: 900;
+		color: #000;
+	}
+	.admin_tit:hover{
+		color: #000;
+	}
+
+	
+/* 페이징 css 부분------------------------------------------*/	
+
+	/* 번호 클릭하는 부분 */
+	#link{
+	 color: #000;
+	}
+
+	.page-item.active
+	.page-link {
+	 z-index: 1;
+	 color: #555;
+	 font-weight:bold;
+	 background-color: #f1f1f1;
+	 border-color: #ccc;	 
+	}
+	
+	.page-link:focus, 
+	.page-link:hover {
+	  color: #000;
+	  background-color: #fafafa; 
+	  border-color: #ccc;
+	}
+	
+	
+/*------------------------------------------------------- */

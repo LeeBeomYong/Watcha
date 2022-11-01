@@ -1,0 +1,465 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+  <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>영화등록</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+       
+        <style type="text/css">
+        
+        
+        
+        *, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+
+body {
+  font-family: 'Nunito', sans-serif;
+  color: #384047;
+  clear: both;
+}
+
+form {
+  max-width: 300px;
+  margin: 10px auto;
+  padding: 10px 20px;
+  background: #f4f7f8;
+  border-radius: 8px;
+}
+
+h1 {
+  margin: 0 0 30px 0;
+  text-align: center;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="datetime"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+textarea,
+select {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  font-size: 16px;
+  height: auto;
+  margin: 0;
+  outline: 0;
+  padding: 15px;
+  width: 100%;
+  background-color: #e8eeef;
+  color: #8a97a0;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+  margin-bottom: 30px;
+  resize: none;
+}
+
+
+
+select {
+  padding: 6px;
+  height: 32px;
+  border-radius: 2px;
+}
+
+button {
+  padding: 19px 39px 18px 39px;
+  color: #FFF;
+  background-color: #4bc970;
+  font-size: 18px;
+  text-align: center;
+  font-style: normal;
+  border-radius: 5px;
+  width: 100%;
+  border: 1px solid #3ac162;
+  border-width: 1px 1px 3px;
+  box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+  margin-bottom: 10px;
+}
+ 
+button{
+  background:#4bc970;
+  color:#fff;
+  border:none;
+  position:relative;
+  height:60px;
+  font-size:1.6em;
+  padding:0 2em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+}
+button:hover{
+  background:#fff;
+  color:#1AAB8A;
+}
+button:before,button:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #1AAB8A;
+  transition:400ms ease all;
+}
+button:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+button:hover:before,button:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+
+fieldset {
+  margin-bottom: 30px;
+  border: none;
+}
+
+legend {
+  font-size: 1.4em;
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+label.light {
+  font-weight: 300;
+  display: inline;
+}
+textarea{
+ font-family: 'Nunito', sans-serif;
+}
+
+.number {
+  background-color: #5fcf80;
+  color: #fff;
+  height: 30px;
+  width: 30px;
+  display: inline-block;
+  font-size: 0.8em;
+  margin-right: 4px;
+  
+  line-height: 30px;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.2);
+  border-radius: 100%;
+  
+}
+
+.can-1{
+margin-left: 80px
+}
+.can-1,.can1-1,.can-3{
+float: left;
+
+}
+.can1-1{
+margin-top: 100px;
+}
+.can-2{
+clear: both;
+}
+
+.can1-1-1{
+margin-top: 100px;
+float: left;
+}
+
+@media screen and (min-width: 480px) {
+
+  form {
+    max-width: 900px;
+  }
+
+}
+/*코멘트 게시판리스트 게시판 리스트 */
+ table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%; 
+}
+th,
+td {
+
+  padding: 6px 15px;
+}
+th {
+
+  background: #3fa46a;
+  color: #fff;
+
+  
+}
+.th-3{
+width:30px;
+}
+
+.th-4{
+width:180px;
+}
+tr:first-child th:first-child {
+  border-top-left-radius: 6px;
+}
+tr:first-child th:last-child {
+  border-top-right-radius: 6px;
+}
+td {
+  border-right: 1px solid #c6c9cc;
+  border-bottom: 1px solid #c6c9cc;
+}
+td:first-child {
+  border-left: 1px solid #c6c9cc;
+}
+tr:nth-child(even) td {
+  background: #eaeaed;
+}
+tr:last-child td:first-child {
+  border-bottom-left-radius: 6px;
+}
+tr:last-child td:last-child {
+  border-bottom-right-radius: 6px;
+}
+
+  .b-blue, .b-blue:before {
+    background: rgba(5,118,255,1);
+    background: -moz-linear-gradient(45deg, rgba(5,118,255,1) 0%, rgba(36,248,255,1) 100%);
+    background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(5,118,255,1)), color-stop(100%, rgba(36,248,255,1)));
+    background: -webkit-linear-gradient(45deg, rgba(5,118,255,1) 0%, rgba(36,248,255,1) 100%);
+    background: -o-linear-gradient(45deg, rgba(5,118,255,1) 0%, rgba(36,248,255,1) 100%);
+    background: -ms-linear-gradient(45deg, rgba(5,118,255,1) 0%, rgba(36,248,255,1) 100%);
+    background: linear-gradient(45deg, rgba(5,118,255,1) 0%, rgba(36,248,255,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0576ff', endColorstr='#24f8ff', GradientType=1 );
+  }
+
+.button {
+  display: inline-block;
+  position: relative;
+  border-radius: 3px;
+  text-decoration: none;
+  padding: .5em;
+  margin: .5em;
+  font-size: 5px;
+  font-weight: bold;
+  transition: all .5s;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: red;
+}
+.button:hover {
+  text-shadow: 0px 0px 0px rgba(255, 255, 255, .75);
+}
+.button:hover:after {
+  left: 100%;
+  top: 100%;
+  bottom: 100%;
+  right: 100%;
+}
+.button:before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+  border-radius: 5px;
+  transition: all .5s;
+}
+
+.button2 {
+  display: inline-block;
+  font-size: 13px;
+  margin: .5em;
+  padding: .5em;
+  border-radius: 5px;
+  transition: all .5s;
+  filter: hue-rotate(0deg);
+  color: #FFF;
+  text-decoration: none;
+}
+.th-4{
+width:200px;
+text-align: center;
+}
+
+
+.rot-135:hover {
+  filter: hue-rotate(135deg); 
+        </style>
+        <link rel="stylesheet" href="css/normalize.css">
+        <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    
+    <body>
+      
+      <c:set var="dto" value="${UserContent}" /> 
+	<jsp:include page="../include/admin_top.jsp" />
+	<br><br><br>
+      <form enctype="multipart/form-data" action="<%=request.getContextPath() %>/admin_userDelete_ok.do" method="post">
+  		<input type="hidden" name="member_num" value="${dto.getMember_num() }">
+        <h1>회원상세 페이지</h1>
+
+       <div  class="can-1">
+          <fieldset>
+           <legend><span class="number">1</span>회원프로필사진</legend>
+             <label for="image"></label>
+  
+             <img src="<%=request.getContextPath()%>/image/${dto.getMember_img()}" width="150" height="200" > 
+             	
+    			<div id="image_container"></div>
+          </fieldset>
+        </div>
+        
+        
+                <div class="can-1">
+        <fieldset >
+          <legend><span class="number">2</span>회원이름</legend>
+          <label for="name"></label>
+          <input type="text" id="name" name="member_name"  value="${dto.getMember_name() }" readonly>
+        </fieldset>
+        
+	        <div class="can-1-1">
+	          <fieldset >
+	          <legend><span class="number">3</span>회원아이디</legend>
+	          <label for="name"></label>
+	          <input type="text" id="name" name="member_id" value="${dto.getMember_id() }" readonly>	
+        	</fieldset>
+        	</div>
+        	
+        	     <div class="can-1-1">
+	          <fieldset >
+	          <legend><span class="number" >4</span>회원비밀번호</legend>
+	          <label for="name"></label>
+	          <input type="text" id="name" name="member_pwd" value="${dto.getMember_pwd() }" readonly>	
+        	</fieldset>
+        	</div>
+        	
+        </div>
+
+        <div class="can-2">
+        <fieldset>
+          <legend><span class="number">5</span>회원프로필</legend>
+          
+          <textarea id="bio" name="member_profile" rows="8" cols="25" readonly>${dto.getMember_profile() }</textarea>
+        </fieldset>
+     	</div>
+               
+	            <div  class="can-1">
+       	<div style="float: left;">
+        <fieldset >
+          <legend><span class="number" >6</span>회원생년월일</legend>
+          <label for="name"></label>
+          <input type="text" id="name" name="member_birth"  value="${dto.getMember_birth() }" readonly>
+ 
+    			<div id="image_container"></div>
+          </fieldset>
+        </div>
+        
+        
+                <div class="can-1">
+        <fieldset >
+          <legend><span class="number" >7</span>회원가입일</legend>
+          <label for="name"></label>
+          <input type="text" id="name" name="member_regdate"  value="${dto.getMember_regdate() }"readonly>
+        </fieldset>
+        	
+        </div>
+        
+</div>
+
+
+
+
+<div class="can-2">
+<div>
+<section>
+	 <h1>코멘트리스트</h1>
+  <div class="tbl-header">
+<table>
+
+  <thead align="center">
+    <tr>
+      <th>영화제목</th>
+      <th>코멘트번호</th>
+      <th>코멘트</th>
+      <th>댓글갯수</th>
+      <th>좋아요</th>
+      <th>싫어요</th>      
+   	  <th>삭제</th>
+    </tr>
+  </thead>
+  <c:set var="ComentList" value="${userComentList }"/>
+			<c:if test="${!empty ComentList }">
+				<c:forEach items="${ComentList }" var="dto1">
+  <tbody >
+    <tr>
+    
+      <td align="center">${dto1.getMovie_title() }</td>
+      
+      <td align="center">${dto1.getComent_num() }</td>
+      
+     <td class="th-4" align="center"><a href="<%=request.getContextPath()%>/admin_coment_content.do?num=${dto1.getComent_num()}">
+		  ${dto1.getMovie_title() }</a></td>
+		  
+      <%-- <td align="center">${dto1.getCocoment_count() }</td> --%>
+      
+      <td align="center">${dto1.getComent_hit() }</td>
+      
+      <td align="center">${dto1.getComent_nohit() }</td>
+     
+        <td class="th-3"><a href="<%=request.getContextPath() %>/admin_Coment_delete.do?num=${dto1.getMovie_num()}" class="button b-blue">삭제</a></td>
+ 
+      
+    </tr>
+    
+  </tbody>
+  </c:forEach>
+  </c:if>
+  <c:if test="${empty ComentList }">
+  	<tr>
+			 	<td colspan="9" align="center">
+			 	<h3>코멘트 리스트가 없습니다..</h3>
+		 	</tr>
+  </c:if>
+  <tr>
+  	<td class="td_btn" colspan="9" align="right" >
+		 		
+		 	
+  </tr>
+</table>
+
+	
+  </div>
+</section>
+</div>
+</div>	
+        
+ 
+   
+        <button type="submit">Delete</button>
+        
+      </form>
+      <jsp:include page="../include/admin_bottom.jsp" />
+    </body>
+</html>

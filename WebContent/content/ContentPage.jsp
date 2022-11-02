@@ -430,7 +430,7 @@ $(function() {
 					</div>
 					<div>
 					 	<button  class="btn btn-danger" onclick="javascript:showPopUp()">수정</button>&nbsp;&nbsp;|&nbsp;&nbsp;
-					 	<button  class="btn btn-danger" onclick="location.href='<%=request.getContextPath()%>/wacha_coment_delete.do?movie_num=${coment_dto.getMovie_num()}&conment_num=${coment_dto.getComent_num() }'">삭제</button>
+					 	<button  class="btn btn-danger" onclick="location.href='<%=request.getContextPath()%>/wacha_coment_delete.do?movie_num=${coment_dto.getMovie_num()}&coment_num=${coment_dto.getComent_num() }'">삭제</button>
 					</div> 
 				</div>	
 			</c:if>
@@ -638,7 +638,7 @@ $(function() {
 						</c:if>
 					<c:forEach items="${same}" var="same" varStatus="status">
 						<li class="same_movie_list">
-							<a title="" href="#">
+							<a title="" href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${same.getMovie_num() }">
 								<div><img alt="없음" src="${same.getMovie_imgloc()}" width="130px" height="100px"></div>
 								<div>
 									<div>${same.getMovie_title()}</div>

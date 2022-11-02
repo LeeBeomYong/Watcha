@@ -35,7 +35,7 @@ $(function() {
 	            datatype : "text",
 	            success : function(data){
 	            	
-					$("#avgs").html("평균 ★"+data+"점 (<fmt:formatNumber value="${count}"/>명)");
+					$("#avgs").html("평균 ★"+data+"점 ");
 				},
 	            error : function(){
 	               alert('데이터 통신 에러');
@@ -45,6 +45,25 @@ $(function() {
 	         });
 		
 	}
+	function getEvalCount() {
+		 
+		$.ajax({
+	            type : "post",
+	            url : "/WatchaProject/content/GetEvalCount.jsp",
+	            data : { movieNum : $("#croll").val()},
+	            datatype : "text",
+	            success : function(data){
+					$("#evalcount").html("("+data+"명)");
+				},
+	            error : function(){
+	               alert('데이터 통신 에러');
+	            }
+	            
+	            
+	         });
+	}
+	
+	
 	// 그래프 출력
 	google.charts.load('current', {'packages':['corechart']});
 	google.charts.setOnLoadCallback(drawVisualization);
@@ -100,6 +119,7 @@ $(function() {
 			datatype : "text",
 			success : function(data){
 				getMovieStar();
+				getEvalCount();
 				drawVisualization();
 			},
 			error : function(){
@@ -314,7 +334,7 @@ $(function() {
 				${mDto.getMovie_date()} ${mDto.getMovie_genre()} ${mDto.getMovie_country()} 	
 				<div>
 					<hr>
-						<span id="avgs">평균 ★${avgStar}점 (<fmt:formatNumber value="${count}"/>명)</span>
+						<span id="avgs">평균 ★${avgStar}점</span><span id="evalcount">(<fmt:formatNumber value="${count}"/>명)</span>
 					<hr>
 				</div>
 				<div id="topDiv_bottom">	

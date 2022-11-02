@@ -67,7 +67,7 @@ public class UserDAO {
 				// 2단계 : lookup() 메서드를 이용하여 매칭되는
 				//        커넥션을 찾는다.
 				DataSource ds =
-					(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
+					(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
 				
 				// 3단계 : DataSource 객체를 이용하여
 				//        커넥션을 하나 가져온다.
@@ -649,7 +649,7 @@ public class UserDAO {
 	// 비밀번호 찾기
 	public String findIdforPwd(String mem_id) {
 
-		String res = "존재";
+		String res = "";
 		
 		try {
 			openConn();
@@ -663,7 +663,7 @@ public class UserDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				res = rs.getString(1);
+				res = rs.getString(1).trim();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

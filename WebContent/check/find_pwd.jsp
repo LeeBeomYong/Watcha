@@ -13,10 +13,11 @@
 	
 	String test = dao.findIdforPwd(memId);
 	
-	
 	System.out.println(test);
 	
 	PrintWriter writer = response.getWriter();
+	if(!test.equals("")){
+		writer.print(test);
+	}
 	
-	writer.print(test);
 %>

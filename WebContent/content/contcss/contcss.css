@@ -256,7 +256,21 @@
 	.same_movie_list{
 	 	display: flex;
 	 	flex-direction: column;
+		border-radius: 2%;
 	}
+	
+	
+	.same_movie_list img{
+		width : 80px;
+		height: 100px;
+		border-radius: 2%;
+	}
+	#sm_ul{
+		margin-top: 3%;
+	
+	} 
+	
+	
 	/* 중단 유튜브공간 css */
 
 	#cd_youtube {

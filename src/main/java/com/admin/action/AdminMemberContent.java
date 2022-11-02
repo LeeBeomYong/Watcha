@@ -11,35 +11,49 @@ import com.wacha.controller.ActionForward;
 import com.wacha.model.ComentDAO;
 
 import com.wacha.model.ContentDTO;
+import com.wacha.model.MovieDAO;
 import com.wacha.model.UserDAO;
 import com.wacha.model.UserDTO;
+import com.wacha.model.WriteDAO;
+import com.wacha.model.WriteDTO;
 ;
 
 public class AdminMemberContent implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+
+		
 		String member_id = request.getParameter("id").trim();
-		
-		UserDAO dao = UserDAO.getInstance();
-		
-		UserDTO content = dao.UserContent(member_id);
+
 	
-		ComentDAO dao1 = ComentDAO.getInstance();
+		ComentDAO dao = ComentDAO.getInstance();
 		
-		List<ContentDTO> coment= dao1.userContentComentList(member_id);
+		WriteDAO dao2 = WriteDAO.getInstance();
 		
-		/*
-		 * WriteDAO dao2 = WriteDAO.getInstance();
-		 * 
-		 * WriteDTO write = dao2.userContentWrite(member_id);
-		 */
+		
+		UserDAO dao1 = UserDAO.getInstance();
+		
+		UserDTO content = dao1.UserContent(member_id);
+		
+		
+		
+		
+		int num_son=dao.getComentcount(member_id);
+		
+		List<ContentDTO> coment= dao.userContentComentList(member_id );
+		  
+		List<WriteDTO> write = dao2.userContentWrite(member_id);
+		
+		
+		request.setAttribute("num_son", num_son);
 		
 		request.setAttribute("UserContent", content);
 		
 		request.setAttribute("userComentList",coment);
 		
-		/* request.setAttribute("userWriteList", write); */
+		request.setAttribute("userWriteList", write); 
 		
 		ActionForward forward = new ActionForward();
 		

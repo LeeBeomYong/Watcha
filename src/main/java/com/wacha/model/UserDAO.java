@@ -324,6 +324,7 @@ public class UserDAO {
 		
 		public void w_writeDelete(String id, String pwd) {
 			
+			
 			try {
 				openConn();
 				

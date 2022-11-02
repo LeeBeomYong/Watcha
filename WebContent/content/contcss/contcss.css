@@ -257,6 +257,7 @@
 	 	display: flex;
 	 	flex-direction: column;
 		border-radius: 2%;
+		margin: 1% 0; 
 	}
 	
 	
@@ -267,8 +268,12 @@
 	}
 	#sm_ul{
 		margin-top: 3%;
-	
+		
 	} 
+	#rediv{
+		
+		position: relative;
+	}
 	
 	
 	/* 중단 유튜브공간 css */

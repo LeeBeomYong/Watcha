@@ -1,7 +1,6 @@
 package com.wacha.model;
 
-public class MovieDTO {
-
+public class MovieImageDTO {
 	private int movie_num;
 	private String movie_title;
 	private String movie_cont;
@@ -15,8 +14,25 @@ public class MovieDTO {
 	private int movie_count;
 	private int movie_hit;
 	
-	
+	private String movie_imgloc;
+	private double movie_avgstar;
 
+	
+	
+	
+	public double getMovie_avgstar() {
+		return movie_avgstar;
+	}
+	public void setMovie_avgstar(double movie_avgstar) {
+		this.movie_avgstar = movie_avgstar;
+	}
+	public String getMovie_imgloc() {
+		return movie_imgloc;
+	}
+	public void setMovie_imgloc(String movie_imgloc) {
+		this.movie_imgloc = movie_imgloc;
+	}
+	
 	public int getMovie_num() {
 		return movie_num;
 	}
@@ -89,6 +105,4 @@ public class MovieDTO {
 	public void setMovie_hit(int movie_hit) {
 		this.movie_hit = movie_hit;
 	}
-	
-	
 }

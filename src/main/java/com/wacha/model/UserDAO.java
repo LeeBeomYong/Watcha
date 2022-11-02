@@ -630,27 +630,28 @@ public class UserDAO {
 	  // 비밀번호 찾기
     public String findIdforPwd(String mem_id) {
 
-      String res = "존재";
+		String res = "";
+		
+		try {
+			openConn();
+			
+			sql = "select member_pwd from member where member_id = ?";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, mem_id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				res = rs.getString(1).trim();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return res;
+	}	// findIdforPwd() end
+}
 
-      try {
-        openConn();
-
-        sql = "select member_pwd from member where member_id = ?";
-
-        pstmt = con.prepareStatement(sql);
-
-        pstmt.setString(1, mem_id);
-
-        rs = pstmt.executeQuery();
-
-        if(rs.next()) {
-          res = rs.getString(1);
-        }
-      } catch (SQLException e) {
-        e.printStackTrace();
-      } finally {
-        closeConn(rs, pstmt, con);
-      }
-      return res;
-    }	// findIdforPwd() end
-  }

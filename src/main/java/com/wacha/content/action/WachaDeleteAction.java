@@ -20,7 +20,7 @@ public class WachaDeleteAction implements Action {
 		
 		ComentDAO coment_dao = ComentDAO.getInstance();
 		
-		//coment_dao.deleteComent(movie_num,coment_num);
+		coment_dao.deleteComent(movie_num,coment_num);
 		ActionForward forward = new ActionForward();
 		
 		forward.setPath("wacha_content.do?movie_num="+movie_num);

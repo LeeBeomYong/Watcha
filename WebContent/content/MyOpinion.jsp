@@ -46,7 +46,13 @@
 		            </div>
 		            <div class="form-group">
 		                <label for="content"> 내용 </label>
+		                <c:if test="${!empty coment_dto }">
 		                <textarea class="form-control" name="content" placeholder="내용을 입력하세요"><%=coment_dto.getMovie_coment() %></textarea>
+		                </c:if>
+		                <c:if test="${empty coment_dto }">
+		                <textarea class="form-control" name="content" placeholder="내용을 입력하세요"></textarea>
+		                </c:if>
+		                
 		            </div>
 		        <c:choose>
 		        	<c:when test="${!empty coment_dto }">

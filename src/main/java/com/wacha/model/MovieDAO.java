@@ -65,7 +65,7 @@ public class MovieDAO {
 				// 2단계 : lookup() 메서드를 이용하여 매칭되는
 				//        커넥션을 찾는다.
 				DataSource ds =
-					(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
+					(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
 				
 				// 3단계 : DataSource 객체를 이용하여
 				//        커넥션을 하나 가져온다.
@@ -188,55 +188,59 @@ public class MovieDAO {
 		}//end
 		
 		public int insertMovie(MovieDTO dto) {
-		int result=0,count=0;
-	
+			int result=0,count=0;
 		
-		try {
-			openConn();
 			
-			sql="select max(movie_num) from movie";
-		
-			pstmt=con.prepareStatement(sql);
-			
-			rs=pstmt.executeQuery();
-			
-			if(rs.next()) {
-				count=rs.getInt(1)+1;
-			}
-			sql="insert into movie values(?,?,?,?,?,?,?,?,?,?)";
-			
-			pstmt=con.prepareStatement(sql);
-			
-			pstmt.setInt(1, count);
-			
-			pstmt.setString(2, dto.getMovie_title());
-			
-			pstmt.setString(3, dto.getMovie_cont());
-			
-			pstmt.setString(4, dto.getMovie_time());
-			
-			pstmt.setString(5, dto.getMovie_date());
-			
-			pstmt.setString(6, dto.getMovie_age());
-			
-			pstmt.setString( 7, dto.getMovie_genre());
-		
-			pstmt.setString(8, dto.getMovie_director());
-			
-			pstmt.setString(9, dto.getMovie_video());
+			try {
+				openConn();
 				
-			pstmt.setString(10, dto.getMovie_country());
+				sql="select max(movie_num) from movie";
 			
-			result=pstmt.executeUpdate();                               
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			closeConn(rs, pstmt, con);
+				pstmt=con.prepareStatement(sql);
+				
+				rs=pstmt.executeQuery();
+				
+				if(rs.next()) {
+					count=rs.getInt(1)+1;
+				}
+				sql="insert into movie values(?,?,?,?,?,?,?,?,?,?,?,?)";
+				
+				pstmt=con.prepareStatement(sql);
+				
+				pstmt.setInt(1, count);
+				
+				pstmt.setString(2, dto.getMovie_title());
+				
+				pstmt.setString(3, dto.getMovie_cont());
+				
+				pstmt.setString(4, dto.getMovie_time());
+				
+				pstmt.setString(5, dto.getMovie_date());
+				
+				pstmt.setString(6, dto.getMovie_age());
+				
+				pstmt.setString( 7, dto.getMovie_genre());
 			
-		}
-		return result;
-		}//end
+				pstmt.setString(8, dto.getMovie_country());
+				
+				pstmt.setString(9, dto.getMovie_director());
+				
+				pstmt.setString(10, dto.getMovie_video());
+					
+				pstmt.setInt(11, dto.getMovie_count());
+				
+				pstmt.setInt(12, dto.getMovie_hit());
+				
+				result=pstmt.executeUpdate();                               
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+				
+			}
+			return result;
+			}//end
 	
 		public MovieDTO movieContent(int num) {
 			MovieDTO dto = null;

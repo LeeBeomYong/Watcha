@@ -316,8 +316,9 @@ $(function() {
 	
 	<input type="hidden" value="1" id="croll">
 	<div id="topImg">
+			<div id="imgT">
 			<%-- 상단 예매 순위 / 개봉 날짜 / 평균 별점 --%>
-			<img alt="없음" src="${pageContext.request.contextPath }/image/contImg/black_adam_content_main.jpg" width="100%" height="400px">
+			<img id="imgT_img" alt="없음" src="data:image/jpeg;base64,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">
 			<div id="topShow">
 				<div id="topDiv_img">
 					<img alt="이미지 없음" src="${pageContext.request.contextPath }/image/contImg/black_adam_content_sub.jpg" width="150px">
@@ -332,6 +333,7 @@ $(function() {
 				
 			</div>
 		</div>
+	</div>
 	
 	
 	<%-- 상단 페이지 내용  --%>
@@ -384,7 +386,7 @@ $(function() {
 							<a id ="a1" href="javascript:showPopUp()">
 								<div class="cont2_btn">
 									<img alt="없음" src="${pageContext.request.contextPath }/image/contImg/pen.png" width="20px" height="20px">
-									코멘트
+									<span class="cont2_btn_span">코멘트</span>
 								</div>
 							</a>
 						</button>
@@ -398,18 +400,15 @@ $(function() {
 										<img alt="없음" src="${pageContext.request.contextPath }/image/contImg/checkeye.png" width="20px" height="20px" id="img3">
 									</c:otherwise>
 								</c:choose>
-								
-								
-								
 								<span class="cont2_btn_span">보는중</span>
 							</div>
 						</button>
-						<button id="topDiv_cont2_btn4">
-							<div class="cont2_btn">
+						<button id="topDiv_cont2_btn4" data-bs-toggle="dropdown" aria-expanded="false">
+							<div class="cont3_btn">
 					   			<img alt="" src="${pageContext.request.contextPath}/image/contImg/more.png" width="20px" height="20px" class=" btn-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 							  	<span>더보기</span>
-							  <ul class="dropdown-menu">
-								  	<li><a class="dropdown-item" >관심없어요</a></li>
+							  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+								  	<li><a class="dropdown-item" href="#">관심없어요</a></li>
 							  </ul>
 							</div>
 						</button>
@@ -422,20 +421,21 @@ $(function() {
 	<%-- 기본 정보  || 유튜브 영상 및 갤러리 --%>
 	<div id="centerDiv">
 		<!-- 상세 정보 (내용/출연진/그래프/코멘트/컬렉션) Div -->
-		<div id="cd_data">
+		<div>
 			<c:if test="${!empty coment_dto}">
-			<div id="cd_hiden">
-				<div>
-					 <img alt="" width="50px" height="50px" id="idImg" src="${pageContext.request.contextPath }/image/contImg/defualtImg.png">
-					 <span>${coment_dto.getMovie_coment()}</span>
-				</div>
-				<div>
-				 	<button  class="btn btn-danger" onclick="javascript:showPopUp()">수정</button>&nbsp;&nbsp;|&nbsp;&nbsp;
-				 	<button  class="btn btn-danger" onclick="location.href='<%=request.getContextPath()%>/wacha_coment_delete.do?movie_num=${coment_dto.getMovie_num()}&conment_num=${coment_dto.getComent_num() }'">삭제</button>
-				</div> 
-			</div>
-			<hr>		
+				<div id="cd_hiden">
+					<div>
+						 <img alt="" width="50px" height="50px" id="idImg" src="${pageContext.request.contextPath }/image/contImg/defualtImg.png">
+						 <span>${coment_dto.getMovie_coment()}</span>
+					</div>
+					<div>
+					 	<button  class="btn btn-danger" onclick="javascript:showPopUp()">수정</button>&nbsp;&nbsp;|&nbsp;&nbsp;
+					 	<button  class="btn btn-danger" onclick="location.href='<%=request.getContextPath()%>/wacha_coment_delete.do?movie_num=${coment_dto.getMovie_num()}&conment_num=${coment_dto.getComent_num() }'">삭제</button>
+					</div> 
+				</div>	
 			</c:if>
+		<div id="cd_data">
+			
 		
 		
 		
@@ -457,13 +457,15 @@ $(function() {
 				<h4 id="director_title">출연/제작</h4>	
 				<div>
 					<ul>
+					<a href="<%=request.getContextPath()%>/wacha_director_list.do?director=${mDto.getMovie_director()}" >
 						<li class="director_actor">
-							<a href="<%=request.getContextPath()%>/wacha_director_list.do?director=${mDto.getMovie_director()}" ><img alt="없" width="30px" height="30px" id="direcImg" src="${pageContext.request.contextPath }/image/contImg/black_adam_director.jpg"></a>
+							<img alt="없" width="40px" height="40px" id="direcImg" src="${pageContext.request.contextPath }/image/contImg/black_adam_director.jpg">
 							<div>
 								<span>${mDto.getMovie_director()}<br>감독</span>
 								
 							</div>
 						</li>
+					</a>
 						<c:choose>
 							
 							<c:when test="${!empty movie_director }">
@@ -630,11 +632,14 @@ $(function() {
 				</div>
 				<div id="rediv">
 					<ul id="sm_ul">
-						
+						<%--max 4개 li 영역 분리 --%>
+						<c:if test="${status.index %4==0}">
+							<br>
+						</c:if>
 					<c:forEach items="${same}" var="same" varStatus="status">
 						<li class="same_movie_list">
 							<a title="" href="#">
-								<div><img alt="없음" src="${same.getMovie_imgloc()}"></div>
+								<div><img alt="없음" src="${same.getMovie_imgloc()}" width="130px" height="100px"></div>
 								<div>
 									<div>${same.getMovie_title()}</div>
 									<div>평균 ★ ${same.getMovie_avgstar() }</div>
@@ -643,10 +648,7 @@ $(function() {
 							</a>
 						</li>
 						
-						<%--max 4개 li 영역 분리 --%>
-						<c:if test="${status.index %4==0}">
-							<br><br><br><br><br><br>
-						</c:if>
+						
 					</c:forEach>
 					</ul>
 				</div>
@@ -654,8 +656,9 @@ $(function() {
 			
 	
 		</div>	
+		
 	</div><%-- 상세 페이지 끝 영역 --%>
-	
+	</div>
 	<!-- 미리보기 영상/갤러리 Div -->
 	      <div id="cd_youtube">
          
@@ -666,7 +669,7 @@ $(function() {
               <%-- 동영상 하단 div --%>
            <div id="cd_youCont">
               <div class="cd_youCont_div">
-                 <h4>80일간의 세계 일주</h4>
+                 <h5>80일간의 세계 일주</h5>
                  <span>150년 후에도 모험은 계속된다!</span>
                  <div>
                     <img alt="없" src="${pageContext.request.contextPath }/image/contImg/wachaimg.png" width="20px" height="20px">

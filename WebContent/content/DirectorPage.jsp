@@ -67,6 +67,17 @@
 	#topMargindiv span,img{
 		padding: 0 5%;
 	}
+	.ming{
+		width: 100px !important;
+		height: 80px !important;
+		
+	}
+	.imgdiv{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-content: center;
+	}
 	
 	
 </style>
@@ -109,7 +120,7 @@
 				<c:forEach items="${movie_list }" var="dto">
 					<div class="movie_list">
 						<div>${dto.getMovie_date() }</div>
-						<div><img alt="${dto.getMovie_imageloc() }" src="">${dto.getMovie_title() }</div>
+						<div class="imgdiv"><img class="mimg" alt="없음" src="${dto.getMovie_imageloc() }" width="100px" height="80px">${dto.getMovie_title() }</div>
 						<div>${dto.getMovie_director()}</div>
 						<div>★${dto.getMovie_avgstar()}</div>
 					</div>

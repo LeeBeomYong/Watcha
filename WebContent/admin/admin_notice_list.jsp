@@ -175,7 +175,7 @@ tr:last-child td:last-child {
       <td align="center">${dto.getNotice_num() }</td>
       <td><a href="<%=request.getContextPath()%>/admin_content.do?num=${dto.getNotice_num()}">
 		  ${dto.getNotice_title() }</a></td>
-	 <td align="center">${dto.getNotice_date().substring(0,10) }</td>
+	 <td align="center">${dto.getNotice_date().substring(0,2) }</td>
       <td align="center" class="th-5">${dto.getNotice_hit() }</td>
       <td><a  href="<%=request.getContextPath() %>/admin_notice_delete.do?num=${dto.getNotice_num()}" class="button3 b-blue rot-135" >삭제</a></td>
       

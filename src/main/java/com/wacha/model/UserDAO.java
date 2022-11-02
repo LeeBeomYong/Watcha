@@ -289,6 +289,59 @@ public class UserDAO {
 			}
 		}
 		
+		public void replyDelete(String id, String pwd) {
+			
+			try {
+				openConn();
+				
+				sql="select * from member where member_id='test1'";
+				pstmt=con.prepareStatement(sql);
+				//pstmt.setString(1, id);
+				rs=pstmt.executeQuery();
+				
+				if(rs.next()) {
+					if(pwd.equals(rs.getString("member_pwd"))) {
+						sql="delete from reply where member_id = 'test1'";
+						pstmt=con.prepareStatement(sql);
+						//pstmt.setString(1, id);
+						pstmt.executeUpdate();
+					}
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
+			}
+		}
+		
+		public void w_writeDelete(String id, String pwd) {
+			
+			
+			try {
+				openConn();
+				
+				sql="select * from member where member_id='test1'";
+				pstmt=con.prepareStatement(sql);
+				//pstmt.setString(1, id);
+				rs=pstmt.executeQuery();
+				
+				if(rs.next()) {
+					if(pwd.equals(rs.getString("member_pwd"))) {
+						sql="delete from w_write where member_id = 'test1'";
+						pstmt=con.prepareStatement(sql);
+						//pstmt.setString(1, id);
+						pstmt.executeUpdate();
+					}
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
+			}
+		}
+		
 		public UserDTO profileUpdate(String id) {
 			
 			UserDTO dto = new UserDTO();

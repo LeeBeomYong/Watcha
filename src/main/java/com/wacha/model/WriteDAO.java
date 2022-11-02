@@ -26,7 +26,6 @@ public class WriteDAO {
 		// 쿼리문을 저장할 변수
 		String sql = null;
 		
-		
 		// 1단계 : 싱글턴 방식으로 객체를 만들기 위해서는 우선적으로
 		//        기본생성자의 접근제어자를 public이 아닌 private
 		//        으로 바꾸어 주어야 한다.

@@ -7,7 +7,7 @@
 	 
 	 display: flex;
 	 flex-direction: row;
-	 margin : 0 15% 0 15% !important;
+	 margin : 0 10% 0 10% !important;
 	}
 	ul {
 		display: flex;
@@ -18,7 +18,7 @@
 	}
 	#a1{
 	 color: black;
-	 text-decoration: none;
+	 text-decoration: none !important;
 	}
 	input,button{
 		border: none;
@@ -31,8 +31,17 @@
 	/* 상단 div css  */
 	#topImg{
 		position : relative;
-		display: block;
 		margin: 0 0 !important;
+		background-color: #333;
+	}
+	#imgT{
+		display: flex;
+		justify-content : center;	
+	}
+	#imgT_img{
+		width : 1000px;
+		height : 500px;
+		object-fit: cover;
 	}
 	
 	#topDiv_img{
@@ -43,7 +52,7 @@
 	#topShow{
 		position : absolute;
 		top : 90%;
-		left : 35%; 
+		left : 37%; 
 		display: flex;
 		flex-direction : row;
 		justify-content: center;
@@ -113,9 +122,8 @@
 	.cont2_btn :hover{
 		transform : scale(1.5); 
 	}
-	.cont2_btn_span :hover{
-		transform : scale(1.2); 
-	}
+	
+	
 	
 	/* 중단 기본정보 css */
 	#centerDiv{
@@ -131,19 +139,26 @@
 		display: flex;
 		justify-content: space-between;
 		align-content: center;
+		margin-top : 2%;
+		border-radius : 2%;
+		width : 800px;
+		height : 80px;
+		background-color: white;
 	}
 	#cd_hiden div{
 		display: flex;
 		flex-direction:row;
 		align-items: center;
+		margin: 0 2%;
 	}
+	
 	
 	/* 중단 기본정보 css */
 	#cd_data{
 		display: flex;
 		flex-direction: column;
-		border-radius : 2%;
-		width : 600px;
+		border-radius : 1%;
+		width : 800px;
 		background-color: white;
 		margin: 2% 0;
 	}
@@ -169,17 +184,21 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
-		height: 200px;
+		height: 300px;
 	}
 
 	/* 출연진 및 감독 영역 */
 	.director_actor{	
 		display: flex;
 		flex-direction: row;
-		justify-content : center;
+		justify-content : flex-start;
 		align-items: center;
 		background-color: #F5F5F5;
 		border-radius: 5%;
+		width: 150px;
+	}
+	.director_actor img{
+		margin-right: 8% !important;
 	}
 	.director_actor span{	
 		font-size: 10px;
@@ -245,7 +264,7 @@
 		text-decoration: none !important;
 	}
 	.coment_midle{
-		height: 80px;
+		height: 180px;
 	}
 	
 	/* 비슷한 작품 영역   */
@@ -257,24 +276,21 @@
 	 	display: flex;
 	 	flex-direction: column;
 		border-radius: 2%;
-		margin: 1% 0; 
+		margin: 0 2%; 
 	}
 	
 	
 	.same_movie_list img{
-		width : 80px;
-		height: 100px;
-		border-radius: 2%;
+		width : 160px;
+		height: 220px;
+		border-radius: 3%;
 	}
 	#sm_ul{
-		margin-top: 3%;
-		
+		display: flex;
+		flex-wrap: wrap;
+		padding-left: 0 !important;
 	} 
-	#rediv{
-		
-		position: relative;
-	}
-	
+
 	
 	/* 중단 유튜브공간 css */
 
@@ -282,7 +298,7 @@
 		display: flex;
 		flex-direction: column;
 		align-content: center;
-		margin: 10px 5px 0 10px;
+		margin: 10px 0 0 30px;
 	}
 	#cd_youFirst{
 		background-color: white;
@@ -292,6 +308,10 @@
 		display: flex;
 		flex-direction: row;
 		align-items: center;
+	}
+	#gallery h5{
+		padding-left: 10px;
+		padding-top: 10px;
 	}
 	
 	#galleryAndVedio{
@@ -311,11 +331,11 @@
 		flex-direction : row;
 		background-color: #F5F5F5;
 		width : 300px;
-		height: 200px;
+		height: 300px;
 	}
 	#carouselExampleControlsNoTouching2 > div{
 		width : 300px;
-		height: 200px;
+		height: 300px;
 	}
 	
 	#carouselExampleControlsNoTouching{

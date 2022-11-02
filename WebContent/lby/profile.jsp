@@ -176,7 +176,7 @@ function showPopUp() {
 			<div class="bottom">
 				<div class="content">
 					<div align="center">
-						<a href ="<%=request.getContextPath() %>/review.do">
+						<a href ="<%=request.getContextPath() %>/review.do?member_id=<%=request.getParameter("member_id")%>">
 							<button id="btn3">
 								<p>영화</p>
 								<c:set var="review_count" value ="${review_count }"/>

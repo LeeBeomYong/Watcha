@@ -566,7 +566,7 @@ public class UserDAO {
 							dto.setMember_name(rs.getString("member_name"));
 							dto.setMember_pwd(rs.getString("member_pwd"));
 							dto.setMember_profile(rs.getString("member_profile"));
-							dto.setMember_image(rs.getString("member_img"));
+							dto.setMember_image(rs.getString("member_image"));
 							dto.setMember_birth(rs.getString("member_birth"));
 						}
 					} catch (SQLException e) {

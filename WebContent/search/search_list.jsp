@@ -270,7 +270,7 @@
 					
 						<c:forEach items="${ilist }" var="list" varStatus="status">
 							<li class="res">
-								<a class="link" href="#">
+								<a class="link" href="wacha_director_list.do?director=${mlist[status.index].movie_director}">
 									<div class="col">	
 										
 										<ul class="row row-cols-2">
@@ -335,7 +335,7 @@
 											    </div>
 											</li>
 											<li>
-												<input class="more" type="button" value="더보기" onclick="location.href='member_page.do?member_id=${list.member_id}'" />
+												<input class="more" type="button" value="더보기" onclick="location.href='profile.do?member_id=${list.member_id}'" />
 											</li>
 										</ul>
 										

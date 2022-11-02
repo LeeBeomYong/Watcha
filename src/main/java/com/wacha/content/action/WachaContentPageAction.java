@@ -13,6 +13,7 @@ import com.wacha.model.ComentDAO;
 import com.wacha.model.ComentDTO;
 import com.wacha.model.MovieDAO;
 import com.wacha.model.MovieDTO;
+import com.wacha.model.MovieImageDTO;
 import com.wacha.model.StarDAO;
 import com.wacha.model.StarDTO;
 
@@ -27,6 +28,7 @@ public class WachaContentPageAction implements Action {
 		MovieDAO movie_dao = MovieDAO.getInstance();
 		MovieDTO mDto = movie_dao.getContentInfo(movie_num);
 		
+		List<MovieImageDTO> same = movie_dao.getMovie_genre(mDto.getMovie_genre());
 		
 		// Movie Coment 정보
 		ComentDAO coment_dao = ComentDAO.getInstance();
@@ -34,7 +36,7 @@ public class WachaContentPageAction implements Action {
 		
 		System.out.println("clist 길이 : "+clist.size());
 		
-	
+		
 		
 		
 		// 해당 영화 평점 출력
@@ -64,6 +66,7 @@ public class WachaContentPageAction implements Action {
 		request.setAttribute("avgStar", avgStar);
 		request.setAttribute("count", count);
 		request.setAttribute("coment_count", coment_count);
+		request.setAttribute("same", same);
 		
 		ActionForward forward = new ActionForward();
 		

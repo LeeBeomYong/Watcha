@@ -20,9 +20,13 @@ public class ReviewOkAction implements Action {
 		
 		// 세션정보 가져오기
 		HttpSession session = request.getSession();
-		String member_Id = (String)session.getAttribute("member_Id");
-
+		
+		//String member_Id = (String)session.getAttribute("member_Id");
+		String member_Id = request.getParameter("member_id");
+		
+		System.out.println("member_ID >>>> "+ member_Id);
 		StarDAO dao = StarDAO.getInstance();		
+		
 		
 		int result = dao.reviewCheck(member_Id);
 		request.setAttribute("review_count", result);

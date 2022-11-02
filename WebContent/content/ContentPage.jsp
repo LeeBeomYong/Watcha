@@ -67,7 +67,7 @@ $(function() {
 		
 	function drawVisualization() {	    
 	        
-	         $.ajax({5
+	         $.ajax({
 	            type : "post",
 	            url : "/WatchaProject/content/Graph.jsp",
 	            data : { movieNum : $("#croll").val()},

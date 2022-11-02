@@ -391,68 +391,39 @@ public class UserDAO {
 		}
 
 		// 키워드 검색 : 회원(유저) 이름 검색
-				public List<UserDTO> getUserKeywordList(String keyword) {
-					
-					List<UserDTO> list = new ArrayList<UserDTO>();
-					
-					try {
-						openConn();
-						
-						sql = "select * from member where member_name like ? and member_id not in('admin')";
-						
-						pstmt = con.prepareStatement(sql);
-						
-						pstmt.setString(1, "%"+keyword+"%");
-						
-						rs = pstmt.executeQuery();
-						
-						while(rs.next()) {
-							UserDTO dto = new UserDTO();
-							
-							dto.setMember_id(rs.getString("member_id"));
-							dto.setMember_name(rs.getString("member_name"));
-							dto.setMember_profile(rs.getString("member_profile"));
-							dto.setMember_image(rs.getString("member_img"));
-							
-							list.add(dto);
-						}
-					} catch (SQLException e) {
-						e.printStackTrace();
-					} finally {
-						closeConn(rs, pstmt, con);
-					}			
-					return list;
-				}// getUserKeywordList() end
+		public List<UserDTO> getUserKeywordList(String keyword) {
+		
+		List<UserDTO> list = new ArrayList<UserDTO>();
+		
+		try {
+			openConn();
+			
+			sql = "select * from member where member_name like ? and member_id not in('admin')";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, "%"+keyword+"%");
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				UserDTO dto = new UserDTO();
 				
-				// 아이디 조회해서 비밀번호 알려주기
-				public UserDTO findIdforPwd(String mem_id) {
-					
-					UserDTO dto = null;
-					
-					try {
-						openConn();
-						
-						sql = "select member_id, member_pwd from member where member_id = ?";
-						
-						pstmt = con.prepareStatement(sql);
-						
-						pstmt.setString(1, mem_id);
-						
-						rs = pstmt.executeQuery();
-						
-						if(rs.next()) {
-							
-							dto = new UserDTO();
-							
-							dto.setMember_pwd(rs.getString("member_pwd"));
-						}
-					} catch (SQLException e) {
-						e.printStackTrace();
-					} finally {
-						closeConn(rs, pstmt, con);
-					}
-					return dto;
-				}	// findIdforPwd() end
+				dto.setMember_id(rs.getString("member_id"));
+				dto.setMember_name(rs.getString("member_name"));
+				dto.setMember_profile(rs.getString("member_profile"));
+				dto.setMember_image(rs.getString("member_image"));
+				
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}			
+		return list;
+	}// getUserKeywordList() end
+
 
 
 				public int LoginCheck(String member_id, String member_pwd) {
@@ -603,5 +574,30 @@ public class UserDAO {
 					}
 					return res;
 				}
-		
-}
+	  // 비밀번호 찾기
+    public String findIdforPwd(String mem_id) {
+
+      String res = "존재";
+
+      try {
+        openConn();
+
+        sql = "select member_pwd from member where member_id = ?";
+
+        pstmt = con.prepareStatement(sql);
+
+        pstmt.setString(1, mem_id);
+
+        rs = pstmt.executeQuery();
+
+        if(rs.next()) {
+          res = rs.getString(1);
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
+      } finally {
+        closeConn(rs, pstmt, con);
+      }
+      return res;
+    }	// findIdforPwd() end
+  }

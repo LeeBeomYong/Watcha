@@ -64,7 +64,7 @@ public class UserDAO {
 				// 2단계 : lookup() 메서드를 이용하여 매칭되는
 				//        커넥션을 찾는다.
 				DataSource ds =
-					(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
+					(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
 				
 				// 3단계 : DataSource 객체를 이용하여
 				//        커넥션을 하나 가져온다.
@@ -289,6 +289,59 @@ public class UserDAO {
 			}
 		}
 		
+		public void replyDelete(String id, String pwd) {
+			
+			try {
+				openConn();
+				
+				sql="select * from member where member_id='test1'";
+				pstmt=con.prepareStatement(sql);
+				//pstmt.setString(1, id);
+				rs=pstmt.executeQuery();
+				
+				if(rs.next()) {
+					if(pwd.equals(rs.getString("member_pwd"))) {
+						sql="delete from reply where member_id = 'test1'";
+						pstmt=con.prepareStatement(sql);
+						//pstmt.setString(1, id);
+						pstmt.executeUpdate();
+					}
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
+			}
+		}
+		
+		public void w_writeDelete(String id, String pwd) {
+			
+			
+			try {
+				openConn();
+				
+				sql="select * from member where member_id='test1'";
+				pstmt=con.prepareStatement(sql);
+				//pstmt.setString(1, id);
+				rs=pstmt.executeQuery();
+				
+				if(rs.next()) {
+					if(pwd.equals(rs.getString("member_pwd"))) {
+						sql="delete from w_write where member_id = 'test1'";
+						pstmt=con.prepareStatement(sql);
+						//pstmt.setString(1, id);
+						pstmt.executeUpdate();
+					}
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
+			}
+		}
+		
 		public UserDTO profileUpdate(String id) {
 			
 			UserDTO dto = new UserDTO();
@@ -492,32 +545,6 @@ public class UserDAO {
 				}
 
 
-<<<<<<< HEAD
-		String res = "";
-		
-		try {
-			openConn();
-			
-			sql = "select member_pwd from member where member_id = ?";
-			
-			pstmt = con.prepareStatement(sql);
-			
-			pstmt.setString(1, mem_id);
-			
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				res = rs.getString(1).trim();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeConn(rs, pstmt, con);
-		}
-		return res;
-	}	// findIdforPwd() end
-}
-=======
 				public UserDTO getMemberProfile(String member_id) {
 					UserDTO dto = null;
 					
@@ -627,4 +654,3 @@ public class UserDAO {
       return res;
     }	// findIdforPwd() end
   }
->>>>>>> branch 'master' of https://github.com/DuBori/Watcha.git

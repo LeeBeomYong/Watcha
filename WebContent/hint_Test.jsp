@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-<script>
+<script type="text/javascript" defer="defer">
 //비밀번호 찾기
 $(function() {
 	
@@ -16,15 +16,17 @@ $(function() {
 		
 		$.ajax({
 			type : "post",
-			url : "check/find_pwd.jsp",
+			url : "/WatchaProject/check/find_pwd.jsp",
 			data : {paramId : id},
 			datatype : "text",
 			success : function(data) {
-				if(data == "존재") {  
+				let data1 = $.trim(data);
+				if(data1 != "") {  
+					$("#pwd_hint").html("");
 					$("#lbl_hint").show();
-					$("#pwd_hint").html("비밀번호는 <font style='color:rgb(255, 53, 94)'>"+dto+"</font>입니다.");
+					$("#pwd_hint").html("비밀번호는 <font style='color:rgb(255, 53, 94)'>"+data1+"</font>입니다.");
 				}else{
-					alert(data);
+					$("#pwd_hint").html("");
 					$("#lbl_hint").show();
 					$("#pwd_hint").html("존재하지 않는 아이디입니다.");
 					

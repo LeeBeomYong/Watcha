@@ -66,7 +66,7 @@ public class StarDAO {
 					// 2단계 : lookup() 메서드를 이용하여 매칭되는
 					//        커넥션을 찾는다.
 					DataSource ds =
-						(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
+						(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
 					
 					// 3단계 : DataSource 객체를 이용하여
 					//        커넥션을 하나 가져온다.
@@ -249,7 +249,7 @@ public class StarDAO {
 			public int getMovieStarcount(int movie_num) {
 				
 				int count=0;
-				sql="select count(movie_star) from star where movie_num=?";
+				sql="select count(movie_star) from star where movie_num=? and  movie_star != 0";
 				openConn();
 				
 				try {
@@ -267,7 +267,7 @@ public class StarDAO {
 					closeConn(rs, pstmt, con);
 				}
 				return count;
-			
+				
 			}
 			public void updateWantSee(int movie_num,String member_Id,int countchk) {
 				

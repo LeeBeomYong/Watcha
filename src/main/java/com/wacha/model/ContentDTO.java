@@ -9,14 +9,8 @@ public class ContentDTO {
 	private int coment_hit;
 	private int coment_nohit;
 	private int movie_num;
-	private String moive_coment;
 	
-	public String getMovie_coment() {
-		return moive_coment;
-	}
-	public void setMovie_coment(String movie_coment) {
-		this.moive_coment = movie_coment;
-	}
+	
 	public String getMovie_title() {
 		return movie_title;
 	}

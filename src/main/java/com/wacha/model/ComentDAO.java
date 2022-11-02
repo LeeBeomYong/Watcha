@@ -65,7 +65,7 @@ public class ComentDAO {
 				// 2단계 : lookup() 메서드를 이용하여 매칭되는
 				//        커넥션을 찾는다.
 				DataSource ds =
-					(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
+					(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
 				
 				// 3단계 : DataSource 객체를 이용하여
 				//        커넥션을 하나 가져온다.
@@ -143,8 +143,6 @@ public class ComentDAO {
 			ComentDTO dto = null;
 			
 			sql="select * from coment where coment_num = ? and movie_num=? and coment_num_son is null";
-			
-			
 			openConn();
 			try {
 				pstmt=con.prepareStatement(sql);
@@ -543,14 +541,13 @@ public class ComentDAO {
 		
 		public List<ContentDTO> userContentComentList(String id) {
 			List<ContentDTO> list = new ArrayList<ContentDTO>();
-			
-			int count=0;
+		
 			
 			try {
 				
 				openConn();
 				
-				sql="select m.movie_title ,c.movie_num, c.coment_num, c.coment_num_son, c.movie_coment, c.member_id, c.coment_hit, c.coment_nohit from coment c, movie m where m.movie_num = c.movie_num and member_id =?";
+				sql="select m.movie_title ,c.movie_num, c.coment_num, c.coment_num_son,c.member_id, c.coment_hit, c.coment_nohit from coment c, movie m where m.movie_num = c.movie_num and member_id =?";
 				
 				
 				pstmt=con.prepareStatement(sql);
@@ -560,25 +557,21 @@ public class ComentDAO {
 				rs=pstmt.executeQuery();
 				
 				while(rs.next()) {
-				
 				ContentDTO dto =new ContentDTO();
 				
 				dto.setMovie_title(rs.getString("movie_title"));
 				
-				dto.setMovie_num(rs.getInt("movie_num")); 
+				dto.setMovie_num(rs.getInt("movie_num"));
 				
 				dto.setComent_num(rs.getInt("coment_num"));
 				
 				dto.setComent_num_son(rs.getInt("coment_num_son"));
-				
-				dto.setMovie_coment(rs.getString("movie_coment"));
 				
 				dto.setMember_id(rs.getString("member_id"));
 				
 				dto.setComent_hit(rs.getInt("coment_hit"));
 				
 				dto.setComent_nohit(rs.getInt("coment_nohit"));
-				
 				
 				list.add(dto);
 				}
@@ -616,11 +609,16 @@ public class ComentDAO {
 					res1=rs.getString(1);
 					res2=rs.getString(2);
 				}
+				System.out.println("res 값들 :::   " + res1+"  ||  "+res2);
 				if(res1!=null) {
 					result2=res1.split(",");
-				}else if(res2!=null) {
-					result3=res2.split(",");
+					System.out.println("result 값들 :::   " + result2[0]+"  || ");
 				}
+				if(res2!=null) {
+					result3=res2.split(",");
+					System.out.println("result 값들 :::   " + "  ||  "+result3[0]);
+				}
+				
 				if(result2!=null) {
 					for(int i=0; i<result2.length; i++) {
 						if(result2[i].equals(member_id)) result[0]++;
@@ -658,7 +656,6 @@ public class ComentDAO {
 			
 		}
 
-
 		public int getComentcount(String member_Id) {
 			int count=0;
 			sql="select count(*) from coment  where member_Id =? and coment_num_son is not null";
@@ -679,51 +676,5 @@ public class ComentDAO {
 			return count;
 			
 		}
-		public int getComentCount(){
-			int count=0;
-			
-			try {
-				openConn();
-				
-				sql="select count(*)from coment";
-				
-				pstmt=con.prepareStatement(sql);
-				
-				rs=pstmt.executeQuery();
-				if(rs.next()) {
-					count=rs.getInt(1);
-				}
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally {
-				closeConn(rs, pstmt, con);
-			}
-			return count;
-		}
-		public int ComentDelete(int num) {
-			
-			int result = 0;
-			
-			openConn();
-						
-			try {
-				sql = "delete from coment where coment_num = ?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, num);
-				result = pstmt.executeUpdate();
-				
-				sql = "update coment set coment_num = coment_num - 1 where coment_num > ?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, num);
-				pstmt.executeUpdate();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}closeConn(rs, pstmt, con);
-			
-			return result;
-			
-		}
+
 }

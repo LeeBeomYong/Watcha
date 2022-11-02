@@ -26,7 +26,6 @@ public class WriteDAO {
 		// 쿼리문을 저장할 변수
 		String sql = null;
 		
-		
 		// 1단계 : 싱글턴 방식으로 객체를 만들기 위해서는 우선적으로
 		//        기본생성자의 접근제어자를 public이 아닌 private
 		//        으로 바꾸어 주어야 한다.
@@ -64,7 +63,7 @@ public class WriteDAO {
 				// 2단계 : lookup() 메서드를 이용하여 매칭되는
 				//        커넥션을 찾는다.
 				DataSource ds =
-					(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
+					(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
 				
 				// 3단계 : DataSource 객체를 이용하여
 				//        커넥션을 하나 가져온다.
@@ -1062,4 +1061,3 @@ public class WriteDAO {
 	
 	
 }
-

@@ -1,14 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+   
 <!DOCTYPE html>
 <html>
   <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>영화등록</title>
+        <title>(ㄱ-)</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
-       
+       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
         <style type="text/css">
         
         
@@ -32,6 +35,7 @@ form {
   padding: 10px 20px;
   background: #f4f7f8;
   border-radius: 8px;
+  
 }
 
 h1 {
@@ -210,7 +214,8 @@ th {
   
 }
 .th-3{
-width:30px;
+width:70px;
+
 }
 
 .th-4{
@@ -301,7 +306,10 @@ tr:last-child td:last-child {
 width:200px;
 text-align: center;
 }
-
+.pagination {
+		justify-content: center;
+		color: green;
+	}
 
 .rot-135:hover {
   filter: hue-rotate(135deg); 
@@ -325,7 +333,7 @@ text-align: center;
            <legend><span class="number">1</span>회원프로필사진</legend>
              <label for="image"></label>
   
-             <img src="<%=request.getContextPath()%>/image/${dto.getMember_img()}" width="150" height="200" > 
+             <img src="<%=request.getContextPath()%>/image/${dto.getMember_image()}" width="150" height="200" > 
              	
     			<div id="image_container"></div>
           </fieldset>
@@ -406,7 +414,7 @@ text-align: center;
       <th>댓글갯수</th>
       <th>좋아요</th>
       <th>싫어요</th>      
-   	  <th>삭제</th>
+   	  <th class="th-3">삭제</th>
     </tr>
   </thead>
   <c:set var="ComentList" value="${userComentList }"/>
@@ -419,16 +427,16 @@ text-align: center;
       
       <td align="center">${dto1.getComent_num() }</td>
       
-     <td class="th-4" align="center"><a href="<%=request.getContextPath()%>/admin_coment_content.do?num=${dto1.getComent_num()}">
-		  ${dto1.getMovie_title() }</a></td>
+     <td class="th-4" align="center" ><a href="<%=request.getContextPath()%>/admin_ComentList_content.do?num=${dto1.getComent_num()}">
+		  ${dto1.getMovie_coment() }</a></td>
 		  
-      <%-- <td align="center">${dto1.getCocoment_count() }</td> --%>
-      
+     <td align="center">${num_son }</td>
+   
       <td align="center">${dto1.getComent_hit() }</td>
       
       <td align="center">${dto1.getComent_nohit() }</td>
      
-        <td class="th-3"><a href="<%=request.getContextPath() %>/admin_Coment_delete.do?num=${dto1.getMovie_num()}" class="button b-blue">삭제</a></td>
+      <td class="th-3"><a href="<%=request.getContextPath() %>/admin_ComentList_delete.do?num=${dto1.getMovie_num()}&id=${dto1.getMember_id()}" class="button b-blue">삭제</a></td>
  
       
     </tr>
@@ -445,6 +453,66 @@ text-align: center;
   <tr>
   	<td class="td_btn" colspan="9" align="right" >
 		 		
+
+  </tr>
+</table>
+
+	
+  </div>
+</section>
+</div>
+</div>	
+    <br><br>
+    
+    
+ <div class="can-2">
+<div>
+<section>
+	 <h1>게시판리스트</h1>
+  <div class="tbl-header">
+<table>
+
+  <thead align="center">
+    <tr>
+      <th>글번호</th>
+      <th>글제목</th>
+      <th>글조회수</th>
+      <th>글작성일자</th>     
+   	  <th class="th-3">삭제</th>
+    </tr>
+  </thead>
+  
+  <c:set var="writelist" value="${userWriteList}"/>
+			<c:if test="${!empty writelist}">
+				<c:forEach items="${writelist}" var="dto2">
+  <tbody >
+    <tr>
+    
+      <td align="center">${dto2.getWrite_num() }</td>
+      
+     <td class="th-4" align="center"><a href="<%=request.getContextPath()%>/admin_write_content.do?num=${dto2.getWrite_num()}">
+		  ${dto2.getWrite_title().substring(0,6) }</a></td>
+		  
+     <td align="center">${dto2.getWrite_hit() }</td>
+      
+      <td align="center">${dto2.getWrite_date() }</td>
+     
+        <td class="th-3"><a href="<%=request.getContextPath() %>/admin_writelist_delete.do?num=${dto2.getWrite_num()}&id=${dto2.getMember_id()}" class="button b-blue">삭제</a></td>
+
+    </tr>
+    
+  </tbody>
+  </c:forEach>
+  </c:if>
+  <c:if test="${empty writelist}">
+  	<tr>
+			 	<td colspan="9" align="center">
+			 	<h3>게시글 리스트가 없습니다..</h3>
+		 	</tr>
+  </c:if>
+  <tr>
+  	<td class="td_btn" colspan="9" align="right" >
+		 		
 		 	
   </tr>
 </table>
@@ -454,9 +522,7 @@ text-align: center;
 </section>
 </div>
 </div>	
-        
- 
-   
+   <br><br>
         <button type="submit">Delete</button>
         
       </form>

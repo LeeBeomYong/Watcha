@@ -432,15 +432,15 @@ public class WriteDAO {
 			
 		}
 
-		//XD
+
 		
-		public WriteDTO userContentWrite(String id) {
-			WriteDTO dto = null;
+		public List<WriteDTO> userContentWrite(String id) {
+			List<WriteDTO>list= new ArrayList<WriteDTO>();
 			
 			try {
 				openConn();
 				
-				sql="select * from write where member_id=?";
+				sql="select * from write where member_id=? order by write_num desc";
 								
 				pstmt=con.prepareStatement(sql);
 				
@@ -448,16 +448,18 @@ public class WriteDAO {
 				
 				rs= pstmt.executeQuery();
 				
-				if(rs.next()) {
-					dto=new WriteDTO();
+				while(rs.next()) {
+					WriteDTO dto=new WriteDTO();
 					
 					dto.setWrite_num(rs.getInt("write_num"));
-					dto.setWrite_title(rs.getString("write_title"));
 					dto.setWrite_cont(rs.getString("write_cont"));
+					dto.setWrite_title(rs.getString("write_title"));
 					dto.setWrite_pwd(rs.getString("write_pwd"));
 					dto.setWrite_hit(rs.getInt("write_hit"));
 					dto.setWrite_date(rs.getString("write_date"));
 					dto.setMember_id(rs.getString("member_id"));
+					
+					list.add(dto);
 				}
 				
 			} catch (SQLException e) {
@@ -465,7 +467,7 @@ public class WriteDAO {
 				e.printStackTrace();
 			}finally {
 				closeConn(rs, pstmt, con);
-			}return dto;
+			}return list;
 		}
 
 		// board 테이블의 전체 게시물의 수를 확인하는 메서드.

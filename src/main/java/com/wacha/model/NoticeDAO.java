@@ -155,7 +155,7 @@ public class NoticeDAO {
 				
 			}
 			
-			sql="insert into notice values(?,?,?,sysdate,default)";
+			sql="insert into notice values(?,?,?,default,sysdate)";
 			
 			pstmt=con.prepareStatement(sql);
 			

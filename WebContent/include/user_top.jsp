@@ -20,7 +20,7 @@
 	
 	nav{
 		height: 55px;
-		z-index: 3;
+		z-index: 2;
 		
 	}
 	.container-fluid{

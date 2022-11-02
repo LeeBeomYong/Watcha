@@ -10,6 +10,7 @@
 	
 	int res = star_dao.getMovieStarcount(movie_num);
 	
+	
 	out.print(res);
 	System.out.println("res 값 >>> "+res);
 %>

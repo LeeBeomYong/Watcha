@@ -18,7 +18,6 @@
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <script type="text/javascript" defer="defer">
 
-
 $(function() {
 	let count=0;
 	let look=0;		
@@ -41,9 +40,7 @@ $(function() {
 	               alert('데이터 통신 에러');
 	            }
 	            
-	            
 	         });
-		
 	}
 	function getEvalCount() {
 		 

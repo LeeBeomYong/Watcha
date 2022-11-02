@@ -54,8 +54,6 @@
 <head>
 <meta charset="UTF-8">
 <title>영화 리뷰 플랫폼</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 <script>
 	$(function () {
@@ -333,11 +331,11 @@
 	padding-top: 45px;
 }
 
-li > a {
+.li_1 > a {
 	text-decoration: none;
 }
 
-li {
+.li_1 {
 	display: inline-block;
 	margin: 30px;
 }
@@ -361,12 +359,12 @@ li {
 	display: none;	
 }
 
-ul {
+.ul_1 {
 	list-style-type: none;
 	margin-left: 50px;
 }
 
-li > a {
+.li_1 > a {
 	text-decoration: none;
 	color: #000;
 	display: inline-block;
@@ -376,7 +374,7 @@ a:linked, a:visited {
 	color: #000;
 }
 
-li {
+.li_1 {
 	margin: 10px;
 }
 
@@ -504,8 +502,8 @@ p {
 				<div class="carousel-item active">
 					
 					
-					<ul>
-						<li>
+					<ul class="ul_1">
+						<li class="li_1">
 							<c:forEach var="ilist" items="${comIlist}" begin="0" end="4" varStatus="status">
 								<a href="<%=request.getContextPath()%>/movie_content.do?num=${ilist.movie_num}">
 									<div class="main_poster">
@@ -528,8 +526,8 @@ p {
 				
 				<div class="carousel-item">
 				
-					<ul>
-						<li>
+					<ul class="ul_1">
+						<li class="li_1">
 							<c:forEach var="ilist" items="${comIlist}" begin="5" end="9" varStatus="status">
 								<a href="<%=request.getContextPath()%>/movie_contente.do?num=${ilist.movie_num}">	
 									<div class="main_poster">
@@ -582,8 +580,8 @@ p {
 			<c:if test="${!empty sIlist }">
 				
 				<div class="carousel-item active">
-					<ul>
-						<li>
+					<ul class="ul_1">
+						<li class="li_1">
 							<c:forEach var="list" items="${sIlist}" begin="0" end="4" varStatus="status">
 								<a href="<%=request.getContextPath()%>/movie_content.do?num=${sMlist[status.index].movie_num}">	
 									<div class="main_poster">
@@ -603,8 +601,8 @@ p {
 				</div>
 				
 				<div class="carousel-item">
-					<ul>
-						<li>
+					<ul class="ul_1">
+						<li class="li_1">
 							<c:forEach var="list" items="${sIlist}" begin="5" end="9" varStatus="status">
 								<a href="<%=request.getContextPath()%>/movie_content.do?num=${sMlist[status.index].movie_num}">	
 									<div class="main_poster">
@@ -657,8 +655,8 @@ p {
 			<c:if test="${!empty ilist }">
 				
 				<div class="carousel-item active">
-					<ul>
-						<li>
+					<ul class="ul_1">
+						<li class="li_1">
 							<c:forEach var="ilist" items="${hIlist}" begin="0" end="4" varStatus="status">
 								<a href="<%=request.getContextPath()%>/movie_content.do?num=${hMlist[status.index].movie_num}">	
 									<div class="main_poster">
@@ -678,8 +676,8 @@ p {
 				</div>
 				
 				<div class="carousel-item">
-					<ul>
-						<li>
+					<ul class="ul_1">
+						<li class="li_1">
 							<c:forEach var="ilist" items="${hIlist}" begin="5" end="9" varStatus="status">
 								<a href="<%=request.getContextPath()%>/movie_content.do?num=${hMlist[status.index].movie_num}">	
 									<div class="main_poster">
@@ -732,8 +730,8 @@ p {
 			<c:if test="${!empty hilist }">
 				
 				<div class="carousel-item active">
-					<ul>
-						<li>
+					<ul class="ul_1">
+						<li class="li_1">
 							<c:forEach var="ilist" items="${hilist}" begin="0" end="4" varStatus="status">
 								<a href="<%=request.getContextPath()%>/movie_content.do?num=${hmlist[status.index].movie_num}">	
 									<div class="main_poster">
@@ -753,8 +751,8 @@ p {
 				</div>
 				
 				<div class="carousel-item">
-					<ul>
-						<li>
+					<ul class="ul_1">
+						<li class="li_1">
 							<c:forEach var="ilist" items="${hilist}" begin="5" end="9" varStatus="status">
 								<a href="<%=request.getContextPath()%>/movie_content.do?num=${hmlist[status.index].movie_num}">	
 									<div class="main_poster">

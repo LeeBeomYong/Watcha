@@ -145,6 +145,7 @@
 		border-radius : 2%;
 		width : 600px;
 		background-color: white;
+		margin: 2% 0;
 	}
 	#cd_data > div{
 		margin: 2% 2% 0 2%;
@@ -262,7 +263,7 @@
 		display: flex;
 		flex-direction: column;
 		align-content: center;
-		margin: 10px 5px 0 5px;
+		margin: 10px 5px 0 10px;
 	}
 	#cd_youFirst{
 		background-color: white;

@@ -362,7 +362,7 @@
 	
 	nav{
 		height: 55px;
-		z-index: 1;
+		z-index: 2;
 		
 	}
 	.container-fluid{

@@ -141,11 +141,12 @@ public class WriteDAO {
 						
 						dto = new UserDTO();
 						
-						dto.setMember_id(rs.getString("member_id"));
 						dto.setMember_name(rs.getString("member_name"));
+						dto.setMember_id(rs.getString("member_id"));
 						dto.setMember_pwd(rs.getString("member_pwd"));
 						dto.setMember_profile(rs.getString("member_profile"));
 						dto.setMember_birth(rs.getString("member_birth"));
+						dto.setMember_image(rs.getString("member_img"));
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -228,6 +229,7 @@ public class WriteDAO {
 					dto.setNotice_title(rs.getString("notice_title"));
 					dto.setNotice_content(rs.getString("notice_content"));
 					dto.setNotice_hit(rs.getInt("notice_hit"));
+					dto.setNotice_date(rs.getString("notice_date"));
 					
 					list.add(dto);
 				}
@@ -259,8 +261,8 @@ public class WriteDAO {
 					WriteDTO dto = new WriteDTO();
 					
 					dto.setWrite_num(rs.getInt("write_num"));
-					dto.setWrite_title(rs.getString("write_title"));
 					dto.setWrite_cont(rs.getString("write_cont"));
+					dto.setWrite_title(rs.getString("write_title"));
 					dto.setWrite_pwd(rs.getString("write_pwd"));
 					dto.setWrite_hit(rs.getInt("write_hit"));
 					dto.setWrite_date(rs.getString("write_date"));
@@ -774,7 +776,7 @@ public class WriteDAO {
 					count = rs.getInt(1) + 1;
 				}
 				
-				sql = "insert into w_write values(?, ?, sysdate, ?, ?, 0)";
+				sql = "insert into w_write values(?, ?, sysdate, ?, '', ?)";
 				pstmt = con.prepareStatement(sql);
 				
 				pstmt.setInt(1, count);
@@ -813,8 +815,8 @@ public class WriteDAO {
 					dto.setW_cont(rs.getString("w_cont"));
 					dto.setW_date(rs.getString("w_date"));
 					dto.setW_file(rs.getString("w_file"));
-					dto.setW_id(rs.getString("member_id"));
 					dto.setW_reply(rs.getString("w_reply"));
+					dto.setW_id(rs.getString("member_id"));
 					
 					list.add(dto);
 					
@@ -852,8 +854,8 @@ public class WriteDAO {
 					dto.setW_cont(rs.getString("w_cont"));
 					dto.setW_date(rs.getString("w_date"));
 					dto.setW_file(rs.getString("w_file"));
-					dto.setW_id(rs.getString("member_id"));
 					dto.setW_reply(rs.getString("w_reply"));
+					dto.setW_id(rs.getString("member_id"));
 					
 				}
 			} catch (SQLException e) {
@@ -934,6 +936,7 @@ public class WriteDAO {
 				dto.setNotice_title(rs.getString("notice_title"));
 				dto.setNotice_content(rs.getString("notice_content"));
 				dto.setNotice_hit(rs.getInt("notice_hit"));
+				dto.setNotice_date(rs.getString("notice_date"));
 				
 				
 			}
@@ -957,7 +960,7 @@ public class WriteDAO {
 		openConn();
 		
 		try {
-			sql = "select * from reply where write_num = ?";
+			sql = "select * from reply where write_num = ? order by reply_num desc";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
@@ -1009,6 +1012,51 @@ public class WriteDAO {
 		}
 		return dto;
 	}
+	
+	
+	
+	
+	public int insertReply(ReplyDTO dto) {
+		
+		int result = 0, count = 0;
+		
+		openConn();
+		
+		try {
+			sql = "select max(reply_num) from reply"; 
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1) + 1;
+			}
+			
+			sql = "insert into reply values(?, ?, sysdate, ?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, count);
+			pstmt.setString(2, dto.getReply_cont());
+			pstmt.setInt(3, dto.getWrite_num());
+			
+			result = pstmt.executeUpdate();
+			
+			sql = "update write set write_reply = 1 where write_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, dto.getWrite_num());
+			pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+		
+	}
+
+	
+	
 	
 	
 }

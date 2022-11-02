@@ -54,277 +54,6 @@
 <head>
 <meta charset="UTF-8">
 <title>영화 리뷰 플랫폼</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-<script>
-	$(function () {
-		// 로그인 팝업
-		$(".signIn").click(function() {
-			$("#bg1").css({
-				'display': 'block'
-			});
-			$(".modal_content1").css({
-				'display': 'block'
-			});
-			$(".modal_content2").css({
-				'display': 'none'
-			});
-		});
-		// 회원가입 팝업
-		$(".signUp").click(function() {
-			$("#bg2").css({
-				'display': 'block'
-			});
-			$(".modal_content2").css({
-				'display': 'block'
-			});
-			$(".modal_content1").css({
-				'display': 'none'
-			});
-		});
-		
-		// enter키로 submit(빈칸 : submit 불가)
-		$("#k_search").keypress(function (e) {
-			if(e.which == 13) {
-				if($("#k_search").val()=='') {
-					return false;
-				}else {
-					search.submit();
-				}
-			}
-		});
-		
-		
-		// 로그인 - 아이디 확인
-		$("#memId").keyup(function() {
-			
-			const id = $(this).val();
-			$("#span_signinId").show();
-			$("#sii_checked").show();
-			$("#sii_wrong").show();
-			
-			if($(this).val() == '') {
-				$("#sii_wrong").html("<img src='https://www.pikpng.com/pngl/m/29-297126_exclamation-in-a-circle-is-red-exclamation-point.png' width='25px' height='25px'>");
-				$("#span_signinId").html("<br><font style='color:red; font-size:13px;'>아이디를 입력하세요.</font>");
-			}else {
-				$.ajax({
-					type : "post",
-					url : "check/idCheck.jsp",
-					data : {paramId : id},
-					datatype : "jsp",
-					success : function(res) {
-						if(res == 1) {  // DB에 아이디가 존재하는 경우
-							$("#sii_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='25px' height='25px'>");
-							$("#span_signinId").hide();
-							$("#sii_wrong").hide();
-						}else {
-							$("#sii_wrong").html("<img src='https://www.pikpng.com/pngl/m/29-297126_exclamation-in-a-circle-is-red-exclamation-point.png' width='25px' height='25px'>");
-							$("#span_signinId").html("<br><font style='color:red; font-size:13px;'>없는 아이디입니다. 다시 입력하세요.</font>");
-							$("#sii_checked").hide();
-						}
-					},					
-					error: function(e) {
-						$("#sii_wrong").html("<img src='https://www.pikpng.com/pngl/m/29-297126_exclamation-in-a-circle-is-red-exclamation-point.png' width='25px' height='25px'>");
-						$("#span_signinId").html("<br><font style='color:blue; font-size:13px;'>오류 발생. 다시 입력하세요.</font>");
-						$("#sui_checked").hide();
-		            }
-				});
-				
-			}
-		});
-		
-		// 로그인 - 비밀번호
-		$("#memPwd").keyup(function() {
-			const pwd = $(this).val();
-		});
-		
-		
-		// 비밀번호 찾기창 '닫기'
-		$(".close").click(function() {
-			$("#bg3").css({
-				'display':'none'
-			});
-			$(".modal_content3").css({
-				'display': 'none'
-			});
-			$("#bg1").css({
-				'display': 'block'
-			});
-			$(".modal_content1").css({
-				'display': 'block'
-			});
-		});
-		
-		// 아이디 : 영문/숫자 5~10자
-		const pattern_id = /^[a-zA-Z][0-9a-zA-Z]{4,9}$/;
-		// 이름 : 영문/한글 2~15자
-		const pattern_name = /^[a-zA-Zㄱ-힣][a-zA-Zㄱ-힣 ]{1,14}$/;
-		// 비밀번호 : 영문/숫자/특수문자 8~10자
-		const pattern_pwd = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{4,9}$/;
-		
-		// 회원가입 - 이름 체크
-		$("#memName").keyup(function() {
-			
-			const name = $(this).val();
-			$("#span_signupName").show();
-			$("#sun_checked").show();	$("#sun_wrong").show();
-			
-			if(pattern_name.test(name)) {
-				$("#sun_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='25px' height='25px'>");
-				$("#span_signupName").hide();
-				$("#sun_wrong").hide();
-			}else {
-				$("#sun_wrong").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Cross-mark-icon-in-red-color-on-transparent-background-PNG.png' width='25px' height='25px'>");
-				$("#span_signupName").html("<br/><font style='color:red; font-size:13px;'>이름은 한글/영문 2~10자까지 가능합니다.</font>");
-				$("#sun_checked").hide();
-			}
-		})
-		
-		// 회원가입 - 아이디 중복 체크
-		$("#signup_id").keyup(function() {
-			
-			const id = $(this).val();
-			$("#span_signupId").show();
-			$("#sui_checked").show();
-			$("#sui_wrong").show();
-			
-			if($(this).val() == '') {
-				$("#span_signupId").html("<br><font style='color:red; font-size:13px;'>아이디는 영문/숫자 5~10자까지 가능합니다.</font>");
-				$("#sui_wrong").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Cross-mark-icon-in-red-color-on-transparent-background-PNG.png' width='25px' height='25px'>");
-			}else {
-				if(pattern_id.test(id)) {
-					$.ajax({
-						type : "post",
-						url : "check/idCheck.jsp",
-						data : {paramId : id},
-						datatype : "jsp",
-						success : function(res) {
-							if(res == 1) {  // DB에 아이디가 존재하는 경우
-								$("sui_#wrong").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Cross-mark-icon-in-red-color-on-transparent-background-PNG.png' width='25px' height='25px'>");
-								$("#span_signupId").html("<br/><font style='color:red; font-size:13px;'>중복된 아이디입니다.</font>");
-								return false;
-							}else {
-								$("#sui_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='25px' height='25px'>");
-								$("#span_signupId").hide();
-								$("#sui_wrong").hide();
-							}
-						},					
-						error: function(e) {
-							$("#sui_wrong").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Cross-mark-icon-in-red-color-on-transparent-background-PNG.png' width='25px' height='25px'>");
-							$("#span_signupId").html("<br><font style='color:blue; font-size:13px;'>오류 발생. 다시 입력하세요.</font>");
-							$("#sui_checked").hide();
-			            }
-					});
-				}else {
-					$("#sui_wrong").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Cross-mark-icon-in-red-color-on-transparent-background-PNG.png' width='25px' height='25px'>");
-					$("#span_signupId").html("<br><font style='color:red; font-size:13px;'>아이디 : 영문/숫자 5~10자</font>");
-					return false;
-				}
-			}
-		});
-		
-		// 회원가입 - 비밀번호 체크
-		$("#signup_pwd").keyup(function() {
-			const pwd = $(this).val();
-			
-			$("#span_signupPwd").show();
-			$("#sup_checked").show();	$("#sup_wrong").show();
-			
-			if(pattern_pwd.test(pwd)) {
-				$("#sup_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='24px' height='24px'>");
-				$("#span_signupPwd").hide(); $("#sup_wrong").hide();
-			}else {
-				$("#sup_wrong").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Cross-mark-icon-in-red-color-on-transparent-background-PNG.png' width='24px' height='24px'>");
-				$("#span_signupPwd").html("<br><font style='color:red; font-size:13px;'>비밀번호 : 영문/숫자/특수문자 5~10자</font>");
-				$("#sup_checked").hide();
-			}
-			
-		});
-		
-		
-	});
-	// 모달 레이어 클릭할 경우 모달 닫기 (값 초기화)
-	$(document).mouseup(function (e){
-		if($(".modal").has(e.target).length === 0) {
-			$("#memId").val('');	$("#memPwd").val('');	$("#memName").val('');
-			$("#signup_id").val('');	$("#signup_pwd").val('');
-			$("#pwd_memId").val('');
-			$(".modal").hide();
-			$("#sun_checked").hide();	$("#sui_checked").hide();	$("#sup_checked").hide();
-			$("#sii_checked").hide();	$("#sip_checked").hide();
-			$("#span_signupName").hide();	$("#span_signupId").hide();		$("span_signupPwd").hide();
-			$("#span_signinId").hide();		$("span_signinPwd").hide();
-			$("#sun_wrong").hide();		$("#sui_wrong").hide();		$("#sup_wrong").hide();
-			$("#sii_wrong").hide();	$("#sip_wrong").hide();
-			
-		}
-				
-	});
-	
-	// 로그인 팝업에서 회원가입 링크 클릭
-	function signUp() {
-		$("#bg1").css({
-			'display': 'none'
-		});
-		$("#bg2").css({
-			'display': 'block'
-		});
-		$(".modal_content2").css({
-			'display': 'block'
-		});
-		$(".modal_content1").css({
-			'display': 'none'
-		});
-	}
-	// 회원가입 팝업에서 로그인 링크 클릭
-	function logIn() {
-		$("#bg2").css({
-			'display': 'none'
-		});
-		$("#bg1").css({
-			'display': 'block'
-		});
-		$(".modal_content1").css({
-			'display': 'block'
-		});
-		$(".modal_content2").css({
-			'display': 'none'
-		});
-	}	
-	// 로그인 팝업에서 비밀번호 찾기 링크 클릭
-	function findPwd() {
-		$("#bg3").css({
-			'display' : 'block'
-		});
-		$(".modal_content3").css({
-			'display': 'block'
-		});
-		$("#bg1").css({
-			'display': 'block'
-		});
-		$(".modal_content1").css({
-			'display': 'block'
-		});
-		
-	}
-	
-	// 회원가입 - 아이디 
-	
-		
-	// 비밀번호 찾기
-	$("#find_pwd").click(function() {
-		
-		if($("#pwd_memId").val() == '') {
-			alert("아이디를 입력해주세요.");
-			modalPwdForm.memId.focus();
-			return;
-		}
-				
-	}); 
-	
-	
-</script>
 <style>
 
 #wrapper {
@@ -333,11 +62,11 @@
 	padding-top: 45px;
 }
 
-li > a {
+.li_1 > a {
 	text-decoration: none;
 }
 
-li {
+.li_1 {
 	display: inline-block;
 	margin: 30px;
 }
@@ -361,12 +90,12 @@ li {
 	display: none;	
 }
 
-ul {
+.ul_1 {
 	list-style-type: none;
 	margin-left: 50px;
 }
 
-li > a {
+.li_1 > a {
 	text-decoration: none;
 	color: #000;
 	display: inline-block;
@@ -376,7 +105,7 @@ a:linked, a:visited {
 	color: #000;
 }
 
-li {
+.li_1 {
 	margin: 10px;
 }
 
@@ -449,10 +178,17 @@ p {
 	margin-left: 20px;
 }
 
-.prevIcon {
-	background-image: url('https://static.thenounproject.com/png/890010-200.png');
-	width: 40px;
-	height: 40px;
+.carousel-control-prev-icon {
+	width: 30px;
+	height: 30px;
+	background-image: url('./image/left_arrow.png');
+	color: red;
+}
+
+.carousel-control-next-icon {
+	width: 30px;
+	height: 30px;
+	background-image: url('./image/right_arrow.png'); 
 }
 
 
@@ -496,7 +232,8 @@ p {
 		<div class="carousel-inner">
 		
 			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="prev">
-			    <span class="carousel-control-prev-icon prevIcon" ></span>
+			    <span class="carousel-control-prev-icon" ></span>
+			    <span class="visually-hidden">Previous</span>
 			</button>
 			
 			<c:if test="${!empty ilist }">
@@ -504,8 +241,8 @@ p {
 				<div class="carousel-item active">
 					
 					
-					<ul>
-						<li>
+					<ul class="ul_1">
+						<li class="li_1">
 							<c:forEach var="ilist" items="${comIlist}" begin="0" end="4" varStatus="status">
 								<a href="<%=request.getContextPath()%>/movie_content.do?num=${ilist.movie_num}">
 									<div class="main_poster">
@@ -528,8 +265,8 @@ p {
 				
 				<div class="carousel-item">
 				
-					<ul>
-						<li>
+					<ul class="ul_1">
+						<li class="li_1">
 							<c:forEach var="ilist" items="${comIlist}" begin="5" end="9" varStatus="status">
 								<a href="<%=request.getContextPath()%>/movie_contente.do?num=${ilist.movie_num}">	
 									<div class="main_poster">
@@ -555,7 +292,7 @@ p {
 			</c:if>
 							
 			<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="next">
-			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+			    <span class="carousel-control-next-icon" ></span>
 			    <span class="visually-hidden">Next</span>
 			</button>
 		
@@ -582,8 +319,8 @@ p {
 			<c:if test="${!empty sIlist }">
 				
 				<div class="carousel-item active">
-					<ul>
-						<li>
+					<ul class="ul_1">
+						<li class="li_1">
 							<c:forEach var="list" items="${sIlist}" begin="0" end="4" varStatus="status">
 								<a href="<%=request.getContextPath()%>/movie_content.do?num=${sMlist[status.index].movie_num}">	
 									<div class="main_poster">
@@ -603,8 +340,8 @@ p {
 				</div>
 				
 				<div class="carousel-item">
-					<ul>
-						<li>
+					<ul class="ul_1">
+						<li class="li_1">
 							<c:forEach var="list" items="${sIlist}" begin="5" end="9" varStatus="status">
 								<a href="<%=request.getContextPath()%>/movie_content.do?num=${sMlist[status.index].movie_num}">	
 									<div class="main_poster">
@@ -657,8 +394,8 @@ p {
 			<c:if test="${!empty ilist }">
 				
 				<div class="carousel-item active">
-					<ul>
-						<li>
+					<ul class="ul_1">
+						<li class="li_1">
 							<c:forEach var="ilist" items="${hIlist}" begin="0" end="4" varStatus="status">
 								<a href="<%=request.getContextPath()%>/movie_content.do?num=${hMlist[status.index].movie_num}">	
 									<div class="main_poster">
@@ -678,8 +415,8 @@ p {
 				</div>
 				
 				<div class="carousel-item">
-					<ul>
-						<li>
+					<ul class="ul_1">
+						<li class="li_1">
 							<c:forEach var="ilist" items="${hIlist}" begin="5" end="9" varStatus="status">
 								<a href="<%=request.getContextPath()%>/movie_content.do?num=${hMlist[status.index].movie_num}">	
 									<div class="main_poster">
@@ -732,8 +469,8 @@ p {
 			<c:if test="${!empty hilist }">
 				
 				<div class="carousel-item active">
-					<ul>
-						<li>
+					<ul class="ul_1">
+						<li class="li_1">
 							<c:forEach var="ilist" items="${hilist}" begin="0" end="4" varStatus="status">
 								<a href="<%=request.getContextPath()%>/movie_content.do?num=${hmlist[status.index].movie_num}">	
 									<div class="main_poster">
@@ -753,8 +490,8 @@ p {
 				</div>
 				
 				<div class="carousel-item">
-					<ul>
-						<li>
+					<ul class="ul_1">
+						<li class="li_1">
 							<c:forEach var="ilist" items="${hilist}" begin="5" end="9" varStatus="status">
 								<a href="<%=request.getContextPath()%>/movie_content.do?num=${hmlist[status.index].movie_num}">	
 									<div class="main_poster">

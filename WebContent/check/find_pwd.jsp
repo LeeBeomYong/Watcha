@@ -18,5 +18,9 @@
 	
 	PrintWriter writer = response.getWriter();
 	
-	writer.print(test);
+	if(!test.equals("")) {
+		writer.print(test);	
+	}
+	
+	
 %>

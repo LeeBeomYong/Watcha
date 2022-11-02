@@ -86,11 +86,9 @@ public class StarDAO {
 					PreparedStatement pstmt, Connection con) {
 				
 				try {
-					if(rs != null) rs.close();
-					
-					if(pstmt != null) pstmt.close();
-					
 					if(con != null) con.close();
+					if(pstmt != null) pstmt.close();
+					if(rs != null) rs.close();
 				}catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -126,8 +124,8 @@ public class StarDAO {
 
 
 			public double getStar(int movie_num) {
-				double avgstar=0;
 				openConn();
+				double avgstar=0;
 				sql="select round(avg(movie_star),1) from star where movie_num =? and movie_star != 0 ";
 				try {
 					pstmt=con.prepareStatement(sql);
@@ -137,24 +135,27 @@ public class StarDAO {
 						avgstar=rs.getDouble(1);
 					}
 					System.out.println("영화 평점 평균 : "+avgstar);
+					System.out.println(avgstar);
+					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}finally {	
+				}
+				finally {
 					closeConn(rs, pstmt, con);
 				}
-				System.out.println(avgstar);
 				return avgstar;
+				
 			}
 			
 			
 			public String getEachStar(int movie_num) {
 				
-				
+				openConn();
 				sql="select movie_star from star where movie_num=? and movie_star !=0";
 				
 				int[] starList = new int[5];
-				openConn();
+				
 				String rel = "";
 				
 				try {
@@ -247,11 +248,9 @@ public class StarDAO {
 			}
 			
 			public int getMovieStarcount(int movie_num) {
-				
-				int count=0;
-				sql="select count(movie_star) from star where movie_num=? and  movie_star != 0";
 				openConn();
-				
+				int count=0;
+				sql="select count(movie_star) from star where movie_num=? and  movie_star != 0";			
 				try {
 					pstmt=con.prepareStatement(sql);
 					pstmt.setInt(1, movie_num);

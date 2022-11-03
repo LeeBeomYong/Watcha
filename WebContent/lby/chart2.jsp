@@ -8,10 +8,11 @@
     pageEncoding="UTF-8"%>
 <%
 	String member_Id = (String)session.getAttribute("member_Id");
+	String member_Id2 = request.getParameter("member_Id2");
+
 	
 	StarDAO dao = StarDAO.getInstance();
-	JSONArray jsonArray = dao.getUserStar(member_Id);
-	
+	JSONArray jsonArray = dao.getUserStar(member_Id2);
 	//out.println(jsonArray);
 	
 // 	PrintWriter writer = response.getWriter();

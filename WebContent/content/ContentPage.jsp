@@ -273,6 +273,14 @@ $(function() {
 		}
 		
 		
+		const modal2 = document.querySelector('.modal2');
+	
+	      $(".btn-open-popup2").on("click",function(){
+	    	  modal2.style.display = 'block';
+	      });
+	     
+		
+		
 	}); // 제이쿼리 end 부분
 	
 	function showPopUp() {
@@ -298,7 +306,7 @@ $(function() {
 		}
 	}
 	
-	
+    
 
 	
 </script>
@@ -307,7 +315,7 @@ $(function() {
 <script type="text/javascript" src="${pageContext.request.contextPath}/content/contjs/contJs.js" defer="defer"></script>
 
 </head>
-<body>
+<body style="overflow: auto;">
 	<jsp:include page="../include/user_top.jsp"/>
 	
 	
@@ -383,12 +391,17 @@ $(function() {
 							</div>
 						</button>
 						<button id="topDiv_cont2_btn2">
-							<a id ="a1" href="javascript:showPopUp()">
 								<div class="cont2_btn">
-									<img alt="없음" src="${pageContext.request.contextPath }/image/contImg/pen.png" width="20px" height="20px">
+									<img alt="없음" src="${pageContext.request.contextPath }/image/contImg/pen.png" width="20px" height="20px" class="btn-open-popup2">
 									<span class="cont2_btn_span">코멘트</span>
 								</div>
-							</a>
+								    <div class="modal2">
+								      <div class="modal_body2">
+								      
+								      </div>
+								    </div>
+
+						
 						</button>
 						<button id="topDiv_cont2_btn3">
 							<div class="cont2_btn">

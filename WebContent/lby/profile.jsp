@@ -135,7 +135,7 @@ function showPopUp() {
    	const url = "<%=request.getContextPath() %>/lby/setting.jsp";
 
 	//등록된 url 및 window 속성 기준으로 팝업창을 연다.
-	window.open(url, "setting", windowStatus);
+	window.open(url, "hello popup", windowStatus);
 	
 }
 </script>

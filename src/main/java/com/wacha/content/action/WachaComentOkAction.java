@@ -34,16 +34,16 @@ public class WachaComentOkAction implements Action {
 		int count = coment_dao.addComent(member_Id,content,movie_num);
 		ActionForward forward = new ActionForward();
 		
-		if(!chk.equals("null")) {
+		if(chk.equals("")) {
 			out.println("<script>"
 					+ "window.close();"
 					+ "window.opener.location.href=\"wacha_coment.do?movie_num="+movie_num+"&coment_num="+count+"&member_Id="+member_Id+"\""
 					+ "</script>");
+			forward.setPath("wacha_coment.do?movie_num="+movie_num+"&coment_num="+count+"&member_Id="+member_Id);
+			forward.setRedirect(true);
 		}else {
-			out.println("<script>"
-					+ "window.close();"
-					+ "window.opener.location.href=\"wacha_content.do?movie_num="+movie_num+"\""
-					+ "</script>");
+			forward.setPath("wacha_content.do?movie_num="+movie_num);
+			forward.setRedirect(true);
 		}
 		
 		

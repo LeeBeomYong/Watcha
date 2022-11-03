@@ -15,6 +15,7 @@ import com.wacha.model.MovieDTO;
 
 
 public class MovieDAO {
+	
 
 	// DB와 연동하는 객체.
 		Connection con = null;
@@ -617,6 +618,7 @@ public class MovieDAO {
 			}finally {
 				closeConn(rs, pstmt, con);
 				closeConn(rs2, pstmt2, con);
+
 			}
 			
 			return list;

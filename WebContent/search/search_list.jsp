@@ -15,6 +15,7 @@
 		width: 85%;
 	}
 	
+	
 	#searched {
 		background-color: rgb(248, 248, 248);
 		height: 35px;

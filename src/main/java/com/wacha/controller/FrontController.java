@@ -40,8 +40,8 @@ public class FrontController extends HttpServlet{
 		 */
 		
 		Properties pro = new Properties();
+		FileInputStream fis = new FileInputStream("C:\\Users\\Park\\git\\Watcha\\src\\main\\java\\com\\wacha\\controller\\mapping.properties");
 
-		FileInputStream fis = new FileInputStream("C:\\Users\\by\\git\\Watcha\\src\\main\\java\\com\\wacha\\controller\\mapping.properties");
 
 		pro.load(fis);
 		String value = pro.getProperty(command);

@@ -505,44 +505,23 @@ public class UserDAO {
 						res = 2;	// 관리자
 					}else {
 						res = -1;	// 관리자 아이디 O, 비번 X
-
-				public int LoginCheck(String member_id, String member_pwd) {
-					
-					int res = 0;
-					
-					try {
-						openConn();
-						
-						sql = "select * from member where member_id = ?";
-						
-						pstmt = con.prepareStatement(sql);
-						
-						pstmt.setString(1, member_id);
-						
-						rs = pstmt.executeQuery();
-
-						if(rs.next()) {	// 아이디 O 
-							if(rs.getString("member_id").equals("admin")) {
-								if(member_pwd.equals(rs.getString("member_pwd"))) {
-									res = 2;	// 관리자
-								}else {
-									res = -1;	// 관리자 아이디 O, 비번 X
-								}
-							}else {
-								if(member_pwd.equals(rs.getString("member_pwd"))) {
-									res = 1;	// 회원
-								}else {
-									res = -1;	// 회원 아이디 O, 비번 X
-								}
-							}
-						}
-					} catch (SQLException e) {
-						e.printStackTrace();
 					}
-					return res;
+					}else {
+						if(member_pwd.equals(rs.getString("member_pwd"))) {
+							res = 1;	// 회원
+						}else {
+							res = -1;	// 회원 아이디 O, 비번 X
+						}
+					}
 				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return res;
+		}
 
 
+				// 로그인 성공 시 회원 정보 불러오기
 				public UserDTO getMember(String member_id) {
 					UserDTO dto = null;
 					
@@ -562,7 +541,7 @@ public class UserDAO {
 							dto = new UserDTO();
 							
 							dto.setMember_id(rs.getString("member_id"));
-							dto.setMember_image(rs.getString("member_img"));
+							dto.setMember_image(rs.getString("member_image"));
 							
 						}
 					} catch (SQLException e) {
@@ -570,8 +549,9 @@ public class UserDAO {
 					}
 					return dto;
 				}
+	
 
-
+				// 키워드 회원 검색 -> 회원 페이지 이동
 				public UserDTO getMemberProfile(String member_id) {
 					UserDTO dto = null;
 					
@@ -589,12 +569,14 @@ public class UserDAO {
 						if(rs.next()) {
 							dto = new UserDTO();
 							
+							dto.setMember_num(rs.getInt("member_num"));
 							dto.setMember_id(rs.getString("member_id"));
 							dto.setMember_name(rs.getString("member_name"));
 							dto.setMember_pwd(rs.getString("member_pwd"));
 							dto.setMember_profile(rs.getString("member_profile"));
 							dto.setMember_image(rs.getString("member_image"));
 							dto.setMember_birth(rs.getString("member_birth"));
+							dto.setMember_regdate(rs.getString("member_regdate"));
 						}
 					} catch (SQLException e) {
 						e.printStackTrace();
@@ -612,7 +594,71 @@ public class UserDAO {
 		}
 		return res;
 	}
+				// 회원가입 메서드
+				public int insertMember(String name, String id, String pwd) {
+					int result = 0, count = 0;
+					
+					try {
+						openConn();
+						
+						sql = "select max(member_num) from member";
+						
+						pstmt = con.prepareStatement(sql);
+						
+						rs = pstmt.executeQuery();
+						
+						if(rs.next()) {
+							count = rs.getInt(1) + 1;
+						}
+						
+						sql = "insert into member values(?,?,?,?,'','',sysdate,default)";
+						
+						pstmt = con.prepareStatement(sql);
+						
+						pstmt.setInt(1, count);
+						pstmt.setString(2, id);
+						pstmt.setString(3, name);
+						pstmt.setString(4, pwd);
+						
+						result = pstmt.executeUpdate();
+						
+					} catch (SQLException e) {
+						e.printStackTrace();
+					} finally {
+						closeConn(rs, pstmt, con);
+					}					
+					return result;
+				}
 
+
+				// 회원가입 - 아이디 중복 체크
+				public int checkMemberId(String id) {
+					int res = 0;
+					
+					try {
+						openConn();
+						
+						sql = "select member_id from member where member_id = ?";
+						
+						pstmt = con.prepareStatement(sql);
+						
+						pstmt.setString(1, id);
+						
+						rs = pstmt.executeQuery();
+						
+						if(rs.next()) {
+							res = 1;
+						}else {
+							res = 0;
+						}
+					} catch (SQLException e) {
+						e.printStackTrace();
+					} finally {
+						closeConn(rs, pstmt, con);
+					}
+					return res;
+				}
+	
 			// 로그인 성공 시 회원 정보 불러오기
 	public UserDTO getMember(String member_id) {
 		UserDTO dto = null;
@@ -712,7 +758,6 @@ public class UserDAO {
 	// 회원가입 - 아이디 중복 체크
 public int checkMemberId(String id) {
    int res = 0;
-
    try {
       openConn();
 
@@ -729,6 +774,9 @@ public int checkMemberId(String id) {
       }else {
          res = 0;
       }
+      return res;
+    }	// findIdforPwd() end 
+  }
    } catch (SQLException e) {
       e.printStackTrace();
    } finally {
@@ -736,10 +784,7 @@ public int checkMemberId(String id) {
    }
    return res;
 }
-  
-  
-  
-  
+
 	// 비밀번호 찾기
 	public String findIdforPwd(String mem_id) {
 

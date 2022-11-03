@@ -348,9 +348,9 @@ public class UserDAO {
 			
 			try {
 				openConn();
-				sql="select * from member where member_id = 'test1'";
+				sql="select * from member where member_id = ?";
 				pstmt = con.prepareStatement(sql);
-				//pstmt.setString(1, id);
+				pstmt.setString(1, id);
 				rs = pstmt.executeQuery();
 				
 				if(rs.next()) {
@@ -374,7 +374,7 @@ public class UserDAO {
 		return dto;
 			
 		}
-
+		
 		public UserDTO UserContent(String id) {
 			UserDTO dto = null;
 			
@@ -566,7 +566,7 @@ public class UserDAO {
 							dto.setMember_name(rs.getString("member_name"));
 							dto.setMember_pwd(rs.getString("member_pwd"));
 							dto.setMember_profile(rs.getString("member_profile"));
-							dto.setMember_image(rs.getString("member_img"));
+							dto.setMember_image(rs.getString("member_image"));
 							dto.setMember_birth(rs.getString("member_birth"));
 						}
 					} catch (SQLException e) {
@@ -630,27 +630,28 @@ public class UserDAO {
 	  // 비밀번호 찾기
     public String findIdforPwd(String mem_id) {
 
-      String res = "존재";
+		String res = "";
+		
+		try {
+			openConn();
+			
+			sql = "select member_pwd from member where member_id = ?";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, mem_id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				res = rs.getString(1).trim();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return res;
+	}	// findIdforPwd() end
+}
 
-      try {
-        openConn();
-
-        sql = "select member_pwd from member where member_id = ?";
-
-        pstmt = con.prepareStatement(sql);
-
-        pstmt.setString(1, mem_id);
-
-        rs = pstmt.executeQuery();
-
-        if(rs.next()) {
-          res = rs.getString(1);
-        }
-      } catch (SQLException e) {
-        e.printStackTrace();
-      } finally {
-        closeConn(rs, pstmt, con);
-      }
-      return res;
-    }	// findIdforPwd() end
-  }

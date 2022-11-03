@@ -28,7 +28,7 @@ public class MemberProfilePageAction implements Action {
 		
 		forward.setRedirect(false);
 		
-		forward.setPath("member/member_main.jsp");
+		forward.setPath("lby/profile.jsp");
 		
 		return forward;
 		

@@ -1,6 +1,7 @@
 package com.wacha.model;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -624,13 +625,6 @@ public class MovieDAO {
 			return list;
 		} 
 		
-		public int deleteMovie(int num) {
-			int result=0;
-			
-			openConn();
-			
-			sql="delete from movie where movie_num"; 
-		}
 		
 }
 

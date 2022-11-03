@@ -27,15 +27,15 @@ public class ProfileDeleteAction implements Action {
 		
 		
 		// star테이블 탈퇴한 유저꺼 삭제하는 메서드
-		dao.starDelete(member_Id, user_pwd);
+//		dao.starDelete(member_Id, user_pwd);
 		// reply테이블 탈퇴한 유저꺼 삭제하는 메서드
 		//dao.replyDelete(member_Id, user_pwd);
 		// write테이블 탈퇴한 유저꺼 삭제하는 메서드 
-		dao.writeDelete(member_Id, user_pwd);
+//		dao.writeDelete(member_Id, user_pwd);
 		// w_write테이블 탈퇴한 유저꺼 삭제하는 메서드
-		dao.w_writeDelete(member_Id, user_pwd);
+//		dao.w_writeDelete(member_Id, user_pwd);
 		// coment테이블 탈퇴한 유저꺼 삭제하는 메서드
-		dao.comentDelete(member_Id, user_pwd);
+//		dao.comentDelete(member_Id, user_pwd);
 		
 		
 		
@@ -49,7 +49,7 @@ public class ProfileDeleteAction implements Action {
 		if(result>0) {			
 			out.println("<script>");
 			out.println("window.close();");
-			out.println("window.opener.location.href=\"main2.jsp\"");
+			out.println("window.opener.location.href=\"main.jsp\"");
 			out.println("</script>");
 			
 		}else if( result == -1) {

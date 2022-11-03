@@ -21,7 +21,7 @@ public class ProfileLogoutAction implements Action {
 		
 		ActionForward forward = new ActionForward();	
 		forward.setRedirect(false);
-		forward.setPath("main2.jsp");
+		forward.setPath("main.jsp");
 		return forward;
 }
 

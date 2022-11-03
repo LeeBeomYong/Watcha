@@ -11,7 +11,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import com.wacha.model.MovieDTO;
 
 
 public class MovieDAO {
@@ -622,6 +621,9 @@ public class MovieDAO {
 			}
 			
 			return list;
-		}
+		} 
+		
+
+		
 }
 

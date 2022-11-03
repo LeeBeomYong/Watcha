@@ -111,8 +111,8 @@
 					<c:set var="count" value="${count + 1 }" />
 						<li id="hh">
 							<a href="<%=request.getContextPath() %>/wacha_content.do?movie_num=${dto.getMovie_num()}"><img class="img1" src="${pageContext.request.contextPath }/image/profile/${dto.getImage_loc()}" width="175px" height="260px"></a><br>
-							<h5 >${dto.getMovie_title() }</h5>
-							<p id="star">평가함&nbsp;★${dto.getMovie_star() }</p>
+							<h5 >&nbsp;${dto.getMovie_title() }</h5>
+							<p id="star">&nbsp;&nbsp;평가함&nbsp;★${dto.getMovie_star() }</p>
 						</li>
 					</c:forEach>
 					</ul>

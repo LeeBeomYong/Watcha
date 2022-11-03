@@ -107,8 +107,8 @@
 				<c:set var="count" value="${count + 1 }" />
 					<li class="hh">
 						<a href="<%=request.getContextPath() %>/wacha_content.do?movie_num=${dto.getMovie_num()}"><img class="img1" src="${pageContext.request.contextPath }/image/profile/${dto.getImage_loc()}" width="175px" height="260px"></a><br>
-						<h5 >${dto.getMovie_title() }</h5>
-						<p id="star">평가함&nbsp;★${dto.getMovie_star() }</p>
+						<h5 >&nbsp;${dto.getMovie_title() }</h5>
+						<p id="star">&nbsp;&nbsp;평가함&nbsp;★${dto.getMovie_star() }</p>
 					</li>
 					<c:if test="${count % 10 == 0 }">
 						<li>
@@ -131,8 +131,8 @@
 				<c:set var="count2" value="${count2 + 1 }" />
 					<li class="hh">
 						<a href="<%=request.getContextPath() %>/wacha_content.do?movie_num=${dto2.getMovie_num()}"><img class="img1" src="${pageContext.request.contextPath }/image/profile/${dto2.getImage_loc()}" width="175px" height="260px"></a><br>
-						<h5 >${dto2.getMovie_title() }</h5>
-						<p id="star">평가함&nbsp;★${dto2.getMovie_star() }</p>
+						<h5 >&nbsp;${dto2.getMovie_title() }</h5>
+						<p id="star">&nbsp;&nbsp;평가함&nbsp;★${dto2.getMovie_star() }</p>
 					</li>
 					<c:if test="${count2 % 10 == 0 }">
 						<li>
@@ -155,8 +155,8 @@
 				<c:set var="count3" value="${count3 + 1 }" />
 					<li class="hh">
 						<a href="<%=request.getContextPath() %>/wacha_content.do?movie_num=${dto3.getMovie_num()}"><img class="img1" src="${pageContext.request.contextPath }/image/profile/${dto3.getImage_loc()}" width="175px" height="260px"></a><br>
-						<h5 >${dto3.getMovie_title() }</h5>
-						<p id="star">평가함&nbsp;★${dto3.getMovie_star() }</p>
+						<h5 >&nbsp;${dto3.getMovie_title() }</h5>
+						<p id="star">&nbsp;&nbsp;평가함&nbsp;★${dto3.getMovie_star() }</p>
 					</li>
 					<c:if test="${count3 % 10 == 0 }">
 						<li>
@@ -179,8 +179,8 @@
 				<c:set var="count4" value="${count4 + 1 }" />
 					<li class="hh">
 						<a href="<%=request.getContextPath() %>/wacha_content.do?movie_num=${dto4.getMovie_num()}"><img class="img1" src="${pageContext.request.contextPath }/image/profile/${dto4.getImage_loc()}" width="175px" height="260px"></a><br>
-						<h5 >${dto4.getMovie_title() }</h5>
-						<p id="star">평가함&nbsp;★${dto4.getMovie_star() }</p>
+						<h5 >&nbsp;${dto4.getMovie_title() }</h5>
+						<p id="star">&nbsp;&nbsp;평가함&nbsp;★${dto4.getMovie_star() }</p>
 					</li>
 					<c:if test="${count4 % 10 == 0 }">
 						<li>

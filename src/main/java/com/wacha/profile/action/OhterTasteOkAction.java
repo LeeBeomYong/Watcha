@@ -16,7 +16,7 @@ import com.wacha.model.StarDAO;
 import com.wacha.model.UserDAO;
 import com.wacha.model.UserDTO;
 
-public class OtherTasteOkAction implements Action {
+public class OhterTasteOkAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {

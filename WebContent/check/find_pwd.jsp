@@ -20,5 +20,9 @@
 	if(!test.equals("")){
 		writer.print(test);
 	}
-	
+
+	if(!test.equals("")) {
+		writer.print(test);	
+	}
+
 %>

@@ -68,7 +68,7 @@
 	  
 		<div class="mb-3">
 		  <label for="exampleFormControlInput1" class="form-label">아이디</label>
-		  <input style="width: 250px;" class="form-control" id="exampleFormControlInput1" value="${member_id }" placeholder="아이디 입력" name="member_id" readonly>
+		  <input style="width: 250px;" class="form-control" id="exampleFormControlInput1" value="${session_id }" placeholder="아이디 입력" name="member_id" readonly>
 		</div>
 		
 		<div class="mb-3">

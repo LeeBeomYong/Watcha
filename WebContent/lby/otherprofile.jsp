@@ -117,28 +117,6 @@
 		opacity: 40%
 	}
 </style>
-<script type="text/javascript">
-function showPopUp() {
-	
-	//창 크기 지정
-	var width = 500;
-	var height = 500;
-	
-	//pc화면기준 가운데 정렬
-	var left = (window.screen.width / 2) - (width/2);
-	var top = (window.screen.height / 4);
-	
-   	//윈도우 속성 지정
-	var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
-	
-   	//연결하고싶은url
-   	const url = "<%=request.getContextPath() %>/lby/setting.jsp";
-
-	//등록된 url 및 window 속성 기준으로 팝업창을 연다.
-	window.open(url, "hello popup", windowStatus);
-	
-}
-</script>
 </head>
 <body>
 	<jsp:include page = "../include/user_top.jsp" />
@@ -148,9 +126,6 @@ function showPopUp() {
 		<div class="relative">
 			<div class="top">
 				<div align="right">
-				
-					<a id ="a1" href="javascript:showPopUp()"><img alt="★" src="${pageContext.request.contextPath }/image/profile/pngwing.com.png" width="30px" height="30px"></a>
-					
 				</div>
 			</div>
 			<div class="picture">
@@ -170,14 +145,14 @@ function showPopUp() {
 				</div>
 				<div class="taste" align="center">
 					<hr>
-					<a href="<%=request.getContextPath() %>/taste.do"><button class="btn2"></button></a>
+					<a href="<%=request.getContextPath() %>/othertaste.do?member_id=<%=request.getParameter("member_id")%>"><button class="btn2"></button></a>
 					
 				</div>
 			</div>
 			<div class="bottom">
 				<div class="content">
 					<div align="center">
-						<a href ="<%=request.getContextPath() %>/review.do?member_id=<%=request.getParameter("member_id")%>">
+						<a href ="<%=request.getContextPath() %>/otherreview.do?member_id=<%=request.getParameter("member_id")%>">
 							<button id="btn3">
 								<p>영화</p>
 								<c:set var="review_count" value ="${review_count }"/>

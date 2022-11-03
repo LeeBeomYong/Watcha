@@ -47,7 +47,7 @@
 	  <div id="tab1" class="tab-content current">
 	  <br>
 	  	<header>
-			<h2>${member_id }님의 Q&A문의 내역</h2>
+			<h2>${session_id }님의 Q&A문의 내역</h2>
 		</header>
 	    <br>	
 	 	<br>
@@ -70,7 +70,7 @@
 			
 			<c:set var="list" value="${List }" />
 				<c:forEach items="${list }" var="dto">
-					<c:if test="${member_id eq dto.getMember_id() }">
+					<c:if test="${session_id eq dto.getMember_id() }">
 					<tr class="tt" onclick="location.href='<%=request.getContextPath() %>/write_content.do?num=${dto.getWrite_num() }'">
 						<td class="no"> ${dto.getWrite_num() } </td>
 						<td class="wrt"> ${dto.getMember_id() } </td>
@@ -88,6 +88,8 @@
 								<button id="fin_b">답변 대기중</button>
 							</c:if>
 						</td>
+						
+					
 <%-- 							<!-- 삭제확인 알림창 -->
 							<button type="button" id="delete_btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
 							  삭제
@@ -125,7 +127,7 @@
 	  <div id="tab2" class="tab-content">
 	  <br>
 	  	<header>
-			<h2>${member_id }님의 문의 내역</h2>
+			<h2>${session_id }님의 문의 내역</h2>
 		</header>
 	  <br>	
 	  <br>
@@ -137,18 +139,18 @@
 		
 		<%-- 테이블 시작 부분 리스트 --%>
 		<table class="table table-hover">
-			<thead class="table-secondary">
-			<tr class="tt">
-				<th class="no">번호</th>
-				<th>문의내용</th>
-				<th class="date">날짜</th>
-				<th class="del">삭제</th>
-				<th class="now">처리상태</th>
-			</tr>		
-			</thead>
-			
 			<c:set var="rlist" value="${RList }" />
+				<thead class="table-secondary">
+				<tr class="tt">
+					<th class="no">번호</th>
+					<th>문의내용</th>
+					<th class="date">날짜</th>
+					<th class="del">삭제</th>
+					<th class="now">처리상태</th>
+				</tr>
+				</thead>
 			<c:forEach items="${rlist }" var="rdto">
+				<c:if test="${session_id eq rdto.getW_id() }">
 				<tr class="tt" onclick="location.href='<%=request.getContextPath() %>/w_write_content.do?num=${rdto.getW_num() }'">	<%-- 이부분 블럭 자체를 클릭하였을때 글 전체를 제대로 볼 수 있음. --%>
 					<td class="no"> ${rdto.getW_num() } </td>
 					<td> ${rdto.getW_cont() } </td>	
@@ -193,6 +195,7 @@
 										
 					
 				</tr>
+				</c:if>
 			</c:forEach>
 
 	  </table>

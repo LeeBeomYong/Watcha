@@ -12,42 +12,39 @@ import com.wacha.controller.ActionForward;
 import com.wacha.model.MovieTitleStarDTO;
 import com.wacha.model.StarDAO;
 
-public class ReviewOkAction implements Action {
+public class OtherReviewAddAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
 		
 		// 세션정보 가져오기
 		HttpSession session = request.getSession();
 		String member_Id = (String)session.getAttribute("member_Id");
 		
-		//String member_Id2 = request.getParameter("member_id");
+		String member_Id2 = request.getParameter("member_id");
 		
-	
 		StarDAO dao = StarDAO.getInstance();		
 		
-		
-		int result = dao.reviewCheck(member_Id);
-		request.setAttribute("review_count", result);
-		
-		int heart = dao.heartCount(member_Id);
-		request.setAttribute("heart_count", heart);
-		
-		int watch = dao.watchCount(member_Id);
-		request.setAttribute("watch_count", watch);
-		
-		List<MovieTitleStarDTO> img_list = dao.movieTitleStar(member_Id);
+		//평가한 영화 목록 보여주기
+		List<MovieTitleStarDTO> img_list = dao.movieTitleStar(member_Id2);
 		request.setAttribute("img_List", img_list);
 		
+		//평가한 영화 목록 별점순으로 보여주기
+		List<MovieTitleStarDTO> star_list = dao.movieTitleStar2(member_Id2);
+		request.setAttribute("star_list", star_list);
+		//평가한 영화 목록 제목순으로 보여주기
+		List<MovieTitleStarDTO> title_list = dao.movieTitleStarTitle(member_Id2);
+		request.setAttribute("title_list", title_list);
+		//평가한 영화 목록 년도순으로 보여주기
+		List<MovieTitleStarDTO> year_list = dao.movieTitleStarYear(member_Id2);
+		request.setAttribute("year_list", year_list);
 		
 		
-				
+		
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);
-		forward.setPath("lby/review.jsp");
+		forward.setPath("lby/otherdetail.jsp");
 		return forward;
-		
 	}
 
 }

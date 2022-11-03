@@ -63,6 +63,11 @@
 	padding-top: 45px;
 }
 
+
+.li_1 > a {
+	text-decoration: none;
+}
+
 .li_1 {
 	display: inline-block;
 	margin: 30px;
@@ -100,6 +105,11 @@
 
 a:linked, a:visited {
 	color: #000;
+}
+
+
+.li_1 {
+	margin: 10px;
 }
 
 img {
@@ -153,9 +163,22 @@ p {
 	margin-left: 20px;
 }
 
+
 .carousel-control {
 	top: 20%;
 	bottom: 20%;
+
+.carousel-control-prev-icon {
+	width: 30px;
+	height: 30px;
+	background-image: url('./image/left_arrow.png');
+	color: red;
+}
+
+.carousel-control-next-icon {
+	width: 30px;
+	height: 30px;
+	background-image: url('./image/right_arrow.png'); 
 }
 
 #prv_btn, #nxt_btn {
@@ -217,7 +240,7 @@ p {
 					<ul class="ul_1">
 						<li class="li_1">
 							<c:forEach var="ilist" items="${comIlist}" begin="0" end="4" varStatus="status">
-								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${ilist.movie_num}">
+								<a href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${ilist.movie_num}">
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
 								    	<img class="poster" src="${ilist.image_loc}" alt="영화 포스터 이미지" />
@@ -240,7 +263,7 @@ p {
 					<ul class="ul_1">
 						<li class="li_1">
 							<c:forEach var="ilist" items="${comIlist}" begin="5" end="9" varStatus="status">
-								<a href="<%=request.getContextPath()%>/movie_contente.do?movie_num=${ilist.movie_num}">	
+								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${ilist.movie_num}">	
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
 								    	<img class="poster" src="${ilist.image_loc} " alt="영화 포스터 이미지" />
@@ -294,7 +317,7 @@ p {
 					<ul class="ul_1">
 						<li class="li_1">
 							<c:forEach var="list" items="${sIlist}" begin="0" end="4" varStatus="status">
-								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${sMlist[status.index].movie_num}">	
+								<a href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${sMlist[status.index].movie_num}">	
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
 								    	<img class="poster" src="${list.image_loc} " alt="영화 포스터 이미지" />
@@ -315,7 +338,7 @@ p {
 					<ul class="ul_1">
 						<li class="li_1">
 							<c:forEach var="list" items="${sIlist}" begin="5" end="9" varStatus="status">
-								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${sMlist[status.index].movie_num}">	
+								<a href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${sMlist[status.index].movie_num}">	
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
 								    	<img class="poster" src="${list.image_loc} " alt="영화 포스터 이미지" />
@@ -369,7 +392,7 @@ p {
 					<ul class="ul_1">
 						<li class="li_1">
 							<c:forEach var="ilist" items="${hIlist}" begin="0" end="4" varStatus="status">
-								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${hMlist[status.index].movie_num}">	
+								<a href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${hMlist[status.index].movie_num}">	
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
 								    	<img class="poster" src="${ilist.image_loc} " alt="영화 포스터 이미지" />
@@ -390,7 +413,7 @@ p {
 					<ul class="ul_1">
 						<li class="li_1">
 							<c:forEach var="ilist" items="${hIlist}" begin="5" end="9" varStatus="status">
-								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${hMlist[status.index].movie_num}">	
+								<a href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${hMlist[status.index].movie_num}">	
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
 								    	<img class="poster" src="${ilist.image_loc} " alt="영화 포스터 이미지" />
@@ -444,7 +467,7 @@ p {
 					<ul class="ul_1">
 						<li class="li_1">
 							<c:forEach var="ilist" items="${hilist}" begin="0" end="4" varStatus="status">
-								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${hmlist[status.index].movie_num}">	
+								<a href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${hmlist[status.index].movie_num}">	
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
 								    	<img class="poster" src="${ilist.image_loc} " alt="영화 포스터 이미지" />
@@ -465,7 +488,7 @@ p {
 					<ul class="ul_1">
 						<li class="li_1">
 							<c:forEach var="ilist" items="${hilist}" begin="5" end="9" varStatus="status">
-								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${hmlist[status.index].movie_num}">	
+								<a href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${hmlist[status.index].movie_num}">	
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
 								    	<img class="poster" src="${ilist.image_loc} " alt="영화 포스터 이미지" />

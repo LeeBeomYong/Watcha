@@ -541,6 +541,8 @@ public class MovieDAO {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
 			}
 			
 			return list;

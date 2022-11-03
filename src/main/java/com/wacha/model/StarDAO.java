@@ -249,7 +249,7 @@ public class StarDAO {
 			public int getMovieStarcount(int movie_num) {
 				
 				int count=0;
-				sql="select count(movie_star) from star where movie_num=?";
+				sql="select count(movie_star) from star where movie_num=? and  movie_star != 0";
 				openConn();
 				
 				try {
@@ -267,7 +267,7 @@ public class StarDAO {
 					closeConn(rs, pstmt, con);
 				}
 				return count;
-			
+				
 			}
 			public void updateWantSee(int movie_num,String member_Id,int countchk) {
 				

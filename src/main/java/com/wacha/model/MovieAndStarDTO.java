@@ -7,6 +7,45 @@ public class MovieAndStarDTO {
 	private int movie_country_count;
 	private int movie_genre_count;
 	
+	private String movie_date;
+	private String movie_title;
+	private String movie_director;
+	private String movie_imageloc;
+	private double movie_avgstar;
+	
+	
+	
+	public String getMovie_date() {
+		return movie_date;
+	}
+	public void setMovie_date(String movie_date) {
+		this.movie_date = movie_date;
+	}
+	public String getMovie_title() {
+		return movie_title;
+	}
+	public void setMovie_title(String movie_title) {
+		this.movie_title = movie_title;
+	}
+	public String getMovie_director() {
+		return movie_director;
+	}
+	public void setMovie_director(String movie_director) {
+		this.movie_director = movie_director;
+	}
+	public String getMovie_imageloc() {
+		return movie_imageloc;
+	}
+	
+	public double getMovie_avgstar() {
+		return movie_avgstar;
+	}
+	public void setMovie_avgstar(double movie_avgstar) {
+		this.movie_avgstar = movie_avgstar;
+	}
+	public void setMovie_imageloc(String movie_imageloc) {
+		this.movie_imageloc = movie_imageloc;
+	}
 	
 	
 	public int getMovie_genre_count() {
@@ -33,9 +72,6 @@ public class MovieAndStarDTO {
 	public void setMovie_country_count(int movie_country_count) {
 		this.movie_country_count = movie_country_count;
 	}
-	
-	
-	
 	
 
 }

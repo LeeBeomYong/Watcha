@@ -38,7 +38,7 @@
 	function likethis(movie_num,coment_num,coment_num_son) {
 		//alert(movie_num +" "+ coment_num+ " "+coment_num_son);	
 		
-		if('<%=session.getAttribute("member_Id")%>' !=null ){
+		if('<%=session.getAttribute("member_Id")%>' != null ){
 			let memberId = '<%=session.getAttribute("member_Id")%>';
 			$.ajax({
 				url : "/WatchaProject/content/CoComentUpdate.jsp",
@@ -64,7 +64,7 @@
 	function deleteThis(movie_num,coment_num,coment_num_son,member_id) {
 		
 		//alert(movie_num +" "+ coment_num+ " "+coment_num_son +","+member_id);	
-		if('<%=session.getAttribute("member_Id")%>' == null){
+		if('<%=session.getAttribute("member_Id")%>' != null){
 		$.ajax({
 			url : "/WatchaProject/content/CoComentDelete.jsp",
 			data : {Mn : movie_num,
@@ -134,24 +134,6 @@
 	      });
 	      
 	   }
-	<%-- 	
-	"<c:choose><c:when test=\"${sessionScope.member_Id eq '"+tmpid+"'}\">"+</c:when><c:otherwise></c:otherwise></c:choose>
-	<div class="btn-group">
-		   <img alt="" src="${pageContext.request.contextPath}/image/contImg/morelook.png" width="20px" height="20px" class=" btn-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-		  <ul class="dropdown-menu">
-		  <c:choose>
-			  <c:when test="${coment_dto.getMember_id() == sessionScope.member_Id}">
-			  	<li><a class="dropdown-item" onclick="if('<%=session.getAttribute("member_Id")%>' == null){return;}else{ javascript:showPopUp()}">게시글 수정</a></li>
-			    <li><a class="dropdown-item" onclick="if(confirm('정말로 삭제하시겠습니까?')){ location.href='wacha_coment_delete.do?movie_num=${movie_dto.getMovie_num()}&coment_num=${coment_dto.getComent_num()}';  alert('삭제되었습니다.');}else{ return;}">게시글 삭제</a></li>
-			  </c:when>
-			   <c:otherwise>
-			    <li><a class="dropdown-item" href="">게시글 신고</a></li>
-			   </c:otherwise>
-		   </c:choose>
-		    
-		  </ul>
-		</div> --%>
-		
 	
 
 	

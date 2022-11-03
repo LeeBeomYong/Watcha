@@ -25,9 +25,9 @@ public class MovieContentPageAction implements Action {
 		
 		ActionForward forward = new ActionForward();
 		
-		forward.setRedirect(false);
+		forward.setRedirect(true);
 		
-		forward.setPath("content/ContentPage.jsp");
+		forward.setPath("wacha_content.do?movie_num="+movie_num);
 		
 		return forward;
 		

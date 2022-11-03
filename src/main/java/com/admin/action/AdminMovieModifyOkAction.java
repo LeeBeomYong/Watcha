@@ -20,7 +20,7 @@ public class AdminMovieModifyOkAction implements Action {
 		
 		
 		//첨부파일이 저장될 위치(경로) 설정
-		String saveFolder="C:\\Users\\user\\git\\Kh_semiWatcha\\WebContent\\image";
+		String saveFolder="C:\\Users\\user\\git\\Watcha\\WebContent\\image";
 		
 		//첨부파일 용량 (크기)제한 -파일 업로드 최대 크기
 		

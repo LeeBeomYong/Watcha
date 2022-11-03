@@ -176,9 +176,7 @@ margin-left: 80px
 float: left;
 
 }
-.can1-1{
-margin-top: 100px;
-}
+
 .can-2{
 clear: both;
 }
@@ -310,7 +308,10 @@ text-align: center;
 		justify-content: center;
 		color: green;
 	}
-
+.start{
+align-items: center;
+margin: 100px;
+}
 .rot-135:hover {
   filter: hue-rotate(135deg); 
         </style>
@@ -324,10 +325,10 @@ text-align: center;
       <c:set var="dto" value="${UserContent}" /> 
 	<jsp:include page="../include/admin_top.jsp" />
 	<br><br><br>
-      <form enctype="multipart/form-data" action="<%=request.getContextPath() %>/admin_userDelete_ok.do" method="post">
+      <form enctype="multipart/form-data" action="<%=request.getContextPath() %>/admin_userDelete_ok.do?num=${dto.getMember_num()}" method="post">
   		<input type="hidden" name="member_num" value="${dto.getMember_num() }">
         <h1>회원상세 페이지</h1>
-
+	<div class="start">
        <div  class="can-1">
           <fieldset>
            <legend><span class="number">1</span>회원프로필사진</legend>
@@ -340,7 +341,7 @@ text-align: center;
         </div>
         
         
-                <div class="can-1">
+                <div class="can-1" >
         <fieldset >
           <legend><span class="number">2</span>회원이름</legend>
           <label for="name"></label>
@@ -364,7 +365,7 @@ text-align: center;
         	</div>
         	
         </div>
-
+	</div>
         <div class="can-2">
         <fieldset>
           <legend><span class="number">5</span>회원프로필</legend>
@@ -372,7 +373,7 @@ text-align: center;
           <textarea id="bio" name="member_profile" rows="8" cols="25" readonly>${dto.getMember_profile() }</textarea>
         </fieldset>
      	</div>
-               
+     <div class="start">          
 	            <div  class="can-1">
        	<div style="float: left;">
         <fieldset >
@@ -391,7 +392,7 @@ text-align: center;
           <label for="name"></label>
           <input type="text" id="name" name="member_regdate"  value="${dto.getMember_regdate() }"readonly>
         </fieldset>
-        	
+        	</div>
         </div>
         
 </div>
@@ -427,7 +428,7 @@ text-align: center;
       
       <td align="center">${dto1.getComent_num() }</td>
       
-     <td class="th-4" align="center" ><a href="<%=request.getContextPath()%>/admin_ComentList_content.do?num=${dto1.getComent_num()}">
+     <td class="th-4" align="center" ><a href="<%=request.getContextPath()%>/admin_ComentList_content.do?num=${dto1.getComent_num()}&id=${dto1.getMember_id()}&no=${dto1.getMovie_num()}">
 		  ${dto1.getMovie_coment() }</a></td>
 		  
      <td align="center">${num_son }</td>

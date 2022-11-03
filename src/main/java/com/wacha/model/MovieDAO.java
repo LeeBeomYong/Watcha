@@ -188,55 +188,59 @@ public class MovieDAO {
 		}//end
 		
 		public int insertMovie(MovieDTO dto) {
-		int result=0,count=0;
-	
+			int result=0,count=0;
 		
-		try {
-			openConn();
 			
-			sql="select max(movie_num) from movie";
-		
-			pstmt=con.prepareStatement(sql);
-			
-			rs=pstmt.executeQuery();
-			
-			if(rs.next()) {
-				count=rs.getInt(1)+1;
-			}
-			sql="insert into movie values(?,?,?,?,?,?,?,?,?,?)";
-			
-			pstmt=con.prepareStatement(sql);
-			
-			pstmt.setInt(1, count);
-			
-			pstmt.setString(2, dto.getMovie_title());
-			
-			pstmt.setString(3, dto.getMovie_cont());
-			
-			pstmt.setString(4, dto.getMovie_time());
-			
-			pstmt.setString(5, dto.getMovie_date());
-			
-			pstmt.setString(6, dto.getMovie_age());
-			
-			pstmt.setString( 7, dto.getMovie_genre());
-		
-			pstmt.setString(8, dto.getMovie_director());
-			
-			pstmt.setString(9, dto.getMovie_video());
+			try {
+				openConn();
 				
-			pstmt.setString(10, dto.getMovie_country());
+				sql="select max(movie_num) from movie";
 			
-			result=pstmt.executeUpdate();                               
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			closeConn(rs, pstmt, con);
+				pstmt=con.prepareStatement(sql);
+				
+				rs=pstmt.executeQuery();
+				
+				if(rs.next()) {
+					count=rs.getInt(1)+1;
+				}
+				sql="insert into movie values(?,?,?,?,?,?,?,?,?,?,?,?)";
+				
+				pstmt=con.prepareStatement(sql);
+				
+				pstmt.setInt(1, count);
+				
+				pstmt.setString(2, dto.getMovie_title());
+				
+				pstmt.setString(3, dto.getMovie_cont());
+				
+				pstmt.setString(4, dto.getMovie_time());
+				
+				pstmt.setString(5, dto.getMovie_date());
+				
+				pstmt.setString(6, dto.getMovie_age());
+				
+				pstmt.setString( 7, dto.getMovie_genre());
 			
-		}
-		return result;
-		}//end
+				pstmt.setString(8, dto.getMovie_country());
+				
+				pstmt.setString(9, dto.getMovie_director());
+				
+				pstmt.setString(10, dto.getMovie_video());
+					
+				pstmt.setInt(11, dto.getMovie_count());
+				
+				pstmt.setInt(12, dto.getMovie_hit());
+				
+				result=pstmt.executeUpdate();                               
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+				
+			}
+			return result;
+			}//end
 	
 		public MovieDTO movieContent(int num) {
 			MovieDTO dto = null;
@@ -526,27 +530,96 @@ public class MovieDAO {
 		}
 
 		// 감독별 영화 리스트
-		public List<MovieDTO> getMovieList(String director) {
-			List<MovieDTO> list = new ArrayList<MovieDTO>();
-			sql="select * from movie where movie_director = ?";
+		public List<MovieAndStarDTO> getMovieList(String director) {
+			openConn();
+			
+			String sql2="";
+			PreparedStatement pstmt2=null;
+			ResultSet rs2=null;
+			
+			List<MovieAndStarDTO> list = new ArrayList<MovieAndStarDTO>();
+			sql="select m.movie_num, m.movie_date, m.movie_title, m.movie_director,i.image_loc "
+					+ "from movie m,image i "
+					+ "where m.movie_num = i.movie_num and m.movie_director = ? "
+					+ "group by m.movie_num, m.movie_date, m.movie_title, m.movie_director, i.image_loc";
 			try {
 				pstmt=con.prepareStatement(sql);
 				pstmt.setString(1, director);
 				rs=pstmt.executeQuery();
 				while(rs.next()) {
-					MovieDTO dto = new MovieDTO();
+					MovieAndStarDTO movie_star_dto = new MovieAndStarDTO();
+					movie_star_dto.setMovie_date(rs.getString(2));
+					movie_star_dto.setMovie_title(rs.getString(3));
+					movie_star_dto.setMovie_director(rs.getString(4));
+					movie_star_dto.setMovie_imageloc(rs.getString(5));
 					
+					sql2="select round(avg(movie_star),1) from star where movie_num = ?";
 					
+					pstmt2=con.prepareStatement(sql2);
+					pstmt2.setInt(1, rs.getInt(1));
+					rs2=pstmt2.executeQuery();
+					if(rs2.next()) {
+						movie_star_dto.setMovie_avgstar(rs2.getDouble(1));
+					}
+					
+					list.add(movie_star_dto);
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}finally {
 				closeConn(rs, pstmt, con);
+				closeConn(rs2, pstmt2, con);
 			}
 			
 			return list;
 			
+		}
+
+
+		public List<MovieImageDTO> getMovie_genre(String movie_genre) {
+			
+			List<MovieImageDTO> list = new ArrayList<MovieImageDTO>();
+			String sql2="";
+			PreparedStatement pstmt2=null;
+			ResultSet rs2=null;
+			sql="select m.movie_num,i.image_loc,m.movie_title,m.movie_genre "
+					+ "from movie m, image i "
+					+ "where m.movie_num = i.movie_num and m.movie_genre =? "
+					+ "group by m.movie_num,i.image_loc,m.movie_title,m.movie_genre";
+			openConn();
+			try {
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, movie_genre);
+				rs=pstmt.executeQuery();
+				
+				while(rs.next()) {
+					MovieImageDTO dto = new MovieImageDTO();
+					dto.setMovie_num(rs.getInt("movie_num"));
+					dto.setMovie_title(rs.getString("movie_title"));
+					dto.setMovie_genre(rs.getString("movie_genre"));
+					dto.setMovie_imgloc(rs.getString("image_loc"));
+					
+					sql2="select round(avg(movie_star),1) from star where movie_num = ?";
+					pstmt2=con.prepareStatement(sql2);
+					pstmt2.setInt(1, dto.getMovie_num());
+					rs2=pstmt2.executeQuery();
+					if(rs2.next()) {
+						dto.setMovie_avgstar(rs.getDouble(1));
+					}
+					
+					list.add(dto);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+				closeConn(rs2, pstmt2, con);
+			}
+			
+			return list;
 		}
 }
 

@@ -484,6 +484,7 @@ p {
 				
 			</c:if>
 			
+			
 			<c:if test="${empty hilist }">
 				<h3>조회된 영화가 없습니다.</h3>
 			</c:if>

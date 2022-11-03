@@ -15,6 +15,7 @@ import com.wacha.model.MovieDTO;
 
 
 public class MovieDAO {
+	
 
 	// DB와 연동하는 객체.
 		Connection con = null;

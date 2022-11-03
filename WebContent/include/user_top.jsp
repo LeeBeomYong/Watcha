@@ -661,6 +661,7 @@
 	          	<li><a class="dropdown-item" href="<%=request.getContextPath() %>/answer_main.do">자주 묻는 질문</a></li>
 	          </ul>
 	        </li>
+	       
 	         &nbsp; &nbsp;&nbsp;
 	        <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">

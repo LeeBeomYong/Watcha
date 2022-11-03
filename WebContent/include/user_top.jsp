@@ -589,7 +589,7 @@
 		       <%-- 로그인 됨.--%>
 		       <c:if test="${!empty session_id }">
 		            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/inquiry_main.do">Q&A / 1:1문의</a></li>    
-		            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/write_result.do">문의내역</a></li>      
+		            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/write_result.do?id=${session_id}">문의내역</a></li>
 		       </c:if>
 				      
 		        <%-- 로그인 안됨. --%>

@@ -49,15 +49,17 @@ public class WachaContentPageAction implements Action {
 		
 		
 		HttpSession session = request.getSession();
-		if(session.getAttribute("member_Id")!=null) {
-			StarDTO star_dto=star_dao.getStar(movie_num, (String)session.getAttribute("member_Id"));
+		if(session.getAttribute("session_id")!=null) {
+			StarDTO star_dto=star_dao.getStar(movie_num, (String)session.getAttribute("session_id"));
 			
-			ComentDTO coment_dto =coment_dao.getComentInfo(movie_num, (String)session.getAttribute("member_Id"));
+			ComentDTO coment_dto =coment_dao.getComentInfo(movie_num, (String)session.getAttribute("session_id"));
 			
 			request.setAttribute("coment_dto", coment_dto);
 			request.setAttribute("star_dto", star_dto);
 			request.setAttribute("heart", star_dto.getMovie_heart());
+			System.out.println("찜 >>>>"+ star_dto.getMovie_heart());
 			request.setAttribute("watch", star_dto.getMovie_watch());
+			System.out.println("보는중 >>>>"+ star_dto.getMovie_watch());
 			
 		}
 		request.setAttribute("chk", 1);

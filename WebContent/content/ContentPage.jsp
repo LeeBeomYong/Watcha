@@ -17,7 +17,7 @@
 $(function() {
 	let count=0;
 	let look=0;		
-	if('<%=session.getAttribute("member_Id")%>' !=""){
+	if('<%=session.getAttribute("session_id")%>' !=""){
 		count=${heart};
 		look = ${watch};
 	}
@@ -107,7 +107,7 @@ $(function() {
 			url : "/WatchaProject/content/Star.jsp",
 			data : {star : star.value,
 					movieNum : ${mDto.getMovie_num()},
-					member_Id : '<%=session.getAttribute("member_Id")%>'
+					session_id : '<%=session.getAttribute("session_id")%>'
 					},
 			datatype : "text",
 			success : function(data){
@@ -125,7 +125,7 @@ $(function() {
 		let star_chk=0;
 		let curent_star=0;
 		$("input[name=reviewStar]").on("click",function(){
-			if('<%=session.getAttribute("member_Id")%>' !=""){
+			if('<%=session.getAttribute("session_id")%>' !=""){
 				$("label").css({"text-shadow":"0 0 0 #f0f0f0" , "color":"transparent"});
 				$("label").hover(function(){
 					$(this).css("text-shadow","0 0 0 rgba(250, 208, 0, 0.99)");
@@ -178,7 +178,7 @@ $(function() {
 		
 		// 보고 싶어요 이미지 변경
 		$("#topDiv_cont2_btn1").on("click",function(){
-			if('<%=session.getAttribute("member_Id")%>' !=""){
+			if('<%=session.getAttribute("session_id")%>' !=""){
 			if(count ==0 && look != 1){
 				$("#img1").attr("src","${pageContext.request.contextPath }/image/contImg/bookmark.png");
 				count=1;
@@ -193,7 +193,7 @@ $(function() {
 					url : "/WatchaProject/content/WantSee.jsp",
 					data : {
 							movieNum : ${mDto.getMovie_num()},
-							memberId : '<%=session.getAttribute("member_Id")%>',
+							memberId : '<%=session.getAttribute("session_id")%>',
 							countchk : count
 							},
 					datatype : "text",
@@ -213,7 +213,7 @@ $(function() {
 		
 		//보는중 색깔변경
 		$("#topDiv_cont2_btn3").on("click",function(){	
-			if('<%=session.getAttribute("memberId")%>' != "" ){
+			if('<%=session.getAttribute("session_id")%>' != "" ){
 			if(look==0){	
 				look=1;
 				$("#img3").attr("src","${pageContext.request.contextPath}/image/contImg/eye.png");	
@@ -222,7 +222,7 @@ $(function() {
 					url : "/WatchaProject/content/Looking.jsp",
 					data : {
 							movieNum : ${mDto.getMovie_num()},
-							memberId : '<%=session.getAttribute("member_Id")%>',
+							memberId : '<%=session.getAttribute("session_id")%>',
 							lookchk : look
 							},
 					datatype : "text",
@@ -242,7 +242,7 @@ $(function() {
 					url : "/WatchaProject/content/Looking.jsp",
 					data : {
 							movieNum : ${mDto.getMovie_num()},
-							memberId : '<%=session.getAttribute("member_Id")%>',
+							memberId : '<%=session.getAttribute("session_id")%>',
 							lookchk : look
 							},
 					datatype : "text",
@@ -278,7 +278,6 @@ $(function() {
 	    });
 
 	}); // 제이쿼리 end 부분
-
 	
 	function showPopUp() {
 		if('<%=session.getAttribute("memberId")%>' != ""){
@@ -294,7 +293,7 @@ $(function() {
 		    var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
 		
 		       //연결하고싶은url
-		    const url = "${pageContext.request.contextPath}/content/MyOpinion.jsp?movie_num=${mDto.getMovie_num()}&member_Id=${sessionScope.member_Id}";
+		    const url = "${pageContext.request.contextPath}/content/MyOpinion.jsp?movie_num=${mDto.getMovie_num()}&session_id=${sessionScope.session_id}";
 		       
 		    //등록된 url 및 window 속성 기준으로 팝업창을 연다.
 		    window.open(url, "hello popup", windowStatus);
@@ -568,7 +567,7 @@ $(function() {
                                        </div>
                                        <hr>
                                        <%--게시글 중단 --%>
-                                       <a href="<%=request.getContextPath()%>/wacha_coment.do?coment_num=${coment.getComent_num() }&movie_num=${coment.getMovie_num()}&member_Id=${coment.getMember_id()}">
+                                       <a href="<%=request.getContextPath()%>/wacha_coment.do?coment_num=${coment.getComent_num() }&movie_num=${coment.getMovie_num()}&session_id=${coment.getMember_id()}">
                                        <div class="coment_midle">
                                           <span>
                                              ${coment.getMovie_coment() }
@@ -599,7 +598,7 @@ $(function() {
                                  </div>
                                  <hr>
                                  <%--게시글 중단 --%>
-                                 <a href="<%=request.getContextPath()%>/wacha_coment.do?coment_num=${coment.getComent_num() }&movie_num=${coment.getMovie_num()}&member_Id=${coment.getMember_id()}">
+                                 <a href="<%=request.getContextPath()%>/wacha_coment.do?coment_num=${coment.getComent_num() }&movie_num=${coment.getMovie_num()}&session_id=${coment.getMember_id()}">
                                  <div class="coment_midle">
                                     <span>
                                        ${coment.getMovie_coment() }
@@ -736,7 +735,7 @@ $(function() {
 		<div class="modal2">
 		      <div class="modal_body2">
 		      	<form action="<%=request.getContextPath()%>/wacha_coment_Ok.do">
-		      		<input type="hidden" value="${sessionScope.member_Id}" name="member_Id">
+		      		<input type="hidden" value="${sessionScope.session_id}" name="session_id">
 		        	<input type="hidden" value="${mDto.getMovie_num()}" name="movie_num">
 		        	<input type="hidden" value="${chk}" name="chk">
 		      		

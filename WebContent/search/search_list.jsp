@@ -335,7 +335,7 @@
 											    </div>
 											</li>
 											<li>
-												<input class="more" type="button" value="더보기" onclick="location.href='profile.do?member_id=${list.member_id}'" />
+												<input class="more" type="button" value="더보기" onclick="location.href='otherprofile.do?member_id=${list.member_id}'" />
 											</li>
 										</ul>
 										

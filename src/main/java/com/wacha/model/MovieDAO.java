@@ -66,7 +66,7 @@ public class MovieDAO {
 				// 2단계 : lookup() 메서드를 이용하여 매칭되는
 				//        커넥션을 찾는다.
 				DataSource ds =
-					(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
+					(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
 				
 				// 3단계 : DataSource 객체를 이용하여
 				//        커넥션을 하나 가져온다.
@@ -652,7 +652,33 @@ public class MovieDAO {
 			
 			return list;
 		} 
-		
+		public int deleteMovie(int num) {
+			int result=0;
+			
+			try {
+				openConn();
+				
+				sql="delete from movie where movie_num=?"; 
+				
+				pstmt=con.prepareStatement(sql);
+				
+				pstmt.setInt(1, num);
+				
+				result=pstmt.executeUpdate();
+				
+				sql="update movie set movie_num = movie_num-1 where movie_num>?";
+				
+				pstmt.setInt(1, num);
+				
+				pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+			}return result;
+		}
 		
 }
 

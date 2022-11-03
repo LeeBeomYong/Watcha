@@ -54,16 +54,13 @@
 <head>
 <meta charset="UTF-8">
 <title>영화 리뷰 플랫폼</title>
+<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 <style>
 
 #wrapper {
 	margin: auto;
-	width: 85%;
+	width: 90%;
 	padding-top: 45px;
-}
-
-.li_1 > a {
-	text-decoration: none;
 }
 
 .li_1 {
@@ -105,10 +102,6 @@ a:linked, a:visited {
 	color: #000;
 }
 
-.li_1 {
-	margin: 10px;
-}
-
 img {
 	margin: 5%;
 }
@@ -118,24 +111,14 @@ p {
 	font-size: 27px;
 }
 
-.carousel-control-prev, .carousel-control-next {
-	opacity: 1;
-	width: 3%;
-	z-index: 0;
-}
-
-.carousel-control-prev:hover, .carousel-control-next:hover {
-	pointer-events:none;
-}
-
 #carouselExampleControls1, #carouselExampleControls2, #carouselExampleControls3 {
 	margin-bottom: 30px;
 }
 
 .poster {
 	border-radius: 5px;
-	width: 210px;
-	height: 300px;
+	width: 230px;
+	height: 330px;
 }
 
 .ex_box_1 {
@@ -148,15 +131,6 @@ p {
 	margin-left: 10px;
 	font-size: 13px;
 	color: rgb(255, 53, 94);
-}
-
-p {
-	font-weight: 600;
-	font-size: 27px;
-}
-
-.carousel-control-prev-icon {
-	background-image: url("");
 }
 
 .main_poster {
@@ -178,19 +152,17 @@ p {
 	margin-left: 20px;
 }
 
-.carousel-control-prev-icon {
-	width: 30px;
-	height: 30px;
-	background-image: url('./image/left_arrow.png');
-	color: red;
+.carousel-control {
+	top: 20%;
+	bottom: 20%;
 }
 
-.carousel-control-next-icon {
-	width: 30px;
-	height: 30px;
-	background-image: url('./image/right_arrow.png'); 
+#prv_btn, #nxt_btn {
+	width: 12%;
+	z-index: 3;
+	opacity: 0.7;
+	margin-left: 5px;
 }
-
 
 </style>
 </head>
@@ -231,8 +203,8 @@ p {
 	
 		<div class="carousel-inner">
 		
-			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="prev">
-			    <span class="carousel-control-prev-icon" ></span>
+			<button id="prv_btn" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="prev">
+			    <span id="prv" class="carousel-control-prev-icon" aria-hidden="true"></span>
 			    <span class="visually-hidden">Previous</span>
 			</button>
 			
@@ -244,10 +216,10 @@ p {
 					<ul class="ul_1">
 						<li class="li_1">
 							<c:forEach var="ilist" items="${comIlist}" begin="0" end="4" varStatus="status">
-								<a href="<%=request.getContextPath()%>/movie_content.do?num=${ilist.movie_num}">
+								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${ilist.movie_num}">
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
-								    	<img class="poster" src="${ilist.image_loc} " alt="영화 포스터 이미지" />
+								    	<img class="poster" src="${ilist.image_loc}" alt="영화 포스터 이미지" />
 								    </div>
 								    <div class="ex_box_1">
 								    	${comMlist[status.index].movie_title}
@@ -257,7 +229,6 @@ p {
 								    </div>
 							    </a>
 							</c:forEach>
-							
 						</li>
 					</ul>
 					
@@ -268,7 +239,7 @@ p {
 					<ul class="ul_1">
 						<li class="li_1">
 							<c:forEach var="ilist" items="${comIlist}" begin="5" end="9" varStatus="status">
-								<a href="<%=request.getContextPath()%>/movie_contente.do?num=${ilist.movie_num}">	
+								<a href="<%=request.getContextPath()%>/movie_contente.do?movie_num=${ilist.movie_num}">	
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
 								    	<img class="poster" src="${ilist.image_loc} " alt="영화 포스터 이미지" />
@@ -291,8 +262,8 @@ p {
 				<h3>조회된 영화가 없습니다.</h3>
 			</c:if>
 							
-			<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="next">
-			    <span class="carousel-control-next-icon" ></span>
+			<button id="nxt_btn" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="next">
+			    <span id="nxt" class="carousel-control-next-icon" aria-hidden="true"></span>
 			    <span class="visually-hidden">Next</span>
 			</button>
 		
@@ -311,8 +282,8 @@ p {
 
 		<div class="carousel-inner">
 		
-			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="prev">
-			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<button id="prv_btn" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="prev">
+			    <span id="prv" class="carousel-control-prev-icon" aria-hidden="true"></span>
 			    <span class="visually-hidden">Previous</span>
 			</button>
 			
@@ -322,7 +293,7 @@ p {
 					<ul class="ul_1">
 						<li class="li_1">
 							<c:forEach var="list" items="${sIlist}" begin="0" end="4" varStatus="status">
-								<a href="<%=request.getContextPath()%>/movie_content.do?num=${sMlist[status.index].movie_num}">	
+								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${sMlist[status.index].movie_num}">	
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
 								    	<img class="poster" src="${list.image_loc} " alt="영화 포스터 이미지" />
@@ -343,7 +314,7 @@ p {
 					<ul class="ul_1">
 						<li class="li_1">
 							<c:forEach var="list" items="${sIlist}" begin="5" end="9" varStatus="status">
-								<a href="<%=request.getContextPath()%>/movie_content.do?num=${sMlist[status.index].movie_num}">	
+								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${sMlist[status.index].movie_num}">	
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
 								    	<img class="poster" src="${list.image_loc} " alt="영화 포스터 이미지" />
@@ -366,8 +337,8 @@ p {
 				<h3>조회된 영화가 없습니다.</h3>
 			</c:if>
 							
-			<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="next">
-			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<button id="nxt_btn" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="next">
+			    <span id="nxt" class="carousel-control-next-icon" aria-hidden="true"></span>
 			    <span class="visually-hidden">Next</span>
 			</button>
 		
@@ -386,8 +357,8 @@ p {
 
 		<div class="carousel-inner">
 		
-			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls3" data-bs-slide="prev">
-			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<button id="prv_btn" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls3" data-bs-slide="prev">
+			    <span id="prv" class="carousel-control-prev-icon" aria-hidden="true"></span>
 			    <span class="visually-hidden">Previous</span>
 			</button>
 			
@@ -397,7 +368,7 @@ p {
 					<ul class="ul_1">
 						<li class="li_1">
 							<c:forEach var="ilist" items="${hIlist}" begin="0" end="4" varStatus="status">
-								<a href="<%=request.getContextPath()%>/movie_content.do?num=${hMlist[status.index].movie_num}">	
+								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${hMlist[status.index].movie_num}">	
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
 								    	<img class="poster" src="${ilist.image_loc} " alt="영화 포스터 이미지" />
@@ -418,7 +389,7 @@ p {
 					<ul class="ul_1">
 						<li class="li_1">
 							<c:forEach var="ilist" items="${hIlist}" begin="5" end="9" varStatus="status">
-								<a href="<%=request.getContextPath()%>/movie_content.do?num=${hMlist[status.index].movie_num}">	
+								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${hMlist[status.index].movie_num}">	
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
 								    	<img class="poster" src="${ilist.image_loc} " alt="영화 포스터 이미지" />
@@ -441,8 +412,8 @@ p {
 				<h3>조회된 영화가 없습니다.</h3>
 			</c:if>
 							
-			<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls3" data-bs-slide="next">
-			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<button id="nxt_btn" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls3" data-bs-slide="next">
+			    <span id="nxt" class="carousel-control-next-icon" aria-hidden="true"></span>
 			    <span class="visually-hidden">Next</span>
 			</button>
 		
@@ -461,8 +432,8 @@ p {
 
 		<div class="carousel-inner">
 		
-			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls4" data-bs-slide="prev">
-			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<button id="prv_btn" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls4" data-bs-slide="prev">
+			    <span id="prv" class="carousel-control-prev-icon" aria-hidden="true"></span>
 			    <span class="visually-hidden">Previous</span>
 			</button>
 			
@@ -472,7 +443,7 @@ p {
 					<ul class="ul_1">
 						<li class="li_1">
 							<c:forEach var="ilist" items="${hilist}" begin="0" end="4" varStatus="status">
-								<a href="<%=request.getContextPath()%>/movie_content.do?num=${hmlist[status.index].movie_num}">	
+								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${hmlist[status.index].movie_num}">	
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
 								    	<img class="poster" src="${ilist.image_loc} " alt="영화 포스터 이미지" />
@@ -493,7 +464,7 @@ p {
 					<ul class="ul_1">
 						<li class="li_1">
 							<c:forEach var="ilist" items="${hilist}" begin="5" end="9" varStatus="status">
-								<a href="<%=request.getContextPath()%>/movie_content.do?num=${hmlist[status.index].movie_num}">	
+								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${hmlist[status.index].movie_num}">	
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
 								    	<img class="poster" src="${ilist.image_loc} " alt="영화 포스터 이미지" />
@@ -516,8 +487,8 @@ p {
 				<h3>조회된 영화가 없습니다.</h3>
 			</c:if>
 							
-			<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls4" data-bs-slide="next">
-			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<button id="nxt_btn" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls4" data-bs-slide="next">
+			    <span id="nxt" class="carousel-control-next-icon" aria-hidden="true"></span>
 			    <span class="visually-hidden">Next</span>
 			</button>
 		

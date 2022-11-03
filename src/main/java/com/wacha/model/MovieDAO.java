@@ -621,5 +621,14 @@ public class MovieDAO {
 			
 			return list;
 		}
+		
+		public int deleteMovie(int num) {
+			int result=0;
+			
+			openConn();
+			
+			sql="delete from movie where movie_num";
+		}
+		
 }
 

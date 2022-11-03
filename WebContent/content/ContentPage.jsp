@@ -271,17 +271,18 @@ $(function() {
 		if('<%=session.getAttribute("memberId")%>' != "" ){
 			$("#rate${6-star_dto.getMovie_star()}").attr("checked","checked");
 		}
+		$(".btn-open-popup2").on("click",function(){  
+	    	$(".modal_body2").css("display","block");
+	    	$(".modal2").css("display","block");
+	    });
 		
-		
-		const modal2 = document.querySelector('.modal2');
-	
-	      $(".btn-open-popup2").on("click",function(){
-	    	  modal2.style.display = 'block';
-	      });
-	     
-		
-		
+		$(".btn-close").on("click",function(){
+	    	$(".modal_body2").css("display","none");
+	    	$(".modal2").css("display","none");
+	    });
+
 	}); // 제이쿼리 end 부분
+
 	
 	function showPopUp() {
 		if('<%=session.getAttribute("memberId")%>' != ""){
@@ -305,6 +306,15 @@ $(function() {
 			alert("로그인 부터 ㅠㅠ");
 		}
 	}
+	
+    $(document).mouseup(function (e){
+		if($(".modal2").has(e.target).length === 0) {
+			$(".modal_body2").css("display","none");
+	    	$(".modal2").css("display","none");
+		}
+    });
+    
+
 
 </script>
 
@@ -312,8 +322,10 @@ $(function() {
 <script type="text/javascript" src="${pageContext.request.contextPath}/content/contjs/contJs.js" defer="defer"></script>
 
 </head>
-<body style="overflow: auto;">
+
+<body>
 	<jsp:include page="../include/user_top.jsp"/>
+	
 	
 	
 	<!-- 임시 로그인 세션 값  -->
@@ -337,7 +349,6 @@ $(function() {
 			</div>
 		</div>
 	</div>
-	
 	
 	<%-- 상단 페이지 내용  --%>
 	<div id="topDiv">
@@ -386,15 +397,12 @@ $(function() {
 							</div>
 						</button>
 						<button id="topDiv_cont2_btn2">
-								<div class="cont2_btn">
-									<img alt="없음" src="${pageContext.request.contextPath }/image/contImg/pen.png" width="20px" height="20px" class="btn-open-popup2">
+								<div class="cont3_btn btn-open-popup2">
+									<img alt="없음" src="${pageContext.request.contextPath }/image/contImg/pen.png" width="20px" height="20px" >
 									<span class="cont2_btn_span">코멘트</span>
+									
 								</div>
-								    <div class="modal2">
-								      <div class="modal_body2">
-								      
-								      </div>
-								    </div>
+
 						</button>
 						<button id="topDiv_cont2_btn3">
 							<div class="cont2_btn">
@@ -419,13 +427,20 @@ $(function() {
 							</div>
 						</button>
 					</div>
+					
 				</div>
 			</div>
 		</div>
+		
+
+		
 	<div id="graydiv">
+		
 	<div id="realTop">
+		
 	<%-- 기본 정보  || 유튜브 영상 및 갤러리 --%>
 	<div id="centerDiv">
+		
 		<!-- 상세 정보 (내용/출연진/그래프/코멘트/컬렉션) Div -->
 		<div>
 			<c:if test="${!empty coment_dto}">
@@ -525,8 +540,7 @@ $(function() {
 			
 			
 			<%-- 코멘트 영역  --%>          
-            <div >
-            
+            <div>     
             <%-- 코멘트 상단 --%>
 				<div id="coment_title">
 			 		<div>
@@ -553,7 +567,7 @@ $(function() {
                                              <span>${coment.getMember_id() }</span>
                                           </div>
                                           <div>
-                                             <img alt="없" src="">
+                                            	<span>★</span>
                                           </div>
                                        </div>
                                        <hr>
@@ -572,9 +586,6 @@ $(function() {
                                           <img alt="" src="${pageContext.request.contextPath }/image/contImg/talk.png" width="15px" height="15px">&nbsp; <span>${coment.getCocoment_count()}</span>
                                        </div>
                                        <hr>
-                                       <div>
-                                          <a href="#">좋아요</a>
-                                       </div>
                               </div>   
                          
                          </c:when>
@@ -661,6 +672,9 @@ $(function() {
 		
 	</div><%-- 상세 페이지 끝 영역 --%>
 	</div>
+	
+
+	
 	<!-- 미리보기 영상/갤러리 Div -->
 	      <div id="cd_youtube">
          
@@ -722,7 +736,36 @@ $(function() {
       </div>
       
 	</div>
-	
+					<!-- 코멘트 말록 영역 -->
+		<div class="modal2">
+		      <div class="modal_body2">
+		      	<form action="<%=request.getContextPath()%>/wacha_coment_Ok.do">
+		      		<input type="hidden" value="${sessionScope.member_Id}" name="member_Id">
+		        	<input type="hidden" value="${mDto.getMovie_num()}" name="movie_num">
+		        	<input type="hidden" value="${chk}" name="chk">
+		      		
+		      		<div id="modal_be">
+		      			<span>${mDto.getMovie_title()}</span>
+		      			<button type="button" class="btn-close" aria-label="Close"></button>
+		      		</div>
+		      		<div id="modal_input" class="ratio ratio-1x1">
+		      			<textarea rows="10" cols="9" name="content">${coment_dto.getMovie_coment() }</textarea>
+		      		</div>
+		      		<div>
+						<c:if test="${!empty coment_dto }">
+		      				<button type="submit" class="btn btn-danger">수정</button>
+						</c:if>
+						<c:if test="${empty coment_dto }">
+		      				<button type="submit" class="btn btn-danger">등록</button>
+						</c:if>
+		      		</div>
+		      		
+		      		<div>
+		      			<img src="./image/watchapedia2.png" alt="왓챠피디아 로고" title="왓챠피디아" width="250" height="50" />
+		      		</div>
+		      </form>
+		      </div>
+	   	</div>
 	
 	<jsp:include page="../include/user_bottom.jsp"/>
 </body>

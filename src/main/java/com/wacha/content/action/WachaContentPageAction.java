@@ -60,7 +60,7 @@ public class WachaContentPageAction implements Action {
 			request.setAttribute("watch", star_dto.getMovie_watch());
 			
 		}
-		
+		request.setAttribute("chk", 1);
 		request.setAttribute("mDto", mDto);
 		request.setAttribute("clist", clist);
 		request.setAttribute("avgStar", avgStar);

@@ -91,6 +91,16 @@
 	
 	$(function(){
 
+		$(".btn-open-popup2").on("click",function(){  
+	    	$(".modal_body2").css("display","block");
+	    	$(".modal2").css("display","block");
+	    });
+		
+		$(".btn-close").on("click",function(){
+	    	$(".modal_body2").css("display","none");
+	    	$(".modal2").css("display","none");
+	    });
+		
 	let cnt=0;
 	
 	function getList(){
@@ -235,6 +245,13 @@
 	
 	getList();
 });
+	
+    $(document).mouseup(function (e){
+		if($(".modal2").has(e.target).length === 0) {
+			$(".modal_body2").css("display","none");
+	    	$(".modal2").css("display","none");
+		}
+    });
 
 
 </script>
@@ -285,6 +302,52 @@
 	
 	}
 	
+	.modal2 {
+        display: none; /* Hidden by default */
+		position: absolute; /* Stay in place */
+		 /* Sit on top */
+		left: 0;
+		top: 0;
+		width: 100%; /* Full width */
+		height: 100%; /* Full height */
+		background-color: rgb(0,0,0); /* Fallback color */
+		background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		padding-top: 60px;
+      }
+      .modal2.show {
+        display: block;
+      }
+      .modal_body2 {
+       border-radius: 10px;
+		width: 400px;
+		height: 400px;
+		z-index: 2;
+		position: absolute;
+		text-align: center;
+		background-color: #fff;
+		margin-top: -2%;
+		top:50%; 
+		left:50%;
+		transform: translate(-50%,-50%);
+		padding: 5px;
+		display: none;
+     }
+     .modal_body2 div{
+     	margin: 3% 0;
+     }
+	 #modal_be{
+	 	display: flex;
+	 	justify-content: space-between;
+	 	margin: 2% 3%;
+	 }
+	 #modal_input{
+	 	width: 390px;
+	 	height: 230px;
+	 	display: flex;
+	 	justify-content: center;
+	 	align-items: center;
+	 }
+	
 	
 </style>
 <title>Insert title here</title>
@@ -331,7 +394,7 @@
 					  <ul class="dropdown-menu">
 					  <c:choose>
 						  <c:when test="${coment_dto.getMember_id() == sessionScope.member_Id}">
-						  	<li><a class="dropdown-item" onclick="if('<%=session.getAttribute("member_Id")%>' == null){return;}else{ javascript:showPopUp()}">게시글 수정</a></li>
+						  	<li><a class="dropdown-item btn-open-popup2">게시글 수정</a></li>
 						    <li><a class="dropdown-item" onclick="if(confirm('정말로 삭제하시겠습니까?')){ location.href='wacha_coment_delete.do?movie_num=${movie_dto.getMovie_num()}&coment_num=${coment_dto.getComent_num()}';  alert('삭제되었습니다.');}else{ return;}">게시글 삭제</a></li>
 						  </c:when>
 						   <c:otherwise>
@@ -401,6 +464,37 @@
 		
 		</div>
 	</div>
+	
+	
+	<div class="modal2">
+      <div class="modal_body2">
+      	<form action="<%=request.getContextPath()%>/wacha_coment_Ok.do">
+      		<input type="hidden" value="${sessionScope.member_Id}" name="member_Id">
+        	<input type="hidden" value="${movie_dto.getMovie_num()}" name="movie_num">
+      		
+      		<div id="modal_be">
+      			<span>${movie_dto.getMovie_title()}</span>
+      			<button type="button" class="btn-close" aria-label="Close"></button>
+      		</div>
+      		<div id="modal_input" class="ratio ratio-1x1">
+      			<textarea rows="10" cols="9" name="content">${coment_dto.getMovie_coment() }</textarea>
+      		</div>
+      		<div>
+				<c:if test="${!empty coment_dto }">
+      				<button type="submit" class="btn btn-danger">수정</button>
+				</c:if>
+				<c:if test="${empty coment_dto }">
+      				<button type="submit" class="btn btn-danger">등록</button>
+				</c:if>
+      		</div>
+      		
+      		<div>
+      			<img src="./image/watchapedia2.png" alt="왓챠피디아 로고" title="왓챠피디아" width="250" height="50" />
+      		</div>
+      </form>
+      </div>
+  	</div>
+	
 	<jsp:include page="../include/user_bottom.jsp"/>
 </body>
 </html>

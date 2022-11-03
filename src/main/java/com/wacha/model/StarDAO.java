@@ -1038,7 +1038,6 @@ public class StarDAO {
 					closeConn(rs, pstmt, con);
 				}
 			}
-			 
 }
 
 

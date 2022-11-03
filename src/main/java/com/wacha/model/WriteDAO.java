@@ -26,7 +26,6 @@ public class WriteDAO {
 		// 쿼리문을 저장할 변수
 		String sql = null;
 		
-		
 		// 1단계 : 싱글턴 방식으로 객체를 만들기 위해서는 우선적으로
 		//        기본생성자의 접근제어자를 public이 아닌 private
 		//        으로 바꾸어 주어야 한다.
@@ -64,7 +63,7 @@ public class WriteDAO {
 				// 2단계 : lookup() 메서드를 이용하여 매칭되는
 				//        커넥션을 찾는다.
 				DataSource ds =
-					(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
+					(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
 				
 				// 3단계 : DataSource 객체를 이용하여
 				//        커넥션을 하나 가져온다.
@@ -141,11 +140,12 @@ public class WriteDAO {
 						
 						dto = new UserDTO();
 						
-						dto.setMember_id(rs.getString("member_id"));
 						dto.setMember_name(rs.getString("member_name"));
+						dto.setMember_id(rs.getString("member_id"));
 						dto.setMember_pwd(rs.getString("member_pwd"));
 						dto.setMember_profile(rs.getString("member_profile"));
 						dto.setMember_birth(rs.getString("member_birth"));
+						dto.setMember_image(rs.getString("member_img"));
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -228,6 +228,7 @@ public class WriteDAO {
 					dto.setNotice_title(rs.getString("notice_title"));
 					dto.setNotice_content(rs.getString("notice_content"));
 					dto.setNotice_hit(rs.getInt("notice_hit"));
+					dto.setNotice_date(rs.getString("notice_date"));
 					
 					list.add(dto);
 				}
@@ -259,8 +260,8 @@ public class WriteDAO {
 					WriteDTO dto = new WriteDTO();
 					
 					dto.setWrite_num(rs.getInt("write_num"));
-					dto.setWrite_title(rs.getString("write_title"));
 					dto.setWrite_cont(rs.getString("write_cont"));
+					dto.setWrite_title(rs.getString("write_title"));
 					dto.setWrite_pwd(rs.getString("write_pwd"));
 					dto.setWrite_hit(rs.getInt("write_hit"));
 					dto.setWrite_date(rs.getString("write_date"));
@@ -432,15 +433,15 @@ public class WriteDAO {
 			
 		}
 
-		//XD
+
 		
-		public WriteDTO userContentWrite(String id) {
-			WriteDTO dto = null;
+		public List<WriteDTO> userContentWrite(String id) {
+			List<WriteDTO>list= new ArrayList<WriteDTO>();
 			
 			try {
 				openConn();
 				
-				sql="select * from write where member_id=?";
+				sql="select * from write where member_id=? order by write_num desc";
 								
 				pstmt=con.prepareStatement(sql);
 				
@@ -448,16 +449,18 @@ public class WriteDAO {
 				
 				rs= pstmt.executeQuery();
 				
-				if(rs.next()) {
-					dto=new WriteDTO();
+				while(rs.next()) {
+					WriteDTO dto=new WriteDTO();
 					
 					dto.setWrite_num(rs.getInt("write_num"));
-					dto.setWrite_title(rs.getString("write_title"));
 					dto.setWrite_cont(rs.getString("write_cont"));
+					dto.setWrite_title(rs.getString("write_title"));
 					dto.setWrite_pwd(rs.getString("write_pwd"));
 					dto.setWrite_hit(rs.getInt("write_hit"));
 					dto.setWrite_date(rs.getString("write_date"));
 					dto.setMember_id(rs.getString("member_id"));
+					
+					list.add(dto);
 				}
 				
 			} catch (SQLException e) {
@@ -465,7 +468,7 @@ public class WriteDAO {
 				e.printStackTrace();
 			}finally {
 				closeConn(rs, pstmt, con);
-			}return dto;
+			}return list;
 		}
 
 		// board 테이블의 전체 게시물의 수를 확인하는 메서드.
@@ -774,7 +777,7 @@ public class WriteDAO {
 					count = rs.getInt(1) + 1;
 				}
 				
-				sql = "insert into w_write values(?, ?, sysdate, ?, ?, 0)";
+				sql = "insert into w_write values(?, ?, sysdate, ?, '', ?)";
 				pstmt = con.prepareStatement(sql);
 				
 				pstmt.setInt(1, count);
@@ -813,8 +816,8 @@ public class WriteDAO {
 					dto.setW_cont(rs.getString("w_cont"));
 					dto.setW_date(rs.getString("w_date"));
 					dto.setW_file(rs.getString("w_file"));
-					dto.setW_id(rs.getString("member_id"));
 					dto.setW_reply(rs.getString("w_reply"));
+					dto.setW_id(rs.getString("member_id"));
 					
 					list.add(dto);
 					
@@ -852,8 +855,8 @@ public class WriteDAO {
 					dto.setW_cont(rs.getString("w_cont"));
 					dto.setW_date(rs.getString("w_date"));
 					dto.setW_file(rs.getString("w_file"));
-					dto.setW_id(rs.getString("member_id"));
 					dto.setW_reply(rs.getString("w_reply"));
+					dto.setW_id(rs.getString("member_id"));
 					
 				}
 			} catch (SQLException e) {
@@ -934,6 +937,7 @@ public class WriteDAO {
 				dto.setNotice_title(rs.getString("notice_title"));
 				dto.setNotice_content(rs.getString("notice_content"));
 				dto.setNotice_hit(rs.getInt("notice_hit"));
+				dto.setNotice_date(rs.getString("notice_date"));
 				
 				
 			}
@@ -957,7 +961,7 @@ public class WriteDAO {
 		openConn();
 		
 		try {
-			sql = "select * from reply where write_num = ?";
+			sql = "select * from reply where write_num = ? order by reply_num desc";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
@@ -1011,5 +1015,49 @@ public class WriteDAO {
 	}
 	
 	
-}
+	
+	
+	public int insertReply(ReplyDTO dto) {
+		
+		int result = 0, count = 0;
+		
+		openConn();
+		
+		try {
+			sql = "select max(reply_num) from reply"; 
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1) + 1;
+			}
+			
+			sql = "insert into reply values(?, ?, sysdate, ?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, count);
+			pstmt.setString(2, dto.getReply_cont());
+			pstmt.setInt(3, dto.getWrite_num());
+			
+			result = pstmt.executeUpdate();
+			
+			sql = "update write set write_reply = 1 where write_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, dto.getWrite_num());
+			pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+		
+	}
 
+	
+	
+	
+	
+}

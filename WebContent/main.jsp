@@ -89,7 +89,7 @@
 
 .ul_1 {
 	list-style-type: none;
-	margin-left: 50px;
+	margin-left: 20px;
 }
 
 .li_1 > a {
@@ -120,6 +120,7 @@ p {
 	width: 230px;
 	height: 330px;
 }
+
 
 .ex_box_1 {
 	margin-left: 10px;
@@ -495,6 +496,8 @@ p {
 		</div>
 		
 	</div>
+	
+	<br />
 		
 	</div> <%-- #wrapper end --%>
 	

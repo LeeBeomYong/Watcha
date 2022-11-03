@@ -31,7 +31,8 @@
 
 
          $.ajax({
-             url:'/WatchaProject/lby/chart.jsp',
+//              url:'/WatchaProject/lby/chart.jsp',
+             url:'<%=request.getContextPath() %>/lby/chart.jsp',
              data: {},
              success: function(res) {
                  table_data = eval("(" + res + ")");
@@ -111,6 +112,10 @@
 		float: left;
 		
 	}
+	
+	img {
+		margin: 0 !important;
+	}
 
 </style>
 </head>
@@ -154,7 +159,7 @@
 				<div>
 					<div>
 						<h5><strong>별점분포</strong></h5><br>
-						<c:if test="${review_count < 5}">
+						<c:if test="${review_count < 10}">
 							<p style="position:absolute; left: 40%; color: red;">평가가 너무 적어요 ㅠ.ㅠ</p>
 							<br><br>
 						</c:if>

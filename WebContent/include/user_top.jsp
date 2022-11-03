@@ -637,7 +637,6 @@
 	    font-size: 13px;
 	}
 	
-
 </style>
 </head>
 <body>
@@ -664,16 +663,26 @@
 	        </li>
 	         &nbsp; &nbsp;&nbsp;
 	        <li class="nav-item dropdown">
-	          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-	            게시판
-	          </a>
-	          <ul class="dropdown-menu">
-	            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/#">자유게시판</a></li>
-	            <li><hr class="dropdown-divider"></li>
-	            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/inquiry_main.do">Q&A / 1:1문의</a></li>
-	            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/write_result.do">문의내역</a></li>      
-	          </ul>
-	        </li>
+              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                게시판
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="<%=request.getContextPath() %>/#">자유게시판</a></li>
+                    <li><hr class="dropdown-divider"></li>
+
+               <%-- 로그인 됨.--%>
+               <c:if test="${!empty session_id }">
+                    <li><a class="dropdown-item" href="<%=request.getContextPath() %>/inquiry_main.do">Q&A / 1:1문의</a></li>
+                    <li><a class="dropdown-item" href="<%=request.getContextPath() %>/write_result.do">문의내역</a></li>
+               </c:if>
+
+                <%-- 로그인 안됨. --%>
+                <c:if test="${empty session_id }">
+                    <li><a class="dropdown-item" href="<%=request.getContextPath() %>/inquiry_main.do">Q&A문의</a></li>
+                </c:if>
+
+              </ul>
+            </li>
 	      </ul>
 	     
 	     <form method="post" action="<%=request.getContextPath() %>/keyword_search.do" name="search">

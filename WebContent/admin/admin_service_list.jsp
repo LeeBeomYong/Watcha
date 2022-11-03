@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>◝₍ᴑ̑ДO͝₎◞</title>
+<title>고객센터 리스트 페이지</title>
 <style type="text/css">
 body {
   color: #666;
@@ -150,51 +150,101 @@ tr:last-child td:last-child {
 </head>
 
 <body>
-	<jsp:include page="../include/admin_top.jsp" />
+		<jsp:include page="../include/admin_top.jsp" />
+		
+		<section>
+	  <!--for demo wrap-->
+	  <h1>고객센터</h1>
+	  <div class="tbl-header">
+	<table>
 	
+	  <thead align="center">
+	    <tr>
+	      <th>#</th>
+	      <th>글제목</th>
+	      <th class="th-6">작성자</th>
+	      <th>작성일자</th>
+	      <th>조회수</th>
+	      <th class="th-4">답변</th>
+	      <th class="th-4">삭제</th>
+	    </tr>
+	  </thead>
+	  <c:set var="list" value="${List }"  />
+			<c:forEach items="${list }" var="dto">
+	  <tbody>
+	    <tr>
+	      <td align="center">${dto.getWrite_num() }</td>
+	      <td>${dto.getWrite_title() }</td>
+	      <td>${dto.getMember_id() }</td>
+		 <td align="center">${dto.getWrite_date().substring(0,10) }</td>
+	      <td align="center" class="th-5">${dto.getWrite_hit() }</td>
+	      <td>
+	      	<c:if test="${dto.getWrite_reply() ne 1 }">
+		      	<a href="<%=request.getContextPath() %>/admin_service_write.do?num=${dto.getWrite_num()}" class="button3 b-blue rot-135">답변</a>      	
+	      	</c:if>
+	      	<c:if test="${dto.getWrite_reply() eq 1 }">
+		      	<a class="button3 b-blue rot-135" onclick="alert('이미 답변 완료한 문의입니다.')" style="filter: hue-rotate(135deg);">완료</a>      	      		
+	      	</c:if>
+	      </td>
+	      <td><a href="<%=request.getContextPath() %>/admin_service_delete.do?num=${dto.getWrite_num() }" onclick="return confirm('정말 삭제 하시겠습니까 ?')" class="button3 b-blue rot-135" >삭제</a></td>
+	    </tr>
+	    
+	  </tbody>
+	  </c:forEach>
+	  
+	</table>
+	
+		
+	  </div>
+	</section>
+
+
+
+
 	<section>
-  <!--for demo wrap-->
-  <h1>공지사항</h1>
-  <div class="tbl-header">
-<table>
-
-  <thead align="center">
-    <tr>
-      <th>#</th>
-      <th>글제목</th>
-      <th class="th-6">작성일자</th>
-      <th>조회수</th>
-      <th class="th-4">삭제</th>
-    </tr>
-  </thead>
-  <c:set var="noticelist" value="${ NoticeList}"  />
-			<c:if test="${!empty noticelist }">
-				<c:forEach items="${noticelist }" var="dto">
-  <tbody >
-    <tr>
-      <td align="center">${dto.getNotice_num() }</td>
-      <td><a href="<%=request.getContextPath()%>/admin_content.do?num=${dto.getNotice_num()}">
-		  ${dto.getNotice_title() }</a></td>
-	 <td align="center">${dto.getNotice_date().substring(0,2) }</td>
-      <td align="center" class="th-5">${dto.getNotice_hit() }</td>
-      <td><a  href="<%=request.getContextPath() %>/admin_notice_delete.do?num=${dto.getNotice_num()}" class="button3 b-blue rot-135" >삭제</a></td>
-      
-    </tr>
-    
-  </tbody>
-  </c:forEach>
-  </c:if>
-  
-  <tr>
-  	<td class="td_btn" colspan="7" align="right" >
-		 		
-		 		<a href="notice_write.do" class="button2 b-blue rot-135">글쓰기</a>
-  </tr>
-</table>
-
+	  <!--for demo wrap-->
+	  <h1>1:1 고객센터</h1>
+	  <div class="tbl-header">
+	<table>
 	
-  </div>
-</section>
+	  <thead align="center">
+	    <tr>
+	      <th>#</th>
+	      <th class="th-6">작성자</th>
+	      <th>작성일자</th>
+	      <th>파일</th>
+	      <th class="th-4">답변</th>
+	      <th class="th-4">삭제</th>
+	    </tr>
+	  </thead>
+	  <c:set var="list_1" value="${List_1 }"  />
+			<c:forEach items="${list_1 }" var="dto_1">
+	  <tbody>
+	    <tr>
+	      <td align="center">${dto_1.getW_num() }</td>
+	      <td>${dto_1.getW_id() }</td>
+		 <td align="center">${dto_1.getW_date().substring(0,10) }</td>
+	      <td align="center" class="th-5">${dto_1.getW_file() }</td>
+	      <td>
+	      	<c:if test="${dto_1.getW_reply() ne 1 }">
+		      	<a href="<%=request.getContextPath() %>/admin_service_write.do?num=${dto_1.getW_num()}" class="button3 b-blue rot-135">답변</a>      	
+	      	</c:if>
+	      	<c:if test="${dto_1.getW_reply() eq 1 }">
+		      	<a class="button3 b-blue rot-135" onclick="alert('이미 답변 완료한 문의입니다.')" style="filter: hue-rotate(135deg);">완료</a>      	      		
+	      	</c:if>
+	      </td>
+	      <td><a href="<%=request.getContextPath() %>/admin_service_delete1.do?num=${dto_1.getW_num() }" onclick="return confirm('정말 삭제 하시겠습니까 ?')" class="button3 b-blue rot-135" >삭제</a></td>
+	    </tr>
+	    
+	  </tbody>
+	  </c:forEach>
+	  
+	</table>
+	
+		
+	  </div>
+	</section>
+
 	
 		
 

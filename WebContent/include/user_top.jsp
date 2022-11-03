@@ -285,16 +285,21 @@
 	// 모달 레이어 클릭할 경우 모달 닫기 (값 초기화)
 	$(document).mouseup(function (e){
 		if($(".modal").has(e.target).length === 0) {
+			// 모달 닫기
+			$(".modal").hide();
+			// 회원가입 input 초기화
 			$("#memId").val('');	$("#memPwd").val('');	$("#memName").val('');
 			$("#signup_id").val('');	$("#signup_pwd").val('');
-			$(".modal").hide();
 			$("#span_signupName").hide();	$("#span_signupId").hide();		$("span_signupPwd").hide();
 			$("#span_signinId").hide();		$("span_signinPwd").hide();
 			$("#span_signupPwd").hide();
+			// 이미지 hide
 			$("#sii_checked").hide();	$("#sii_wrong").hide();
 			$("#sun_checked").hide();		$("#sui_checked").hide();		$("#sup_checked").hide();
 			$("#sun_wrong").hide();		$("#sui_wrong").hide();		$("#sup_wrong").hide();
-			$("#lbl_hint").hide();	
+			// 비밀번호 찾기 hide
+			$("#lbl_hint").hide();
+			// 버튼 활성화
 			$("#login_btn").attr("disabled", false);
 			$("#login_btn").css({
 				'cursor' : 'pointer',
@@ -400,10 +405,8 @@
 	
 	.session {
 		list-style-type: none;
-		padding-left: 0;
-		padding-top: 15px;
-		margin-left: 0;
-		margin-bottom: 0;
+		padding: 0;
+		margin: 0;
 	}
 	
 	.s_img {
@@ -412,6 +415,7 @@
 		border-radius: 70%;
 		width: 35px;
 		height: 35px;
+		padding-right:5px;
 	}
 	
 	.s_id {
@@ -419,6 +423,7 @@
 		font-size: 15px;
 		line-height: 27px;
 		margin-left: 0;
+		padding-right: 5px;
 	}
 	
 	.signIn {

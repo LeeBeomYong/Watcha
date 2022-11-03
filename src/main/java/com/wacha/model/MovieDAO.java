@@ -294,9 +294,6 @@ public class MovieDAO {
 			
 			int result=0;
 			
-		
-			
-	
 			try {
 				openConn();
 				

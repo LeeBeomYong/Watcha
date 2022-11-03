@@ -454,7 +454,7 @@ public class UserDAO {
 		try {
 			openConn();
 			
-			sql = "select * from member where member_name like ? and member_id not in('admin')";
+			sql = "select * from member where member_name like ? and member_id not in('admin') and member_use = 1";
 			
 			pstmt = con.prepareStatement(sql);
 			
@@ -489,7 +489,7 @@ public class UserDAO {
 		try {
 			openConn();
 			
-			sql = "select * from member where member_id = ?";
+			sql = "select * from member where member_id = ? and member_use = 1";
 			
 			pstmt = con.prepareStatement(sql);
 			
@@ -513,26 +513,21 @@ public class UserDAO {
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
 			}
 			return res;
 		}
 
 
-				
-	
-
-				
-				
-
-
-				
+	// 로그인 시 아이디, 프로필 사진 가져오기			
 	public UserDTO getMember(String member_id) {
 		UserDTO dto = null;
 		
 		try {
 			openConn();
 			
-			sql = "select * from member where member_id = ?";
+			sql = "select * from member where member_id = ? and member_use = 1";
 			
 			pstmt = con.prepareStatement(sql);
 			
@@ -550,6 +545,8 @@ public class UserDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
 		}
 		return dto;
 	}
@@ -583,6 +580,8 @@ public class UserDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
 		}
 		return dto;
 	}
@@ -603,7 +602,7 @@ public class UserDAO {
 				count = rs.getInt(1) + 1;
 			}
 			
-			sql = "insert into member values(?,?,?,?,'','',sysdate,default)";
+			sql = "insert into member values(?,?,?,?,'','',sysdate,default, 1)";
 			
 			pstmt = con.prepareStatement(sql);
 			
@@ -621,13 +620,15 @@ public class UserDAO {
 		}					
 		return result;
 	}
+	
+	// 아이디 중복 확인
 	public int checkMemberId(String id) {
 		int res = 0;
 		
 		try {
 			openConn();
 			
-			sql = "select member_id from member where member_id = ?";
+			sql = "select member_id from member where member_id = ? and member_use = 1";
 			
 			pstmt = con.prepareStatement(sql);
 			
@@ -651,12 +652,12 @@ public class UserDAO {
 	// 비밀번호 찾기
 	public String findIdforPwd(String mem_id) {
 
-		String res = "존재";
+		String res = "";
 		
 		try {
 			openConn();
 			
-			sql = "select member_pwd from member where member_id = ?";
+			sql = "select member_pwd from member where member_id = ? and member_use = 1";
 			
 			pstmt = con.prepareStatement(sql);
 			

@@ -45,6 +45,7 @@
 	}
 	img{
 		margin: 0 !important;
+		object-fit: cover;
 	}
 	
 	
@@ -64,11 +65,18 @@
 		width : 100px;
 		height: 100px; 
 	}
-	#topMargindiv span,img{
-		padding: 0 5%;
+
+	.ming{
+		width: 100px !important;
+		height: 80px !important;
+		
 	}
-	
-	
+	.imgdiv{
+		flex-direction: column;
+		justify-content: center !important;
+		align-items: center !important;	
+		padding: 1% 1%;
+	}
 </style>
 </head>
 <body>
@@ -83,7 +91,6 @@
 			<div id="topdiv">
 				<img alt="없음" src="" width="100px" height="100px">
 				<span>${movie_dto.getMovie_director() }</span>
-				<span>감독</span>
 			</div>
 			<hr>
 			<span><b>영화</b></span>
@@ -109,15 +116,16 @@
 				<c:forEach items="${movie_list }" var="dto">
 					<div class="movie_list">
 						<div>${dto.getMovie_date() }</div>
-						<div><img alt="${dto.getMovie_imageloc() }" src="">${dto.getMovie_title() }</div>
+						<div class="imgdiv"><img class="mimg" alt="없음" src="${dto.getMovie_imageloc() }" width="100px" height="100px"><span>${dto.getMovie_title() }</span></div>
 						<div>${dto.getMovie_director()}</div>
 						<div>★${dto.getMovie_avgstar()}</div>
 					</div>
+					<hr>
 				</c:forEach>	
 			</c:when>
 			<c:otherwise>	
 				<div>죄송합니다만 이 분은 영화 감독 제작을 하지 않았어요</div>	
-			
+				<hr>
 			</c:otherwise>
 		</c:choose>
 				</div>
@@ -126,7 +134,7 @@
 		
 		<div id="secondDiv">
 			<div>
-				<p>네비게이션 구간</p>
+
 			</div>
 		</div>
 	</div>

@@ -348,9 +348,9 @@ public class UserDAO {
 			
 			try {
 				openConn();
-				sql="select * from member where member_id = 'test1'";
+				sql="select * from member where member_id = ?";
 				pstmt = con.prepareStatement(sql);
-				//pstmt.setString(1, id);
+				pstmt.setString(1, id);
 				rs = pstmt.executeQuery();
 				
 				if(rs.next()) {
@@ -374,7 +374,7 @@ public class UserDAO {
 		return dto;
 			
 		}
-
+		
 		public UserDTO UserContent(String id) {
 			UserDTO dto = null;
 			

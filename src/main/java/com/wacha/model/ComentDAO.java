@@ -643,7 +643,8 @@ public class ComentDAO {
 
 
 		public void deleteComent(int movie_num, int coment_num) {
-			sql="delete from coment where movie_num=? and member_Id =?";
+			sql="delete from coment where movie_num=? and coment_num =?";
+			openConn();
 			try {
 				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, movie_num);

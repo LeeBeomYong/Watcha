@@ -40,9 +40,10 @@ public class FrontController extends HttpServlet{
 		 */
 		
 		Properties pro = new Properties();
-		
+
 
 		FileInputStream fis = new FileInputStream("C:\\Users\\user\\git\\Watcha\\src\\main\\java\\com\\wacha\\controller\\mapping.properties");
+
 
 		pro.load(fis);
 		String value = pro.getProperty(command);

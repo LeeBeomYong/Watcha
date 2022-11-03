@@ -9,7 +9,7 @@
 
 .wrapper {
   height: 100vh;
-  /*This part is important for centering*/
+  
   display: grid;
   place-items: center;
   background-color:#FDF5E6;

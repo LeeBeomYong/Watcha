@@ -12,9 +12,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-
-import com.wacha.model.UserDTO;
-
 public class UserDAO {
 
 	// DB와 연동하는 객체.

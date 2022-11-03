@@ -306,9 +306,6 @@ $(function() {
 		}
 	}
 	
-    
-
-	
 </script>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -320,8 +317,6 @@ $(function() {
 	
 	
 	<!-- 임시 로그인 세션 값  -->
-	
-	
 	<input type="hidden" value="1" id="croll">
 	<div id="topImg">
 			<div id="imgT">
@@ -400,8 +395,6 @@ $(function() {
 								      
 								      </div>
 								    </div>
-
-						
 						</button>
 						<button id="topDiv_cont2_btn3">
 							<div class="cont2_btn">
@@ -448,10 +441,6 @@ $(function() {
 				</div>	
 			</c:if>
 		<div id="cd_data">
-			
-		
-		
-		
 			<div id="cd_cont1">
 				<h4>기본정보</h4>
 				<a href="<%=request.getContextPath()%>/wacha_contentInfo.do?movie_num=1${dto.movie_num}" class="moreCont">더보기</a>

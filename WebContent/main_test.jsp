@@ -53,20 +53,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>영화 리뷰 플랫폼</title>
+<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 <style>
 
 #wrapper {
 	margin: auto;
-	width: 85%;
+	width: 90%;
 	padding-top: 45px;
 }
 
-li > a {
-	text-decoration: none;
-}
-
-li {
+.li_1 {
 	display: inline-block;
 	margin: 30px;
 }
@@ -90,12 +87,12 @@ li {
 	display: none;	
 }
 
-ul {
+.ul_1 {
 	list-style-type: none;
-	margin-left: 50px;
+	margin-left: 20px;
 }
 
-li > a {
+.li_1 > a {
 	text-decoration: none;
 	color: #000;
 	display: inline-block;
@@ -103,10 +100,6 @@ li > a {
 
 a:linked, a:visited {
 	color: #000;
-}
-
-li {
-	margin: 10px;
 }
 
 img {
@@ -118,25 +111,16 @@ p {
 	font-size: 27px;
 }
 
-.carousel-control-prev, .carousel-control-next {
-	opacity: 1;
-	width: 3%;
-	z-index: 0;
-}
-
-.carousel-control-prev:hover, .carousel-control-next:hover {
-	pointer-events:none;
-}
-
 #carouselExampleControls1, #carouselExampleControls2, #carouselExampleControls3 {
 	margin-bottom: 30px;
 }
 
 .poster {
 	border-radius: 5px;
-	width: 210px;
-	height: 300px;
+	width: 230px;
+	height: 330px;
 }
+
 
 .ex_box_1 {
 	margin-left: 10px;
@@ -146,17 +130,8 @@ p {
 
 .ex_box_2 {
 	margin-left: 10px;
-	font-size: 13px;
+	font-size: 13.5px;
 	color: rgb(255, 53, 94);
-}
-
-p {
-	font-weight: 600;
-	font-size: 27px;
-}
-
-.carousel-control-prev-icon {
-	background-image: url("");
 }
 
 .main_poster {
@@ -178,46 +153,26 @@ p {
 	margin-left: 20px;
 }
 
-#prv_btn, #nxt_btn {
-	width: -15%;
-	opacity: 1;
-}
-
-#prv {
-	background-image: url('image/left_arrow.png');
-	background-color: #fff;
+.carousel-control-prev, .carousel-control-next {
+	visibility: visible !important;
+	width: 5% !important;
+	height: 50px !important;
+	top: 180px !important;
+	color: #fff !important;
+	border: 0.5px solid #f7f7f7;
 	border-radius: 70%;
-	width: 30px;
-	height: 30px;
 }
 
-#nxt {
-	background-image: url('image/right_arrow.png');
+#prv, #nxt {
+	visibility: hidden;
+}
+
+#slide_p. #slide_n {
 	background-color: #fff;
+	border: 0.5px solid #F7F7F7;
 	border-radius: 70%;
-	width: 30px;
-	height: 30px;
 }
 
-#wrapper > .slide {
-	overflow: hidden;
-}
-
-#wrapper > .slide .slide_cont .li_1 {
-	float: left;
-}
-
-#wrapper > .arrow > a.prev {
-	position: absolute;
-	left: -50px;
-	top: 100px;
-}
-
-#wrapper > .arrow > a.next {
-	position: absolute;
-	rightt: -50px;
-	top: 100px;
-}
 
 </style>
 </head>
@@ -227,44 +182,49 @@ p {
 
 	<div id="wrapper">
 	
-		<form method="post" action="<%=request.getContextPath()%>/select_genre.do">
-			<select class="selectbox" name="genre" onchange="this.form.submit()" >
-				<option value="home" selected>홈</option>
-				<option value="action">액션</option>
-				<option value="sf">SF</option>
-				<option value="comedie">코미디</option>
-				<option value="melo">멜로</option>
-				<option value="animation">애니메이션</option>
-				<option value="thriller">공포/스릴러</option>
-				<option value="sports">스포츠</option>
-				<option value="rom_co">로맨스코미디</option>
-				<option value="noir">누와르/범죄</option>
-				<option value="musical">음악/뮤지컬</option>
-			</select>
-		</form>
+	<form method="post" action="<%=request.getContextPath()%>/select_genre.do">
+		<select class="selectbox" name="genre" onchange="this.form.submit()" >
+			<option value="home" selected>홈</option>
+			<option value="action">액션</option>
+			<option value="sf">SF</option>
+			<option value="comedie">코미디</option>
+			<option value="melo">멜로</option>
+			<option value="animation">애니메이션</option>
+			<option value="thriller">공포/스릴러</option>
+			<option value="sports">스포츠</option>
+			<option value="rom_co">로맨스코미디</option>
+			<option value="noir">누와르/범죄</option>
+			<option value="musical">음악/뮤지컬</option>
+		</select>
+	</form>
+	
+	<br />	<br />
+	
+	<c:set var="comIlist" value="${ilist }" />
+	<c:set var="comMlist" value="${mlist }" />
+	<c:set var="comSlist" value="${slist }" />
+	
+	<c:set var="num" value="${number }" />
+	
+	<%-- 코멘트(한줄평) 많은 영화 기준 TOP10 (comment) --%>
+	<p>인기순위 : 리뷰 TOP10</p>
+	
+	<div id="carouselExampleControls1" class="carousel slide">
+	
+		<div class="carousel-inner">
 		
-		<br />	<br />
-		
-		<c:set var="comIlist" value="${ilist }" />
-		<c:set var="comMlist" value="${mlist }" />
-		<c:set var="comSlist" value="${slist }" />
-		
-		<c:set var="num" value="${number }" />
-
-		<div class="slide">
-		
-			<div class="slide_cont">
+			<button id="prv_btn" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="prev">
+			    <span id="prv" class="carousel-control-prev-icon" aria-hidden="true"></span>
+			    <span id="slide_p"></span>
+			</button>
 			
-				<c:if test="${empty ilist }">
-					<h3>조회된 영화가 없습니다.</h3>
-				</c:if>
+			<c:if test="${!empty ilist }">
 				
-				<c:if test="${!empty ilist }">
-				
+				<div class="carousel-item active">
+					
+					
 					<ul class="ul_1">
-						
 						<li class="li_1">
-						
 							<c:forEach var="ilist" items="${comIlist}" begin="0" end="4" varStatus="status">
 								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${ilist.movie_num}">
 									<div class="main_poster">
@@ -278,9 +238,15 @@ p {
 								    	평균 ★${comSlist[status.index].getMovie_star()}
 								    </div>
 							    </a>
-							</c:forEach>			
+							</c:forEach>
 						</li>
-						
+					</ul>
+					
+				</div>
+				
+				<div class="carousel-item">
+				
+					<ul class="ul_1">
 						<li class="li_1">
 							<c:forEach var="ilist" items="${comIlist}" begin="5" end="9" varStatus="status">
 								<a href="<%=request.getContextPath()%>/movie_contente.do?movie_num=${ilist.movie_num}">	
@@ -297,21 +263,252 @@ p {
 							    </a>
 							</c:forEach>
 						</li>
-						
 					</ul>
+				</div>
 				
-				</c:if>
+			</c:if>
+			
+			<c:if test="${empty ilist }">
+				<h3>조회된 영화가 없습니다.</h3>
+			</c:if>
+							
+			<button id="nxt_btn" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="next">
+			    <span id="nxt" class="carousel-control-next-icon" aria-hidden="true"></span>
+			    <span id="slide_n"></span>
+			</button>
+		
+		</div>
+		
+	</div>
+	
+	<c:set var="sIlist" value="${ilist2 }" />
+	<c:set var="sMlist" value="${mlist2 }" />
+	<c:set var="sSlist" value="${slist2 }" />
+		
+	<%-- 별점 높은 영화 기준 TOP10 (comment) --%>
+	<p>인기순위 : 별점 TOP10</p>
+	
+	<div id="carouselExampleControls2" class="carousel slide">
+
+		<div class="carousel-inner">
+		
+			<button id="prv_btn" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="prev">
+			    <span id="prv" class="carousel-control-prev-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Previous</span>
+			</button>
+			
+			<c:if test="${!empty sIlist }">
 				
-			</div> <%-- slide_cont end --%>
+				<div class="carousel-item active">
+					<ul class="ul_1">
+						<li class="li_1">
+							<c:forEach var="list" items="${sIlist}" begin="0" end="4" varStatus="status">
+								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${sMlist[status.index].movie_num}">	
+									<div class="main_poster">
+										<div class="caption">${num[status.index] }</div>
+								    	<img class="poster" src="${list.image_loc} " alt="영화 포스터 이미지" />
+								    </div>
+								    <div class="ex_box_1">
+								    	${sMlist[status.index].movie_title}
+								    </div>
+								    <div class="ex_box_2"> 
+								    	평균 ★${sSlist[status.index].getMovie_star()}
+								    </div>
+							    </a>
+							</c:forEach>
+						</li>
+					</ul>
+				</div>
+				
+				<div class="carousel-item">
+					<ul class="ul_1">
+						<li class="li_1">
+							<c:forEach var="list" items="${sIlist}" begin="5" end="9" varStatus="status">
+								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${sMlist[status.index].movie_num}">	
+									<div class="main_poster">
+										<div class="caption">${num[status.index] }</div>
+								    	<img class="poster" src="${list.image_loc} " alt="영화 포스터 이미지" />
+								    </div>
+								    <div class="ex_box_1">
+								    	${sMlist[status.index].movie_title}
+								    </div>
+								    <div class="ex_box_2"> 
+								 		평균 ★${sSlist[status.index].getMovie_star()}
+								    </div>
+							    </a>
+							</c:forEach>
+						</li>
+					</ul>
+				</div>
+				
+			</c:if>
+			
+			<c:if test="${empty sIlist }">
+				<h3>조회된 영화가 없습니다.</h3>
+			</c:if>
+							
+			<button id="nxt_btn" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="next">
+			    <span id="nxt" class="carousel-control-next-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Next</span>
+			</button>
 		
-			<div class="arrow">
-				<a href="" class="prev">이전</a>
-			    <a href="" class="next">다음</a>
-			</div>
+		</div>
 		
-		</div> <%-- slide end --%>
+	</div>
+	
+	<c:set var="hIlist" value="${ilist3 }" />
+	<c:set var="hMlist" value="${mlist3 }" />
+	<c:set var="hSlist" value="${slist3 }" />
+			
+	<%-- '찜하기' 높은 영화 기준 TOP10 (comment) --%>
+	<p>인기순위: 보관함 TOP10</p>
+	
+	<div id="carouselExampleControls3" class="carousel slide">
 
+		<div class="carousel-inner">
+		
+			<button id="prv_btn" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls3" data-bs-slide="prev">
+			    <span id="prv" class="carousel-control-prev-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Previous</span>
+			</button>
+			
+			<c:if test="${!empty ilist }">
+				
+				<div class="carousel-item active">
+					<ul class="ul_1">
+						<li class="li_1">
+							<c:forEach var="ilist" items="${hIlist}" begin="0" end="4" varStatus="status">
+								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${hMlist[status.index].movie_num}">	
+									<div class="main_poster">
+										<div class="caption">${num[status.index] }</div>
+								    	<img class="poster" src="${ilist.image_loc} " alt="영화 포스터 이미지" />
+								    </div>
+								    <div class="ex_box_1">
+								    	${hMlist[status.index].movie_title}
+								    </div>
+								    <div class="ex_box_2"> 
+								    	평균 ★${hSlist[status.index].getMovie_star()}
+								    </div>
+							    </a>
+							</c:forEach>
+						</li>
+					</ul>
+				</div>
+				
+				<div class="carousel-item">
+					<ul class="ul_1">
+						<li class="li_1">
+							<c:forEach var="ilist" items="${hIlist}" begin="5" end="9" varStatus="status">
+								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${hMlist[status.index].movie_num}">	
+									<div class="main_poster">
+										<div class="caption">${num[status.index] }</div>
+								    	<img class="poster" src="${ilist.image_loc} " alt="영화 포스터 이미지" />
+								    </div>
+								    <div class="ex_box_1">
+								    	${hMlist[status.index].movie_title}
+								    </div>
+								    <div class="ex_box_2"> 
+								    	평균 ★${hSlist[status.index].getMovie_star()}
+								    </div>
+							    </a>
+							</c:forEach>
+						</li>
+					</ul>
+				</div>
+				
+			</c:if>
+			
+			<c:if test="${empty ilist }">
+				<h3>조회된 영화가 없습니다.</h3>
+			</c:if>
+							
+			<button id="nxt_btn" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls3" data-bs-slide="next">
+			    <span id="nxt" class="carousel-control-next-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Next</span>
+			</button>
+		
+		</div>
+		
+	</div>
+	
+	<c:set var="hilist" value="${ilist4 }" />
+	<c:set var="hmlist" value="${mlist4 }" />
+	<c:set var="hslist" value="${slist4 }" />
+	
+	<%-- '보는 중' 높은 영화 기준 TOP10 (star) --%>
+	<p>실시간 급상승 TOP10</p>
+	
+	<div id="carouselExampleControls4" class="carousel slide">
 
+		<div class="carousel-inner">
+		
+			<button id="prv_btn" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls4" data-bs-slide="prev">
+			    <span id="prv" class="carousel-control-prev-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Previous</span>
+			</button>
+			
+			<c:if test="${!empty hilist }">
+				
+				<div class="carousel-item active">
+					<ul class="ul_1">
+						<li class="li_1">
+							<c:forEach var="ilist" items="${hilist}" begin="0" end="4" varStatus="status">
+								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${hmlist[status.index].movie_num}">	
+									<div class="main_poster">
+										<div class="caption">${num[status.index] }</div>
+								    	<img class="poster" src="${ilist.image_loc} " alt="영화 포스터 이미지" />
+								    </div>
+								    <div class="ex_box_1">
+								    	${hmlist[status.index].movie_title}
+								    </div>
+								    <div class="ex_box_2"> 
+								    	평균 ★${hslist[status.index].getMovie_star()}
+								    </div>
+							    </a>
+							</c:forEach>
+						</li>
+					</ul>
+				</div>
+				
+				<div class="carousel-item">
+					<ul class="ul_1">
+						<li class="li_1">
+							<c:forEach var="ilist" items="${hilist}" begin="5" end="9" varStatus="status">
+								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${hmlist[status.index].movie_num}">	
+									<div class="main_poster">
+										<div class="caption">${num[status.index] }</div>
+								    	<img class="poster" src="${ilist.image_loc} " alt="영화 포스터 이미지" />
+								    </div>
+								    <div class="ex_box_1">
+								    	${hmlist[status.index].movie_title}
+								    </div>
+								    <div class="ex_box_2"> 
+								    	평균 ★${hslist[status.index].getMovie_star()}
+								    </div>
+							    </a>
+							</c:forEach>
+						</li>
+					</ul>
+				</div>
+				
+			</c:if>
+			
+			
+			<c:if test="${empty hilist }">
+				<h3>조회된 영화가 없습니다.</h3>
+			</c:if>
+							
+			<button id="nxt_btn" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls4" data-bs-slide="next">
+			    <span id="nxt" class="carousel-control-next-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Next</span>
+			</button>
+		
+		</div>
+		
+	</div>
+	
+	<br />
+		
 	</div> <%-- #wrapper end --%>
 	
 	<jsp:include page="./include/user_bottom.jsp" />

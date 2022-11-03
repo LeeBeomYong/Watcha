@@ -54,7 +54,9 @@
 	 <%-- 탭 메뉴 --%>
 	  <ul id="tabs" class="tabs">
 	    <li class="tab-link current" data-tab="tab1">Q&A문의</li>
-	    <li class="tab-link" data-tab="tab2">1:1문의</li>
+	    <c:if test="${!empty session_id }">
+		    <li class="tab-link" data-tab="tab2">1:1문의</li>	    
+	    </c:if>
 	  </ul>
 	  <%-- 탭 1 버전!!! --%>
 	  <div id="tab1" class="tab-content current">
@@ -108,7 +110,7 @@
 			<c:set var="list" value="${List }" />	<%-- WriteListAction에서 write 테이블에서 데이터 가져옴. --%>
 			<c:if test="${!empty list }">
 				<c:forEach items="${list }" var="dto">
-					<c:if test="${'admin' eq member_id }">
+					<c:if test="${'admin' eq session_id }">
 					<tr class="tt" onclick="location.href='<%=request.getContextPath() %>/write_content.do?num=${dto.getWrite_num() }'">	<%-- 이부분 블럭 자체를 클릭하였을때 글 전체를 제대로 볼 수 있음. --%>
 							<td class="no"> ${dto.getWrite_num() } </td>
 							<td class="wrt"> ${dto.getMember_id() } </td>
@@ -123,7 +125,7 @@
 						</tr>													
 					</c:if>
 					<%-- 게시물이 비공개인데 본인회원이랑 관리자가 아닌 경우 --%>
-					<c:if test="${dto.getWrite_radio() eq 1 && member_id ne dto.getMember_id() && 'admin' ne member_id }">
+					<c:if test="${dto.getWrite_radio() eq 1 && session_id ne dto.getMember_id() && 'admin' ne session_id }">
 						<tr class="tt" onclick="alert('관리자, 작성자 외 열람 불가능'); return false;">
 							<td class="no"> ${dto.getWrite_num() } </td>
 							<td class="wrt"> ${dto.getMember_id() } </td>
@@ -140,7 +142,7 @@
 					
 					
 					<%-- 게시물이 비공개이면서 회원인 경우 --%>
-					<c:if test="${dto.getWrite_radio() eq 1 && member_id eq dto.getMember_id() }">
+					<c:if test="${dto.getWrite_radio() eq 1 && session_id eq dto.getMember_id() }">
 					<tr class="tt" onclick="location.href='<%=request.getContextPath() %>/write_content.do?num=${dto.getWrite_num() }'">	<%-- 이부분 블럭 자체를 클릭하였을때 글 전체를 제대로 볼 수 있음. --%>
 							<td class="no"> ${dto.getWrite_num() } </td>
 							<td class="wrt"> ${dto.getMember_id() } </td>
@@ -157,7 +159,7 @@
 					
 						
 					<%-- 게시물이 비공개가 아닌 경우 --%>
-					<c:if test="${dto.getWrite_radio() eq 0 && 'admin' ne member_id }">
+					<c:if test="${dto.getWrite_radio() eq 0 && 'admin' ne session_id }">
 					<tr class="tt" onclick="location.href='<%=request.getContextPath() %>/write_content.do?num=${dto.getWrite_num() }'">	<%-- 이부분 블럭 자체를 클릭하였을때 글 전체를 제대로 볼 수 있음. --%>
 						<td class="no"> ${dto.getWrite_num() } </td>
 						<td class="wrt"> ${dto.getMember_id() } </td>
@@ -230,7 +232,7 @@
 	  	<br>
 		<div class="mb-3">
 		  <label for="exampleFormControlInput1" class="form-label">아이디</label>
-		  <input class="form-control" id="exampleFormControlInput1" placeholder="아이디 입력" value="${member_id }" style="width: 300px;" name="w_id">
+		  <input class="form-control" id="exampleFormControlInput1" placeholder="아이디 입력" value="${session_id }" style="width: 300px;" name="w_id">
 		</div>
 <!-- 		<div class="mb-3">
 		  <label class="form-label">비밀번호</label>

@@ -211,6 +211,9 @@ public class ImageDAO {
 					}			
 				} catch (SQLException e) {
 					e.printStackTrace();
+				} finally {
+
+					closeConn(rs, pstmt, con);
 				}
 				return list;
 			}	// getMainMovie_hit() end	

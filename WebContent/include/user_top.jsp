@@ -53,11 +53,10 @@
 		$("#memId").keyup(function() {
 			
 			const id = $(this).val();
-			$("#span_signinId").show();
-			$("#sii_checked").show();
-			$("#sii_wrong").show();
+			
 			
 			if($(this).val() == '') {
+				$("#span_signinId").show();	$("#sii_wrong").show();
 				$("#sii_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
 				$("#sii_checked").hide();
 				$("#span_signinId").html("<br><font style='color:red; font-size:13px;'>아이디를 입력하세요.</font>");
@@ -69,7 +68,7 @@
 					datatype : "jsp",
 					success : function(res) {
 						if(res == 1) {  // DB에 아이디가 존재하는 경우
-							$("#sii_wrong").hide();
+							$("#sii_wrong").hide();	$("#sii_checked").show();
 							$("#sii_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='29px' height='29px'>");
 							$("#span_signinId").hide();
 							$("#login_btn").attr("disabled", false);
@@ -78,7 +77,7 @@
 								'background-color' : '#FF355E'
 							});
 						}else {
-							$("#sii_checked").hide();
+							$("#sii_checked").hide();	$("#span_signinId").show();	$("#sii_wrong").show();
 							$("#sii_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
 							$("#span_signinId").html("<br><font style='color:red; font-size:13px;'>존재하지 않는 아이디입니다.</font>");
 							$("#login_btn").attr("disabled", true);
@@ -89,6 +88,7 @@
 						}
 					},					
 					error: function(e) {
+						$("#span_signinId").show();	$("#sii_wrong").show();
 						$("#sii_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
 						$("#span_signinId").html("<br><font style='color:blue; font-size:13px;'>오류 발생. 다시 입력하세요.</font>");
 						$("#sui_checked").hide();
@@ -128,10 +128,9 @@
 		$("#memName").keyup(function() {
 			
 			const name = $(this).val();
-			$("#span_signupName").show();
-			$("#sun_checked").show();	$("#sun_wrong").show();
 			
 			if(pattern_name.test(name)) {
+				$("#sun_checked").show();
 				$("#sun_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='29px' height='29px'>");
 				$("#span_signupName").hide();
 				$("#sun_wrong").hide();
@@ -141,6 +140,7 @@
 					'background-color' : '#FF355E'
 				});
 			}else {
+				$("#span_signupName").show();	$("#sun_wrong").show();
 				$("#sun_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
 				$("#span_signupName").html("<br/><font style='color:red; font-size:13px;'>이름은 한글/영문 2~10자까지 가능합니다.</font>");
 				$("#sun_checked").hide();
@@ -156,11 +156,9 @@
 		$("#signup_id").keyup(function() {
 			
 			const id = $(this).val();
-			$("#span_signupId").show();
-			$("#sui_checked").show();
-			$("#sui_wrong").show();
 			
 			if($(this).val() == '') {
+				$("#span_signupId").show();	$("#sui_wrong").show();
 				$("#span_signupId").html("<br><font style='color:red; font-size:13px;'>아이디는 영문/숫자 5~10자까지 가능합니다.</font>");
 				$("#sui_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
 			}else {
@@ -172,6 +170,7 @@
 						datatype : "jsp",
 						success : function(res) {
 							if(res == 1) {  // DB에 아이디가 존재하는 경우
+								$("#span_signupId").show();	$("#sui_wrong").show();	
 								$("sui_#wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
 								$("#span_signupId").html("<br/><font style='color:red; font-size:13px;'>중복된 아이디입니다.</font>");
 								$("#signup_btn").attr("disabled", true);
@@ -182,6 +181,7 @@
 								});							
 								return false;
 							}else {
+								$("#sui_checked").show();
 								$("#sui_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='29px' height='29px'>");
 								$("#span_signupId").hide();
 								$("#sui_wrong").hide();
@@ -193,6 +193,7 @@
 							}
 						},					
 						error: function(e) {
+							$("#span_signupId").show();	$("#sui_wrong").show();
 							$("#sui_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
 							$("#span_signupId").html("<br><font style='color:blue; font-size:13px;'>오류 발생. 다시 입력하세요.</font>");
 							$("#sui_checked").hide();
@@ -204,6 +205,7 @@
 			            }
 					});
 				}else {
+					$("#span_signupId").show();	$("#sui_wrong").show();
 					$("#sui_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
 					$("#span_signupId").html("<br><font style='color:red; font-size:13px;'>아이디 : 영문/숫자 5~10자</font>");
 					$("#sui_checked").hide();
@@ -221,10 +223,8 @@
 		$("#signup_pwd").keyup(function() {
 			const pwd = $(this).val();
 			
-			$("#span_signupPwd").show();
-			$("#sup_checked").show();	$("#sup_wrong").show();
-			
 			if(pattern_pwd.test(pwd)) {
+				$("#sup_checked").show();
 				$("#sup_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='29px' height='29px'>");
 				$("#span_signupPwd").hide(); $("#sup_wrong").hide();
 				$("#signup_btn").attr("disabled", false);
@@ -233,6 +233,7 @@
 					'background-color' : '#FF355E'
 				});
 			}else {
+				$("#span_signupPwd").show();	$("#sup_wrong").show();
 				$("#sup_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
 				$("#span_signupPwd").html("<br><font style='color:red; font-size:13px;'>비밀번호 : 영문/숫자/특수문자 5~10자</font>");
 				$("#sup_checked").hide();

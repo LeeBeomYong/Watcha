@@ -26,9 +26,9 @@ public class MemberProfilePageAction implements Action {
 		
 		ActionForward forward = new ActionForward();
 		
-		forward.setRedirect(false);
+		forward.setRedirect(true);
 		
-		forward.setPath("lby/profile.jsp");
+		forward.setPath("profile.do");
 		
 		return forward;
 		

@@ -19,7 +19,7 @@ public class OtherHeartAddAction implements Action {
 		// TODO Auto-generated method stub
 		
 		HttpSession session = request.getSession();
-		String member_Id = (String)session.getAttribute("member_Id");
+		String member_Id = (String)session.getAttribute("session_id");
 		
 		String member_Id2 = request.getParameter("member_id");
 		

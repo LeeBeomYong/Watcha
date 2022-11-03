@@ -66,7 +66,7 @@ public class ImageDAO {
 					// 2단계 : lookup() 메서드를 이용하여 매칭되는
 					//        커넥션을 찾는다.
 					DataSource ds =
-						(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
+						(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
 					
 					// 3단계 : DataSource 객체를 이용하여
 					//        커넥션을 하나 가져온다.
@@ -238,12 +238,12 @@ public class ImageDAO {
 					while(rs.next()) {
 						
 						ImageDTO dto = new ImageDTO();
-						
 						dto.setMovie_num(rs.getInt("movie_num"));
 						//dto.setDirector_image(rs.getString("director_image"));
 						dto.setImage_loc(rs.getString("image_loc"));
 						dto.setImage_temp(rs.getString("image_temp"));
 						dto.setDirector_image(rs.getString("director_image"));
+						System.out.println("감독 이미지 : "+dto.getDirector_image());
 						
 						list.add(dto);
 					}

@@ -4,10 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!-- 임시 세션 로그인 -->
-<%
-	session.setAttribute("member_Id", "test1"); 
-	System.out.println("로그인한 회원 아이디 >>> "+session.getAttribute("member_Id"));
-%>
 
 <!DOCTYPE html>
 <html>

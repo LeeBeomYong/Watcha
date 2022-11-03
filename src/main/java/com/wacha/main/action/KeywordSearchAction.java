@@ -36,6 +36,8 @@ public class KeywordSearchAction implements Action {
 		
 		List<MovieDTO> mlist = dao1.getMovieKeywordList(keyword);
 		
+		List<MovieDTO> dlist = dao1.getDirectorKeywordList(keyword);
+		
 		UserDAO dao2 = UserDAO.getInstance();
 		
 		List<UserDTO> ulist = dao2.getUserKeywordList(keyword);
@@ -48,6 +50,8 @@ public class KeywordSearchAction implements Action {
 		
 		request.setAttribute("mList", mlist);
 		
+		request.setAttribute("dList", dlist);
+
 		request.setAttribute("uList", ulist);
 		
 		request.setAttribute("iList", ilist);

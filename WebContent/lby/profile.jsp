@@ -148,8 +148,9 @@ function showPopUp() {
 		<div class="relative">
 			<div class="top">
 				<div align="right">
-<%-- 					<a id ="a1" href="javascript:showPopUp()"><img alt="★" src="${pageContext.request.contextPath }/image/profile/pngwing.com.png" width="30px" height="30px"></a> --%>
-					<button id="a1" onclick="javascript:showPopUp()"><img alt="★" src="${pageContext.request.contextPath }/image/profile/pngwing.com.png" width="30px" height="30px"></button>
+				
+					<a id ="a1" href="javascript:showPopUp()"><img alt="★" src="${pageContext.request.contextPath }/image/profile/pngwing.com.png" width="30px" height="30px"></a>
+					
 				</div>
 			</div>
 			<div class="picture">

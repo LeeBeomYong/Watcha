@@ -59,6 +59,7 @@
 			
 			if($(this).val() == '') {
 				$("#sii_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
+				$("#sii_checked").hide();
 				$("#span_signinId").html("<br><font style='color:red; font-size:13px;'>아이디를 입력하세요.</font>");
 			}else {
 				$.ajax({
@@ -68,18 +69,18 @@
 					datatype : "jsp",
 					success : function(res) {
 						if(res == 1) {  // DB에 아이디가 존재하는 경우
-							$("#sii_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='25px' height='25px'>");
-							$("#span_signinId").hide();
 							$("#sii_wrong").hide();
+							$("#sii_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='29px' height='29px'>");
+							$("#span_signinId").hide();
 							$("#login_btn").attr("disabled", false);
 							$("#login_btn").css({
 								'cursor' : 'pointer',
 								'background-color' : '#FF355E'
 							});
 						}else {
+							$("#sii_checked").hide();
 							$("#sii_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
 							$("#span_signinId").html("<br><font style='color:red; font-size:13px;'>존재하지 않는 아이디입니다.</font>");
-							$("#sii_checked").hide();
 							$("#login_btn").attr("disabled", true);
 							$("#login_btn").css({
 								'cursor' : 'default',
@@ -113,6 +114,7 @@
 			$(".modal_content1").css({
 				'display': 'block'
 			});
+			$("#hint_id").val('');	$("#pwd_hint").hide();
 		});
 		
 		// 아이디 : 영문/숫자 5~10자
@@ -130,7 +132,7 @@
 			$("#sun_checked").show();	$("#sun_wrong").show();
 			
 			if(pattern_name.test(name)) {
-				$("#sun_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='25px' height='25px'>");
+				$("#sun_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='29px' height='29px'>");
 				$("#span_signupName").hide();
 				$("#sun_wrong").hide();
 				$("#signup_btn").attr("disabled", false);
@@ -173,13 +175,14 @@
 								$("sui_#wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
 								$("#span_signupId").html("<br/><font style='color:red; font-size:13px;'>중복된 아이디입니다.</font>");
 								$("#signup_btn").attr("disabled", true);
+								$("#sui_checked").hide();
 								$("#signup_btn").css({
 									'cursor' : 'default',
 									'background-color' : '#FCDFEB'
 								});							
 								return false;
 							}else {
-								$("#sui_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='25px' height='25px'>");
+								$("#sui_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='29px' height='29px'>");
 								$("#span_signupId").hide();
 								$("#sui_wrong").hide();
 								$("#signup_btn").attr("disabled", false);
@@ -203,6 +206,7 @@
 				}else {
 					$("#sui_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
 					$("#span_signupId").html("<br><font style='color:red; font-size:13px;'>아이디 : 영문/숫자 5~10자</font>");
+					$("#sui_checked").hide();
 					$("#signup_btn").attr("disabled", true);
 					$("#signup_btn").css({
 						'cursor' : 'default',
@@ -221,7 +225,7 @@
 			$("#sup_checked").show();	$("#sup_wrong").show();
 			
 			if(pattern_pwd.test(pwd)) {
-				$("#sup_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='24px' height='24px'>");
+				$("#sup_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='29px' height='29px'>");
 				$("#span_signupPwd").hide(); $("#sup_wrong").hide();
 				$("#signup_btn").attr("disabled", false);
 				$("#signup_btn").css({
@@ -229,7 +233,7 @@
 					'background-color' : '#FF355E'
 				});
 			}else {
-				$("#sup_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='24px' height='24px'>");
+				$("#sup_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
 				$("#span_signupPwd").html("<br><font style='color:red; font-size:13px;'>비밀번호 : 영문/숫자/특수문자 5~10자</font>");
 				$("#sup_checked").hide();
 				$("#signup_btn").attr("disabled", true);
@@ -241,7 +245,7 @@
 			
 		});
 		
-		
+		// 비밀번호 찾기
 		function pwd_hint() {
 			
 		   let id = $("#hint_id").val();
@@ -256,7 +260,7 @@
 					if(data1 != "") {  
 						$("#pwd_hint").html("");
 						$("#lbl_hint").show();
-						$("#pwd_hint").html("비밀번호는 <font style='color:rgb(255, 53, 94)'>"+data1+"</font>입니다.");
+						$("#pwd_hint").html("비밀번호는 <font style='color:rgb(255, 53, 94)'><b>"+data1+"</b></font>입니다.");
 					}else{
 						$("#pwd_hint").html("");
 						$("#lbl_hint").show();
@@ -285,11 +289,11 @@
 			$(".modal").hide();
 			$("#span_signupName").hide();	$("#span_signupId").hide();		$("span_signupPwd").hide();
 			$("#span_signinId").hide();		$("span_signinPwd").hide();
-			$("#pwd_hint").hide();	$("#span_signupPwd").hide();
+			$("#span_signupPwd").hide();
 			$("#sii_checked").hide();	$("#sii_wrong").hide();
 			$("#sun_checked").hide();		$("#sui_checked").hide();		$("#sup_checked").hide();
 			$("#sun_wrong").hide();		$("#sui_wrong").hide();		$("#sup_wrong").hide();
-			$("#lbl_hint").hide();	$("#hint_id").val('');
+			$("#lbl_hint").hide();	
 			$("#login_btn").attr("disabled", false);
 			$("#login_btn").css({
 				'cursor' : 'pointer',
@@ -300,7 +304,7 @@
 				'cursor' : 'pointer',
 				'background-color' : '#FF355E'
 			});
-		}	
+		}
 	});
 	
 	// 로그인 팝업에서 회원가입 링크 클릭
@@ -341,13 +345,13 @@
 		$(".modal_content3").css({
 			'display': 'block'
 		});
-		$("#bg1").css({
-			'display': 'block'
-		});
+		
 		$(".modal_content1").css({
 			'display': 'block'
 		});
-		
+		$("#bg1").css({
+			'display' : 'none'
+		});
 	}
 	
 </script>
@@ -362,7 +366,7 @@
 	
 	nav{
 		height: 55px;
-		z-index: 2;
+		z-index: 1;
 		
 	}
 	.container-fluid{
@@ -443,6 +447,7 @@
 		border-radius: 10px;
 		width: 400px;
 		height: 550px;
+		z-index: 2;
 		position: relative;
 		text-align: center;
 		background-color: #fff;
@@ -451,7 +456,7 @@
 		left:50%;
 		transform: translate(-50%,-50%);
 		padding: 5px;
-		display: block;
+		display: none;
 	}
 	
 	.modal_content3 {
@@ -471,7 +476,7 @@
 	.modal, .modal1 {
 		display: none; /* Hidden by default */
 		position: fixed; /* Stay in place */
-		z-index: 1; /* Sit on top */
+		 /* Sit on top */
 		left: 0;
 		top: 0;
 		width: 100%; /* Full width */
@@ -632,7 +637,6 @@
 	    font-size: 13px;
 	}
 	
-
 </style>
 </head>
 <body>
@@ -657,18 +661,29 @@
 	          	<li><a class="dropdown-item" href="<%=request.getContextPath() %>/answer_main.do">자주 묻는 질문</a></li>
 	          </ul>
 	        </li>
+	       
 	         &nbsp; &nbsp;&nbsp;
 	        <li class="nav-item dropdown">
-	          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-	            게시판
-	          </a>
-	          <ul class="dropdown-menu">
-	            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/#">자유게시판</a></li>
-	            <li><hr class="dropdown-divider"></li>
-	            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/inquiry_main.do">Q&A / 1:1문의</a></li>
-	            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/write_result.do">문의내역</a></li>      
-	          </ul>
-	        </li>
+              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                게시판
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="<%=request.getContextPath() %>/#">자유게시판</a></li>
+                    <li><hr class="dropdown-divider"></li>
+
+               <%-- 로그인 됨.--%>
+               <c:if test="${!empty session_id }">
+                    <li><a class="dropdown-item" href="<%=request.getContextPath() %>/inquiry_main.do">Q&A / 1:1문의</a></li>
+                    <li><a class="dropdown-item" href="<%=request.getContextPath() %>/write_result.do">문의내역</a></li>
+               </c:if>
+
+                <%-- 로그인 안됨. --%>
+                <c:if test="${empty session_id }">
+                    <li><a class="dropdown-item" href="<%=request.getContextPath() %>/inquiry_main.do">Q&A문의</a></li>
+                </c:if>
+
+              </ul>
+            </li>
 	      </ul>
 	     
 	     <form method="post" action="<%=request.getContextPath() %>/keyword_search.do" name="search">
@@ -829,7 +844,7 @@
 					<div class="findPwd2">
 						<b class="findPwd1">비밀번호를 잊으셨나요?</b>	<br />
 						아이디를 입력해주세요. <br />
-						입력하신 아이디의 비밀번호 일부를 알려드립니다.
+						입력하신 아이디의 비밀번호를 알려드립니다.
 					</div>
 					
 					<br />

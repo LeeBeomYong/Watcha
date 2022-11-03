@@ -1,6 +1,7 @@
 package com.wacha.model;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +12,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+
+import com.wacha.model.UserDTO;
 
 public class UserDAO {
 
@@ -98,6 +101,9 @@ public class UserDAO {
 	public int getMemberCount() {
 		int count=0;
 		
+		openConn();
+		
+		sql="select count(*) from member";
 		
 		try {
 			
@@ -161,7 +167,8 @@ public class UserDAO {
 				dto.setMember_profile(rs.getString("member_profile"));
 				
 				dto.setMember_birth(rs.getString("member_birth"));
-			
+				
+
 				dto.setMember_regdate(rs.getString("member_regdate"));
 
 				dto.setMember_image(rs.getString("member_image"));
@@ -317,7 +324,6 @@ public class UserDAO {
 		
 		public void w_writeDelete(String id, String pwd) {
 			
-			
 			try {
 				openConn();
 				
@@ -404,7 +410,7 @@ public class UserDAO {
 					
 					dto.setMember_profile(rs.getString("member_profile"));
 					
-					dto.setMember_image(rs.getString("member_image"));
+					dto.setMember_image(rs.getString("member_image"));					
 					
 					dto.setMember_regdate(rs.getString("member_regdate"));
 				}
@@ -424,14 +430,14 @@ public class UserDAO {
 			
 			try {
 				openConn();
-				sql="update member set member_name=?, member_pwd=?, member_profile=?, member_birth = ?, member_image=? where member_id = ?";
+				sql="update member set member_name=?, member_pwd=?, member_profile=?, member_birth = ?, member_image=? where member_id = 'test1'";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setString(1, dto.getMember_name());
 				pstmt.setString(2, dto.getMember_pwd());
 				pstmt.setString(3, dto.getMember_profile());
 				pstmt.setString(4, dto.getMember_birth());
 				pstmt.setString(5, dto.getMember_image());
-				pstmt.setString(6, dto.getMember_id());
+				//pstmt.setString(6, dto.getMember_id());
 				result = pstmt.executeUpdate();
 				
 			} catch (SQLException e) {
@@ -476,46 +482,46 @@ public class UserDAO {
 		}			
 		return list;
 	}// getUserKeywordList() end
+	
 
-
-
-				public int LoginCheck(String member_id, String member_pwd) {
-					
-					int res = 0;
-					
-					try {
-						openConn();
-						
-						sql = "select * from member where member_id = ?";
-						
-						pstmt = con.prepareStatement(sql);
-						
-						pstmt.setString(1, member_id);
-						
-						rs = pstmt.executeQuery();
-
-						if(rs.next()) {	// 아이디 O 
-							if(rs.getString("member_id").equals("admin")) {
-								if(member_pwd.equals(rs.getString("member_pwd"))) {
-									res = 2;	// 관리자
-								}else {
-									res = -1;	// 관리자 아이디 O, 비번 X
-								}
-							}else {
-								if(member_pwd.equals(rs.getString("member_pwd"))) {
-									res = 1;	// 회원
-								}else {
-									res = -1;	// 회원 아이디 O, 비번 X
-								}
-							}
-						}
-					} catch (SQLException e) {
-						e.printStackTrace();
+		// 로그인 메서드
+	public int LoginCheck(String member_id, String member_pwd) {
+		
+		int res = 0;
+		
+		try {
+			openConn();
+			
+			sql = "select * from member where member_id = ?";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, member_id);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {	// 아이디 O 
+				if(rs.getString("member_id").equals("admin")) {
+					if(member_pwd.equals(rs.getString("member_pwd"))) {
+						res = 2;	// 관리자
+					}else {
+						res = -1;	// 관리자 아이디 O, 비번 X
 					}
-					return res;
+					}else {
+						if(member_pwd.equals(rs.getString("member_pwd"))) {
+							res = 1;	// 회원
+						}else {
+							res = -1;	// 회원 아이디 O, 비번 X
+						}
+					}
 				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return res;
+		}
 
 
+				// 로그인 성공 시 회원 정보 불러오기
 				public UserDTO getMember(String member_id) {
 					UserDTO dto = null;
 					
@@ -535,7 +541,7 @@ public class UserDAO {
 							dto = new UserDTO();
 							
 							dto.setMember_id(rs.getString("member_id"));
-							dto.setMember_image(rs.getString("member_img"));
+							dto.setMember_image(rs.getString("member_image"));
 							
 						}
 					} catch (SQLException e) {
@@ -543,8 +549,9 @@ public class UserDAO {
 					}
 					return dto;
 				}
+	
 
-
+				// 키워드 회원 검색 -> 회원 페이지 이동
 				public UserDTO getMemberProfile(String member_id) {
 					UserDTO dto = null;
 					
@@ -562,33 +569,56 @@ public class UserDAO {
 						if(rs.next()) {
 							dto = new UserDTO();
 							
+							dto.setMember_num(rs.getInt("member_num"));
 							dto.setMember_id(rs.getString("member_id"));
 							dto.setMember_name(rs.getString("member_name"));
 							dto.setMember_pwd(rs.getString("member_pwd"));
 							dto.setMember_profile(rs.getString("member_profile"));
 							dto.setMember_image(rs.getString("member_image"));
 							dto.setMember_birth(rs.getString("member_birth"));
+							dto.setMember_regdate(rs.getString("member_regdate"));
 						}
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
-					return dto;
+				}else {
+					if(member_pwd.equals(rs.getString("member_pwd"))) {
+						res = 1;	// 회원
+					}else {
+						res = -1;	// 회원 아이디 O, 비번 X
+					}
 				}
-
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
 				// 회원가입 메서드
 				public int insertMember(String name, String id, String pwd) {
-					int result = 0;
+					int result = 0, count = 0;
 					
 					try {
 						openConn();
 						
-						sql = "insert into member values (?,?,?,'','',default)";
+						sql = "select max(member_num) from member";
 						
 						pstmt = con.prepareStatement(sql);
 						
-						pstmt.setString(1, id);
-						pstmt.setString(2, name);
-						pstmt.setString(3, pwd);
+						rs = pstmt.executeQuery();
+						
+						if(rs.next()) {
+							count = rs.getInt(1) + 1;
+						}
+						
+						sql = "insert into member values(?,?,?,?,'','',sysdate,default)";
+						
+						pstmt = con.prepareStatement(sql);
+						
+						pstmt.setInt(1, count);
+						pstmt.setString(2, id);
+						pstmt.setString(3, name);
+						pstmt.setString(4, pwd);
 						
 						result = pstmt.executeUpdate();
 						
@@ -596,9 +626,10 @@ public class UserDAO {
 						e.printStackTrace();
 					} finally {
 						closeConn(rs, pstmt, con);
-					}			
+					}					
 					return result;
 				}
+
 
 				// 회원가입 - 아이디 중복 체크
 				public int checkMemberId(String id) {
@@ -627,10 +658,137 @@ public class UserDAO {
 					}
 					return res;
 				}
-	  // 비밀번호 찾기
-    public String findIdforPwd(String mem_id) {
+	
+			// 로그인 성공 시 회원 정보 불러오기
+	public UserDTO getMember(String member_id) {
+		UserDTO dto = null;
+		
+		try {
+			openConn();
+			
+			sql = "select * from member where member_id = ?";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, member_id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
 
-		String res = "";
+				dto = new UserDTO();
+				
+				dto.setMember_id(rs.getString("member_id"));
+				dto.setMember_image(rs.getString("member_image"));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+
+		// 키워드 회원 검색 -> 회원 페이지 이동
+	public UserDTO getMemberProfile(String member_id) {
+		UserDTO dto = null;
+		
+		try {
+			openConn();
+			
+			sql = "select * from member where member_id = ?";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, member_id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dto = new UserDTO();
+				
+				dto.setMember_num(rs.getInt("member_num"));
+				dto.setMember_id(rs.getString("member_id"));
+				dto.setMember_name(rs.getString("member_name"));
+				dto.setMember_pwd(rs.getString("member_pwd"));
+				dto.setMember_profile(rs.getString("member_profile"));
+				dto.setMember_birth(rs.getString("member_birth"));
+				dto.setMember_regdate(rs.getString("member_regdate"));
+				dto.setMember_image(rs.getString("member_image"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+		// 회원가입 메서드
+	public int insertMember(String name, String id, String pwd) {
+		int result = 0, count = 0;
+		
+		try {
+			openConn();
+			
+			sql = "select max(member_num) from member";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1) + 1;
+			}
+			
+			sql = "insert into member values(?,?,?,?,'','',sysdate,default)";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, count);
+			pstmt.setString(2, id);
+			pstmt.setString(3, name);
+			pstmt.setString(4, pwd);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}					
+		return result;
+	}
+	// 회원가입 - 아이디 중복 체크
+public int checkMemberId(String id) {
+   int res = 0;
+   try {
+      openConn();
+
+      sql = "select member_id from member where member_id = ?";
+
+      pstmt = con.prepareStatement(sql);
+
+      pstmt.setString(1, id);
+
+      rs = pstmt.executeQuery();
+
+      if(rs.next()) {
+         res = 1;
+      }else {
+         res = 0;
+      }
+      return res;
+    }	// findIdforPwd() end 
+  }
+   } catch (SQLException e) {
+      e.printStackTrace();
+   } finally {
+      closeConn(rs, pstmt, con);
+   }
+   return res;
+}
+
+	// 비밀번호 찾기
+	public String findIdforPwd(String mem_id) {
+
+		String res = "존재";
 		
 		try {
 			openConn();
@@ -644,7 +802,7 @@ public class UserDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				res = rs.getString(1).trim();
+				res = rs.getString(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

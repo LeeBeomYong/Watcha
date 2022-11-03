@@ -1015,6 +1015,7 @@ public class StarDAO {
 					return list;
 				}	
 				
+				
 			public void chkId(int movie_num,String member_Id) {
 				
 				
@@ -1039,7 +1040,6 @@ public class StarDAO {
 					closeConn(rs, pstmt, con);
 				}
 			}
-			 
 }
 
 

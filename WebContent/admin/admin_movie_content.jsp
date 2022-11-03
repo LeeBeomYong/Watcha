@@ -213,6 +213,7 @@ margin-left: 100px;
             
          		<input type="hidden" name="movie_old_video" value="${dto.getMovie_video() }">
            			 
+           			 
            			 </div>
     			<div id="image_container"></div>
           </fieldset>

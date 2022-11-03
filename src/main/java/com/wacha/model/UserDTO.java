@@ -10,9 +10,16 @@ public class UserDTO {
 	private String member_birth;
 	private String member_regdate;
 	private String member_image;
+	private int member_use;
 	
 	
 	
+	public int getMember_use() {
+		return member_use;
+	}
+	public void setMember_use(int member_use) {
+		this.member_use = member_use;
+	}
 	public int getMember_num() {
 		return member_num;
 	}

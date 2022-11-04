@@ -164,12 +164,12 @@ public class UserDAO {
 				dto.setMember_profile(rs.getString("member_profile"));
 				
 				dto.setMember_birth(rs.getString("member_birth"));
+				
 
 				dto.setMember_regdate(rs.getString("member_regdate"));
 
 				dto.setMember_image(rs.getString("member_image"));
-				
-				dto.setMember_use(rs.getInt("member_use"));
+
 				
 				list.add(dto);
 			}
@@ -181,24 +181,6 @@ public class UserDAO {
 		}return list;
 	}
 
-	/*
-	 * public int userDelete(String id, String pwd) {
-	 * 
-	 * int result = 0;
-	 * 
-	 * try { openConn();
-	 * 
-	 * sql="select * from member where member_id='test1'";
-	 * pstmt=con.prepareStatement(sql); //pstmt.setString(1, id);
-	 * rs=pstmt.executeQuery();
-	 * 
-	 * if(rs.next()) { if(pwd.equals(rs.getString("member_pwd"))) {
-	 * sql="update member set member_use = 0 where member_id = 'test1'";
-	 * pstmt=con.prepareStatement(sql); //pstmt.setString(1, id); result =
-	 * pstmt.executeUpdate(); }else { result = -1; } } } catch (SQLException e) { //
-	 * TODO Auto-generated catch block e.printStackTrace(); } finally {
-	 * closeConn(rs, pstmt, con); } return result; }
-	 */
 		
 		public int userDelete(String id, String pwd) {
 			
@@ -207,16 +189,16 @@ public class UserDAO {
 			try {
 				openConn();
 				
-				sql="select * from member where member_id=?";
+				sql="select * from member where member_id='test1'";
 				pstmt=con.prepareStatement(sql);
-				pstmt.setString(1, id);
+				//pstmt.setString(1, id);
 				rs=pstmt.executeQuery();
 				
 				if(rs.next()) {
 					if(pwd.equals(rs.getString("member_pwd"))) {
-						sql="update member set member_use = 0 where member_id = ?";
+						sql="update member set member_use = 0 where member_id = 'test1'";
 						pstmt=con.prepareStatement(sql);
-						pstmt.setString(1, id);
+						//pstmt.setString(1, id);
 						result = pstmt.executeUpdate();
 					}else {
 						result = -1;

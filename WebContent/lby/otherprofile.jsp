@@ -137,7 +137,7 @@
 			<div class="middle">
 				<div class="name">
 					<h4><strong>${dto.getMember_name() }</strong></h4>
-					<c:if test="${empty dto.getMember_image() }">
+					<c:if test="${dto.getMember_image() == '프로필로고.png' }">
 					<h6><span style="color: red;">프로필이없음</span></h6>
 					</c:if>
 				</div>

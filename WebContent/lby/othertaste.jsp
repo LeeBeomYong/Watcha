@@ -199,60 +199,45 @@
 				
 					<br><br>
 				<c:set var="countrylist" value="${countryList }"/>
-				<div>
-					<table border="1" cellspacing="0" width="400px" style="text-align: center;">
-						<tr>
-							<th>나라</th>
-							<th>개수</th>
-						</tr>
-				<c:if test="${!empty countrylist }">
-					<c:forEach items="${countrylist }" var="dto">
-						<tr>
-							<td>${dto.getMovie_country() }</td>
-							<td>${dto.getMovie_country_count() }</td>
-						</tr>
-					</c:forEach>
-				</c:if>
+				<div style="display: inline-block;">
+					<c:if test="${!empty countrylist }">
+						<c:forEach items="${countrylist }" var="dto">
+							<div style="display: inline-block; margin-left: 20px; ">
+								<span style="font-weight: bold;">${dto.getMovie_country() }</span><br>
+								<span style="font-weight: lighter;">${dto.getMovie_country_count() }편</span>
+							</div>
+						</c:forEach>
+					</c:if>
 				<c:if test="${empty countrylist }">
-					<tr>
-						<td colspan="2" cellsapcing="0">
-						조회된 데이터가 없습니다.
-						</td>
-					</tr>
+						<p>조회된 데이터가 없습니다.</p>
 				</c:if>
-					</table>
 				</div>
-				<br><br>
+				<br><br><br>
 				<hr>
 			<c:set var="genrelist" value="${genreList }"/>	
 				<div>
 					<h5><strong>영화선호장르</strong></h5>
 				</div>
-					<br><br>
-				<div>
-					<table border="1" cellspacing="0" width="400px" style="text-align: center;">
-						<tr>
-							<th>장르</th>
-							<th>개수</th>
-						</tr>
+				<br>
+				<c:if test="${genrelist[0].name == '액션' }">
+				<p style= "position: absolute; left: 35%; color: red;">액션</p>
+				</c:if>
+				<p>${genrelist[0].movie_genre }aa</p>
+				<br><br>
+				<div style="display: inline-block;">
 				<c:if test="${!empty genrelist }">
 					<c:forEach items="${genrelist }" var="dto">
-						<tr>
-							<td>${dto.getMovie_genre() }</td>
-							<td>${dto.getMovie_genre_count() }</td>
-						</tr>
+						<div style="display: inline-block; margin-left: 20px; ">
+							<span style="font-weight: bold;">${dto.getMovie_genre() }</span><br>
+							<span style="font-weight: lighter;">${dto.getMovie_genre_count() }편</span>
+						</div>
 					</c:forEach>
 				</c:if>
 				<c:if test="${empty genrelist }">
-					<tr>
-						<td colspan="2" cellsapcing="0">
 						조회된 데이터가 없습니다.
-						</td>
-					</tr>
 				</c:if>
-					</table>
 				</div>
-				<br><br>
+				<br><br><br><br>
 				<hr>
 				<div>
 					<h5><strong>영화감상시간</strong></h5>

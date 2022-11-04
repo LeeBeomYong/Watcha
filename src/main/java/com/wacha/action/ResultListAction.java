@@ -18,11 +18,13 @@ public class ResultListAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
+		String id = request.getParameter("id");
+		
 		WriteDAO dao = WriteDAO.getInstance();
 		
-		List<WriteDTO> list = dao.getWriteList1();
+		List<WriteDTO> list = dao.getWriteList1(id);
 		
-		List<W_WriteDTO> rlist = dao.getW_WriteList();
+		List<W_WriteDTO> rlist = dao.getW_WriteList(id);
 		
 		request.setAttribute("List", list);
 		request.setAttribute("RList", rlist);

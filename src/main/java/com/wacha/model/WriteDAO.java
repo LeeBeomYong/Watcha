@@ -243,8 +243,48 @@ public class WriteDAO {
 		}
 		
 		
+		// write 테이블에서 로그인 된 거 전체 리스트 조회하는 메서드,
+		public List<WriteDTO> getWriteList1(String id){
+			
+			List<WriteDTO> list = new ArrayList<WriteDTO>();		
+			
+			openConn();
+			
+			try {
+				sql = "select * from write where member_id = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, id);
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					
+					WriteDTO dto = new WriteDTO();
+					
+					dto.setWrite_num(rs.getInt("write_num"));
+					dto.setWrite_cont(rs.getString("write_cont"));
+					dto.setWrite_title(rs.getString("write_title"));
+					dto.setWrite_pwd(rs.getString("write_pwd"));
+					dto.setWrite_hit(rs.getInt("write_hit"));
+					dto.setWrite_date(rs.getString("write_date"));
+					dto.setWrite_radio(rs.getString("write_radio"));
+					dto.setWrite_reply(rs.getString("write_reply"));
+					dto.setMember_id(rs.getString("member_id"));
+					
+					list.add(dto);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+			}
+			return list;
+			
+		} // getWriteList() end 부분
+		
+		
 		// write 테이블에서 전체 리스트 조회하는 메서드,
-		public List<WriteDTO> getWriteList1(){
+		public List<WriteDTO> getWriteList2(){
 			
 			List<WriteDTO> list = new ArrayList<WriteDTO>();		
 			
@@ -252,7 +292,7 @@ public class WriteDAO {
 			
 			try {
 				sql = "select * from write order by write_num desc";
-				pstmt = con.prepareStatement(sql);			
+				pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 				
 				while(rs.next()) {
@@ -335,7 +375,9 @@ public class WriteDAO {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}closeConn(rs, pstmt, con);
+			}finally {
+				closeConn(rs, pstmt, con);
+			}
 			
 		}
 		
@@ -777,7 +819,7 @@ public class WriteDAO {
 					count = rs.getInt(1) + 1;
 				}
 				
-				sql = "insert into w_write values(?, ?, sysdate, ?, '', ?)";
+				sql = "insert into w_write values(?, ?, sysdate, ?, 0, ?)";
 				pstmt = con.prepareStatement(sql);
 				
 				pstmt.setInt(1, count);
@@ -797,12 +839,49 @@ public class WriteDAO {
 		}
 		
 		
-		public List<W_WriteDTO> getW_WriteList(){
+		public List<W_WriteDTO> getW_WriteList(String id){
 			
 			List<W_WriteDTO> list = new ArrayList<W_WriteDTO>();
 			
 			openConn();
 						
+			try {
+				sql = "select * from w_write where member_id = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, id);
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					
+					W_WriteDTO dto = new W_WriteDTO();
+					
+					dto.setW_num(rs.getInt("w_num"));
+					dto.setW_cont(rs.getString("w_cont"));
+					dto.setW_date(rs.getString("w_date"));
+					dto.setW_file(rs.getString("w_file"));
+					dto.setW_reply(rs.getString("w_reply"));
+					dto.setW_id(rs.getString("member_id"));
+					
+					list.add(dto);
+					
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+				
+			}
+			return list;
+		}
+		
+		
+		public List<W_WriteDTO> getW_WriteList2(){
+			
+			List<W_WriteDTO> list = new ArrayList<W_WriteDTO>();
+			
+			openConn();
+			
 			try {
 				sql = "select * from w_write order by w_num desc";
 				pstmt = con.prepareStatement(sql);

@@ -8,19 +8,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.wacha.controller.Action;
 import com.wacha.controller.ActionForward;
-import com.wacha.model.MovieDAO;
+import com.wacha.model.UserDAO;
 
-public class AdminMovieDeleteAction implements Action {
+public class AdminDeleteOk implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		int movie_num= Integer.parseInt(request.getParameter("num").trim());
+		//유저상세페이지에서 삭제버튼 누를시 
+		String member_id =	request.getParameter("id").trim();
 		
-		MovieDAO dao = MovieDAO.getInstance();
+		String member_pwd = request.getParameter("pwd").trim();
 		
-		int check = dao.deleteMovie(movie_num);
+		UserDAO dao = UserDAO.getInstance();
 		
-		System.out.println("check>>>>>>>>>>>>>>>>"+check);
+		int check =dao.userDelete(member_id, member_pwd);
 		
 		ActionForward forward = new ActionForward();
 		
@@ -28,13 +29,14 @@ public class AdminMovieDeleteAction implements Action {
 		
 		if(check>0) {
 			forward.setRedirect(true);
-			forward.setPath("admin_movie_list.do");
+			forward.setPath("admin_member_list.do");
 		}else {
 			out.println("<script>");
-			out.println("alert('삭제실패')");
+			out.println("alert(유저삭제')");
 			out.println("history.back()");
 			out.println("</script>");
 		}
+		
 		return forward;
 	}
 

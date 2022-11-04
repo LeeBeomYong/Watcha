@@ -8,33 +8,44 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.wacha.controller.Action;
 import com.wacha.controller.ActionForward;
-import com.wacha.model.MovieDAO;
+import com.wacha.model.W_ReplyDTO;
+import com.wacha.model.WriteDAO;
 
-public class AdminMovieDeleteAction implements Action {
+public class AdminServiceW_WriteOkAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		int movie_num= Integer.parseInt(request.getParameter("num").trim());
+	
+		W_ReplyDTO dto = new W_ReplyDTO();
 		
-		MovieDAO dao = MovieDAO.getInstance();
+		String w_cont =request.getParameter("reply_w_cont").trim();
 		
-		int check = dao.deleteMovie(movie_num);
+		int w_wum=Integer.parseInt(request.getParameter("w_writenum").trim());
 		
-		System.out.println("check>>>>>>>>>>>>>>>>"+check);
+		dto.setR_cont(w_cont);
+		
+		dto.setW_num(w_wum);
+		
+		WriteDAO dao = WriteDAO.getInstance();
+		
+		int check = dao.insertw_reply(dto);
+		
+		request.setAttribute("w_reply", check);
 		
 		ActionForward forward = new ActionForward();
 		
 		PrintWriter out = response.getWriter();
 		
-		if(check>0) {
+		if(check > 0 ) {
 			forward.setRedirect(true);
-			forward.setPath("admin_movie_list.do");
+			forward.setPath("admin_service_answer.do");
 		}else {
 			out.println("<script>");
-			out.println("alert('삭제실패')");
+			out.println("alert('답변 실패')");
 			out.println("history.back()");
 			out.println("</script>");
 		}
+		
 		return forward;
 	}
 

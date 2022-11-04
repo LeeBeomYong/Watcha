@@ -152,7 +152,7 @@
 		
 		// 임의의 세션 값
 		let id ='<%=session.getAttribute("member_Id")%>';
-		if(id){
+		if(id !="null"){
 			$.ajax({
 				url : "/WatchaProject/content/ComentLike.jsp",
 				data : {movie_num : ${movie_dto.getMovie_num()},
@@ -181,7 +181,7 @@
 	$("#btncheck2").on("click",function(){
 		// 임의의 세션 값
 		let id ='<%=session.getAttribute("member_Id")%>';
-		if(id){
+		if(id !="null"){
 			if(chk==0){
 				$("#hidenDiv").append("<ul class=\"list-group list-group-flush\"> <li class=\"list-group-item\"><div><img alt=\"없\" src=\"\" width=\"20px\" height=\"20px\"><span><%=session.getAttribute("member_Id")%></span></div><textarea class=\"form-control\" id=\"area1\" rows=\"3\"></textarea><div align=\"right\"><button type=\"button\" id=\"btn3\" class=\"btn btn-secondary\">댓글달기</button></div></li></ul>");
 				chk=1;
@@ -218,7 +218,7 @@
 	$("#btncheck3").on("click",function(){
 		// 임의의 세션 값
 		let id ='<%=session.getAttribute("member_Id")%>';
-		if(id){
+		if(id !="null"){
 	
 		$.ajax({
 			url : "/WatchaProject/content/ComentHate.jsp",

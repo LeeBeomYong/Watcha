@@ -6,7 +6,7 @@
     
 <%
 	int movieNum =Integer.parseInt(request.getParameter("movieNum"));
-	String memberId = request.getParameter("member_Id");
+	String memberId = request.getParameter("session_id");
 	int star=0; 
 	if(request.getParameter("star") != null){
 		star = Integer.parseInt(request.getParameter("star"));

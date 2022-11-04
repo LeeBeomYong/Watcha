@@ -183,8 +183,21 @@
 	#mainComent_div{
 		display: flex;
 		flex-direction: row;
-		justify-content: center;
+		justify-content: flex-start;
 		height: 300px;
+	}
+	mainComent_div div{
+		height: 400px;
+	}
+	#coment_on{
+		display: flex;
+		flex-direction: column;
+		width: 250px;
+		margin: 0 2%;
+		background-color: #F5F5F5;
+		border-radius: 5%;
+		font-size: 10px;	
+	
 	}
 
 	/* 출연진 및 감독 영역 */
@@ -247,26 +260,40 @@
 	
 	/* 코멘트 영역 */
 	.coment_div{
-		margin-left: 10px;
 		width: 100%;
-		background-color: #F5F5F5;
-		border-radius: 5%;
-		font-size: 10px;
+			
 	}
+	.coment_div ul{
+		display: flex;
+		justify-content: center;
+	
+	}
+	.coment_div li{
+		display: flex;
+		flex-direction: row;
+
+	}
+
 	.coment_top{
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
+		margin: 0 5%;
 	}
+	
 	a{
 		color : black !important;
 		text-decoration: none !important;
 	}
 	.coment_midle{
 		height: 180px;
+		margin: 0 5%;
 	}
-	
+	.coment_bottom{
+		margin: 3% 5%;
+	}
+
 	/* 비슷한 작품 영역   */
 	#same_movie{
 		margin-left: 10px;
@@ -325,19 +352,32 @@
 		border-radius: 10%;
 		height: 200px;
 	} 	
+	
 	/*슬라이드 구간  */
-	#carouselExampleControlsNoTouching2{
-		display : flex;
-		flex-direction : row;
-		background-color: #F5F5F5;
-		width : 300px;
-		height: 300px;
+	.carousel-inner{
+		display: flex;
+		align-items: center;
 	}
-	#carouselExampleControlsNoTouching2 > div{
-		width : 300px;
-		height: 300px;
+	.carousel-inner2{
+		display: flex;
+		align-items: center;
+		width: 780px;
+		
+	}
+	carousel-item active ul li{	
+		display: flex;
+	}
+	.flex_li{
+		display: flex;
 	}
 	
+	
+	#carouselExampleControlsNoTouching2{
+		display: flex;
+		flex-direction: row;
+		align-content : center;
+		height: 300px;
+	}
 	#carouselExampleControlsNoTouching{
 		background-color: #F5F5F5;
 		width : 300px;

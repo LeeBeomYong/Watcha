@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+
 <script type="text/javascript">
 
 
@@ -15,8 +16,9 @@
 body{
     margin: 0;
     padding: 0;
-    background-color:#3fa46a;
-    font-family: arial
+    background-color:#BDB76B;
+    font-family: arial;
+    
 }
 
 .box{
@@ -37,7 +39,7 @@ body{
 
 .box ul:last-of-type{top:80px}
 
-.box ul:before{
+/* .box ul:before{
     content: "";
     display: block;
     width: 0;
@@ -46,7 +48,7 @@ body{
     position: absolute;
     top:0;
     left:30px
-}
+} */
 
 .box ul li{
     margin: 20px 60px 60px;
@@ -187,9 +189,43 @@ svg{
     }
 }
 
+.btn {
+  flex: 1 1 auto;
+  margin: 10px;
+  padding: 30px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+ /* text-shadow: 0px 0px 10px rgba(0,0,0,0.2);*/
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  text-decoration: none;
+
+ }
+.btn:hover {
+  background-position: right center; 
+}
+.btn-5 {
+  background-image: linear-gradient(to right, #ffecd2 0%, #fcb69f 51%, #ffecd2 100%);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  flex-wrap: wrap;
+  width: 80vw;
+  margin: 0 auto;
+  min-height: 100vh;
+}
 </style>
 </head>
 <body>
+<jsp:include page="../include/admin_top.jsp" />
 <div class="box">
             <ul id="first-list">
             <c:set var="comentList" value="${comentList }"/>
@@ -204,9 +240,10 @@ svg{
                     ${dto.getComent_nohit() }
                     ${dto.getMember_id() }
                     </div> 
+                    
                     <div class="time">
-                        <span>JUN, 17<sup>th</sup></span>
-                        <span>12:00 AM</span>
+                        <span><sup></sup></span>
+                        <span></span>
                     </div>
                 </li>
                 </c:forEach>
@@ -225,29 +262,23 @@ svg{
                     ${dto1.getComent_nohit() }
                     ${dto1.getMember_id() }
                     </div> 
+                    
                     <div class="time">
-                        <span>JUN, 29<sup>th</sup></span>
-                        <span>11:36 AM</span>
+                        <span><sup></sup></span>
+                        <span></span>
                     </div>
                 </li>
                  </c:forEach>
                 </c:if>
-     <!--            <li>
-                    <span></span>
-                    <div class="title">comment #02</div>
-                    <div class="info">the best animation , the best toturials you would ever see . what about canvas ?? do you like it ..</div>
-                    <div class="name">- dr. ahmed -</div>
-                    <div class="time">
-                        <span>FEB, 2<sup>nd</sup></span>
-                        <span>02:00 PM</span>
-                    </div>
-                </li> -->
+  
                 </ul>
 
-           
-               
-            
             
         </div>
+        <div class="container">
+         <a class="btn btn-5" href="javascript:window.history.back();">돌아가기</a>
+               
+        </div>
+        <jsp:include page="../include/admin_bottom.jsp" />
 </body>
 </html>

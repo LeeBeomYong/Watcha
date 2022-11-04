@@ -86,7 +86,6 @@
 		</div>
 		<br><br><br>
 		
-		
 			<div>
 				<div id="div0">
 					<c:set var="list" value="${img_List }"/>

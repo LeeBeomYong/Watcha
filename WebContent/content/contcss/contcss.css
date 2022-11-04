@@ -347,6 +347,7 @@
 		border-radius: 10%;
 		height: 200px;
 	} 	
+	
 	/*슬라이드 구간  */
 	.carousel-inner{
 		display: flex;

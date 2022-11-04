@@ -585,7 +585,6 @@ $(function() {
 		                                       </div>
 		                     				</div>
 		                     			</c:forEach>
-		                     			
 								</li>
 							</ul>
 					    </div>

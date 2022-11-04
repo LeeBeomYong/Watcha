@@ -255,5 +255,54 @@ public class ImageDAO {
 				return list;
 				
 			}
+			
+			// 영화별 메인 이미지 및 갤러리 이미지 출력
+			public String getMovieImage(int movie_num) {
+				String res="";
+				sql="select image_temp from image where movie_num=?";
+				openConn();
+				try {
+					pstmt=con.prepareStatement(sql);
+					pstmt.setInt(1, movie_num);
+					rs=pstmt.executeQuery();
+					if(rs.next()) {
+						res=rs.getString(1);
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					closeConn(rs, pstmt, con);
+				}
+				
+				return res;
+			}
+
+			// 해당 번호 영화 dto 가져오자자
+			public ImageDTO getMovie(int movie_num) {
+				ImageDTO image_dto=null;
+				sql="select * from image where movie_num=?";
+				openConn();
+				try {
+					pstmt=con.prepareStatement(sql);
+					pstmt.setInt(1, movie_num);
+					rs=pstmt.executeQuery();
+					if(rs.next()) {
+						image_dto=new ImageDTO();
+						image_dto.setDirector_image("director_image");
+						image_dto.setImage_loc("image_loc");
+						image_dto.setImage_temp("image_temp");
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					closeConn(rs, pstmt, con);
+				}
+				
+				return image_dto;
+			}
+
+
 
 }

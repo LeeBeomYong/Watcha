@@ -19,11 +19,11 @@ public class ComentDAO {
 		// DB에 SQL문을 전송하는 객체
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
-		
+		PreparedStatement pstmt3 = null;
 		// SQL문을 실행한 후에 결과 값을 가지고 있는 객체.
 		ResultSet rs = null;
 		ResultSet rs2 = null;
-		
+		ResultSet rs3 = null;
 		// 쿼리문을 저장할 변수
 		String sql = null;
 		
@@ -85,11 +85,11 @@ public class ComentDAO {
 				PreparedStatement pstmt, Connection con) {
 			
 			try {
-				if(rs != null) rs.close();
+				if(con != null) con.close();
 				
 				if(pstmt != null) pstmt.close();
 				
-				if(con != null) con.close();
+				if(rs != null) rs.close();
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
@@ -124,6 +124,16 @@ public class ComentDAO {
 					if(rs2.next()) {
 						dto.setCocoment_count(rs2.getInt(1));
 					}
+					
+					sql="select movie_star from star where movie_num=? and member_id=?";
+					pstmt3=con.prepareStatement(sql);
+					pstmt3.setInt(1, movie_num);
+					pstmt3.setString(2, dto.getMember_id());
+					rs3=pstmt3.executeQuery();
+					if(rs3.next()) {
+						dto.setMember_star(rs3.getInt(1));
+					}
+					
 				
 					list.add(dto);
 				}
@@ -132,6 +142,8 @@ public class ComentDAO {
 				e.printStackTrace();
 			}finally {
 				closeConn(rs, pstmt, con);
+				closeConn(rs2, pstmt2, con);
+				closeConn(rs3, pstmt3, con);
 			}
 			
 			return list; 

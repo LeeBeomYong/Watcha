@@ -45,13 +45,10 @@ public class ProfileDeleteAction implements Action {
 		int result = dao.userDelete(member_Id, user_pwd);
 
 		PrintWriter out = response.getWriter();
-		
+		ActionForward forward = new ActionForward();
 		if(result>0) {			
-			out.println("<script>");
-			out.println("window.close();");
-			out.println("window.opener.location.href=\"main.jsp\"");
-			out.println("</script>");
-			
+			forward.setRedirect(false);
+			forward.setPath("user_logout.do");
 		}else if( result == -1) {
 			out.println("<script>");
 			out.println("alert('비밀번호가 틀렸습니다.')");
@@ -65,7 +62,6 @@ public class ProfileDeleteAction implements Action {
 			out.println("</script>");
 		}
 		
-		ActionForward forward = new ActionForward();
 		return forward;
 	}
 

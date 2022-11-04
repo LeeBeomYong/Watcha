@@ -66,7 +66,7 @@ public class StarDAO {
 					// 2단계 : lookup() 메서드를 이용하여 매칭되는
 					//        커넥션을 찾는다.
 					DataSource ds =
-						(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
+						(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
 					
 					// 3단계 : DataSource 객체를 이용하여
 					//        커넥션을 하나 가져온다.
@@ -322,7 +322,7 @@ public class StarDAO {
 				 try {
 					openConn();
 					 
-					sql = "select movie_country, count(*) as movie_country_count from movie m, star s where m.movie_num = s.movie_num and member_id = ? group by movie_country";
+					sql = "select movie_country, count(*) as movie_country_count from movie m, star s where m.movie_num = s.movie_num and member_id = ? group by movie_country order by movie_country_count desc";
 					pstmt=con.prepareStatement(sql);
 					pstmt.setString(1, id);
 					rs=pstmt.executeQuery();
@@ -350,7 +350,7 @@ public class StarDAO {
 				 
 				 try {
 					 openConn();
-					 sql = "select movie_genre, count(*) as movie_genre_count from movie m, star s where m.movie_num = s.movie_num and member_id = ? group by movie_genre";
+					 sql = "select movie_genre, count(*) as movie_genre_count from movie m, star s where m.movie_num = s.movie_num and member_id = ? group by movie_genre order by movie_genre_count desc";
 					 pstmt = con.prepareStatement(sql);
 					 pstmt.setString(1, id);
 					 rs=pstmt.executeQuery();
@@ -386,7 +386,7 @@ public class StarDAO {
 					 rs=pstmt.executeQuery();
 					 
 					 while(rs.next()) {
-						 int temp = Integer.parseInt(rs.getString("movie_time").substring(2, 3));
+						 int temp = Integer.parseInt(rs.getString("movie_time").substring(0, 1	));
 						 sum += temp;
 					 }
 					 

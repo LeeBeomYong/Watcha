@@ -58,16 +58,16 @@ public class AdminMovieWriteOkAction implements Action {
 		String movie_country = multi.getParameter("movie_country").trim();
 
 		String movie_director = multi.getParameter("movie_director").trim();
+		
+		
+		String movie_main = multi.getParameter("movie_main");			
+		String movie_gallery1 = multi.getParameter("movie_gallery1");			
+		String movie_gallery2 = multi.getParameter("movie_gallery2");			
 
-		Enumeration params = multi.getParameterNames();
-		while (params.hasMoreElements()) //params.hasMoreElements()메소드를 사용해 포함된 요소들이 있는지 검사하고 요소들이 포함되어 있는 동안만 반복
-		            {
-		                String name = (String) params.nextElement();
-		                String value = multi.getParameter(name);
-		                System.out.println(multi.getFilesystemName(name));
-		                System.out.println(name + "=" + value + "<br/>"); //name, value 변수에 담긴값을 브라우저 출력
-		            }
-
+		
+		System.out.println(movie_main+","+movie_gallery1+","+movie_gallery2);
+		
+		
 		File movie_video = multi.getFile("movie_poster");
 
 		// 무비 포스터

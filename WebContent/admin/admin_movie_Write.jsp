@@ -366,6 +366,11 @@ max-height:100%;
 	<jsp:include page="../include/admin_top.jsp" />
 	<br><br><br>
       <form enctype="multipart/form-data" action="<%=request.getContextPath() %>/admin_movie_write_ok.do" method="post">
+      <input type="hidden" id="mm" name="movie_main" value= "">
+      <input type="hidden" id ="gallery1" name="movie_gallery1" value = "">
+      <input type="hidden" id = "gallery2" name="movie_gallery2" value = "">
+      
+      
     <input type="hidden" name="movie_num" value="${dto.getMovie_num() }">
         <h1>영화등록</h1>
 
@@ -373,7 +378,17 @@ max-height:100%;
 	
 	let noimage =
 	  "https://ami-sni.com/wp-content/themes/consultix/images/no-image-found-360x250.png";
-
+	$(function() {
+       	$('#files').click(function(){
+            var files=$('input[name="gallery"]')[0].files;
+            $("#mm").attr("value",files[0].name);
+            $("#gallery1").attr("value",files[1].name);
+            $("#gallery2").attr("value",files[2].name);
+        });
+	});
+	
+	
+	
 	function readURL(input) {
 	  console.log(input.files);
 	  if (input.files && input.files[0]) {
@@ -449,15 +464,7 @@ max-height:100%;
 		  });
 		}
 	
-       	$('#su1').click(function(){
 
-            var files=$('input[name="gallery"]')[0].files;
-
-            for(var i= 0; i<files.length; i++){
-                alert('file_name :'+files[i].name);
-            }
-
-        });
     </script>
        <div  class="can-1">
           <fieldset>
@@ -577,7 +584,7 @@ max-height:100%;
       
  
    
-        <button type="submit" id="su1">Add List</button>
+        <button type="submit" >Add List</button>
       </form>
       <jsp:include page="../include/admin_bottom.jsp" />
     </body>

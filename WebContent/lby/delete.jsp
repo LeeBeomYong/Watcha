@@ -108,7 +108,6 @@
 
 	<jsp:include page = "../include/user_top.jsp" />
 	
-	
 	<div class="wrapper2">
   		<div class="container2">
    		 	<div class="sign-in-container2">

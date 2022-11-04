@@ -27,5 +27,6 @@ public class AdminMemberContentWrite implements Action {
 		return null;
 	}
 
+
 }
 

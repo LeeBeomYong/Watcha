@@ -126,6 +126,7 @@
 				<div align="right">
 				</div>
 			</div>
+			
 			<div class="picture">
 				<c:if test="${!empty dto.getMember_image() }">
 					<img alt="프로필" src="${pageContext.request.contextPath }/image/profileupload/${dto.getMember_image()}" width="70px" height="70px">

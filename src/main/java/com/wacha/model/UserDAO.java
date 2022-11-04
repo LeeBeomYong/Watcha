@@ -12,9 +12,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-
-import com.wacha.model.UserDTO;
-
 public class UserDAO {
 
 	// DB와 연동하는 객체.
@@ -354,9 +351,9 @@ public class UserDAO {
 			
 			try {
 				openConn();
-				sql="select * from member where member_id = 'test1'";
+				sql="select * from member where member_id = ?";
 				pstmt = con.prepareStatement(sql);
-				//pstmt.setString(1, id);
+				pstmt.setString(1, id);
 				rs = pstmt.executeQuery();
 				
 				if(rs.next()) {
@@ -380,7 +377,7 @@ public class UserDAO {
 		return dto;
 			
 		}
-
+		
 		public UserDTO UserContent(String id) {
 			UserDTO dto = null;
 			
@@ -499,7 +496,6 @@ public class UserDAO {
 			pstmt.setString(1, member_id);
 			
 			rs = pstmt.executeQuery();
-
 			if(rs.next()) {	// 아이디 O 
 				if(rs.getString("member_id").equals("admin")) {
 					if(member_pwd.equals(rs.getString("member_pwd"))) {
@@ -507,21 +503,29 @@ public class UserDAO {
 					}else {
 						res = -1;	// 관리자 아이디 O, 비번 X
 					}
-				}else {
-					if(member_pwd.equals(rs.getString("member_pwd"))) {
-						res = 1;	// 회원
 					}else {
-						res = -1;	// 회원 아이디 O, 비번 X
+						if(member_pwd.equals(rs.getString("member_pwd"))) {
+							res = 1;	// 회원
+						}else {
+							res = -1;	// 회원 아이디 O, 비번 X
+						}
 					}
 				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+			return res;
 		}
-		return res;
-	}
 
-			// 로그인 성공 시 회원 정보 불러오기
+
+				
+	
+
+				
+				
+
+
+				
 	public UserDTO getMember(String member_id) {
 		UserDTO dto = null;
 		
@@ -617,8 +621,6 @@ public class UserDAO {
 		}					
 		return result;
 	}
-
-		// 회원가입 - 아이디 중복 체크
 	public int checkMemberId(String id) {
 		int res = 0;
 		
@@ -645,7 +647,7 @@ public class UserDAO {
 		}
 		return res;
 	}
-	
+
 	// 비밀번호 찾기
 	public String findIdforPwd(String mem_id) {
 
@@ -673,3 +675,4 @@ public class UserDAO {
 		return res;
 	}	// findIdforPwd() end
 }
+

@@ -211,7 +211,8 @@ public class ImageDAO {
 					}			
 				} catch (SQLException e) {
 					e.printStackTrace();
-				}finally {
+				} finally {
+
 					closeConn(rs, pstmt, con);
 				}
 				return list;

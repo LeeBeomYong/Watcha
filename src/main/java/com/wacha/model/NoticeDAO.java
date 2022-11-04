@@ -138,44 +138,44 @@ public class NoticeDAO {
 		}//getnoticeList 메서드끝
 			
 		public int isertNotice(NoticeDTO dto) {
-		int result=0 , count=0;
-		
-		try {
+			int result=0 , count=0;
 			
-			openConn();
-			
-			sql="select max(notice_num) from notice";
-			
-			pstmt=con.prepareStatement(sql);
-			
-			rs=pstmt.executeQuery();
-			
-			if(rs.next()) {
-				count=rs.getInt(1)+1;
+			try {
 				
-			}
+				openConn();
+				
+				sql="select max(notice_num) from notice";
+				
+				pstmt=con.prepareStatement(sql);
+				
+				rs=pstmt.executeQuery();
+				
+				if(rs.next()) {
+					count=rs.getInt(1)+1;
+					
+				}
+				
+				sql="insert into notice values(?,?,?,default,sysdate)";
+				
+				pstmt=con.prepareStatement(sql);
+				
+				pstmt.setInt(1, count);
+				
+				pstmt.setString(2, dto.getNotice_title());
+				
+				pstmt.setString(3, dto.getNotice_content());
+				
+				result=pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+			}return result;
 			
-			sql="insert into notice values(?,?,?,sysdate,default)";
 			
-			pstmt=con.prepareStatement(sql);
-			
-			pstmt.setInt(1, count);
-			
-			pstmt.setString(2, dto.getNotice_title());
-			
-			pstmt.setString(3, dto.getNotice_content());
-			
-			result=pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			closeConn(rs, pstmt, con);
-		}return result;
-		
-		
-		}//isertNotice()끝
+			}//isertNotice()끝
 		
 		public void noticeHit(int num) {
 			

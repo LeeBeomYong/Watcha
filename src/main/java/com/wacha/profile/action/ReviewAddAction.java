@@ -12,7 +12,7 @@ import com.wacha.controller.ActionForward;
 import com.wacha.model.MovieTitleStarDTO;
 import com.wacha.model.StarDAO;
 
-public class RevieAddAction implements Action {
+public class ReviewAddAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {

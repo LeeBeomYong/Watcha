@@ -1,13 +1,16 @@
 package com.wacha.content.action;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wacha.controller.Action;
 import com.wacha.controller.ActionForward;
+import com.wacha.model.MovieAndStarDTO;
 import com.wacha.model.MovieDAO;
+import com.wacha.model.MovieDTO;
 
 public class WachaDirectorListAction implements Action {
 
@@ -22,10 +25,16 @@ public class WachaDirectorListAction implements Action {
 		
 		MovieDAO movie_dao = MovieDAO.getInstance();
 		
-		movie_dao.getMovieList(director);
+		
+		List<MovieAndStarDTO> movie_list=movie_dao.getMovieList(director);
+		
 		
 		ActionForward forward = new ActionForward();
-		request.setAttribute("movie_num", movie_num);
+		
+		
+		request.setAttribute("movie_dto", movie_list.get(0));
+		request.setAttribute("movie_list", movie_list);
+		
 		forward.setPath("content/DirectorPage.jsp");
 		forward.setRedirect(false);
 		return forward;

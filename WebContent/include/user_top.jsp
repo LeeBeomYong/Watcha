@@ -9,9 +9,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-<script type="text/javascript">
-
-
+<script>
 	$(function () {
 		// 로그인 팝업
 		$(".signIn").click(function() {
@@ -24,6 +22,7 @@
 			$(".modal_content2").css({
 				'display': 'none'
 			});
+			
 		});
 		// 회원가입 팝업
 		$(".signUp").click(function() {
@@ -54,12 +53,12 @@
 		$("#memId").keyup(function() {
 			
 			const id = $(this).val();
-			$("#span_signinId").show();
-			$("#sii_checked").show();
-			$("#sii_wrong").show();
+			
 			
 			if($(this).val() == '') {
-				$("#sii_wrong").html("<img src='https://www.pikpng.com/pngl/m/29-297126_exclamation-in-a-circle-is-red-exclamation-point.png' width='25px' height='25px'>");
+				$("#span_signinId").show();	$("#sii_wrong").show();
+				$("#sii_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
+				$("#sii_checked").hide();
 				$("#span_signinId").html("<br><font style='color:red; font-size:13px;'>아이디를 입력하세요.</font>");
 			}else {
 				$.ajax({
@@ -69,28 +68,35 @@
 					datatype : "jsp",
 					success : function(res) {
 						if(res == 1) {  // DB에 아이디가 존재하는 경우
-							$("#sii_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='25px' height='25px'>");
+							$("#sii_wrong").hide();	$("#sii_checked").show();
+							$("#sii_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='29px' height='29px'>");
 							$("#span_signinId").hide();
-							$("#sii_wrong").hide();
+							$("#login_btn").attr("disabled", false);
+							$("#login_btn").css({
+								'cursor' : 'pointer',
+								'background-color' : '#FF355E'
+							});
 						}else {
-							$("#sii_wrong").html("<img src='https://www.pikpng.com/pngl/m/29-297126_exclamation-in-a-circle-is-red-exclamation-point.png' width='25px' height='25px'>");
-							$("#span_signinId").html("<br><font style='color:red; font-size:13px;'>없는 아이디입니다. 다시 입력하세요.</font>");
-							$("#sii_checked").hide();
+							$("#sii_checked").hide();	$("#span_signinId").show();	$("#sii_wrong").show();
+							$("#sii_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
+							$("#span_signinId").html("<br><font style='color:red; font-size:13px;'>존재하지 않는 아이디입니다.</font>");
+							$("#login_btn").attr("disabled", true);
+							$("#login_btn").css({
+								'cursor' : 'default',
+								'background-color' : '#FCDFEB'
+							});
 						}
 					},					
 					error: function(e) {
-						$("#sii_wrong").html("<img src='https://www.pikpng.com/pngl/m/29-297126_exclamation-in-a-circle-is-red-exclamation-point.png' width='25px' height='25px'>");
+						$("#span_signinId").show();	$("#sii_wrong").show();
+						$("#sii_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
 						$("#span_signinId").html("<br><font style='color:blue; font-size:13px;'>오류 발생. 다시 입력하세요.</font>");
 						$("#sui_checked").hide();
+						$("#login_btn").attr("disabled", true);
 		            }
 				});
 				
 			}
-		});
-		
-		// 로그인 - 비밀번호
-		$("#memPwd").keyup(function() {
-			const pwd = $(this).val();
 		});
 		
 		
@@ -108,6 +114,7 @@
 			$(".modal_content1").css({
 				'display': 'block'
 			});
+			$("#hint_id").val('');	$("#pwd_hint").hide();
 		});
 		
 		// 아이디 : 영문/숫자 5~10자
@@ -121,17 +128,27 @@
 		$("#memName").keyup(function() {
 			
 			const name = $(this).val();
-			$("#span_signupName").show();
-			$("#sun_checked").show();	$("#sun_wrong").show();
 			
 			if(pattern_name.test(name)) {
-				$("#sun_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='25px' height='25px'>");
+				$("#sun_checked").show();
+				$("#sun_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='29px' height='29px'>");
 				$("#span_signupName").hide();
 				$("#sun_wrong").hide();
+				$("#signup_btn").attr("disabled", false);
+				$("#signup_btn").css({
+					'cursor' : 'pointer',
+					'background-color' : '#FF355E'
+				});
 			}else {
-				$("#sun_wrong").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Cross-mark-icon-in-red-color-on-transparent-background-PNG.png' width='25px' height='25px'>");
+				$("#span_signupName").show();	$("#sun_wrong").show();
+				$("#sun_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
 				$("#span_signupName").html("<br/><font style='color:red; font-size:13px;'>이름은 한글/영문 2~10자까지 가능합니다.</font>");
 				$("#sun_checked").hide();
+				$("#signup_btn").attr("disabled", true);
+				$("#signup_btn").css({
+					'cursor' : 'default',
+					'background-color' : '#FCDFEB'
+				});
 			}
 		})
 		
@@ -139,13 +156,11 @@
 		$("#signup_id").keyup(function() {
 			
 			const id = $(this).val();
-			$("#span_signupId").show();
-			$("#sui_checked").show();
-			$("#sui_wrong").show();
 			
 			if($(this).val() == '') {
+				$("#span_signupId").show();	$("#sui_wrong").show();
 				$("#span_signupId").html("<br><font style='color:red; font-size:13px;'>아이디는 영문/숫자 5~10자까지 가능합니다.</font>");
-				$("#sui_wrong").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Cross-mark-icon-in-red-color-on-transparent-background-PNG.png' width='25px' height='25px'>");
+				$("#sui_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
 			}else {
 				if(pattern_id.test(id)) {
 					$.ajax({
@@ -155,24 +170,50 @@
 						datatype : "jsp",
 						success : function(res) {
 							if(res == 1) {  // DB에 아이디가 존재하는 경우
-								$("sui_#wrong").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Cross-mark-icon-in-red-color-on-transparent-background-PNG.png' width='25px' height='25px'>");
+								$("#span_signupId").show();	$("#sui_wrong").show();	
+								$("sui_#wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
 								$("#span_signupId").html("<br/><font style='color:red; font-size:13px;'>중복된 아이디입니다.</font>");
+								$("#signup_btn").attr("disabled", true);
+								$("#sui_checked").hide();
+								$("#signup_btn").css({
+									'cursor' : 'default',
+									'background-color' : '#FCDFEB'
+								});							
 								return false;
 							}else {
-								$("#sui_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='25px' height='25px'>");
+								$("#sui_checked").show();
+								$("#sui_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='29px' height='29px'>");
 								$("#span_signupId").hide();
 								$("#sui_wrong").hide();
+								$("#signup_btn").attr("disabled", false);
+								$("#signup_btn").css({
+									'cursor' : 'pointer',
+									'background-color' : '#FF355E'
+								});
 							}
 						},					
 						error: function(e) {
-							$("#sui_wrong").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Cross-mark-icon-in-red-color-on-transparent-background-PNG.png' width='25px' height='25px'>");
+							$("#span_signupId").show();	$("#sui_wrong").show();
+							$("#sui_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
 							$("#span_signupId").html("<br><font style='color:blue; font-size:13px;'>오류 발생. 다시 입력하세요.</font>");
 							$("#sui_checked").hide();
+							$("#signup_btn").attr("disabled", true);
+							$("#signup_btn").css({
+								'cursor' : 'default',
+								'background-color' : '#FCDFEB'
+							});
 			            }
 					});
 				}else {
-					$("#sui_wrong").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Cross-mark-icon-in-red-color-on-transparent-background-PNG.png' width='25px' height='25px'>");
+					$("#span_signupId").show();	$("#sui_wrong").show();
+					$("#sui_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
 					$("#span_signupId").html("<br><font style='color:red; font-size:13px;'>아이디 : 영문/숫자 5~10자</font>");
+					$("#sui_checked").hide();
+					$("#signup_btn").attr("disabled", true);
+					$("#signup_btn").css({
+						'cursor' : 'default',
+						'background-color' : '#FCDFEB'
+					});
 					return false;
 				}
 			}
@@ -182,19 +223,62 @@
 		$("#signup_pwd").keyup(function() {
 			const pwd = $(this).val();
 			
-			$("#span_signupPwd").show();
-			$("#sup_checked").show();	$("#sup_wrong").show();
-			
 			if(pattern_pwd.test(pwd)) {
-				$("#sup_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='24px' height='24px'>");
+				$("#sup_checked").show();
+				$("#sup_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='29px' height='29px'>");
 				$("#span_signupPwd").hide(); $("#sup_wrong").hide();
+				$("#signup_btn").attr("disabled", false);
+				$("#signup_btn").css({
+					'cursor' : 'pointer',
+					'background-color' : '#FF355E'
+				});
 			}else {
-				$("#sup_wrong").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Cross-mark-icon-in-red-color-on-transparent-background-PNG.png' width='24px' height='24px'>");
+				$("#span_signupPwd").show();	$("#sup_wrong").show();
+				$("#sup_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
 				$("#span_signupPwd").html("<br><font style='color:red; font-size:13px;'>비밀번호 : 영문/숫자/특수문자 5~10자</font>");
 				$("#sup_checked").hide();
+				$("#signup_btn").attr("disabled", true);
+				$("#signup_btn").css({
+					'cursor' : 'default',
+					'background-color' : '#FCDFEB'
+				});
 			}
 			
 		});
+		
+		// 비밀번호 찾기
+		function pwd_hint() {
+			
+		   let id = $("#hint_id").val();
+			
+			$.ajax({
+				type : "post",
+				url : "/WatchaProject/check/find_pwd.jsp",
+				data : {paramId : id},
+				datatype : "text",
+				success : function(data) {
+					let data1 = $.trim(data);
+					if(data1 != "") {  
+						$("#pwd_hint").html("");
+						$("#lbl_hint").show();
+						$("#pwd_hint").html("비밀번호는 <font style='color:rgb(255, 53, 94)'><b>"+data1+"</b></font>입니다.");
+					}else{
+						$("#pwd_hint").html("");
+						$("#lbl_hint").show();
+						$("#pwd_hint").html("존재하지 않는 아이디입니다.");
+						
+					}
+				},					
+				error: function(e) {
+					$("#lbl_hint").show();
+					$("#pwd_hint").html("<br><font style='color:red; font-size:13px;'>오류 발생. 다시 입력하세요.</font>");
+		        }
+			});
+		}
+		
+		$("#find_pwd").on("click",function(){
+				pwd_hint();
+			});
 		
 		
 	});
@@ -203,17 +287,25 @@
 		if($(".modal").has(e.target).length === 0) {
 			$("#memId").val('');	$("#memPwd").val('');	$("#memName").val('');
 			$("#signup_id").val('');	$("#signup_pwd").val('');
-			$("#pwd_memId").val('');
 			$(".modal").hide();
-			$("#sun_checked").hide();	$("#sui_checked").hide();	$("#sup_checked").hide();
-			$("#sii_checked").hide();	$("#sip_checked").hide();
 			$("#span_signupName").hide();	$("#span_signupId").hide();		$("span_signupPwd").hide();
 			$("#span_signinId").hide();		$("span_signinPwd").hide();
+			$("#span_signupPwd").hide();
+			$("#sii_checked").hide();	$("#sii_wrong").hide();
+			$("#sun_checked").hide();		$("#sui_checked").hide();		$("#sup_checked").hide();
 			$("#sun_wrong").hide();		$("#sui_wrong").hide();		$("#sup_wrong").hide();
-			$("#sii_wrong").hide();	$("#sip_wrong").hide();
-			
+			$("#lbl_hint").hide();	
+			$("#login_btn").attr("disabled", false);
+			$("#login_btn").css({
+				'cursor' : 'pointer',
+				'background-color' : '#FF355E'
+			});
+			$("#signup_btn").attr("disabled", false);
+			$("#signup_btn").css({
+				'cursor' : 'pointer',
+				'background-color' : '#FF355E'
+			});
 		}
-				
 	});
 	
 	// 로그인 팝업에서 회원가입 링크 클릭
@@ -254,33 +346,15 @@
 		$(".modal_content3").css({
 			'display': 'block'
 		});
-		$("#bg1").css({
-			'display': 'block'
-		});
+		
 		$(".modal_content1").css({
 			'display': 'block'
 		});
-		
+		$("#bg1").css({
+			'display' : 'none'
+		});
 	}
 	
-	// 회원가입 - 아이디 
-	
-		
-	// 비밀번호 찾기
-	$("#find_pwd").click(function() {
-		
-		if($("#pwd_memId").val() == '') {
-			alert("아이디를 입력해주세요.");
-			modalPwdForm.memId.focus();
-			return;
-		}
-				
-	}); 
-	
-
-
-
-
 </script>
 <style type="text/css">
 
@@ -293,7 +367,7 @@
 	
 	nav{
 		height: 55px;
-		z-index: 2;
+		z-index: 1;
 		
 	}
 	.container-fluid{
@@ -373,7 +447,8 @@
 	.modal_content1, .modal_content2 {
 		border-radius: 10px;
 		width: 400px;
-		height: 85%;
+		height: 550px;
+		z-index: 2;
 		position: relative;
 		text-align: center;
 		background-color: #fff;
@@ -382,13 +457,13 @@
 		left:50%;
 		transform: translate(-50%,-50%);
 		padding: 5px;
-		display: block;
+		display: none;
 	}
 	
 	.modal_content3 {
 		border-radius: 10px;
 		width: 400px;
-		height: 500px;
+		height: 450px;
 		position: relative;
 		background-color: #fff;
 		text-align: center;
@@ -402,7 +477,7 @@
 	.modal, .modal1 {
 		display: none; /* Hidden by default */
 		position: fixed; /* Stay in place */
-		z-index: 1; /* Sit on top */
+		 /* Sit on top */
 		left: 0;
 		top: 0;
 		width: 100%; /* Full width */
@@ -437,6 +512,7 @@
 	}
 	
 	.text {
+		display: inline-block;
 		width: 250px;
 		line-height: 40px;
 		border: none;
@@ -548,11 +624,20 @@
 	}
 	
 	.checked {
-		display: inline-block;
+		position: fixed;
 		margin-left: -10%;
+		margin-top: 10px;
 	}
 	
-
+	.lbl_hint {
+		background-color: #FBEFF2;
+	    border-radius: 5px;
+	    padding: 10px 30px;
+	    margin-top: 5%;
+	    color: #6E6E6E;
+	    font-size: 13px;
+	}
+	
 </style>
 </head>
 <body>
@@ -577,13 +662,14 @@
 	          	<li><a class="dropdown-item" href="<%=request.getContextPath() %>/answer_main.do">자주 묻는 질문</a></li>
 	          </ul>
 	        </li>
+	       
 	         &nbsp; &nbsp;&nbsp;
 	        <li class="nav-item dropdown">
 	          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 	            게시판
 	          </a>
 	          <ul class="dropdown-menu">
-	            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/#">자유게시판</a></li>
+	            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/free_main.do">자유게시판</a></li>
 		            <li><hr class="dropdown-divider"></li>
 		       
 		       <%-- 로그인 됨.--%>
@@ -599,7 +685,10 @@
 		        
 	          </ul>
 	        </li>
-	      </ul>
+              
+
+              </ul>
+
 	     
 	     <form method="post" action="<%=request.getContextPath() %>/keyword_search.do" name="search">
 				<label class="bg_keyword" for="keyword">
@@ -612,7 +701,7 @@
 	    <c:if test="${!empty session_id }">
 	    	
 	    	<ul class="session">
-	    		<li class="s_id"><img class="s_img" src="${session_img }" alt="프로필사진" /></li>
+	    		<li class="s_id"><img class="s_img" src="${session_img }" alt="프로필 사진" /></li>
 	    		<li class="s_id"><a href="<%=request.getContextPath()%>/member_page.do?member_id=${session_id }">${session_id }</a></li>
 	    	</ul>
 	    		
@@ -633,53 +722,56 @@
 		
 			<%-- 로그인 모달 --%>
 			<div id="bg1" class="modal">
-			
-				<br />
-							
-				<form class="modal_content1" method="post" action="<%=request.getContextPath()%>/login.do">	
 				
-					<img src="./image/watchapedia2.png" alt="왓챠피디아 로고" title="왓챠피디아" width="250" height="50" />			
+				<div class="modal_content1">
 				
 					<br />
-				
-					<h3 class="m_title">로그인</h3>
-				
 					
-						<div class="modal_id">
-							<label class="label">
-								<input id="memId" class="text" name="memId" placeholder="아이디" required/>
-								<span id="sii_checked" class="checked"></span>
-								<span id="sii_wrong" class="checked"></span>
-							</label>
-							<span id="span_signinId"></span>
-						</div>	
-		
-						<div class="modal_pwd">
-							<label class="label"> 
-								<input id="memPwd" class="text" type="password" name="memPwd" placeholder="비밀번호" required/>
-								<span id="sip_checked" class="checked"></span>
-								<span id="sip_wrong" class="checked"></span>
-							</label>
-							<span id="span_signinPwd"></span>							
-						</div>	
-		
-						<div class="modal_login">
-							<input id="login_btn" class="m_btn" type="submit" value="로그인"/>
-						</div>	
+					<img src="./image/watchapedia2.png" alt="왓챠피디아 로고" title="왓챠피디아" width="250" height="50" />
+							
+					<form method="post" action="<%=request.getContextPath()%>/login.do">	
+						<br />
 					
-	
-					<div class="modal_hint">
-						<input class="m_btn1" type="button" value="비밀번호를 잊어버리셨나요?" onclick="findPwd()" />
-					</div>
-	
-					<div class="modal_signup">
-						<span>계정이 없으신가요?</span>
-						<input class="m_btn2" type="button" value="회원가입" onclick="signUp()" />
-					</div>
+						<h3 class="m_title">로그인</h3>
+					
 						
-					<div class="hr-sect">OR</div>
+							<div class="modal_id">
+								<label class="label" for="memId">
+									<input id="memId" class="text" name="memId" placeholder="아이디" required/>
+									<span id="sii_checked" class="checked"></span>
+									<span id="sii_wrong" class="checked"></span>
+								</label>
+								<span id="span_signinId"></span>
+							</div>	
+			
+							<div class="modal_pwd">
+								<label class="label" for="memPwd"> 
+									<input id="memPwd" class="text" type="password" name="memPwd" placeholder="비밀번호" required/>
+									<span id="sip_checked" class="checked"></span>
+									<span id="sip_wrong" class="checked"></span>
+								</label>
+								<span id="span_signinPwd"></span>							
+							</div>	
+			
+							<div class="modal_login">
+								<input id="login_btn" class="m_btn" type="submit" value="로그인"/>
+							</div>	
+						
+		
+						<div class="modal_hint">
+							<input class="m_btn1" type="button" value="비밀번호를 잊어버리셨나요?" onclick="findPwd()" />
+						</div>
+		
+						<div class="modal_signup">
+							<span>계정이 없으신가요?</span>
+							<input class="m_btn2" type="button" value="회원가입" onclick="signUp()" />
+						</div>
+							
+						<%-- <div class="hr-sect">OR</div> --%>
+					
+					</form>	
 				
-				</form>	
+				</div>
 				
 			</div>
 
@@ -732,7 +824,7 @@
 						<input class="m_btn2" type="button" value="로그인" onclick="logIn()" />
 					</div>
 					
-					<div class="hr-sect">OR</div>
+					<%-- <div class="hr-sect">OR</div> --%>
 					
 				</div>
 			
@@ -741,7 +833,7 @@
 			<%-- 비밀번호 찾기 모달 --%>
 			<div id="bg3" class="modal1">
 								
-				<form id="modal_pwd" class="modal_content3" method="post" name="modalPwdForm" action="">	
+				<div class="modal_content3" >	
 				
 					<button id="x" class="close" onclick="close()" type="button">&times;</button>
 				
@@ -756,28 +848,28 @@
 					<div class="findPwd2">
 						<b class="findPwd1">비밀번호를 잊으셨나요?</b>	<br />
 						아이디를 입력해주세요. <br />
-						입력하신 아이디의 비밀번호 일부를 알려드립니다.
+						입력하신 아이디의 비밀번호를 알려드립니다.
 					</div>
 					
 					<br />
 									
 					<div class="modal_id">
 						<label class="label">
-							<input id="pwd_memId" class="text" name="memId" placeholder="아이디"/>
+							<input id="hint_id" class="text" placeholder="아이디"/>
 						</label>
 					</div>	
 	
 					<div class="modal_check">
-						<input id="find_pwd" class="m_btn" type="submit" value="비밀번호 찾기"/>
+						<button id="find_pwd" class="m_btn">비밀번호 찾기</button>
 					</div>	
 					
-					<div id="findPwd" class="findPwd">
-						
-					</div>
+					<label id="lbl_hint" class="lbl_hint" for="pwd_hint">
+						<span id="pwd_hint" class="pwd_hint" ></span>
+					</label>
 								
-				</form>	
+				</div>	
 				
-			</div>	<!-- 비밀번호 modal end -->
+			</div> <%-- 비밀번호 찾기 end --%>
 				     
 	    &nbsp;
 	  </div>

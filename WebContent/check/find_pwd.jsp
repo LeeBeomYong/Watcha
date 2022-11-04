@@ -16,8 +16,13 @@
 	System.out.println(test);
 	
 	PrintWriter writer = response.getWriter();
+	
 	if(!test.equals("")){
 		writer.print(test);
 	}
-	
+
+	if(!test.equals("")) {
+		writer.print(test);	
+	}
+
 %>

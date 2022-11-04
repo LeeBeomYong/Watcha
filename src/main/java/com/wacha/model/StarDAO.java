@@ -86,11 +86,9 @@ public class StarDAO {
 					PreparedStatement pstmt, Connection con) {
 				
 				try {
-					if(rs != null) rs.close();
-					
-					if(pstmt != null) pstmt.close();
-					
 					if(con != null) con.close();
+					if(pstmt != null) pstmt.close();
+					if(rs != null) rs.close();
 				}catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -126,8 +124,8 @@ public class StarDAO {
 
 
 			public double getStar(int movie_num) {
-				double avgstar=0;
 				openConn();
+				double avgstar=0;
 				sql="select round(avg(movie_star),1) from star where movie_num =? and movie_star != 0 ";
 				try {
 					pstmt=con.prepareStatement(sql);
@@ -137,24 +135,27 @@ public class StarDAO {
 						avgstar=rs.getDouble(1);
 					}
 					System.out.println("영화 평점 평균 : "+avgstar);
+					System.out.println(avgstar);
+					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}finally {	
+				}
+				finally {
 					closeConn(rs, pstmt, con);
 				}
-				System.out.println(avgstar);
 				return avgstar;
+				
 			}
 			
 			
 			public String getEachStar(int movie_num) {
 				
-				
+				openConn();
 				sql="select movie_star from star where movie_num=? and movie_star !=0";
 				
 				int[] starList = new int[5];
-				openConn();
+				
 				String rel = "";
 				
 				try {
@@ -227,9 +228,9 @@ public class StarDAO {
 				try {
 					openConn();
 					
-					sql = "select count(movie_star) from star where member_id = 'test1'";
+					sql = "select count(movie_star) from star where member_id = ?";
 					pstmt=con.prepareStatement(sql);
-					//pstmt.setString(1, id);
+					pstmt.setString(1, id);
 					rs=pstmt.executeQuery();
 					
 					if(rs.next()) {
@@ -247,11 +248,9 @@ public class StarDAO {
 			}
 			
 			public int getMovieStarcount(int movie_num) {
-				
-				int count=0;
-				sql="select count(movie_star) from star where movie_num=? and  movie_star != 0";
 				openConn();
-				
+				int count=0;
+				sql="select count(movie_star) from star where movie_num=? and  movie_star != 0";			
 				try {
 					pstmt=con.prepareStatement(sql);
 					pstmt.setInt(1, movie_num);
@@ -323,9 +322,9 @@ public class StarDAO {
 				 try {
 					openConn();
 					 
-					sql = "select movie_country, count(*) as movie_country_count from movie m, star s where m.movie_num = s.movie_num and member_id = 'test1' group by movie_country";
+					sql = "select movie_country, count(*) as movie_country_count from movie m, star s where m.movie_num = s.movie_num and member_id = ? group by movie_country";
 					pstmt=con.prepareStatement(sql);
-					//pstmt.setString(1, id);
+					pstmt.setString(1, id);
 					rs=pstmt.executeQuery();
 					
 					while(rs.next()) {
@@ -351,9 +350,9 @@ public class StarDAO {
 				 
 				 try {
 					 openConn();
-					 sql = "select movie_genre, count(*) as movie_genre_count from movie m, star s where m.movie_num = s.movie_num and member_id = 'test1' group by movie_genre";
+					 sql = "select movie_genre, count(*) as movie_genre_count from movie m, star s where m.movie_num = s.movie_num and member_id = ? group by movie_genre";
 					 pstmt = con.prepareStatement(sql);
-					 //pstmt.setString(1, id);
+					 pstmt.setString(1, id);
 					 rs=pstmt.executeQuery();
 					 
 					 while(rs.next()) {
@@ -381,9 +380,9 @@ public class StarDAO {
 				 
 				 try {
 					 openConn();
-					 sql="select movie_time from movie m, star s where m.movie_num = s.movie_num and member_id = 'test1' group by movie_time";
+					 sql="select movie_time from movie m, star s where m.movie_num = s.movie_num and member_id = ? group by movie_time";
 					 pstmt=con.prepareStatement(sql);
-					 //pstmt.setString(1, sql);
+					 pstmt.setString(1, id);
 					 rs=pstmt.executeQuery();
 					 
 					 while(rs.next()) {
@@ -412,9 +411,9 @@ public class StarDAO {
 				 
 				 try {
 					openConn();
-					sql="select movie_star, count(*) as star_count from star where member_id = 'test1' group by movie_star";
+					sql="select movie_star, count(*) as star_count from star where member_id = ? group by movie_star";
 					pstmt = con.prepareStatement(sql);
-					//pstmt.setString(1, id);
+					pstmt.setString(1, id);
 					rs= pstmt.executeQuery();
 					
 					while(rs.next()) {
@@ -443,9 +442,9 @@ public class StarDAO {
 					try {
 						openConn();
 						
-						sql = "select round(avg(movie_star),1) from star where member_id = 'test1'";
+						sql = "select round(avg(movie_star),1) from star where member_id = ?";
 						pstmt=con.prepareStatement(sql);
-						//pstmt.setString(1, id);
+						pstmt.setString(1, id);
 						rs=pstmt.executeQuery();
 						
 						if(rs.next()) {
@@ -470,9 +469,9 @@ public class StarDAO {
 					try {
 						openConn();
 						
-						sql = "select count(movie_star) from star where member_id = 'test1'";
+						sql = "select count(movie_star) from star where member_id = ?";
 						pstmt=con.prepareStatement(sql);
-						//pstmt.setString(1, id);
+						pstmt.setString(1, id);
 						rs=pstmt.executeQuery();
 						
 						if(rs.next()) {
@@ -497,9 +496,9 @@ public class StarDAO {
 					try {
 						openConn();
 						
-						sql = "select movie_star, count(movie_star) as test from star where member_id = 'test1' group by movie_star order by test desc";
+						sql = "select movie_star, count(movie_star) as test from star where member_id = ? group by movie_star order by test desc";
 						pstmt=con.prepareStatement(sql);
-						//pstmt.setString(1, id);
+						pstmt.setString(1, id);
 						rs=pstmt.executeQuery();
 						
 						if(rs.next()) {
@@ -523,9 +522,9 @@ public class StarDAO {
 					try {
 						openConn();
 						
-						sql = "select count(movie_heart), member_id from star where member_id='test1' and movie_heart=1 group by member_id";
+						sql = "select count(movie_heart), member_id from star where member_id=? and movie_heart=1 group by member_id";
 						pstmt=con.prepareStatement(sql);
-						//pstmt.setString(1, id);
+						pstmt.setString(1, id);
 						rs=pstmt.executeQuery();
 						
 						if(rs.next()) {
@@ -541,6 +540,7 @@ public class StarDAO {
 					}
 					return heart;
 				}
+			 
 			 // 영화 보는중 개수 확인하는 메서드
 			 public int watchCount(String id) {
 					
@@ -549,9 +549,9 @@ public class StarDAO {
 					try {
 						openConn();
 						
-						sql = "select count(movie_watch), member_id from star where member_id='test1' and movie_watch=1 group by member_id";
+						sql = "select count(movie_watch), member_id from star where member_id=? and movie_watch=1 group by member_id";
 						pstmt=con.prepareStatement(sql);
-						//pstmt.setString(1, id);
+						pstmt.setString(1, id);
 						rs=pstmt.executeQuery();
 						
 						if(rs.next()) {
@@ -575,9 +575,9 @@ public class StarDAO {
 				 
 				 try {
 					openConn();
-					sql="select distinct m.movie_num as num, i.image_loc as img, m.movie_title as title, s.movie_star as star from star s, movie m, image i where s.movie_num = m.movie_num and s.movie_num = i.movie_num and movie_star > 0 and member_id='test1'";
+					sql="select distinct m.movie_num as num, i.image_loc as img, m.movie_title as title, s.movie_star as star from star s, movie m, image i where s.movie_num = m.movie_num and s.movie_num = i.movie_num and movie_star > 0 and member_id=?";
 					pstmt=con.prepareStatement(sql);
-					//pstmt.setString(1, id);
+					pstmt.setString(1, id);
 					rs=pstmt.executeQuery();
 					
 					while(rs.next()) {
@@ -609,9 +609,9 @@ public class StarDAO {
 				 
 				 try {
 					openConn();
-					sql="select distinct m.movie_num as num, i.image_loc as img, m.movie_title as title from star s, movie m, image i where s.movie_num = m.movie_num and s.movie_num = i.movie_num and member_id='test1' and s.movie_heart = 1";
+					sql="select distinct m.movie_num as num, i.image_loc as img, m.movie_title as title from star s, movie m, image i where s.movie_num = m.movie_num and s.movie_num = i.movie_num and member_id=? and s.movie_heart = 1";
 					pstmt=con.prepareStatement(sql);
-					//pstmt.setString(1, id);
+					pstmt.setString(1, id);
 					rs=pstmt.executeQuery();
 					
 					while(rs.next()) {
@@ -642,9 +642,9 @@ public class StarDAO {
 				 
 				 try {
 					openConn();
-					sql="select distinct m.movie_num as num, i.image_loc as img, m.movie_title as title from star s, movie m, image i where s.movie_num = m.movie_num and s.movie_num = i.movie_num and member_id='test1' and s.movie_watch = 1";
+					sql="select distinct m.movie_num as num, i.image_loc as img, m.movie_title as title from star s, movie m, image i where s.movie_num = m.movie_num and s.movie_num = i.movie_num and member_id=? and s.movie_watch = 1";
 					pstmt=con.prepareStatement(sql);
-					//pstmt.setString(1, id);
+					pstmt.setString(1, id);
 					rs=pstmt.executeQuery();
 					
 					while(rs.next()) {
@@ -674,9 +674,9 @@ public class StarDAO {
 				 
 				 try {
 					openConn();
-					sql="select distinct m.movie_num as num, i.image_loc as img, m.movie_title as title, s.movie_star as star, m.movie_date as md from star s, movie m, image i where s.movie_num = m.movie_num and s.movie_num = i.movie_num and movie_star > 0 and member_id='test1' order by md";
+					sql="select distinct m.movie_num as num, i.image_loc as img, m.movie_title as title, s.movie_star as star, m.movie_date as md from star s, movie m, image i where s.movie_num = m.movie_num and s.movie_num = i.movie_num and movie_star > 0 and member_id=? order by md";
 					pstmt=con.prepareStatement(sql);
-					//pstmt.setString(1, id);
+					pstmt.setString(1, id);
 					rs=pstmt.executeQuery();
 					
 					while(rs.next()) {
@@ -708,9 +708,9 @@ public class StarDAO {
 				 
 				 try {
 					openConn();
-					sql="select distinct m.movie_num as num, i.image_loc as img, m.movie_title as title, s.movie_star as star, m.movie_date as md from star s, movie m, image i where s.movie_num = m.movie_num and s.movie_num = i.movie_num and movie_star > 0 and member_id='test1' order by title";
+					sql="select distinct m.movie_num as num, i.image_loc as img, m.movie_title as title, s.movie_star as star, m.movie_date as md from star s, movie m, image i where s.movie_num = m.movie_num and s.movie_num = i.movie_num and movie_star > 0 and member_id=? order by title";
 					pstmt=con.prepareStatement(sql);
-					//pstmt.setString(1, id);
+					pstmt.setString(1, id);
 					rs=pstmt.executeQuery();
 					
 					while(rs.next()) {
@@ -742,9 +742,9 @@ public class StarDAO {
 				 
 				 try {
 					openConn();
-					sql="select distinct m.movie_num as num, i.image_loc as img, m.movie_title as title, s.movie_star as star, m.movie_date as md from star s, movie m, image i where s.movie_num = m.movie_num and s.movie_num = i.movie_num and movie_star > 0 and member_id='test1' order by star desc";
+					sql="select distinct m.movie_num as num, i.image_loc as img, m.movie_title as title, s.movie_star as star, m.movie_date as md from star s, movie m, image i where s.movie_num = m.movie_num and s.movie_num = i.movie_num and movie_star > 0 and member_id=? order by star desc";
 					pstmt=con.prepareStatement(sql);
-					//pstmt.setString(1, id);
+					pstmt.setString(1, id);
 					rs=pstmt.executeQuery();
 					
 					while(rs.next()) {
@@ -775,9 +775,9 @@ public class StarDAO {
 				 
 				 try {
 					openConn();
-					sql="select distinct m.movie_num as num, i.image_loc as img, m.movie_title as title from star s, movie m, image i where s.movie_num = m.movie_num and s.movie_num = i.movie_num and member_id='test1' and s.movie_heart = 1 order by title";
+					sql="select distinct m.movie_num as num, i.image_loc as img, m.movie_title as title from star s, movie m, image i where s.movie_num = m.movie_num and s.movie_num = i.movie_num and member_id=? and s.movie_heart = 1 order by title";
 					pstmt=con.prepareStatement(sql);
-					//pstmt.setString(1, id);
+					pstmt.setString(1, id);
 					rs=pstmt.executeQuery();
 					
 					while(rs.next()) {
@@ -807,9 +807,9 @@ public class StarDAO {
 				 
 				 try {
 					openConn();
-					sql="select distinct m.movie_num as num, i.image_loc as img, m.movie_title as title, m.movie_date as md from star s, movie m, image i where s.movie_num = m.movie_num and s.movie_num = i.movie_num and member_id='test1' and s.movie_heart = 1 order by md desc";
+					sql="select distinct m.movie_num as num, i.image_loc as img, m.movie_title as title, m.movie_date as md from star s, movie m, image i where s.movie_num = m.movie_num and s.movie_num = i.movie_num and member_id=? and s.movie_heart = 1 order by md desc";
 					pstmt=con.prepareStatement(sql);
-					//pstmt.setString(1, id);
+					pstmt.setString(1, id);
 					rs=pstmt.executeQuery();
 					
 					while(rs.next()) {
@@ -840,9 +840,9 @@ public class StarDAO {
 				 
 				 try {
 					openConn();
-					sql="select distinct m.movie_num as num, i.image_loc as img, m.movie_title as title from star s, movie m, image i where s.movie_num = m.movie_num and s.movie_num = i.movie_num and member_id='test1' and s.movie_watch = 1 order by title";
+					sql="select distinct m.movie_num as num, i.image_loc as img, m.movie_title as title from star s, movie m, image i where s.movie_num = m.movie_num and s.movie_num = i.movie_num and member_id=? and s.movie_watch = 1 order by title";
 					pstmt=con.prepareStatement(sql);
-					//pstmt.setString(1, id);
+					pstmt.setString(1, id);
 					rs=pstmt.executeQuery();
 					
 					while(rs.next()) {
@@ -872,9 +872,9 @@ public class StarDAO {
 				 
 				 try {
 					openConn();
-					sql="select distinct m.movie_num as num, i.image_loc as img, m.movie_title as title, m.movie_date as md from star s, movie m, image i where s.movie_num = m.movie_num and s.movie_num = i.movie_num and member_id='test1' and s.movie_watch = 1 order by md desc";
+					sql="select distinct m.movie_num as num, i.image_loc as img, m.movie_title as title, m.movie_date as md from star s, movie m, image i where s.movie_num = m.movie_num and s.movie_num = i.movie_num and member_id=? and s.movie_watch = 1 order by md desc";
 					pstmt=con.prepareStatement(sql);
-					//pstmt.setString(1, id);
+					pstmt.setString(1, id);
 					rs=pstmt.executeQuery();
 					
 					while(rs.next()) {
@@ -1015,6 +1015,7 @@ public class StarDAO {
 					return list;
 				}	
 				
+				
 			public void chkId(int movie_num,String member_Id) {
 				
 				
@@ -1039,7 +1040,6 @@ public class StarDAO {
 					closeConn(rs, pstmt, con);
 				}
 			}
-			 
 }
 
 

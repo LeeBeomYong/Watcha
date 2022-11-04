@@ -375,7 +375,9 @@ public class WriteDAO {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}closeConn(rs, pstmt, con);
+			}finally {
+				closeConn(rs, pstmt, con);
+			}
 			
 		}
 		
@@ -815,7 +817,7 @@ public class WriteDAO {
 					count = rs.getInt(1) + 1;
 				}
 				
-				sql = "insert into w_write values(?, ?, sysdate, ?, '', ?)";
+				sql = "insert into w_write values(?, ?, sysdate, ?, 0, ?)";
 				pstmt = con.prepareStatement(sql);
 				
 				pstmt.setInt(1, count);

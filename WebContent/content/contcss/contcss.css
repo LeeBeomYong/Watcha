@@ -279,15 +279,20 @@
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
+		margin: 0 5%;
 	}
+	
 	a{
 		color : black !important;
 		text-decoration: none !important;
 	}
 	.coment_midle{
 		height: 180px;
+		margin: 0 5%;
 	}
-	
+	.coment_bottom{
+		margin: 3% 5%;
+	}
 
 	/* 비슷한 작품 영역   */
 	#same_movie{

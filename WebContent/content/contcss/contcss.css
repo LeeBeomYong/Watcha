@@ -356,6 +356,7 @@
 		display: flex;
 		align-items: center;
 		width: 780px;
+		
 	}
 	carousel-item active ul li{	
 		display: flex;

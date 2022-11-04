@@ -325,7 +325,7 @@ margin: 100px;
       <c:set var="dto" value="${UserContent}" /> 
 	<jsp:include page="../include/admin_top.jsp" />
 	<br><br><br>
-      <form enctype="multipart/form-data" action="<%=request.getContextPath() %>/admin_userDelete_ok.do?num=${dto.getMember_num()}" method="post">
+      <form enctype="multipart/form-data" action="<%=request.getContextPath() %>/admin_userDelete_ok.do?id=${dto.getMember_id()}&pwd=${dto.getMember_pwd()}" method="post">
   		<input type="hidden" name="member_num" value="${dto.getMember_num() }">
         <h1>회원상세 페이지</h1>
 	<div class="start">

@@ -11,6 +11,8 @@ import com.wacha.controller.Action;
 import com.wacha.controller.ActionForward;
 import com.wacha.model.ComentDAO;
 import com.wacha.model.ComentDTO;
+import com.wacha.model.ImageDAO;
+import com.wacha.model.ImageDTO;
 import com.wacha.model.MovieDAO;
 import com.wacha.model.MovieDTO;
 import com.wacha.model.MovieImageDTO;
@@ -45,6 +47,10 @@ public class WachaContentPageAction implements Action {
 		int count = star_dao.getMovieStarcount(movie_num);
 		int coment_count=clist.size();
 		
+		// 해당 이미지 출력
+		ImageDAO image_dao = ImageDAO.getInstance();
+		ImageDTO img_dto = image_dao.getMovie(movie_num);
+		String[] images = image_dao.getMovieImage(movie_num).split(",");
 		
 		
 		
@@ -69,6 +75,8 @@ public class WachaContentPageAction implements Action {
 		request.setAttribute("count", count);
 		request.setAttribute("coment_count", coment_count);
 		request.setAttribute("same", same);
+		request.setAttribute("images", images);
+		request.setAttribute("img_dto", img_dto);
 		
 		ActionForward forward = new ActionForward();
 		

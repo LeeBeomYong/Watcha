@@ -719,9 +719,6 @@ $(function() {
 					    <div class="carousel-item">
 					      <img alt="${images[2]}" src="">
 					    </div>
-					    <div class="carousel-item">
-					      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXRET1Bw3h3QLrMX_qJv00P_91eNp0lq-X1A&usqp=CAU" class="d-block w-100 mh-100" alt="...">
-					    </div>
 					  </div>
 					  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
 					    <span class="carousel-control-prev-icon" aria-hidden="true"></span>

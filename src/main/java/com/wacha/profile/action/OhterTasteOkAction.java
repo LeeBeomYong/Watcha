@@ -16,14 +16,14 @@ import com.wacha.model.StarDAO;
 import com.wacha.model.UserDAO;
 import com.wacha.model.UserDTO;
 
-public class OtherTasteOkAction implements Action {
+public class OhterTasteOkAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		// 세션정보 가져오기
 		HttpSession session = request.getSession();
-		String member_Id = (String)session.getAttribute("member_Id");
+		String member_Id = (String)session.getAttribute("session_id");
 		
 		String member_Id2 = request.getParameter("member_id");
 		request.setAttribute("member_Id2", member_Id2);

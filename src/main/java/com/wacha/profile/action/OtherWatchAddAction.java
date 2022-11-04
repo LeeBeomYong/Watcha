@@ -18,7 +18,7 @@ public class OtherWatchAddAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		HttpSession session = request.getSession();
-		String member_Id = (String)session.getAttribute("member_Id");
+		String member_Id = (String)session.getAttribute("session_id");
 		
 		String member_Id2 = request.getParameter("member_id");
 		

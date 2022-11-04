@@ -20,10 +20,22 @@ public class AdminMovieDeleteAction implements Action {
 		
 		int check = dao.deleteMovie(movie_num);
 		
+		System.out.println("check>>>>>>>>>>>>>>>>"+check);
+		
 		ActionForward forward = new ActionForward();
 		
 		PrintWriter out = response.getWriter();
-		return null;
+		
+		if(check>0) {
+			forward.setRedirect(true);
+			forward.setPath("admin_movie_list.do");
+		}else {
+			out.println("<script>");
+			out.println("alert('삭제실패')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
+		return forward;
 	}
 
 }

@@ -6,8 +6,37 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+	
+ 		
+		function logout() {
+			
+			window.location.href="<%=request.getContextPath() %>/user_logout.do";
+		}
+		
+		function profileupdate() {
+			
+			window.location.href="<%=request.getContextPath() %>/user_update.do";
+		}
+		
+		
+	 	function delete2() {
+			
+	 		let result = confirm("정말 삭제하시겠습니까?");
+	 		if(result==true) {
+	 			location.href="<%=request.getContextPath() %>/delete.do";
+	 		}
+		}
+		function board() {
+			
+			window.location.href="<%=request.getContextPath() %>/inquiry_main.do";
+		}
+</script>
 <style type="text/css">
 	
 	.relative {
@@ -93,7 +122,7 @@
 	#a1 {
 		width: 40px;
 		height: 40px;
-		background-image: url("${pageContext.request.contextPath }/image/profile/pink.png");
+/* 		background-image: url("${pageContext.request.contextPath }/image/profile/pink.png"); */
 		border: 0;
 		outline: 0;
 		left: 10px;
@@ -116,29 +145,31 @@
 	.taste button:hover, #a1:hover, #btn3:hover {
 		opacity: 40%
 	}
+	
+	.modal-p {
+		font-size: 20px;
+		font-weight: bold;
+	}
+	
+	.modal-p:hover {
+		cursor: pointer;
+		opacity: 50%;
+	}
+	
+	.modal-h6 {
+		color: lightgray;
+	}
+	
+	#modal-close {
+		background-color: transparent;
+		border: none;
+		
+	}
+	#modal-close:hover {
+		opacity: 50%;
+	}
+	
 </style>
-<script type="text/javascript">
-function showPopUp() {
-	
-	//창 크기 지정
-	var width = 500;
-	var height = 500;
-	
-	//pc화면기준 가운데 정렬
-	var left = (window.screen.width / 2) - (width/2);
-	var top = (window.screen.height / 4);
-	
-   	//윈도우 속성 지정
-	var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
-	
-   	//연결하고싶은url
-   	const url = "<%=request.getContextPath() %>/lby/setting.jsp";
-
-	//등록된 url 및 window 속성 기준으로 팝업창을 연다.
-	window.open(url, "setting", windowStatus);
-	
-}
-</script>
 </head>
 <body>
 	<jsp:include page = "../include/user_top.jsp" />
@@ -148,10 +179,11 @@ function showPopUp() {
 		<div class="relative">
 			<div class="top">
 				<div align="right">
-				
-					<a id ="a1" href="javascript:showPopUp()"><img alt="★" src="${pageContext.request.contextPath }/image/profile/pngwing.com.png" width="30px" height="30px"></a>
-					
+					<a id="a1" href="#" data-toggle="modal" data-target="#myModal"><img alt="★" src="${pageContext.request.contextPath }/image/profile/pngwing.com.png" width="30px" height="30px"></a>				
 				</div>
+				
+				
+				
 			</div>
 			<div class="picture">
 				<c:if test="${!empty dto.getMember_image() }">
@@ -164,7 +196,7 @@ function showPopUp() {
 			<div class="middle">
 				<div class="name">
 					<h4><strong>${dto.getMember_name() }</strong></h4>
-					<c:if test="${empty dto.getMember_image() }">
+					<c:if test="${dto.getMember_image() == '프로필로고.png' }">
 					<h6><span style="color: red;">프로필이없음</span></h6>
 					</c:if>
 				</div>
@@ -190,6 +222,34 @@ function showPopUp() {
 				</div>
 			</div>
 		</div>
+	</div>
+	<div class="modal fade" id="myModal">
+	    <div class="modal-dialog modal-dialog-centered">
+	      <div class="modal-content">
+	      
+	        <!-- Modal Header -->
+	        <div class="modal-header">
+	          <h1 class="modal-title">설정</h1>
+	          <button type="button" id="modal-close" data-dismiss="modal">&times</button>
+	        </div>
+	        
+	        <!-- Modal body -->
+	        <div class="modal-body">
+	            <h6 class="modal-h6">고객센터</h6>
+				<p class="modal-p" onclick="board()" >문의하기 / FAQ</p>
+				<hr color ="gray">
+<!-- 				<p class="modal-p" onclick="logout()" >공지사항</p> -->
+<!-- 				<hr color ="gray"> -->
+				<p class="modal-p" onclick="profileupdate()" >프로필수정</p>
+				<hr color ="gray">
+				<p class="modal-p" onclick="logout()" >로그아웃</p>
+				<hr color ="gray">
+				<p class="modal-p" onclick="delete2()" >탈퇴하기</p>
+				<hr color ="gray">
+	        </div>
+
+	      </div>
+	    </div>
 	</div>
 	<br><br><br><br><br>
  	<jsp:include page = "../include/user_bottom.jsp" />

@@ -1,6 +1,7 @@
 package com.wacha.model;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +12,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import com.wacha.model.MovieDTO;
 
 
 public class MovieDAO {
@@ -66,7 +66,7 @@ public class MovieDAO {
 				// 2단계 : lookup() 메서드를 이용하여 매칭되는
 				//        커넥션을 찾는다.
 				DataSource ds =
-					(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
+					(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
 				
 				// 3단계 : DataSource 객체를 이용하여
 				//        커넥션을 하나 가져온다.
@@ -188,7 +188,7 @@ public class MovieDAO {
 		
 		}//end
 		
-		public int insertMovie(MovieDTO dto) {
+		public int insertMovie(MovieDTO dto,ImageDTO dto1) {
 			int result=0,count=0;
 		
 			
@@ -231,6 +231,20 @@ public class MovieDAO {
 				pstmt.setInt(11, dto.getMovie_count());
 				
 				pstmt.setInt(12, dto.getMovie_hit());
+				
+				result=pstmt.executeUpdate();
+				
+				sql="insert into image values(?,?,?,?)";
+				
+				pstmt=con.prepareStatement(sql);
+				
+				pstmt.setInt(1, count);
+				
+				pstmt.setString(2,dto1.getImage_loc());
+				
+				pstmt.setString(3, dto1.getImage_temp());
+				
+				pstmt.setString(4, dto1.getDirector_image());
 				
 				result=pstmt.executeUpdate();                               
 			} catch (SQLException e) {
@@ -294,9 +308,6 @@ public class MovieDAO {
 			
 			int result=0;
 			
-		
-			
-	
 			try {
 				openConn();
 				
@@ -468,17 +479,16 @@ public class MovieDAO {
 				pstmt = con.prepareStatement(sql);
 				
 				pstmt.setString(1, "%"+keyword+"%");
-				
 				rs = pstmt.executeQuery();
 				
 				while(rs.next()) {
-					
 					MovieDTO dto = new MovieDTO();
 					
 					dto.setMovie_num(rs.getInt("movie_num"));
 					dto.setMovie_title(rs.getString("movie_title"));
 					dto.setMovie_director(rs.getString("movie_director"));
 					dto.setMovie_country(rs.getString("movie_country"));
+					System.out.println("영화 리스트 : "+dto.getMovie_title());
 					
 					list.add(dto);
 				}
@@ -489,6 +499,39 @@ public class MovieDAO {
 			}
 			return list;
 		}	// getMovieKeywordList() end
+		
+		public List<MovieDTO> getDirectorKeywordList(String keyword) {
+					
+					List<MovieDTO> list = new ArrayList<MovieDTO>();
+		
+					try {
+						openConn();
+						
+						sql = "select movie_num, movie_title, movie_director, movie_country from movie where movie_director like ? order by movie_num";
+						
+						pstmt = con.prepareStatement(sql);
+						
+						pstmt.setString(1, "%"+keyword+"%");
+						rs = pstmt.executeQuery();
+						
+						while(rs.next()) {
+							MovieDTO dto = new MovieDTO();
+							
+							dto.setMovie_num(rs.getInt("movie_num"));
+							dto.setMovie_title(rs.getString("movie_title"));
+							dto.setMovie_director(rs.getString("movie_director"));
+							dto.setMovie_country(rs.getString("movie_country"));
+							System.out.println(dto.getMovie_director());
+							list.add(dto);
+						}
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}finally {
+						closeConn(rs, pstmt, con);
+					}
+					return list;
+		}	// getMovieKeywordList() end
+
 
 		// 메인 -> 영화 페이지 넘겨주는 메서드
 		public MovieDTO getMovie_info(int movie_num) {
@@ -623,7 +666,33 @@ public class MovieDAO {
 			
 			return list;
 		} 
-		
+		public int deleteMovie(int num) {
+			int result=0;
+			
+			try {
+				openConn();
+				
+				sql="delete from movie where movie_num=?"; 
+				
+				pstmt=con.prepareStatement(sql);
+				
+				pstmt.setInt(1, num);
+				
+				result=pstmt.executeUpdate();
+				
+				sql="update movie set movie_num = movie_num-1 where movie_num>?";
+				
+				pstmt.setInt(1, num);
+				
+				pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+			}return result;
+		}
 		
 }
 

@@ -198,11 +198,7 @@
 <body>
 
 	<jsp:include page="../include/user_top.jsp" />
-	
-	<c:set var="ilist" value="${iList}" />
-	<c:set var="mlist" value="${mList}" />
-	<c:set var="ulist" value="${uList}" />
-	
+
 	<div id="searched">
 		<label>"${keyword }"의 검색결과</label>
 	</div>
@@ -223,22 +219,22 @@
 			<%-- 콘텐츠 탭 : 영화 포스터, 영화 제목, 나라 --%>
 			<section id="content1">
 				
-				<c:if test="${!empty mlist }">
+				<c:if test="${!empty mList }">
 				
 					<ul class="row row-cols-4">
 					
-						<c:forEach items="${ilist }" var="list" varStatus="status">
+						<c:forEach items="${iList }" var="list" varStatus="status">
 							<li class="res">
-								<a class="link" href="<%=request.getContextPath()%>/more_info.do?num=${mlist[status.index].movie_num}">
+								<a class="link" href="<%=request.getContextPath()%>/more_info.do?num=${mList[status.index].movie_num}">
 									<div>	
 										<div>
 									    	<img class="poster" src="${list.image_loc }" alt="영화 포스터 이미지" />
 									    </div>
 									    <div class="ex_box_1">
-									    	${mlist[status.index].movie_title}
+									    	${mList[status.index].movie_title}
 									    </div>
 									    <div class="ex_box_2"> 
-									    	${mlist[status.index ].movie_country}
+									    	${mList[status.index ].movie_country}
 									    </div>
 								    </div>
 							    </a>
@@ -249,7 +245,7 @@
 					
 				</c:if>		
 				
-				<c:if test="${empty mlist }">
+				<c:if test="${empty mList }">
 					
 					<div class="nothing">
 						<br />
@@ -265,13 +261,13 @@
 			<%-- 인물 탭 : 감독 이름, 감독 사진 --%>
 			<section id="content2">
 			
-				<c:if test="${!empty mlist }">
+				<c:if test="${!empty dList }">
 				
 					<ul class="row row-cols-2">
 					
-						<c:forEach items="${ilist }" var="list" varStatus="status">
+						<c:forEach items="${iList }" var="list" varStatus="status">
 							<li class="res">
-								<a class="link" href="wacha_director_list.do?director=${mlist[status.index].movie_director}">
+								<a class="link" href="wacha_director_list.do?director=${dList[status.index].movie_director}">
 									<div class="col">	
 										
 										<ul class="row row-cols-2">
@@ -281,7 +277,7 @@
 											<li class="col-5">
 												<div class="ex_whole">
 													<div class="ex_box_1">
-												    	${mlist[status.index].movie_director}
+												    	${dList[status.index].movie_director}
 												    </div>
 												    <div class="ex_box_2"> 
 												    	영화 감독
@@ -299,7 +295,7 @@
 				
 				</c:if>	
 				
-				<c:if test="${empty mlist }">
+				<c:if test="${empty dList }">
 					<div class="nothing">
 						<br />
 						<img src="https://icon-library.com/images/null-icon/null-icon-3.jpg" alt="null" />
@@ -313,11 +309,11 @@
 			<%-- 유저 탭 : 유저 이미지, 유저 이름 --%>
 			<section id="content3">
 			
-				<c:if test="${!empty ulist }">
+				<c:if test="${!empty uList }">
 					
 						<ul class="row row-cols-2">
 						
-							<c:forEach items="${ulist }" var="list" >
+							<c:forEach items="${uList }" var="list" >
 								<li class="res">
 									<div class="col">
 										
@@ -348,7 +344,7 @@
 					
 				</c:if>	
 				
-				<c:if test="${empty ulist }">
+				<c:if test="${empty uList }">
 					<div class="nothing">
 						<br />
 						<img src="https://icon-library.com/images/null-icon/null-icon-3.jpg" alt="null" />

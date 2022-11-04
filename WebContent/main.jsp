@@ -55,6 +55,17 @@
 <meta charset="UTF-8">
 <title>영화 리뷰 플랫폼</title>
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+<script>
+	
+	$(function() {
+		
+		let num = $(".caption").val();
+		console.log(num);
+		
+		
+	});
+
+</script>
 <style>
 
 #wrapper {
@@ -70,7 +81,7 @@
 
 .li_1 {
 	display: inline-block;
-	margin: 30px;
+	margin: 40px;
 }
 
 .selectbox {
@@ -94,7 +105,7 @@
 
 .ul_1 {
 	list-style-type: none;
-	margin-left: 20px;
+	padding-left: 7%;
 }
 
 .li_1 > a {
@@ -163,30 +174,27 @@ p {
 	margin-left: 20px;
 }
 
+.carousel-control-prev, .carousel-control-next {
+	width: 5% !important;
+	height: 50px !important;
+	top: 180px !important;
+	color: #000 !important;
+}
 
-.carousel-control {
-	top: 20%;
-	bottom: 20%;
+#prv, #nxt {
+	visibility: hidden;
+}
 
-.carousel-control-prev-icon {
+#slide_p {
 	width: 30px;
 	height: 30px;
-	background-image: url('./image/left_arrow.png');
-	color: red;
 }
 
-.carousel-control-next-icon {
+#slide_n {
 	width: 30px;
 	height: 30px;
-	background-image: url('./image/right_arrow.png'); 
 }
 
-#prv_btn, #nxt_btn {
-	width: 12%;
-	z-index: 3;
-	opacity: 0.7;
-	margin-left: 5px;
-}
 
 </style>
 </head>
@@ -229,7 +237,7 @@ p {
 		
 			<button id="prv_btn" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="prev">
 			    <span id="prv" class="carousel-control-prev-icon" aria-hidden="true"></span>
-			    <span class="visually-hidden">Previous</span>
+			    <span><img id="slide_p" src="https://cdn-icons-png.flaticon.com/512/2767/2767149.png" alt="previous" /></span>
 			</button>
 			
 			<c:if test="${!empty ilist }">
@@ -263,7 +271,7 @@ p {
 					<ul class="ul_1">
 						<li class="li_1">
 							<c:forEach var="ilist" items="${comIlist}" begin="5" end="9" varStatus="status">
-								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${ilist.movie_num}">	
+								<a href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${ilist.movie_num}">	
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
 								    	<img class="poster" src="${ilist.image_loc} " alt="영화 포스터 이미지" />
@@ -288,7 +296,7 @@ p {
 							
 			<button id="nxt_btn" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="next">
 			    <span id="nxt" class="carousel-control-next-icon" aria-hidden="true"></span>
-			    <span class="visually-hidden">Next</span>
+			    <span><img id="slide_n" src="https://cdn-icons-png.flaticon.com/128/1250/1250699.png" alt="next" /></span>
 			</button>
 		
 		</div>
@@ -308,7 +316,7 @@ p {
 		
 			<button id="prv_btn" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="prev">
 			    <span id="prv" class="carousel-control-prev-icon" aria-hidden="true"></span>
-			    <span class="visually-hidden">Previous</span>
+			    <span><img id="slide_p" src="https://cdn-icons-png.flaticon.com/512/2767/2767149.png" alt="previous" /></span>
 			</button>
 			
 			<c:if test="${!empty sIlist }">
@@ -363,7 +371,7 @@ p {
 							
 			<button id="nxt_btn" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="next">
 			    <span id="nxt" class="carousel-control-next-icon" aria-hidden="true"></span>
-			    <span class="visually-hidden">Next</span>
+			    <span><img id="slide_n" src="https://cdn-icons-png.flaticon.com/128/1250/1250699.png" alt="next" /></span>
 			</button>
 		
 		</div>
@@ -383,7 +391,7 @@ p {
 		
 			<button id="prv_btn" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls3" data-bs-slide="prev">
 			    <span id="prv" class="carousel-control-prev-icon" aria-hidden="true"></span>
-			    <span class="visually-hidden">Previous</span>
+			    <span><img id="slide_p" src="https://cdn-icons-png.flaticon.com/512/2767/2767149.png" alt="previous" /></span>
 			</button>
 			
 			<c:if test="${!empty ilist }">
@@ -438,7 +446,7 @@ p {
 							
 			<button id="nxt_btn" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls3" data-bs-slide="next">
 			    <span id="nxt" class="carousel-control-next-icon" aria-hidden="true"></span>
-			    <span class="visually-hidden">Next</span>
+			    <span><img id="slide_n" src="https://cdn-icons-png.flaticon.com/128/1250/1250699.png" alt="next" /></span>
 			</button>
 		
 		</div>
@@ -458,7 +466,7 @@ p {
 		
 			<button id="prv_btn" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls4" data-bs-slide="prev">
 			    <span id="prv" class="carousel-control-prev-icon" aria-hidden="true"></span>
-			    <span class="visually-hidden">Previous</span>
+			    <span><img id="slide_p" src="https://cdn-icons-png.flaticon.com/512/2767/2767149.png" alt="previous" /></span>
 			</button>
 			
 			<c:if test="${!empty hilist }">
@@ -514,7 +522,7 @@ p {
 							
 			<button id="nxt_btn" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls4" data-bs-slide="next">
 			    <span id="nxt" class="carousel-control-next-icon" aria-hidden="true"></span>
-			    <span class="visually-hidden">Next</span>
+			    <span><img id="slide_n" src="https://cdn-icons-png.flaticon.com/128/1250/1250699.png" alt="next" /></span>
 			</button>
 		
 		</div>

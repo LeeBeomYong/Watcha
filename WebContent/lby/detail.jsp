@@ -171,6 +171,7 @@
 				</div>
 			</c:if>
 		</div>
+		
 		<div id="div3">
 		<c:set var="list4" value="${year_list }"/>
 			<c:if test="${!empty year_list }">

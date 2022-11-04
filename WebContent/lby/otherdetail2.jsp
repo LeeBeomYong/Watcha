@@ -105,6 +105,7 @@
 				</div>
 			</c:if>
 		</div>
+		
 		<div id="div1">
 			<c:set var="list2" value="${title_list }"/>
 			<c:if test="${!empty title_list }">

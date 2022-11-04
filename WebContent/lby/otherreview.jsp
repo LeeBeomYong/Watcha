@@ -121,7 +121,6 @@
 						<h1>평가한 영화가 없습니다.</h1>
 					</c:if>
 			</div>
-			
 			<div class="review">
 			<hr>
 				<div>

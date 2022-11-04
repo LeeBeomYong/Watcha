@@ -60,12 +60,15 @@ public class WachaContentPageAction implements Action {
 			
 			ComentDTO coment_dto =coment_dao.getComentInfo(movie_num, (String)session.getAttribute("session_id"));
 			
+			if(star_dto!=null) {
+				request.setAttribute("star_dto", star_dto);
+				request.setAttribute("heart", star_dto.getMovie_heart());
+				System.out.println("찜 >>>>"+ star_dto.getMovie_heart());
+				request.setAttribute("watch", star_dto.getMovie_watch());
+				System.out.println("보는중 >>>>"+ star_dto.getMovie_watch());
+			}
 			request.setAttribute("coment_dto", coment_dto);
-			request.setAttribute("star_dto", star_dto);
-			request.setAttribute("heart", star_dto.getMovie_heart());
-			System.out.println("찜 >>>>"+ star_dto.getMovie_heart());
-			request.setAttribute("watch", star_dto.getMovie_watch());
-			System.out.println("보는중 >>>>"+ star_dto.getMovie_watch());
+			
 			
 		}
 		request.setAttribute("chk", 1);

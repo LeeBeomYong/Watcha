@@ -652,7 +652,33 @@ public class MovieDAO {
 			
 			return list;
 		} 
-		
+		public int deleteMovie(int num) {
+			int result=0;
+			
+			try {
+				openConn();
+				
+				sql="delete from movie where movie_num=?"; 
+				
+				pstmt=con.prepareStatement(sql);
+				
+				pstmt.setInt(1, num);
+				
+				result=pstmt.executeUpdate();
+				
+				sql="update movie set movie_num = movie_num-1 where movie_num>?";
+				
+				pstmt.setInt(1, num);
+				
+				pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+			}return result;
+		}
 		
 }
 

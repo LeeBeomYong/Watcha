@@ -435,8 +435,8 @@ public class WriteDAO {
 
 		//XD
 		
-		public WriteDTO userContentWrite(String id) {
-			WriteDTO dto = null;
+		public List<WriteDTO> userContentWrite(String id) {
+			 List<WriteDTO>list=new ArrayList<WriteDTO>();
 			
 			try {
 				openConn();
@@ -450,7 +450,7 @@ public class WriteDAO {
 				rs= pstmt.executeQuery();
 				
 				if(rs.next()) {
-					dto=new WriteDTO();
+					WriteDTO dto=new WriteDTO();
 					
 					dto.setWrite_num(rs.getInt("write_num"));
 					dto.setWrite_title(rs.getString("write_title"));
@@ -459,6 +459,7 @@ public class WriteDAO {
 					dto.setWrite_hit(rs.getInt("write_hit"));
 					dto.setWrite_date(rs.getString("write_date"));
 					dto.setMember_id(rs.getString("member_id"));
+					list.add(dto);
 				}
 				
 			} catch (SQLException e) {
@@ -466,7 +467,7 @@ public class WriteDAO {
 				e.printStackTrace();
 			}finally {
 				closeConn(rs, pstmt, con);
-			}return dto;
+			}return list;
 		}
 
 		// board 테이블의 전체 게시물의 수를 확인하는 메서드.
@@ -760,6 +761,7 @@ public class WriteDAO {
 		
 // -------------------------이 부분은 1:1 게시판 부분 --------------------------------------------------------------------
 		
+		
 		public int insertW_Write(W_WriteDTO dto) {
 			
 			int result = 0, count = 0;
@@ -1041,6 +1043,43 @@ public class WriteDAO {
 			sql = "update write set write_reply = 1 where write_num = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, dto.getWrite_num());
+			pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+		
+	}public int insertw_reply(W_ReplyDTO dto) {
+		
+		int result = 0, count = 0;
+		
+		openConn();
+		
+		try {
+			sql = "select max(r_num) from w_reply"; 
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1) + 1;
+			}
+			
+			sql = "insert into w_reply values(?, ?, sysdate, ?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, count);
+			pstmt.setString(2, dto.getR_cont());
+			pstmt.setInt(3, dto.getW_num());
+			
+			result = pstmt.executeUpdate();
+			
+			sql = "update w_write set w_reply = 1 where w_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, dto.getW_num());
 			pstmt.executeUpdate();
 			
 			

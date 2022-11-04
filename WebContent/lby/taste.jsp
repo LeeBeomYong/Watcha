@@ -197,60 +197,40 @@
 				
 					<br><br>
 				<c:set var="countrylist" value="${countryList }"/>
-				<div>
-					<table border="1" cellspacing="0" width="400px" style="text-align: center;">
-						<tr>
-							<th>나라</th>
-							<th>개수</th>
-						</tr>
-				<c:if test="${!empty countrylist }">
-					<c:forEach items="${countrylist }" var="dto">
-						<tr>
-							<td>${dto.getMovie_country() }</td>
-							<td>${dto.getMovie_country_count() }</td>
-						</tr>
-					</c:forEach>
-				</c:if>
+				<div style="display: inline-block;">
+					<c:if test="${!empty countrylist }">
+						<c:forEach items="${countrylist }" var="dto">
+							<div style="display: inline-block; margin-left: 20px; ">
+								<span style="font-weight: bold;">${dto.getMovie_country() }</span><br>
+								<span style="font-weight: lighter;">${dto.getMovie_country_count() }편</span>
+							</div>
+						</c:forEach>
+					</c:if>
 				<c:if test="${empty countrylist }">
-					<tr>
-						<td colspan="2" cellsapcing="0">
-						조회된 데이터가 없습니다.
-						</td>
-					</tr>
+						<p>조회된 데이터가 없습니다.</p>
 				</c:if>
-					</table>
 				</div>
-				<br><br>
+				<br><br><br>
 				<hr>
 			<c:set var="genrelist" value="${genreList }"/>	
 				<div>
 					<h5><strong>영화선호장르</strong></h5>
 				</div>
 					<br><br>
-				<div>
-					<table border="1" cellspacing="0" width="400px" style="text-align: center;">
-						<tr>
-							<th>장르</th>
-							<th>개수</th>
-						</tr>
+				<div style="display: inline-block;">
 				<c:if test="${!empty genrelist }">
 					<c:forEach items="${genrelist }" var="dto">
-						<tr>
-							<td>${dto.getMovie_genre() }</td>
-							<td>${dto.getMovie_genre_count() }</td>
-						</tr>
+						<div style="display: inline-block; margin-left: 20px; ">
+							<span style="font-weight: bold;">${dto.getMovie_genre() }</span><br>
+							<span style="font-weight: lighter;">${dto.getMovie_genre_count() }편</span>
+						</div>
 					</c:forEach>
 				</c:if>
 				<c:if test="${empty genrelist }">
-					<tr>
-						<td colspan="2" cellsapcing="0">
 						조회된 데이터가 없습니다.
-						</td>
-					</tr>
 				</c:if>
-					</table>
 				</div>
-				<br><br>
+				<br><br><br><br>
 				<hr>
 				<div>
 					<h5><strong>영화감상시간</strong></h5>
@@ -259,6 +239,7 @@
 				<div>
 					<c:set var="time_sum" value ="${time_sum }"/>
 					<p>${time_sum }시간</p><br>
+					<br>
 					<c:if test="${time_sum < 10}">
 						<p style="position: absolute; left: 35%; color: red;">에이 설마 이것만 본 건 아닐 거에요..</p>
 					</c:if>

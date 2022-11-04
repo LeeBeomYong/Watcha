@@ -53,7 +53,7 @@
 		opacity: 50%;
 	}
 	#star {
-		color: orange;
+		color: gray;
 		font-size: 12px;
 	}
 	
@@ -97,7 +97,7 @@
 							<li class="hh">
 								<a href="<%=request.getContextPath() %>/wacha_content.do?movie_num=${dto.getMovie_num()}"><img class="img1" src="${pageContext.request.contextPath }/image/profile/${dto.getImage_loc()}" width="175px" height="260px"></a><br>
 								<h5 >&nbsp;${dto.getMovie_title() }</h5>
-<%-- 							<p id="star">&nbsp;&nbsp;평가함&nbsp;★${dto.getMovie_star() }</p> --%>
+							<p id="star">&nbsp;&nbsp;평균&nbsp;★${dto.getMovie_star() }</p>
 							</li>
 							<c:if test="${count % 10 == 0 }">
 								<li>
@@ -121,7 +121,7 @@
 							<li class="hh">
 								<a href="<%=request.getContextPath() %>/wacha_content.do?movie_num=${dto2.getMovie_num()}"><img class="img1" src="${pageContext.request.contextPath }/image/profile/${dto2.getImage_loc()}" width="175px" height="260px"></a><br>
 								<h5 >&nbsp;${dto2.getMovie_title() }</h5>
-<%-- 							<p id="star">&nbsp;&nbsp;평가함&nbsp;★${dto.getMovie_star() }</p> --%>
+							<p id="star">&nbsp;&nbsp;평균&nbsp;★${dto2.getMovie_star() }</p>
 							</li>
 							<c:if test="${count2 % 10 == 0 }">
 								<li>
@@ -145,7 +145,7 @@
 							<li class="hh">
 								<a href="<%=request.getContextPath() %>/wacha_content.do?movie_num=${dto3.getMovie_num()}"><img class="img1" src="${pageContext.request.contextPath }/image/profile/${dto3.getImage_loc()}" width="175px" height="260px"></a><br>
 								<h5 >&nbsp;${dto3.getMovie_title() }</h5>
-<%-- 							<p id="star">&nbsp;&nbsp;평가함&nbsp;★${dto.getMovie_star() }</p> --%>
+							<p id="star">&nbsp;&nbsp;평균&nbsp;★${dto3.getMovie_star() }</p>
 							</li>
 							<c:if test="${count3 % 10 == 0 }">
 								<li>

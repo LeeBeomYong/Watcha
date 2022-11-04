@@ -130,6 +130,7 @@
 						</c:forEach>
 						</ul>
 					</c:if>
+					
 					<c:if test="${empty title_list }">
 						<div align="center">
 						<h3><strong>보는중 등록한 영화가 없습니다.</strong></h3>

@@ -188,7 +188,7 @@ public class MovieDAO {
 		
 		}//end
 		
-		public int insertMovie(MovieDTO dto) {
+		public int insertMovie(MovieDTO dto,ImageDTO dto1) {
 			int result=0,count=0;
 		
 			
@@ -231,6 +231,20 @@ public class MovieDAO {
 				pstmt.setInt(11, dto.getMovie_count());
 				
 				pstmt.setInt(12, dto.getMovie_hit());
+				
+				result=pstmt.executeUpdate();
+				
+				sql="insert into image values(?,?,?,?)";
+				
+				pstmt=con.prepareStatement(sql);
+				
+				pstmt.setInt(1, count);
+				
+				pstmt.setString(2,dto1.getImage_loc());
+				
+				pstmt.setString(3, dto1.getImage_temp());
+				
+				pstmt.setString(4, dto1.getDirector_image());
 				
 				result=pstmt.executeUpdate();                               
 			} catch (SQLException e) {

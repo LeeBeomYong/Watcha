@@ -1,190 +1,168 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Start Up</title>
-		<script src="https:////cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
-    <style type="text/css">
+<html lang="en">
 
-body {
-  font-family: 'Roboto', sans-serif;
-}
-body, .button:after {
-  background: #2c3e50;
-}
-.ctn {
-  display: block;
-  margin: auto;
-  text-align: center;
-}
-footer {
-  position: fixed;
-  bottom: 5px;
-  right: 5px;
-  color: #FFF;
-}
-footer a, footer a:after {
-  font-size: 1em !important;
-}
-/*END BODY*/
-
-/*GRADIENTS*/
-  /*GREEN*/
-  .b-green, .b-green:before {
-    background: rgba(73,155,234,1);
-    background: -moz-linear-gradient(45deg, rgba(73,155,234,1) 0%, rgba(26,188,156,1) 100%);
-    background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(73,155,234,1)), color-stop(100%, rgba(26,188,156,1)));
-    background: -webkit-linear-gradient(45deg, rgba(73,155,234,1) 0%, rgba(26,188,156,1) 100%);
-    background: -o-linear-gradient(45deg, rgba(73,155,234,1) 0%, rgba(26,188,156,1) 100%);
-    background: -ms-linear-gradient(45deg, rgba(73,155,234,1) 0%, rgba(26,188,156,1) 100%);
-    background: linear-gradient(45deg, rgba(73,155,234,1) 0%, rgba(26,188,156,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#499bea', endColorstr='#1abc9c', GradientType=1 );
-  }
-  /*PINK*/
-  .b-pink, .b-pink:before {
-    background: rgba(231,72,234,1);
-    background: -moz-linear-gradient(45deg, rgba(231,72,234,1) 0%, rgba(75,26,188,1) 100%);
-    background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(231,72,234,1)), color-stop(100%, rgba(75,26,188,1)));
-    background: -webkit-linear-gradient(45deg, rgba(231,72,234,1) 0%, rgba(75,26,188,1) 100%);
-    background: -o-linear-gradient(45deg, rgba(231,72,234,1) 0%, rgba(75,26,188,1) 100%);
-    background: -ms-linear-gradient(45deg, rgba(231,72,234,1) 0%, rgba(75,26,188,1) 100%);
-    background: linear-gradient(45deg, rgba(231,72,234,1) 0%, rgba(75,26,188,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e748ea', endColorstr='#4b1abc', GradientType=1 );
-  }
-  /*RED*/
-  .b-red, .b-red:before {
-    background: rgba(234,110,72,1);
-    background: -moz-linear-gradient(45deg, rgba(234,110,72,1) 0%, rgba(188,26,99,1) 100%);
-    background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(234,110,72,1)), color-stop(100%, rgba(188,26,99,1)));
-    background: -webkit-linear-gradient(45deg, rgba(234,110,72,1) 0%, rgba(188,26,99,1) 100%);
-    background: -o-linear-gradient(45deg, rgba(234,110,72,1) 0%, rgba(188,26,99,1) 100%);
-    background: -ms-linear-gradient(45deg, rgba(234,110,72,1) 0%, rgba(188,26,99,1) 100%);
-    background: linear-gradient(45deg, rgba(234,110,72,1) 0%, rgba(188,26,99,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea6e48', endColorstr='#bc1a63', GradientType=1 );
-  }
-  /*ORANGE*/
-  .b-orange, .b-orange:before {
-    background: rgba(255,193,7,1);
-    background: -moz-linear-gradient(45deg, rgba(255,193,7,1) 0%, rgba(255,87,34,1) 100%);
-    background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(255,193,7,1)), color-stop(100%, rgba(255,87,34,1)));
-    background: -webkit-linear-gradient(45deg, rgba(255,193,7,1) 0%, rgba(255,87,34,1) 100%);
-    background: -o-linear-gradient(45deg, rgba(255,193,7,1) 0%, rgba(255,87,34,1) 100%);
-    background: -ms-linear-gradient(45deg, rgba(255,193,7,1) 0%, rgba(255,87,34,1) 100%);
-    background: linear-gradient(45deg, rgba(255,193,7,1) 0%, rgba(255,87,34,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffc107', endColorstr='#ff5722', GradientType=1 );
-  }
-  /*BLUE*/
-  .b-blue, .b-blue:before {
-    background: rgba(5,118,255,1);
-    background: -moz-linear-gradient(45deg, rgba(5,118,255,1) 0%, rgba(36,248,255,1) 100%);
-    background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(5,118,255,1)), color-stop(100%, rgba(36,248,255,1)));
-    background: -webkit-linear-gradient(45deg, rgba(5,118,255,1) 0%, rgba(36,248,255,1) 100%);
-    background: -o-linear-gradient(45deg, rgba(5,118,255,1) 0%, rgba(36,248,255,1) 100%);
-    background: -ms-linear-gradient(45deg, rgba(5,118,255,1) 0%, rgba(36,248,255,1) 100%);
-    background: linear-gradient(45deg, rgba(5,118,255,1) 0%, rgba(36,248,255,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0576ff', endColorstr='#24f8ff', GradientType=1 );
-  }
-/*END GRADIENTS*/
-/*BASE BUTTON*/
-.button {
-  display: inline-block;
-  position: relative;
-  border-radius: 3px;
-  text-decoration: none;
-  padding: .5em;
-  margin: .5em;
-  font-size: 2em;
-  font-weight: bold;
-  transition: all .5s;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.button:hover {
-  text-shadow: 0px 0px 0px rgba(255, 255, 255, .75);
-}
-.button:hover:after {
-  left: 100%;
-  top: 100%;
-  bottom: 100%;
-  right: 100%;
-}
-.button:before {
-  content: '';
-  display: block;
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  z-index: -1;
-  border-radius: 5px;
-  transition: all .5s;
-}
-.button:after {
-  content: '';
-  display: block;
-  position: absolute;
-  left: 2px;
-  top: 2px;
-  bottom: 2px;
-  right: 2px;
-  z-index: -1;
-  border-radius: 5px;
-  transition: all .5s;
-}
-.button2 {
-  display: inline-block;
-  font-size: 2em;
-  margin: .5em;
-  padding: .5em;
-  border-radius: 5px;
-  transition: all .5s;
-  filter: hue-rotate(0deg);
-  color: #FFF;
-  text-decoration: none;
-}
-/*END BASE BUTTON*/
-/*ROTATE*/
-.rot-360-noscoop:hover {
-  filter: hue-rotate(360deg);
-  transform: rotate(360deg);
-}
-.rot-135:hover {
-  filter: hue-rotate(135deg);
-}
-.rot-90:hover {
-  filter: hue-rotate(90deg);
-}
-/*END ROTATE*/
+<head>    
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
     
-    </style>
-  
+    <style type="text/css">
+    .ui-sortable-placeholder { 
+    	border: 1px dashed black!important; 
+        visibility: visible !important;
+        background: #eeeeee78 !important;
+       }
+    .ui-sortable-placeholder * { visibility: hidden; }
+        .RearangeBox.dragElemThumbnail{opacity:0.6;}
+        .RearangeBox {
+            width: 180px;
+            height:240px;
+            padding:10px 5px;
+            cursor: all-scroll;
+            float: left;
+            border: 1px solid #9E9E9E;
+            font-family: sans-serif;
+            display: inline-block;            
+            margin: 5px!important;
+            text-align: center;
+            color: #673ab7;
+            background: #ffc107;
+          /*color: rgb(34, 34, 34);
+            background: #f3f2f1;     */
+        }
+
+
+
+
+body{
+  font-family: sans-serif;
+ margin: 0px;
+}
+
+.IMGthumbnail{
+    max-width:168px;
+    height:220px;
+    margin:auto;
+  background-color: #ececec;
+  padding:2px;
+  border:none;
+}
+
+.IMGthumbnail img{
+   max-width:100%;
+max-height:100%;
+}
+
+.imgThumbContainer{
+
+  margin:4px;
+  border: solid;
+  display: inline-block;
+  justify-content: center;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.14);
+  -webkit-box-shadow: 0 0 4px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 0 4px 0 rgba(0,0,0,.2);
+}
+
+
+
+.imgThumbContainer > .imgName{
+  text-align:center;
+  padding: 2px 6px;
+  margin-top:4px;
+  font-size:13px;
+  height: 15px;
+  overflow: hidden;
+}
+
+.imgThumbContainer > .imgRemoveBtn{
+    position: absolute;
+    color: #e91e63ba;
+    right: 2px;
+    top: 2px;
+    cursor: pointer;
+    display: none;
+}
+
+.RearangeBox:hover > .imgRemoveBtn{ 
+    display: block;
+}
+   </style>
 </head>
 
 <body>
-
-<div class="ctn">
-<a href="http://themonkey.co" class="button b-green">Green Button</a>
-<a href="http://themonkey.co" class="button b-pink">Pink Button</a>
-<a href="http://themonkey.co" class="button b-red">Red Button</a>
-<a href="http://themonkey.co" class="button b-orange">Orange Button</a>
-<a href="http://themonkey.co" class="button b-blue">Blue Button</a>
-<br/>
-<a href="http://themonkey.co" class="button2 b-green rot-135">Green button</a>
-<a href="http://themonkey.co" class="button2 b-pink rot-135">Pink button</a>
-<a href="http://themonkey.co" class="button2 b-red rot-135">Red button</a>
-<a href="http://themonkey.co" class="button2 b-orange rot-135">Orange button</a>
-<a href="http://themonkey.co" class="button2 b-blue rot-135">Blue button</a>
-</div>
-<footer><a href="http://themonkey.co" class="button b-red" target="_blank">By Monkey Company</a></footer>
-
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js" ></script> 
-
+    <div style='padding:14px'>
+        <label for="files">Select multiple files: </label>
+        <input id="files" type="file" multiple/>        
+    </div>
+  <div style='padding:14px; margin:auto';>
+  <div id="sortableImgThumbnailPreview">
+        
+    </div>
+  </div>
+  
 
 </body>
-</html>
+ <script type="text/javascript">
+    
+    $(function() {
+        $("#sortableImgThumbnailPreview").sortable({
+         connectWith: ".RearangeBox",
+        
+            
+          start: function( event, ui ) { 
+               $(ui.item).addClass("dragElemThumbnail");
+               ui.placeholder.height(ui.item.height());
+       
+           },
+            stop:function( event, ui ) { 
+               $(ui.item).removeClass("dragElemThumbnail");
+           }
+        });
+        $("#sortableImgThumbnailPreview").disableSelection();
+    });
 
+
+
+
+document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+function handleFileSelect(evt) {
+
+var files = evt.target.files; 
+var output = document.getElementById("sortableImgThumbnailPreview");
+
+// Loop through the FileList and render image files as thumbnails.
+for (var i = 0, f; f = files[i]; i++) {
+
+  // Only process image files.
+  if (!f.type.match('image.*')) {
+    continue;
+  }
+
+  var reader = new FileReader();
+
+  // Closure to capture the file information.
+  reader.onload = (function(theFile) {
+    return function(e) {
+      // Render thumbnail.
+       var imgThumbnailElem = "<div class='RearangeBox imgThumbContainer'><i class='material-icons imgRemoveBtn' onclick='removeThumbnailIMG(this)'>cancel</i><div class='IMGthumbnail' ><img  src='" + e.target.result + "'" + "title='"+ theFile.name + "'/></div><div class='imgName'>"+ theFile.name +"</div></div>";
+                
+                output.innerHTML = output.innerHTML + imgThumbnailElem; 
+      
+    };
+  })(f);
+
+  // Read in the image file as a data URL.
+  reader.readAsDataURL(f);
+}
+}
+
+function removeThumbnailIMG(elm){
+elm.parentNode.outerHTML='';
+}
+
+
+    </script>
+</html>

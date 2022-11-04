@@ -6,9 +6,12 @@
   <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        
         <title>영화등록</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
-       
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
         <style type="text/css">
         
         
@@ -182,7 +185,177 @@ float: left;
   }
 
 }
-        
+    
+ /* --------------------------------------- */   
+
+
+
+
+.upload {
+  &__box {
+    padding: 40px;
+  }
+  &__inputfile {
+    width: .1px;
+    height: .1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+  
+  &__btn {
+    display: inline-block;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    min-width: 116px;
+    padding: 5px;
+    transition: all .3s ease;
+    cursor: pointer;
+    border: 2px solid;
+    background-color: #4045ba;
+    border-color: #4045ba;
+    border-radius: 10px;
+    line-height: 26px;
+    font-size: 14px;
+    
+    &:hover {
+      background-color: unset;
+      color: #4045ba;
+      transition: all .3s ease;
+    }
+    
+    -box {
+      margin-bottom: 10px;
+    }
+  }
+  
+  __img {
+    -wrap {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 -10px;
+    }
+    
+    &-box {
+      width: 200px;
+      padding: 0 10px;
+      margin-bottom: 12px;
+    }
+    
+    &-close {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.5);
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        text-align: center;
+        line-height: 24px;
+        z-index: 1;
+        cursor: pointer;
+
+        &:after {
+          content: '\2716';
+          font-size: 14px;
+          color: white;
+        }
+      }
+  }
+}
+
+.img-bg {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  padding-bottom: 100%;
+} 
+
+/* --------------------------------------------- */
+.ui-sortable-placeholder { 
+    	border: 1px dashed black!important; 
+        visibility: visible !important;
+        background: #eeeeee78 !important;
+       }
+    .ui-sortable-placeholder * { visibility: hidden; }
+        .RearangeBox.dragElemThumbnail{opacity:0.6;}
+        .RearangeBox {
+            width: 180px;
+            height:240px;
+            padding:10px 5px;
+            cursor: all-scroll;
+            float: left;
+            border: 1px solid #9E9E9E;
+            font-family: sans-serif;
+            display: inline-block;            
+            margin: 5px!important;
+            text-align: center;
+            color: #673ab7;
+            background: #ffc107;
+          /*color: rgb(34, 34, 34);
+            background: #f3f2f1;     */
+        }
+
+
+
+
+body{
+  font-family: sans-serif;
+ margin: 0px;
+}
+
+.IMGthumbnail{
+    max-width:168px;
+    height:220px;
+    margin:auto;
+  background-color: #ececec;
+  padding:2px;
+  border:none;
+}
+
+.IMGthumbnail img{
+   max-width:100%;
+max-height:100%;
+}
+
+.imgThumbContainer{
+
+  margin:4px;
+  border: solid;
+  display: inline-block;
+  justify-content: center;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.14);
+  -webkit-box-shadow: 0 0 4px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 0 4px 0 rgba(0,0,0,.2);
+}
+
+
+
+.imgThumbContainer > .imgName{
+  text-align:center;
+  padding: 2px 6px;
+  margin-top:4px;
+  font-size:13px;
+  height: 15px;
+  overflow: hidden;
+}
+
+.imgThumbContainer > .imgRemoveBtn{
+    position: absolute;
+    color: #e91e63ba;
+    right: 2px;
+    top: 2px;
+    cursor: pointer;
+    display: none;
+}
+
+.RearangeBox:hover > .imgRemoveBtn{ 
+    display: block;
+}
         </style>
         <link rel="stylesheet" href="css/normalize.css">
         <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
@@ -196,7 +369,7 @@ float: left;
     <input type="hidden" name="movie_num" value="${dto.getMovie_num() }">
         <h1>영화등록</h1>
 
-    <script>
+    <script defer="defer">
 	
 	let noimage =
 	  "https://ami-sni.com/wp-content/themes/consultix/images/no-image-found-360x250.png";
@@ -215,7 +388,76 @@ float: left;
 	  }
 	}
  
-    
+	jQuery(document).ready(function () {
+		  ImgUpload();
+		});
+
+		function ImgUpload() {
+		  var imgWrap = "";
+		  var imgArray = [];
+
+		  $('.upload__inputfile').each(function () {
+		    $(this).on('change', function (e) {
+		      imgWrap = $(this).closest('.upload__box').find('.upload__img-wrap');
+		      var maxLength = $(this).attr('data-max_length');
+
+		      var files = e.target.files;
+		      var filesArr = Array.prototype.slice.call(files);
+		      var iterator = 0;
+		      filesArr.forEach(function (f, index) {
+
+		        if (!f.type.match('image.*')) {
+		          return;
+		        }
+
+		        if (imgArray.length > maxLength) {
+		          return false
+		        } else {
+		          var len = 0;
+		          for (var i = 0; i < imgArray.length; i++) {
+		            if (imgArray[i] !== undefined) {
+		              len++;
+		            }
+		          }
+		          if (len > maxLength) {
+		            return false;
+		          } else {
+		            imgArray.push(f);
+
+		            var reader = new FileReader();
+		            reader.onload = function (e) {
+		              var html = "<div class='upload__img-box'><div style='background-image: url(" + e.target.result + ")' data-number='" + $(".upload__img-close").length + "' data-file='" + f.name + "' class='img-bg'><div class='upload__img-close'></div></div></div>";
+		              imgWrap.append(html);
+		              iterator++;
+		            }
+		            reader.readAsDataURL(f);
+		          }
+		        }
+		      });
+		    });
+		  });
+
+		  $('body').on('click', ".upload__img-close", function (e) {
+		    var file = $(this).parent().data("file");
+		    for (var i = 0; i < imgArray.length; i++) {
+		      if (imgArray[i].name === file) {
+		        imgArray.splice(i, 1);
+		        break;
+		      }
+		    }
+		    $(this).parent().parent().remove();
+		  });
+		}
+	
+       	$('#su1').click(function(){
+
+            var files=$('input[name="gallery"]')[0].files;
+
+            for(var i= 0; i<files.length; i++){
+                alert('file_name :'+files[i].name);
+            }
+
+        });
     </script>
        <div  class="can-1">
           <fieldset>
@@ -316,11 +558,94 @@ float: left;
         	</div>
         </div>
 
-        
+            <div >
+	          <fieldset >
+	          <legend><span class="number" >11</span>갤러리</legend>
+	        
+ 			   <div style='padding:14px'>
+        <label for="files"></label>
+        <input id="files" type="file" name="gallery" multiple/>        
+  	  </div>
+				  <div style='padding:14px; margin:auto';>
+				  <div id="sortableImgThumbnailPreview">
+				 
+					        
+				    </div>
+				  </div>
+        	</fieldset>
+        	</div>
+      
  
    
-        <button type="submit">Add List</button>
+        <button type="submit" id="su1">Add List</button>
       </form>
       <jsp:include page="../include/admin_bottom.jsp" />
     </body>
+    <script type="text/javascript">
+	
+	$(function() {
+        $("#sortableImgThumbnailPreview").sortable({
+         connectWith: ".RearangeBox",
+        
+            
+          start: function( event, ui ) { 
+               $(ui.item).addClass("dragElemThumbnail");
+               ui.placeholder.height(ui.item.height());
+       
+           },
+            stop:function( event, ui ) { 
+               $(ui.item).removeClass("dragElemThumbnail");
+           }
+        });
+        $("#sortableImgThumbnailPreview").disableSelection();
+        
+        
+        
+        
+ 
+    });
+
+
+
+
+document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+function handleFileSelect(evt) {
+
+var files = evt.target.files; 
+var output = document.getElementById("sortableImgThumbnailPreview");
+
+// Loop through the FileList and render image files as thumbnails.
+for (var i = 0, f; f = files[i]; i++) {
+
+  // Only process image files.
+  if (!f.type.match('image.*')) {
+    continue;
+  }
+
+  var reader = new FileReader();
+
+  // Closure to capture the file information.
+  reader.onload = (function(theFile) {
+    return function(e) {
+      // Render thumbnail.
+       var imgThumbnailElem = "<div class='RearangeBox imgThumbContainer'><i class='material-icons imgRemoveBtn' onclick='removeThumbnailIMG(this)'>cancel</i><div class='IMGthumbnail' ><img  src='" + e.target.result + "'" + "title='"+ theFile.name + "'/></div><div class='imgName'>"+ theFile.name +"</div></div>";
+                
+                output.innerHTML = output.innerHTML + imgThumbnailElem; 
+      
+    };
+  })(f);
+
+  // Read in the image file as a data URL.
+  reader.readAsDataURL(f);
+}
+}
+
+function removeThumbnailIMG(elm){
+elm.parentNode.outerHTML='';
+}
+
+
+    
+    </script>
 </html>

@@ -12,7 +12,16 @@ public class ComentDTO {
 	private String cocoment_likelist;	
 	private String cocoment_hatelist;
 	private int cocoment_count;
-
+	private int member_star;
+	
+	
+	
+	public int getMember_star() {
+		return member_star;
+	}
+	public void setMember_star(int member_star) {
+		this.member_star = member_star;
+	}
 	public int getComent_num() {
 		return coment_num;
 	}

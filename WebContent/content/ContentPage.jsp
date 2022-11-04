@@ -565,7 +565,7 @@ $(function() {
 		                                             <span>${coment.getMember_id() }</span>
 		                                          </div>
 		                                          <div>
-		                                            	<span>★</span>
+		                                            	<span>★ ${coment.getMember_star() }</span>
 		                                          </div>
 		                                       </div>
 		                                       <hr>
@@ -579,7 +579,7 @@ $(function() {
 		                                       </a>
 		                                       <hr>
 		                                       <%--게시글 하단 --%>
-		                                       <div>
+		                                       <div class="coment_bottom">
 		                                          <img alt="" src="${pageContext.request.contextPath }/image/contImg/likeIt.png" width="15px" height="15px">&nbsp; <span>${coment.getComent_hit()}</span>
 		                                          <img alt="" src="${pageContext.request.contextPath }/image/contImg/talk.png" width="15px" height="15px">&nbsp; <span>${coment.getCocoment_count()}</span>
 		                                       </div>
@@ -606,7 +606,7 @@ $(function() {
 			                                             <span>${coment.getMember_id() }</span>
 			                                          </div>
 			                                          <div>
-			                                            	<span>★</span>
+			                                            	<span>★ ${coment.getMember_star() }</span>
 			                                          </div>
 			                                       </div>
 			                                       <hr>
@@ -620,7 +620,7 @@ $(function() {
 			                                       </a>
 			                                       <hr>
 			                                       <%--게시글 하단 --%>
-			                                       <div>
+			                                       <div class="coment_bottom">
 			                                          <img alt="" src="${pageContext.request.contextPath }/image/contImg/likeIt.png" width="15px" height="15px">&nbsp; <span>${coment.getComent_hit()}</span>
 			                                          <img alt="" src="${pageContext.request.contextPath }/image/contImg/talk.png" width="15px" height="15px">&nbsp; <span>${coment.getCocoment_count()}</span>
 			                                       </div>

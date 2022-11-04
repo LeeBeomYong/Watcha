@@ -48,9 +48,8 @@
 		object-fit: cover;
 	}
 	
-	
 	.movie_list{
-		height: 100px;
+		height: 50%;
 		display : flex;
 		align-items: center;
 	}
@@ -63,9 +62,9 @@
 	}
 	#topdiv img{
 		width : 100px;
-		height: 100px; 
+		height: 100%; 
+		border-radius: 5%
 	}
-
 	.ming{
 		width: 100px !important;
 		height: 80px !important;
@@ -76,6 +75,16 @@
 		justify-content: center !important;
 		align-items: center !important;	
 		padding: 1% 1%;
+	}
+	#direcFont{
+		font-size: 30px;
+	}
+	#role{
+		color: gray;
+		font-size: 15px;
+	}
+	.bothr{
+		margin: 1% 0;
 	}
 </style>
 </head>
@@ -89,19 +98,20 @@
 	<div id="maindiv">
 		<div id="topMargindiv">
 			<div id="topdiv">
-				<img alt="없음" src="" width="100px" height="100px">
-				<span>${movie_dto.getMovie_director() }</span>
+				<img alt="없음" src="${image_dto.getDirector_image()}" width="200px" height="200px">
+				<span id="direcFont">${movie_dto.getMovie_director() }</span>
 			</div>
+			<span id="role">감독</span>
 			<hr>
 			<span><b>영화</b></span>
+			
 			<hr>
 		</div>
 	<!-- 영화 리스트 구간 // 네비게이션 구간  -->
 	<div id="contentDiv">
 		<div id="firstDiv">
 			<div>
-				
-				
+			
 				<!-- 속성   -->
 				<div id="catediv">
 					<div>
@@ -110,17 +120,17 @@
 						<div>감독</div>
 						<div>평가</div>
 					</div>
-					<hr>
+					<hr class="bothr">
 		<c:choose>
 			<c:when test="${!empty movie_list}">
 				<c:forEach items="${movie_list }" var="dto">
 					<div class="movie_list">
 						<div>${dto.getMovie_date() }</div>
-						<div class="imgdiv"><img class="mimg" alt="없음" src="${dto.getMovie_imageloc() }" width="100px" height="100px"><span>${dto.getMovie_title() }</span></div>
+						<div class="imgdiv"><img class="mimg" alt="없음" src="${dto.getMovie_imageloc() }" width="100px" height="200px"><span>${dto.getMovie_title() }</span></div>
 						<div>${dto.getMovie_director()}</div>
 						<div>★${dto.getMovie_avgstar()}</div>
 					</div>
-					<hr>
+					<hr class="bothr">
 				</c:forEach>	
 			</c:when>
 			<c:otherwise>	

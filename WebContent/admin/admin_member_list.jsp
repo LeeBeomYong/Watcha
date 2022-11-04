@@ -259,10 +259,10 @@ color:aqua;
       <td class="now" align="center">
 							<%-- 게시글 번호랑 가지고 있는 게시글 번호랑 같고, 내용이 있을때 나와라. --%>
 							<c:if test="${dto.getMember_use() ne '1'}">
-								<button class="custom-btn btn-1">탈퇴</button>
+								<button class="bu1">탈퇴</button>
 							</c:if>
 							<c:if test="${dto.getMember_use() eq '1' }">
-								<button class="custom-btn btn-2">유저</button>
+								<button class="bu2">유저</button>
 							</c:if>
 						</td>
       

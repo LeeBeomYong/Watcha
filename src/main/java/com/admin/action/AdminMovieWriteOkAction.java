@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Calendar;
+import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +14,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.wacha.controller.Action;
 import com.wacha.controller.ActionForward;
+import com.wacha.model.ImageDTO;
 import com.wacha.model.MovieDAO;
 import com.wacha.model.MovieDTO;
 
@@ -21,6 +24,8 @@ public class AdminMovieWriteOkAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		MovieDTO dto = new MovieDTO();
+		
+		ImageDTO dto1 = new ImageDTO();
 		//첨부파일이 저장될 위치(경로) 설정
 		String saveFolder="C:\\Users\\user\\git\\Watcha\\WebContent\\image";
 		
@@ -56,8 +61,21 @@ public class AdminMovieWriteOkAction implements Action {
 			String movie_country=multi.getParameter("movie_country").trim();
 			
 			String movie_director= multi.getParameter("movie_director").trim();
+
+			
+			
+			Enumeration gallery= multi.getParameterNames();
+			while (gallery.hasMoreElements()) //params.hasMoreElements()메소드를 사용해 포함된 요소들이 있는지 검사하고 요소들이 포함되어 있는 동안만 반복
+            {
+                String name = (String) gallery.nextElement();
+                String value = multi.getParameter(name);
+                System.out.println(name + "=" + value + "<br/>"); //name, value 변수에 담긴값을 브라우저 출력
+            }
+				/* System.out.println("movie_gallert>>>>>>>>>>>>>>>"+movie_gallery); */
 			
 			File movie_video=multi.getFile("movie_poster");
+			
+				//무비 포스터
 			
 			if(movie_video!=null) {	//첨부파일이 존재하는 경우
 				
@@ -101,6 +119,49 @@ public class AdminMovieWriteOkAction implements Action {
 				dto.setMovie_video(fileDBname);
 				
 			}
+			//gally 파일
+			
+			/*
+			 * if(movie_gallery!=null) { //첨부파일이 존재하는 경우
+			 * 
+			 * //우선은 첨부파일의 이름을 알아야함 //getname()메서드를 이용하면 이름을 알 수있음 String fileName =
+			 * movie_gallery.getName();
+			 * 
+			 * //날짜 객체 생성 Calendar cal= Calendar.getInstance();
+			 * 
+			 * int year = cal.get(Calendar.YEAR);
+			 * 
+			 * int month = cal.get(Calendar.MONTH)+1;
+			 * 
+			 * int day = cal.get(Calendar.DAY_OF_MONTH);
+			 * 
+			 * //......./upload/2022-10-11 만드려고함
+			 * 
+			 * String homedir= saveFolder+"/"+year+"-"+month+"-"+day;
+			 * 
+			 * //날짜 폴더를 만들어 보자
+			 * 
+			 * File path1= new File(homedir);
+			 * 
+			 * if(!path1.exists()) { //폴더가 존재하지않는 경우
+			 * 
+			 * path1.mkdir(); //실제 폴더를 만드는 메서드
+			 * 
+			 * }
+			 * 
+			 * //파일을 만들어 보자 ==> 예) 작성자_file 명
+			 * 
+			 * String refileName = movie_title+"_"+fileName;
+			 * 
+			 * movie_video.renameTo(new File(homedir+"/"+refileName));
+			 * 
+			 * //실제로 데이터베이스에 저장하는 파일이름 //"/2022-10-11/홍길동_파일명" 으로 저장되게 할 예정 String
+			 * fileDBname="/"+year+"-"+month+"-"+day+"/"+refileName;
+			 * 
+			 * dto1.setImage_temp(fileDBname);
+			 * 
+			 * }
+			 */
 			
 			dto.setMovie_title(movie_title);
 			
@@ -118,9 +179,18 @@ public class AdminMovieWriteOkAction implements Action {
 			
 			dto.setMovie_country(movie_country);			
 			
+			/*
+			 * dto1.setImage_loc(movie_gallery.toString());
+			 * 
+			 * System.out.println("dddddddddddddddddd >>>>>>>>>>>>>>>. "+movie_gallery.
+			 * toString());
+			 */
+			
+			
+			
 			MovieDAO dao= MovieDAO.getInstance();
 			
-			int check= dao.insertMovie(dto);
+			int check= dao.insertMovie(dto,dto1);
 			
 			ActionForward forward = new ActionForward();
 			

@@ -183,7 +183,7 @@
 	#mainComent_div{
 		display: flex;
 		flex-direction: row;
-		justify-content: center;
+		justify-content: flex-start;
 		height: 300px;
 	}
 	mainComent_div div{
@@ -192,8 +192,11 @@
 	#coment_on{
 		display: flex;
 		flex-direction: column;
-		width: 220px;
+		width: 250px;
 		margin: 0 2%;
+		background-color: #F5F5F5;
+		border-radius: 5%;
+		font-size: 10px;	
 	
 	}
 
@@ -257,7 +260,6 @@
 	
 	/* 코멘트 영역 */
 	.coment_div{
-		margin-left: 10px;
 		width: 100%;
 			
 	}
@@ -271,11 +273,7 @@
 		flex-direction: row;
 
 	}
-	#coment_on{
-		background-color: #F5F5F5;
-		border-radius: 5%;
-		font-size: 10px;	
-	}
+
 	.coment_top{
 		display: flex;
 		flex-direction: row;
@@ -354,15 +352,24 @@
 		display: flex;
 		align-items: center;
 	}
+	.carousel-inner2{
+		display: flex;
+		align-items: center;
+		width: 780px;
+	}
+	carousel-item active ul li{	
+		display: flex;
+	}
+	.flex_li{
+		display: flex;
+	}
 	
 	
-	#carouselExampleControls2{
+	#carouselExampleControlsNoTouching2{
 		display: flex;
 		flex-direction: row;
 		align-content : center;
-		width: 600px;
 		height: 300px;
-	
 	}
 	#carouselExampleControlsNoTouching{
 		background-color: #F5F5F5;

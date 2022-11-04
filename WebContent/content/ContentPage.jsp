@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!-- 임시 세션 로그인 -->
 
 <!DOCTYPE html>
@@ -552,91 +552,93 @@ $(function() {
 		<%-- 코멘트 리스트 영역 --%> 	
            <%--게시글 상단 --%>
                <div id="mainComent_div">
-                  <div id="carouselExampleControls2" class="carousel slide">
-                  <div class="carousel-inner align-middle">
-	                  <button id="prv_btn" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="prev">
-						    <span id="prv" class="carousel-control-prev-icon" aria-hidden="true"></span>
-						    <span><img id="slide_p" src="https://cdn-icons-png.flaticon.com/512/2767/2767149.png" alt="previous" width="20px" height="20px"  /></span>
+                  <div id="carouselExampleControlsNoTouching2" class="carousel slide" data-bs-touch="false" data-bs-interval="false">
+					  <div class="carousel-inner2">
+					    <div class="coment_div carousel-item active">
+							<ul>
+								<li class="flex_li">
+										<c:forEach items="${clist}" var="coment" begin="0" end="2">
+		                     				 <div id="coment_on">
+		                     				 <div class="coment_top">
+		                                          <div>
+		                                             <img alt="" width="40px" height="40px" id="idImg" src="${pageContext.request.contextPath }/image/contImg/defualtImg.png">
+		                                             <span>${coment.getMember_id() }</span>
+		                                          </div>
+		                                          <div>
+		                                            	<span>★</span>
+		                                          </div>
+		                                       </div>
+		                                       <hr>
+		                                       <%--게시글 중단 --%>
+		                                       <a href="<%=request.getContextPath()%>/wacha_coment.do?coment_num=${coment.getComent_num() }&movie_num=${coment.getMovie_num()}&session_id=${coment.getMember_id()}">
+			                                       <div class="coment_midle">
+			                                          <span>
+			                                             ${coment.getMovie_coment() }
+			                                          </span>
+			                                       </div>
+		                                       </a>
+		                                       <hr>
+		                                       <%--게시글 하단 --%>
+		                                       <div>
+		                                          <img alt="" src="${pageContext.request.contextPath }/image/contImg/likeIt.png" width="15px" height="15px">&nbsp; <span>${coment.getComent_hit()}</span>
+		                                          <img alt="" src="${pageContext.request.contextPath }/image/contImg/talk.png" width="15px" height="15px">&nbsp; <span>${coment.getCocoment_count()}</span>
+		                                       </div>
+		                     				</div>
+		                     			</c:forEach>
+								</li>
+							</ul>
+					    </div>
+					    <c:forEach begin="1" end="${fn:length(clist)/3 }"  varStatus="i">
+						    <div class="carousel-item">
+						      	<ul>
+									<li class="flex_li">
+										<c:if test="${(((i.count-1)/3)+3)*3 < fn:length(clist)/3}">
+											<c:set var="end" value="${fn:length(clist)/3 }"/>
+										</c:if>
+										<c:if test="${(((i.count-1)/3)+3)*3 > fn:length(clist)/3}">
+											<c:set var="end" value="${(((i.count-1)/3)+3)*3}"/>
+										</c:if>
+											<c:forEach items="${clist}" var="coment" begin="${(((i.count-1)/3)+1)*3}" end="${end}">
+			                     				 <div id="coment_on">
+			                     				 <div class="coment_top">
+			                                          <div>
+			                                             <img alt="" width="40px" height="40px" id="idImg" src="${pageContext.request.contextPath }/image/contImg/defualtImg.png">
+			                                             <span>${coment.getMember_id() }</span>
+			                                          </div>
+			                                          <div>
+			                                            	<span>★</span>
+			                                          </div>
+			                                       </div>
+			                                       <hr>
+			                                       <%--게시글 중단 --%>
+			                                       <a href="<%=request.getContextPath()%>/wacha_coment.do?coment_num=${coment.getComent_num() }&movie_num=${coment.getMovie_num()}&session_id=${coment.getMember_id()}">
+				                                       <div class="coment_midle">
+				                                          <span>
+				                                             ${coment.getMovie_coment() }
+				                                          </span>
+				                                       </div>
+			                                       </a>
+			                                       <hr>
+			                                       <%--게시글 하단 --%>
+			                                       <div>
+			                                          <img alt="" src="${pageContext.request.contextPath }/image/contImg/likeIt.png" width="15px" height="15px">&nbsp; <span>${coment.getComent_hit()}</span>
+			                                          <img alt="" src="${pageContext.request.contextPath }/image/contImg/talk.png" width="15px" height="15px">&nbsp; <span>${coment.getCocoment_count()}</span>
+			                                       </div>
+			                     				</div>
+			                     			</c:forEach>
+									</li>
+								</ul>
+						    </div>
+					    </c:forEach>
+					  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching2" data-bs-slide="prev">
+					    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					    <span class="visually-hidden">Previous</span>
 					  </button>
-            <c:choose>
-                  <c:when test="${!empty clist }">
-                     <div class="coment_div carousel-item active" >
-                     	<ul>
-                     		<li>
-                     			<c:forEach items="${clist}" var="coment" begin="0" end="3">
-                     				 <div id="coment_on">
-                     				 <div class="coment_top">
-                                          <div>
-                                             <img alt="" width="40px" height="40px" id="idImg" src="${pageContext.request.contextPath }/image/contImg/defualtImg.png">
-                                             <span>${coment.getMember_id() }</span>
-                                          </div>
-                                          <div>
-                                            	<span>★</span>
-                                          </div>
-                                       </div>
-                                       <hr>
-                                       <%--게시글 중단 --%>
-                                       <a href="<%=request.getContextPath()%>/wacha_coment.do?coment_num=${coment.getComent_num() }&movie_num=${coment.getMovie_num()}&session_id=${coment.getMember_id()}">
-                                       <div class="coment_midle">
-                                          <span>
-                                             ${coment.getMovie_coment() }
-                                          </span>
-                                       </div>
-                                       </a>
-                                       <hr>
-                                       <%--게시글 하단 --%>
-                                       <div>
-                                          <img alt="" src="${pageContext.request.contextPath }/image/contImg/likeIt.png" width="15px" height="15px">&nbsp; <span>${coment.getComent_hit()}</span>
-                                          <img alt="" src="${pageContext.request.contextPath }/image/contImg/talk.png" width="15px" height="15px">&nbsp; <span>${coment.getCocoment_count()}</span>
-                                       </div>
-                     				</div>
-                     			</c:forEach>
-                     		</li>
-                     	</ul>
-                     </div>
-                     <div class="coment_div carousel-item">
-                     	<ul>
-                     		<li>
-                     			<c:forEach items="${clist}" var="coment" begin="4" end="6">
-                     				 <div class="coment_top">
-                                          <div>
-                                             <img alt="" width="40px" height="40px" id="idImg" src="${pageContext.request.contextPath }/image/contImg/defualtImg.png">
-                                             <span>${coment.getMember_id() }</span>
-                                          </div>
-                                          <div>
-                                            	<span>★</span>
-                                          </div>
-                                       </div>
-                                       <hr>
-                                       <%--게시글 중단 --%>
-                                       <a href="<%=request.getContextPath()%>/wacha_coment.do?coment_num=${coment.getComent_num() }&movie_num=${coment.getMovie_num()}&session_id=${coment.getMember_id()}">
-                                       <div class="coment_midle">
-                                          <span>
-                                             ${coment.getMovie_coment() }
-                                          </span>
-                                       </div>
-                                       </a>
-                                       <hr>
-                                       <%--게시글 하단 --%>
-                                       <div>
-                                          <img alt="" src="${pageContext.request.contextPath }/image/contImg/likeIt.png" width="15px" height="15px">&nbsp; <span>${coment.getComent_hit()}</span>
-                                          <img alt="" src="${pageContext.request.contextPath }/image/contImg/talk.png" width="15px" height="15px">&nbsp; <span>${coment.getCocoment_count()}</span>
-                                       </div>
-                     			
-                     			</c:forEach>
-                     		</li>
-                     	</ul>
-                     </div>
-                  </c:when>
-                  <c:otherwise>
-                  	<h2>조회된 게시글이 없습니다.</h2>
-                  </c:otherwise>
-               </c:choose>
-               		<button id="nxt_btn" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="next">
-					    <span id="nxt" class="carousel-control-next-icon" aria-hidden="true"></span>
-					    <span><img id="slide_n" src="https://cdn-icons-png.flaticon.com/128/1250/1250699.png" alt="next"  width="20px" height="20px" /></span>
-				   </button>
-               </div>
+					  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching2" data-bs-slide="next">
+					    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+					    <span class="visually-hidden">Next</span>
+					  </button>
+				</div>
 	               
              
            		 </div>

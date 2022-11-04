@@ -209,7 +209,10 @@ tr:last-child td:last-child {
 	.pagination {
 		justify-content: center;
 		color: green;
-	}
+}
+.custom-btn{
+color:aqua; 
+}
 
 </style>
 
@@ -232,6 +235,7 @@ tr:last-child td:last-child {
       <th>유저ID</th>
       <th>생년월일</th>
       <th>유저가입일</th>
+      <th>유저상태</th>
       <th class="th-3">상세정보</th>
       
     </tr>
@@ -252,6 +256,15 @@ tr:last-child td:last-child {
       <td align="center">${dto.getMember_birth() }</td>
       
       <td align="center">${dto.getMember_regdate() }</td>
+      <td class="now" align="center">
+							<%-- 게시글 번호랑 가지고 있는 게시글 번호랑 같고, 내용이 있을때 나와라. --%>
+							<c:if test="${dto.getMember_use() ne '1'}">
+								<button class="custom-btn btn-1">탈퇴</button>
+							</c:if>
+							<c:if test="${dto.getMember_use() eq '1' }">
+								<button class="custom-btn btn-2">유저</button>
+							</c:if>
+						</td>
       
       <td class="th-3" align="center"><a href="<%=request.getContextPath() %>/admin_member_content.do?id=${dto.getMember_id()}" class="button2 b-orange rot-135">상세정보</a></td>
      

@@ -12,6 +12,6 @@
 	
 	ComentDAO coment_dao = ComentDAO.getInstance();
 	
-	coment_dao.HateComent(movie_num,coment_num,member_Id);
-
+	int chk =coment_dao.HateComent(movie_num,coment_num,member_Id);
+	out.println(chk);
 %>

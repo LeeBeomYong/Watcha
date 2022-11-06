@@ -29,7 +29,6 @@ $(function() {
 	            data : { movieNum : $("#croll").val()},
 	            datatype : "text",
 	            success : function(data){
-	            	
 					$("#avgs").html("평균 ★"+data+"점 ");
 				},
 	            error : function(){
@@ -268,7 +267,7 @@ $(function() {
 			$("#rate${6-star_dto.getMovie_star()}").attr("checked","checked");
 		}
 		$(".btn-open-popup2").on("click",function(){  
-			if(<%=session.getAttribute("session_id")%>!=null){
+			if('<%=session.getAttribute("session_id")%>' != "null"){
 				$(".modal_body2").css("display","block");
 		    	$(".modal2").css("display","block");
 			}else{

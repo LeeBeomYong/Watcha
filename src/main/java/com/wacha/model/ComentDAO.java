@@ -431,7 +431,7 @@ public class ComentDAO {
 			}
 		}
 		
-		public void likeComent(int movie_num,int coment_num,String member_Id) {
+		public int likeComent(int movie_num,int coment_num,String member_Id) {
 			String res=""; int chk=0;
 			String current="";
 			String[] result;
@@ -480,15 +480,24 @@ public class ComentDAO {
 					pstmt.setInt(3, coment_num);
 					pstmt.executeUpdate();
 				}
+				sql="select coment_hit from coment where movie_num=? and coment_num=? and coment_num_son is null";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, movie_num);
+				pstmt.setInt(2, coment_num);
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					chk = rs.getInt(1);
+				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}finally {
 				closeConn(rs, pstmt, con);
 			}
+			return chk;
 		}
 		
-		public void HateComent(int movie_num,int coment_num,String member_Id){
+		public int HateComent(int movie_num,int coment_num,String member_Id){
 			String res=""; int chk=0;
 			String current="";
 			String[] result;
@@ -539,12 +548,23 @@ public class ComentDAO {
 					pstmt.setInt(3, coment_num);
 					pstmt.executeUpdate();
 				}
+				sql="select coment_nohit from coment where movie_num=? and coment_num=? and coment_num_son is null";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, movie_num);
+				pstmt.setInt(2, coment_num);
+				rs=pstmt.executeQuery();
+				
+				if(rs.next()) {
+					chk = rs.getInt(1);
+				}
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}finally {
 				closeConn(rs, pstmt, con);
 			}
+			return chk;
 			
 		}
 

@@ -626,9 +626,10 @@ $(function() {
 			                     				</div>
 			                     				<c:if test="${k.index % 3 == 0  }">
 			                     				</li>
-			                     				<li>
+			                     				<li class="flex_li">
 			                     				</c:if>
 			                     			</c:forEach>
+			                     		</li>
 								</ul>
 						    </div>
 					    </c:forEach>
@@ -641,7 +642,6 @@ $(function() {
 					    <span class="visually-hidden">Next</span>
 					  </button>
 				</div>
-	               
              
            		 </div>
                 </div>

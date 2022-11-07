@@ -11,8 +11,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/content/contcss/contcss.css" type="text/css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>간단한 지도 표시하기</title>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=kx5rx5kj11"></script>
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <script type="text/javascript" defer="defer">
+
 
 $(function() {
 	let count=0;
@@ -314,6 +319,8 @@ $(function() {
     });
     
 
+    
+    // 네이버 지도
 
 </script>
 
@@ -482,8 +489,7 @@ $(function() {
 							</div>
 						</li>
 					</a>
-						<c:choose>
-							
+						<c:choose>			
 							<c:when test="${!empty movie_director }">
 								<c:forEach items="${movie_director}" var="dir">
 									<li class="director_actor">
@@ -591,13 +597,8 @@ $(function() {
 						    <div class="carousel-item">
 						      	<ul>
 									<li class="flex_li">
-										<c:if test="${(((i.count-1)/3)+3)*3 < fn:length(clist)/3}">
-											<c:set var="end" value="${fn:length(clist)/3 }"/>
-										</c:if>
-										<c:if test="${(((i.count-1)/3)+3)*3 > fn:length(clist)/3}">
-											<c:set var="end" value="${(((i.count-1)/3)+3)*3}"/>
-										</c:if>
-											<c:forEach items="${clist}" var="coment" begin="${(((i.count-1)/3)+1)*3}" end="${end}" varStatus="k">
+											<c:forEach items="${clist}" var="coment" begin="${i.count*3}" end="${((fn:length(clist) /3)*i.count)+3}">
+			                     			 	
 			                     				 <div id="coment_on">
 			                     				 <div class="coment_top">
 			                                          <div>
@@ -624,11 +625,9 @@ $(function() {
 			                                          <img alt="" src="${pageContext.request.contextPath }/image/contImg/talk.png" width="15px" height="15px">&nbsp; <span>${coment.getCocoment_count()}</span>
 			                                       </div>
 			                     				</div>
-			                     				<c:if test="${k.index % 3 == 0  }">
-			                     				</li>
-			                     				<li>
-			                     				</c:if>
+				                     				
 			                     			</c:forEach>
+			                     		</li>
 								</ul>
 						    </div>
 					    </c:forEach>
@@ -641,7 +640,6 @@ $(function() {
 					    <span class="visually-hidden">Next</span>
 					  </button>
 				</div>
-	               
              
            		 </div>
                 </div>
@@ -734,11 +732,173 @@ $(function() {
                    <br/>
               
               </div>
+              
+              <div id="map" style="width:300px;height:300px;"></div>
+				<script>
+				
+				var MARKER_ICON_URL = './img/sp_pins_spot_v3.png';
+				var MARKER_HIGHLIGHT_ICON_URL = './img/sp_pins_spot_v3_over.png';
+				var COLORS = ['#45ABD9', '#6154B6', '#E43736', '#44AE3F', '#F6D200', '#344554'];
+
+				var MARKER_SPRITE_X_OFFSET = 29,
+				    MARKER_SPRITE_Y_OFFSET = 50,
+				    MARKER_SPRITE_POSITION = {
+/* 				        "A0": [0, 0],
+				        "B0": [MARKER_SPRITE_X_OFFSET, 0],
+				        "C0": [MARKER_SPRITE_X_OFFSET*2, 0],
+				        "D0": [MARKER_SPRITE_X_OFFSET*3, 0],
+				        "E0": [MARKER_SPRITE_X_OFFSET*4, 0],
+				        "F0": [MARKER_SPRITE_X_OFFSET*5, 0],
+				        "G0": [MARKER_SPRITE_X_OFFSET*6, 0],
+				        "H0": [MARKER_SPRITE_X_OFFSET*7, 0],
+				        "I0": [MARKER_SPRITE_X_OFFSET*8, 0],
+
+				        "A1": [0, MARKER_SPRITE_Y_OFFSET],
+				        "B1": [MARKER_SPRITE_X_OFFSET, MARKER_SPRITE_Y_OFFSET],
+				        "C1": [MARKER_SPRITE_X_OFFSET*2, MARKER_SPRITE_Y_OFFSET],
+				        "D1": [MARKER_SPRITE_X_OFFSET*3, MARKER_SPRITE_Y_OFFSET],
+				        "E1": [MARKER_SPRITE_X_OFFSET*4, MARKER_SPRITE_Y_OFFSET],
+				        "F1": [MARKER_SPRITE_X_OFFSET*5, MARKER_SPRITE_Y_OFFSET],
+				        "G1": [MARKER_SPRITE_X_OFFSET*6, MARKER_SPRITE_Y_OFFSET],
+				        "H1": [MARKER_SPRITE_X_OFFSET*7, MARKER_SPRITE_Y_OFFSET],
+				        "I1": [MARKER_SPRITE_X_OFFSET*8, MARKER_SPRITE_Y_OFFSET],
+
+				        "A2": [0, MARKER_SPRITE_Y_OFFSET*2],
+				        "B2": [MARKER_SPRITE_X_OFFSET, MARKER_SPRITE_Y_OFFSET*2],
+				        "C2": [MARKER_SPRITE_X_OFFSET*2, MARKER_SPRITE_Y_OFFSET*2],
+				        "D2": [MARKER_SPRITE_X_OFFSET*3, MARKER_SPRITE_Y_OFFSET*2],
+				        "E2": [MARKER_SPRITE_X_OFFSET*4, MARKER_SPRITE_Y_OFFSET*2],
+				        "F2": [MARKER_SPRITE_X_OFFSET*5, MARKER_SPRITE_Y_OFFSET*2],
+				        "G2": [MARKER_SPRITE_X_OFFSET*6, MARKER_SPRITE_Y_OFFSET*2],
+				        "H2": [MARKER_SPRITE_X_OFFSET*7, MARKER_SPRITE_Y_OFFSET*2],
+				        "I2": [MARKER_SPRITE_X_OFFSET*8, MARKER_SPRITE_Y_OFFSET*2] */
+				    };
+
+				// xml 파일 로딩.
+				let xhttp = new XMLHttpRequest();
+
+				xhttp.onreadystatechange = function () {
+					
+					if(this.readyState == 4 && this.status == 200){
+					 nodeValfunc( this ); // this == xhttp 
+					}
+				}
+				xhttp.open("GET", "content/경기도영화상영관현황.xml", true);
+				xhttp.send();
+
+				function nodeValfunc( xml ) { // ( xml ) 객체 넘겨받기
+					let name, x,y;
+					let txt, numtxt, xmlDoc;
+					
+					txt = numtxt = ''; // 빈 문자열로 초기화
+					
+					
+					
+					
+					xmlDoc = xml.responseXML; 
+					
+					name = xmlDoc.getElementsByTagName("BIZPLC_NM");
+					x = xmlDoc.getElementsByTagName("X_CRDNT_VL");
+					y = xmlDoc.getElementsByTagName("Y_CRDNT_VL");
+					
+					//document.getElementById("demo").innerHTML = txt + numtxt;
+					// 실행하면 번호와 이름이 p태그에 출력된다.
+					for(i=1; i < name.length; i++){
+						if(x[i].hasChildNodes() != false && y[i].hasChildNodes() != false ){
+							txt += name[i].childNodes[0].nodeValue + " / "+ x[i].childNodes[0].nodeValue + " / "+y[i].childNodes[0].nodeValue;
+							MARKER_SPRITE_POSITION["\""+name[i].childNodes[0].nodeValue+"\""] = [parseFloat(x[i].childNodes[0].nodeValue) , parseFloat(y[i].childNodes[0].nodeValue)];
+						}
+						
+						
+					}
+					console.log(MARKER_SPRITE_POSITION);
+					
+					
+
+					/* console.log(txt); */
+					
+					
+					var map = new naver.maps.Map('map', {
+					    center: new naver.maps.LatLng(37.3595704, 127.105399),
+					    zoom: 10
+					});
+					
+					var bounds = map.getBounds(),
+					    southWest = bounds.getSW(),
+					    northEast = bounds.getNE(),
+					    lngSpan = northEast.lng() - southWest.lng(),
+					    latSpan = northEast.lat() - southWest.lat();
+					
+					var markers = [];
+					
+					for (var key in MARKER_SPRITE_POSITION) {
+					
+					    var position = new naver.maps.LatLng(
+					        southWest.lat() + (latSpan * Math.random()),
+					        southWest.lng() + (lngSpan * Math.random())
+					    );
+					
+					    var marker = new naver.maps.Marker({
+					        map: map,
+					        position: position,
+					        title: key,
+					        icon: {
+					            url: MARKER_ICON_URL,
+					            size: new naver.maps.Size(24, 37),
+					            anchor: new naver.maps.Point(12, 37),
+					            origin: new naver.maps.Point(MARKER_SPRITE_POSITION[key][0], MARKER_SPRITE_POSITION[key][1])
+					        },
+					        zIndex: 100
+					    });
+					
+					    markers.push(marker);
+					};
+					
+					naver.maps.Event.addListener(map, 'zoom_changed', function() {
+					    updateMarkers(map, markers);
+					
+					});
+					
+					naver.maps.Event.addListener(map, 'dragend', function() {
+					    updateMarkers(map, markers);
+					});
+					
+					function updateMarkers(map, markers) {
+					
+					    var mapBounds = map.getBounds();
+					    var marker, position;
+					
+					    for (var i = 0; i < markers.length; i++) {
+					
+					        marker = markers[i]
+					        position = marker.getPosition();
+					
+					        if (mapBounds.hasLatLng(position)) {
+					            showMarker(map, marker);
+					        } else {
+					            hideMarker(map, marker);
+					        }
+					    }
+					}
+					
+					function showMarker(map, marker) {
+					
+					    if (marker.setMap()) return;
+					    marker.setMap(map);
+					}
+					
+					function hideMarker(map, marker) {
+					
+					    if (!marker.setMap()) return;
+					    marker.setMap(null);
+					}
+				}
+				
+
+				</script>
            </div>
            
-      </div>
-      
-      </div>
+      	</div>
       
 	</div>
 					<!-- 코멘트 말록 영역 -->
@@ -764,14 +924,19 @@ $(function() {
 		      				<button type="submit" class="btn btn-danger">등록</button>
 						</c:if>
 		      		</div>
-		      		
 		      		<div>
 		      			<img src="./image/watchapedia2.png" alt="왓챠피디아 로고" title="왓챠피디아" width="250" height="50" />
 		      		</div>
 		      </form>
 		      </div>
 	   	</div>
+		
+		
+      
+      
+      </div>
 	
+
 	<jsp:include page="../include/user_bottom.jsp"/>
 </body>
 </html>

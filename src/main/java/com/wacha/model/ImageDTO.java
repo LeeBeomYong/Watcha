@@ -3,9 +3,9 @@ package com.wacha.model;
 public class ImageDTO {
 	
 	private int movie_num;
-	private String image_loc;
-	private String image_temp;
-	private String director_image;
+	private String image_loc;  //포스터
+	private String image_temp;	//메인이미지 갤러리
+	private String director_image;	//감독사진
 	
 	
 	public int getMovie_num() {

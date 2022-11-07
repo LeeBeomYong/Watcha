@@ -64,7 +64,7 @@ public class UserDAO {
 				// 2단계 : lookup() 메서드를 이용하여 매칭되는
 				//        커넥션을 찾는다.
 				DataSource ds =
-					(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
+					(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
 				
 				// 3단계 : DataSource 객체를 이용하여
 				//        커넥션을 하나 가져온다.
@@ -196,7 +196,7 @@ public class UserDAO {
 				
 				if(rs.next()) {
 					if(pwd.equals(rs.getString("member_pwd"))) {
-						sql="delete from member where member_id = 'test1'";
+						sql="update member set member_use = 0 where member_id = 'test1'";
 						pstmt=con.prepareStatement(sql);
 						//pstmt.setString(1, id);
 						result = pstmt.executeUpdate();
@@ -213,32 +213,32 @@ public class UserDAO {
 			return result;
 		}
 		
-		public void starDelete(String id, String pwd) {
-			
-			
-			try {
-				openConn();
-				
-				sql="select * from member where member_id='test1'";
-				pstmt=con.prepareStatement(sql);
-				//pstmt.setString(1, id);
-				rs=pstmt.executeQuery();
-				
-				if(rs.next()) {
-					if(pwd.equals(rs.getString("member_pwd"))) {
-						sql="delete from star where member_id = 'test1'";
-						pstmt=con.prepareStatement(sql);
-						//pstmt.setString(1, id);
-						pstmt.executeUpdate();
-					}
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				closeConn(rs, pstmt, con);
-			}
-		}
+//		public void starDelete(String id, String pwd) {
+//			
+//			
+//			try {
+//				openConn();
+//				
+//				sql="select * from member where member_id='test1'";
+//				pstmt=con.prepareStatement(sql);
+//				//pstmt.setString(1, id);
+//				rs=pstmt.executeQuery();
+//				
+//				if(rs.next()) {
+//					if(pwd.equals(rs.getString("member_pwd"))) {
+//						sql="delete from star where member_id = 'test1'";
+//						pstmt=con.prepareStatement(sql);
+//						//pstmt.setString(1, id);
+//						pstmt.executeUpdate();
+//					}
+//				}
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} finally {
+//				closeConn(rs, pstmt, con);
+//			}
+//		}
 		
 		public void writeDelete(String id, String pwd) {
 			
@@ -267,83 +267,83 @@ public class UserDAO {
 			}
 		}
 		
-		public void comentDelete(String id, String pwd) {
-			
-			try {
-				openConn();
-				
-				sql="select * from member where member_id='test1'";
-				pstmt=con.prepareStatement(sql);
-				//pstmt.setString(1, id);
-				rs=pstmt.executeQuery();
-				
-				if(rs.next()) {
-					if(pwd.equals(rs.getString("member_pwd"))) {
-						sql="delete from coment where member_id = 'test1'";
-						pstmt=con.prepareStatement(sql);
-						//pstmt.setString(1, id);
-						pstmt.executeUpdate();
-					}
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				closeConn(rs, pstmt, con);
-			}
-		}
+//		public void comentDelete(String id, String pwd) {
+//			
+//			try {
+//				openConn();
+//				
+//				sql="select * from member where member_id='test1'";
+//				pstmt=con.prepareStatement(sql);
+//				//pstmt.setString(1, id);
+//				rs=pstmt.executeQuery();
+//				
+//				if(rs.next()) {
+//					if(pwd.equals(rs.getString("member_pwd"))) {
+//						sql="delete from coment where member_id = 'test1'";
+//						pstmt=con.prepareStatement(sql);
+//						//pstmt.setString(1, id);
+//						pstmt.executeUpdate();
+//					}
+//				}
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} finally {
+//				closeConn(rs, pstmt, con);
+//			}
+//		}
 		
-		public void replyDelete(String id, String pwd) {
-			
-			try {
-				openConn();
-				
-				sql="select * from member where member_id='test1'";
-				pstmt=con.prepareStatement(sql);
-				//pstmt.setString(1, id);
-				rs=pstmt.executeQuery();
-				
-				if(rs.next()) {
-					if(pwd.equals(rs.getString("member_pwd"))) {
-						sql="delete from reply where member_id = 'test1'";
-						pstmt=con.prepareStatement(sql);
-						//pstmt.setString(1, id);
-						pstmt.executeUpdate();
-					}
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				closeConn(rs, pstmt, con);
-			}
-		}
+//		public void replyDelete(String id, String pwd) {
+//			
+//			try {
+//				openConn();
+//				
+//				sql="select * from member where member_id='test1'";
+//				pstmt=con.prepareStatement(sql);
+//				//pstmt.setString(1, id);
+//				rs=pstmt.executeQuery();
+//				
+//				if(rs.next()) {
+//					if(pwd.equals(rs.getString("member_pwd"))) {
+//						sql="delete from reply where member_id = 'test1'";
+//						pstmt=con.prepareStatement(sql);
+//						//pstmt.setString(1, id);
+//						pstmt.executeUpdate();
+//					}
+//				}
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} finally {
+//				closeConn(rs, pstmt, con);
+//			}
+//		}
 		
-		public void w_writeDelete(String id, String pwd) {
-			
-			try {
-				openConn();
-				
-				sql="select * from member where member_id='test1'";
-				pstmt=con.prepareStatement(sql);
-				//pstmt.setString(1, id);
-				rs=pstmt.executeQuery();
-				
-				if(rs.next()) {
-					if(pwd.equals(rs.getString("member_pwd"))) {
-						sql="delete from w_write where member_id = 'test1'";
-						pstmt=con.prepareStatement(sql);
-						//pstmt.setString(1, id);
-						pstmt.executeUpdate();
-					}
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				closeConn(rs, pstmt, con);
-			}
-		}
+//		public void w_writeDelete(String id, String pwd) {
+//			
+//			try {
+//				openConn();
+//				
+//				sql="select * from member where member_id='test1'";
+//				pstmt=con.prepareStatement(sql);
+//				//pstmt.setString(1, id);
+//				rs=pstmt.executeQuery();
+//				
+//				if(rs.next()) {
+//					if(pwd.equals(rs.getString("member_pwd"))) {
+//						sql="delete from w_write where member_id = 'test1'";
+//						pstmt=con.prepareStatement(sql);
+//						//pstmt.setString(1, id);
+//						pstmt.executeUpdate();
+//					}
+//				}
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} finally {
+//				closeConn(rs, pstmt, con);
+//			}
+//		}
 		
 		public UserDTO profileUpdate(String id) {
 			
@@ -357,8 +357,6 @@ public class UserDAO {
 				rs = pstmt.executeQuery();
 				
 				if(rs.next()) {
-					
-					
 					
 					dto.setMember_id(rs.getString("member_id"));
 					dto.setMember_name(rs.getString("member_name"));
@@ -490,9 +488,7 @@ public class UserDAO {
 			openConn();
 			
 			sql = "select * from member where member_id = ? and member_use = 1";
-			
-			pstmt = con.prepareStatement(sql);
-			
+			pstmt = con.prepareStatement(sql);	
 			pstmt.setString(1, member_id);
 			
 			rs = pstmt.executeQuery();

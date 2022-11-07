@@ -66,7 +66,7 @@ public class StarDAO {
 					// 2단계 : lookup() 메서드를 이용하여 매칭되는
 					//        커넥션을 찾는다.
 					DataSource ds =
-						(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
+						(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
 					
 					// 3단계 : DataSource 객체를 이용하여
 					//        커넥션을 하나 가져온다.
@@ -322,7 +322,7 @@ public class StarDAO {
 				 try {
 					openConn();
 					 
-					sql = "select movie_country, count(*) as movie_country_count from movie m, star s where m.movie_num = s.movie_num and member_id = ? group by movie_country";
+					sql = "select movie_country, count(*) as movie_country_count from movie m, star s where m.movie_num = s.movie_num and member_id = ? group by movie_country order by movie_country_count desc";
 					pstmt=con.prepareStatement(sql);
 					pstmt.setString(1, id);
 					rs=pstmt.executeQuery();
@@ -350,7 +350,7 @@ public class StarDAO {
 				 
 				 try {
 					 openConn();
-					 sql = "select movie_genre, count(*) as movie_genre_count from movie m, star s where m.movie_num = s.movie_num and member_id = ? group by movie_genre";
+					 sql = "select movie_genre, count(*) as movie_genre_count from movie m, star s where m.movie_num = s.movie_num and member_id = ? group by movie_genre order by movie_genre_count desc";
 					 pstmt = con.prepareStatement(sql);
 					 pstmt.setString(1, id);
 					 rs=pstmt.executeQuery();
@@ -386,7 +386,7 @@ public class StarDAO {
 					 rs=pstmt.executeQuery();
 					 
 					 while(rs.next()) {
-						 int temp = Integer.parseInt(rs.getString("movie_time").substring(0, 1));
+						 int temp = Integer.parseInt(rs.getString("movie_time").substring(2, 3	));
 						 sum += temp;
 					 }
 					 
@@ -587,7 +587,7 @@ public class StarDAO {
 						dto.setMovie_num(rs.getInt("num"));
 						dto.setImage_loc(rs.getString("img"));
 						dto.setMovie_title(rs.getString("title"));
-						dto.setMovie_star(rs.getString("star"));
+						dto.setMovie_star(rs.getDouble("star"));
 						
 						list.add(dto);
 					}
@@ -603,7 +603,9 @@ public class StarDAO {
 			 
 			 //영화 보고싶어요 등록해놓은 영화 목록 보는 메서드
 			 public List<MovieTitleStarDTO> movieTitleHeart(String id){
-				 
+				 String sql2="";
+				 PreparedStatement pstmt2=null;
+				 ResultSet rs2=null;
 				 List<MovieTitleStarDTO> list = new ArrayList<MovieTitleStarDTO>();
 				 
 				 
@@ -621,7 +623,14 @@ public class StarDAO {
 						dto.setMovie_num(rs.getInt("num"));
 						dto.setImage_loc(rs.getString("img"));
 						dto.setMovie_title(rs.getString("title"));
-
+						sql2="select round(avg(movie_star),1) from star where movie_num = ?";
+						
+						pstmt2=con.prepareStatement(sql2);
+						pstmt2.setInt(1, rs.getInt(1));
+						rs2=pstmt2.executeQuery();
+						if(rs2.next()) {
+							dto.setMovie_star(rs2.getDouble(1));
+						}						
 						list.add(dto);
 					}
 				} catch (SQLException e) {
@@ -629,6 +638,7 @@ public class StarDAO {
 					e.printStackTrace();
 				} finally {
 					closeConn(rs, pstmt, con);
+					closeConn(rs2, pstmt2, con);
 				}
 				return list;
 				 
@@ -636,7 +646,9 @@ public class StarDAO {
 			 
 			 //영화 보는중 등록해놓은 목록보는 메서드 
 			 public List<MovieTitleStarDTO> movieTitleWatch(String id){
-	 
+				 String sql2="";
+				 PreparedStatement pstmt2=null;
+				 ResultSet rs2=null;
 				 List<MovieTitleStarDTO> list = new ArrayList<MovieTitleStarDTO>();
 				 
 				 
@@ -655,6 +667,14 @@ public class StarDAO {
 						dto.setImage_loc(rs.getString("img"));
 						dto.setMovie_title(rs.getString("title"));
 						
+						sql2="select round(avg(movie_star),1) from star where movie_num = ?";
+						
+						pstmt2=con.prepareStatement(sql2);
+						pstmt2.setInt(1, rs.getInt(1));
+						rs2=pstmt2.executeQuery();
+						if(rs2.next()) {
+							dto.setMovie_star(rs2.getDouble(1));
+						}
 						list.add(dto);
 					}
 				} catch (SQLException e) {
@@ -662,6 +682,7 @@ public class StarDAO {
 					e.printStackTrace();
 				} finally {
 					closeConn(rs, pstmt, con);
+					closeConn(rs2, pstmt2, con);
 				}
 				return list;
 			 }
@@ -686,7 +707,7 @@ public class StarDAO {
 						dto.setMovie_num(rs.getInt("num"));
 						dto.setImage_loc(rs.getString("img"));
 						dto.setMovie_title(rs.getString("title"));
-						dto.setMovie_star(rs.getString("star"));
+						dto.setMovie_star(rs.getDouble("star"));
 						
 						list.add(dto);
 					}
@@ -720,7 +741,7 @@ public class StarDAO {
 						dto.setMovie_num(rs.getInt("num"));
 						dto.setImage_loc(rs.getString("img"));
 						dto.setMovie_title(rs.getString("title"));
-						dto.setMovie_star(rs.getString("star"));
+						dto.setMovie_star(rs.getDouble("star"));
 						
 						list.add(dto);
 					}
@@ -754,7 +775,7 @@ public class StarDAO {
 						dto.setMovie_num(rs.getInt("num"));
 						dto.setImage_loc(rs.getString("img"));
 						dto.setMovie_title(rs.getString("title"));
-						dto.setMovie_star(rs.getString("star"));
+						dto.setMovie_star(rs.getDouble("star"));
 						
 						list.add(dto);
 					}
@@ -769,6 +790,10 @@ public class StarDAO {
 			 
 			//영화 보고싶어요 등록해놓은 영화 제목순으로 정렬하는 메서드
 			 public List<MovieTitleStarDTO> movieTitleHeartTitle(String id){
+				 
+				 String sql2="";
+				 PreparedStatement pstmt2=null;
+				 ResultSet rs2=null;
 				 
 				 List<MovieTitleStarDTO> list = new ArrayList<MovieTitleStarDTO>();
 				 
@@ -787,7 +812,16 @@ public class StarDAO {
 						dto.setMovie_num(rs.getInt("num"));
 						dto.setImage_loc(rs.getString("img"));
 						dto.setMovie_title(rs.getString("title"));
-
+						sql2="select round(avg(movie_star),1) from star where movie_num = ?";
+						
+						pstmt2=con.prepareStatement(sql2);
+						pstmt2.setInt(1, rs.getInt(1));
+						rs2=pstmt2.executeQuery();
+						if(rs2.next()) {
+							dto.setMovie_star(rs2.getDouble(1));
+						}
+						
+						
 						list.add(dto);
 					}
 				} catch (SQLException e) {
@@ -795,12 +829,17 @@ public class StarDAO {
 					e.printStackTrace();
 				} finally {
 					closeConn(rs, pstmt, con);
+					closeConn(rs2, pstmt2, con);
 				}
 				return list;
 				 
 			 }
 			 //영화 보고싶어요 등록해놓은 영화 년도순으로 정렬하는 메서드
 			 public List<MovieTitleStarDTO> movieTitleHeartYear(String id){
+				 
+				 String sql2="";
+				 PreparedStatement pstmt2=null;
+				 ResultSet rs2=null;
 				 
 				 List<MovieTitleStarDTO> list = new ArrayList<MovieTitleStarDTO>();
 				 
@@ -820,6 +859,14 @@ public class StarDAO {
 						dto.setImage_loc(rs.getString("img"));
 						dto.setMovie_title(rs.getString("title"));
 	
+						sql2="select round(avg(movie_star),1) from star where movie_num = ?";
+						
+						pstmt2=con.prepareStatement(sql2);
+						pstmt2.setInt(1, rs.getInt(1));
+						rs2=pstmt2.executeQuery();
+						if(rs2.next()) {
+							dto.setMovie_star(rs2.getDouble(1));
+						}
 						list.add(dto);
 					}
 				} catch (SQLException e) {
@@ -827,6 +874,7 @@ public class StarDAO {
 					e.printStackTrace();
 				} finally {
 					closeConn(rs, pstmt, con);
+					closeConn(rs2, pstmt2, con);
 				}
 				return list;
 				 
@@ -835,6 +883,10 @@ public class StarDAO {
 			 //영화 보는중 등록해놓은 목록 제목순으로 보는 메서드 
 			 public List<MovieTitleStarDTO> movieTitleWatchTitle(String id){
 	 
+				 String sql2="";
+				 PreparedStatement pstmt2=null;
+				 ResultSet rs2=null;
+				 
 				 List<MovieTitleStarDTO> list = new ArrayList<MovieTitleStarDTO>();
 				 
 				 
@@ -849,9 +901,20 @@ public class StarDAO {
 						
 						MovieTitleStarDTO dto = new MovieTitleStarDTO();
 						
+						
 						dto.setMovie_num(rs.getInt("num"));
 						dto.setImage_loc(rs.getString("img"));
 						dto.setMovie_title(rs.getString("title"));
+						
+						sql2="select round(avg(movie_star),1) from star where movie_num = ?";
+						
+						pstmt2=con.prepareStatement(sql2);
+						pstmt2.setInt(1, rs.getInt(1));
+						rs2=pstmt2.executeQuery();
+						
+						if(rs2.next()) {
+							dto.setMovie_star(rs2.getDouble(1));
+						}
 						
 						list.add(dto);
 					}
@@ -860,13 +923,18 @@ public class StarDAO {
 					e.printStackTrace();
 				} finally {
 					closeConn(rs, pstmt, con);
+					closeConn(rs2, pstmt2, con);
 				}
 				return list;
 			 }
 			 
-			 //영화 보는중 등록해놓은 목록 제목순으로 보는 메서드 
+			 //영화 보는중 등록해놓은 목록 년도순으로 보는 메서드 
 			 public List<MovieTitleStarDTO> movieTitleWatchYear(String id){
 	 
+				 String sql2="";
+				 PreparedStatement pstmt2=null;
+				 ResultSet rs2=null;
+				 
 				 List<MovieTitleStarDTO> list = new ArrayList<MovieTitleStarDTO>();
 				 
 				 
@@ -884,7 +952,15 @@ public class StarDAO {
 						dto.setMovie_num(rs.getInt("num"));
 						dto.setImage_loc(rs.getString("img"));
 						dto.setMovie_title(rs.getString("title"));
+						sql2="select round(avg(movie_star),1) from star where movie_num = ?";
 						
+						pstmt2=con.prepareStatement(sql2);
+						pstmt2.setInt(1, rs.getInt(1));
+						rs2=pstmt2.executeQuery();
+						
+						if(rs2.next()) {
+							dto.setMovie_star(rs2.getDouble(1));
+						}
 						list.add(dto);
 					}
 				} catch (SQLException e) {
@@ -892,6 +968,7 @@ public class StarDAO {
 					e.printStackTrace();
 				} finally {
 					closeConn(rs, pstmt, con);
+					closeConn(rs2, pstmt2, con);
 				}
 				return list;
 			 }

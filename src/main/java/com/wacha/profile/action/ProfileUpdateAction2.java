@@ -18,9 +18,8 @@ public class ProfileUpdateAction2 implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		String saveFolder = "C:\\Users\\by\\git\\Kh_semiWatcha\\WebContent\\image\\profileupload";
-		//C:\\myJSP\\wrokspace(jsp)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\WatchaProject\\image\\profile
-		//"C:\\Users\\by\\Desktop\\이범용_개발\\eclipse_pj\\eclipse-workspace(jsp)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\17_ShoppingMall\\upload";
+		String saveFolder = "C:\\Users\\by\\git\\Watcha\\WebContent\\image\\profileupload";
+//		C:\\myJSP\\wrokspace(jsp)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\WatchaProject\\image
 		int fileSize = 10 * 1024 * 1024;  // 10MB 
 		
 		MultipartRequest multi = new MultipartRequest(request, saveFolder, fileSize,"UTF-8",new DefaultFileRenamePolicy());

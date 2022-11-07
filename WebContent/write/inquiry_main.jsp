@@ -98,11 +98,11 @@
 			<%-- 공지사항 받아온 것 리스트 --%>
 			<c:set var="list_1" value="${List_1 }" />
 				<c:forEach items="${list_1 }" var="dto_1">
-				<tr style="background-color: #F0EFEF;" onclick="location.href='<%=request.getContextPath() %>/notice_content.do?no=${dto_1.getNotice_num() }'">
+				<tr class="tt" style="background-color: #F0EFEF;" onclick="location.href='<%=request.getContextPath() %>/notice_content.do?no=${dto_1.getNotice_num() }'">
 					<td class="no"><img src="https://cdn-icons-png.flaticon.com/512/667/667974.png" style="width: 19px; height: 19px;"><b>공지</b><img src="https://cdn-icons-png.flaticon.com/512/667/667974.png" style="width: 19px; height: 19px;"></td>
 					<td class="wrt"><b>관리자</b></td>
 					<td><a class="admin_tit">${dto_1.getNotice_title() }</a></td>
-					<td class="date">날짜 넣으면됨.</td>
+					<td class="date">${dto_1.getNotice_date() }</td>
 					<td class="hit"><b>${dto_1.getNotice_hit() }</b></td>
 				</tr>
 				</c:forEach>

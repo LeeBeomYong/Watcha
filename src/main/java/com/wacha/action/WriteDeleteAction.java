@@ -18,7 +18,6 @@ public class WriteDeleteAction implements Action {
 		// 
 		
 		WriteDAO dao = WriteDAO.getInstance();
-		
 		int write_num = Integer.parseInt(request.getParameter("num").trim());
 		
 		WriteDTO dto = dao.writeContent(write_num);

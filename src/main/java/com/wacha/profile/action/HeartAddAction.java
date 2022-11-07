@@ -19,7 +19,7 @@ public class HeartAddAction implements Action {
 		// TODO Auto-generated method stub
 		
 		HttpSession session = request.getSession();
-		String member_Id = (String)session.getAttribute("member_Id");
+		String member_Id = (String)session.getAttribute("session_id");
 		
 		StarDAO dao = StarDAO.getInstance();
 		

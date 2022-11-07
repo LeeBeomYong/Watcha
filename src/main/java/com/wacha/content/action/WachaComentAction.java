@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.wacha.controller.Action;
 import com.wacha.controller.ActionForward;
@@ -22,18 +23,23 @@ public class WachaComentAction implements Action {
 		
 		int movie_num =Integer.parseInt(request.getParameter("movie_num"));
 		int coment_num = Integer.parseInt(request.getParameter("coment_num"));
-		String member_id = request.getParameter("member_Id");
+		HttpSession session = request.getSession();
+		String member_Id="";
+		if(session.getAttribute("session_id")!=null) {
+			member_Id = (String)session.getAttribute("session_id");
+		}
+		
 		
 		System.out.println("데이터 넘겨받기\n"+movie_num);
 		System.out.println(coment_num);
-		System.out.println(member_id+"\n========");
+		System.out.println(member_Id+"\n========");
 		
 		ComentDAO coment_dao = ComentDAO.getInstance();
 		ComentDTO coment_dto= coment_dao.getComentInfo(movie_num,coment_num);
 		System.out.println(coment_dto == null);
 		
 		System.out.println("이거 출력한다 잘봐라");
-		int[] id_hit=coment_dao.getComentInfo(movie_num,coment_num,member_id);
+		int[] id_hit=coment_dao.getComentInfo(movie_num,coment_num,member_Id);
 		
 		System.out.println("id hit 값들 : >>>>>"+ id_hit[0]+",  "+id_hit[1]);
 		MovieDAO movie_dao = MovieDAO.getInstance();
@@ -43,7 +49,7 @@ public class WachaComentAction implements Action {
 		
 		
 		StarDAO star_dao = StarDAO.getInstance();
-		StarDTO star_dto = star_dao.getStar(movie_num,member_id);
+		StarDTO star_dto = star_dao.getStar(movie_num,member_Id);
 		
 		request.setAttribute("coment_dto", coment_dto);
 		request.setAttribute("movie_dto", movie_dto);

@@ -6,8 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 <style type="text/css">
 	
 	.relative {
@@ -128,6 +126,7 @@
 				<div align="right">
 				</div>
 			</div>
+			
 			<div class="picture">
 				<c:if test="${!empty dto.getMember_image() }">
 					<img alt="프로필" src="${pageContext.request.contextPath }/image/profileupload/${dto.getMember_image()}" width="70px" height="70px">
@@ -139,7 +138,7 @@
 			<div class="middle">
 				<div class="name">
 					<h4><strong>${dto.getMember_name() }</strong></h4>
-					<c:if test="${empty dto.getMember_image() }">
+					<c:if test="${dto.getMember_image() == '프로필로고.png' }">
 					<h6><span style="color: red;">프로필이없음</span></h6>
 					</c:if>
 				</div>

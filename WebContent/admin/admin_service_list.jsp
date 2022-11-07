@@ -227,7 +227,7 @@ tr:last-child td:last-child {
 	      <td align="center" class="th-5">${dto_1.getW_file() }</td>
 	      <td>
 	      	<c:if test="${dto_1.getW_reply() ne 1 }">
-		      	<a href="<%=request.getContextPath() %>/admin_service_write.do?num=${dto_1.getW_num()}" class="button3 b-blue rot-135">답변</a>      	
+		      	<a href="<%=request.getContextPath() %>/admin_service_wwrite.do?num=${dto_1.getW_num()}" class="button3 b-blue rot-135">답변</a>      	
 	      	</c:if>
 	      	<c:if test="${dto_1.getW_reply() eq 1 }">
 		      	<a class="button3 b-blue rot-135" onclick="alert('이미 답변 완료한 문의입니다.')" style="filter: hue-rotate(135deg);">완료</a>      	      		

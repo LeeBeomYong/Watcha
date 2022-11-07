@@ -18,7 +18,7 @@ public class ProfileDeleteAction implements Action {
 		
 		// 세션정보 가져오기
 		HttpSession session = request.getSession();
-		String member_Id = (String)session.getAttribute("member_Id");
+		String member_Id = (String)session.getAttribute("session_id");
 		
 		// 비밀번호 가져오기
 		String user_pwd = request.getParameter("pwd").trim();
@@ -27,15 +27,15 @@ public class ProfileDeleteAction implements Action {
 		
 		
 		// star테이블 탈퇴한 유저꺼 삭제하는 메서드
-		dao.starDelete(member_Id, user_pwd);
+//		dao.starDelete(member_Id, user_pwd);
 		// reply테이블 탈퇴한 유저꺼 삭제하는 메서드
 		//dao.replyDelete(member_Id, user_pwd);
 		// write테이블 탈퇴한 유저꺼 삭제하는 메서드 
-		dao.writeDelete(member_Id, user_pwd);
+//		dao.writeDelete(member_Id, user_pwd);
 		// w_write테이블 탈퇴한 유저꺼 삭제하는 메서드
-		dao.w_writeDelete(member_Id, user_pwd);
+//		dao.w_writeDelete(member_Id, user_pwd);
 		// coment테이블 탈퇴한 유저꺼 삭제하는 메서드
-		dao.comentDelete(member_Id, user_pwd);
+//		dao.comentDelete(member_Id, user_pwd);
 		
 		
 		
@@ -45,13 +45,10 @@ public class ProfileDeleteAction implements Action {
 		int result = dao.userDelete(member_Id, user_pwd);
 
 		PrintWriter out = response.getWriter();
-		
+		ActionForward forward = new ActionForward();
 		if(result>0) {			
-			out.println("<script>");
-			out.println("window.close();");
-			out.println("window.opener.location.href=\"main2.jsp\"");
-			out.println("</script>");
-			
+			forward.setRedirect(false);
+			forward.setPath("user_logout.do");
 		}else if( result == -1) {
 			out.println("<script>");
 			out.println("alert('비밀번호가 틀렸습니다.')");
@@ -65,7 +62,6 @@ public class ProfileDeleteAction implements Action {
 			out.println("</script>");
 		}
 		
-		ActionForward forward = new ActionForward();
 		return forward;
 	}
 

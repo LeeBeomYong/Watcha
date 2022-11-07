@@ -5,7 +5,7 @@ public class MovieTitleStarDTO {
 	private int movie_num;
 	private String image_loc;
 	private String movie_title;
-	private String movie_star;
+	private double movie_star;
 	
 	
 	
@@ -28,10 +28,10 @@ public class MovieTitleStarDTO {
 	public void setMovie_title(String movie_title) {
 		this.movie_title = movie_title;
 	}
-	public String getMovie_star() {
+	public double getMovie_star() {
 		return movie_star;
 	}
-	public void setMovie_star(String movie_star) {
+	public void setMovie_star(Double movie_star) {
 		this.movie_star = movie_star;
 	}
 	

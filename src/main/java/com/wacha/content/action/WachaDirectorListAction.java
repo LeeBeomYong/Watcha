@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.wacha.controller.Action;
 import com.wacha.controller.ActionForward;
+import com.wacha.model.ImageDAO;
+import com.wacha.model.ImageDTO;
 import com.wacha.model.MovieAndStarDTO;
 import com.wacha.model.MovieDAO;
 import com.wacha.model.MovieDTO;
@@ -28,12 +30,15 @@ public class WachaDirectorListAction implements Action {
 		
 		List<MovieAndStarDTO> movie_list=movie_dao.getMovieList(director);
 		
+		ImageDAO image_dao = ImageDAO.getInstance();
 		
+		ImageDTO image_dto= image_dao.getImageKeywordList(director).get(0);
 		ActionForward forward = new ActionForward();
 		
 		
 		request.setAttribute("movie_dto", movie_list.get(0));
 		request.setAttribute("movie_list", movie_list);
+		request.setAttribute("image_dto", image_dto);
 		
 		forward.setPath("content/DirectorPage.jsp");
 		forward.setRedirect(false);

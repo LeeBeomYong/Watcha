@@ -290,6 +290,7 @@ select {
 						<li class="li_1">
 							<c:forEach var="list" items="${ilist}" begin="5" end="9" varStatus="status">
 								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${list.movie_num}">	
+
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
 								    	<img class="poster" src="${list.image_loc} " alt="영화 포스터 이미지" />

@@ -509,37 +509,6 @@ public class MovieDAO {
 			return list;
 		}	// getMovieKeywordList() end
 		
-		public List<MovieDTO> getDirectorKeywordList(String keyword) {
-					
-					List<MovieDTO> list = new ArrayList<MovieDTO>();
-		
-					try {
-						openConn();
-						
-						sql = "select movie_num, movie_title, movie_director, movie_country from movie where movie_director like ? order by movie_num";
-						
-						pstmt = con.prepareStatement(sql);
-						
-						pstmt.setString(1, "%"+keyword+"%");
-						rs = pstmt.executeQuery();
-						
-						while(rs.next()) {
-							MovieDTO dto = new MovieDTO();
-							
-							dto.setMovie_num(rs.getInt("movie_num"));
-							dto.setMovie_title(rs.getString("movie_title"));
-							dto.setMovie_director(rs.getString("movie_director"));
-							dto.setMovie_country(rs.getString("movie_country"));
-							System.out.println(dto.getMovie_director());
-							list.add(dto);
-						}
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}finally {
-						closeConn(rs, pstmt, con);
-					}
-					return list;
-		}	// getMovieKeywordList() end
 
 
 		// 키워드 : 영화 제목,감독 검색 메서드

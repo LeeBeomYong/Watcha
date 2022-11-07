@@ -46,6 +46,7 @@ public class WachaContentPageAction implements Action {
 		double avgStar = star_dao.getStar(movie_num);
 		int count = star_dao.getMovieStarcount(movie_num);
 		int coment_count=clist.size();
+		int rank = star_dao.avgStarRank(movie_num);
 		
 		// 해당 이미지 출력
 		ImageDAO image_dao = ImageDAO.getInstance();
@@ -80,6 +81,7 @@ public class WachaContentPageAction implements Action {
 		request.setAttribute("same", same);
 		request.setAttribute("images", images);
 		request.setAttribute("img_dto", img_dto);
+		request.setAttribute("rank", rank);
 		
 		ActionForward forward = new ActionForward();
 		

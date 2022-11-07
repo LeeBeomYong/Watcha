@@ -114,7 +114,9 @@
 			$(".modal_content1").css({
 				'display': 'block'
 			});
-			$("#hint_id").val('');	$("#pwd_hint").hide();
+			$("#hint_id").val('');	
+			$("#pwd_hint").hide();
+			$("#lbl_hint").hide();
 		});
 		
 		// 아이디 : 영문/숫자 5~10자
@@ -249,6 +251,8 @@
 		function pwd_hint() {
 			
 		   let id = $("#hint_id").val();
+		   
+		   $("#lbl_hint").hide();
 			
 			$.ajax({
 				type : "post",
@@ -259,18 +263,20 @@
 					let data1 = $.trim(data);
 					if(data1 != "") {  
 						$("#pwd_hint").html("");
-						$("#lbl_hint").show();
+						$("#lbl_hint").show();	
 						$("#pwd_hint").html("비밀번호는 <font style='color:rgb(255, 53, 94)'><b>"+data1+"</b></font>입니다.");
+						$("#pwd_hint").show();
 					}else{
 						$("#pwd_hint").html("");
-						$("#lbl_hint").show();
+						$("#lbl_hint").show();	$("#pwd_hint").show();
 						$("#pwd_hint").html("존재하지 않는 아이디입니다.");
-						
+						$("#pwd_hint").show();
 					}
 				},					
 				error: function(e) {
-					$("#lbl_hint").show();
+					$("#lbl_hint").show();	
 					$("#pwd_hint").html("<br><font style='color:red; font-size:13px;'>오류 발생. 다시 입력하세요.</font>");
+					$("#pwd_hint").show();
 		        }
 			});
 		}
@@ -296,8 +302,6 @@
 			$("#sii_checked").hide();	$("#sii_wrong").hide();
 			$("#sun_checked").hide();		$("#sui_checked").hide();		$("#sup_checked").hide();
 			$("#sun_wrong").hide();		$("#sui_wrong").hide();		$("#sup_wrong").hide();
-			// 비밀번호 찾기 hide
-			$("#lbl_hint").hide();
 			// 버튼 활성화
 			$("#login_btn").attr("disabled", false);
 			$("#login_btn").css({
@@ -364,38 +368,44 @@
 
 	*{marmin: 0; padding: 0;}
 	
-	a:hover{
+	#menu:hover{
 		font-weight: bold;
 	}
-	
 	
 	nav{
 		height: 55px;
 		z-index: 1;
-		
 	}
+	
+	.navbar-collapse {
+		padding-top: 5px;
+	}
+	
 	.container-fluid{
 		position: fixed;
-		background-color: #F0F0F0;
-		margin-bottom: 5px;
+		background-color: #FFF;
+		padding-bottom: 5px;
+		border-bottom: 1px solid #d2d2d2;
 	}
 	
 	
 	.bg_keyword {
 		border-radius: 5px;
 		border: none;
-		background: #fff url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTZweCIgaGVpZ2h0PSIxNnB4IiB2aWV3Qm94PSIwIDAgMTYgMTYiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8dGl0bGU+SWNvbiAvIEljVGFiQmFyIC8gSWNTZWFyY2hBbmQ8L3RpdGxlPgogICAgPGcgaWQ9IlVJLS0t7ZmILS8t6rKA7IOJIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiBmaWxsLW9wYWNpdHk9IjAuNzYiPgogICAgICAgIDxnIGlkPSJfR2xvYmFsLS8tTmF2aWdhdGlvbkJhci0vLUl0ZW1zLS8tU2VhcmNoLS8tRW1wdHkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xMS4wMDAwMDAsIC0xMS4wMDAwMDApIiBmaWxsPSIjN0U3RTdFIj4KICAgICAgICAgICAgPGcgaWQ9Ikdyb3VwLTEzIj4KICAgICAgICAgICAgICAgIDxnIGlkPSJJY29uLS8tSWNUYWJCYXItLy1JY1NlYXJjaEFuZCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTAuMDAwMDAwLCAxMC4wMDAwMDApIj4KICAgICAgICAgICAgICAgICAgICA8cGF0aCBkPSJNOC4wMjk5ODQxNSwxMi44NzM5OTc5IEM1LjQwNjA4MTEyLDEyLjg3Mzk5NzkgMy4yNzA1NDg1OCwxMC43MjI4NDAzIDMuMjcwNTQ4NTgsOC4wNzg3NTkgQzMuMjcwNTQ4NTgsNS40MzM4ODAwNyA1LjQwNjA4MTEyLDMuMjgyNzIyNTEgOC4wMjk5ODQxNSwzLjI4MjcyMjUxIEMxMC42NTM4ODcyLDMuMjgyNzIyNTEgMTIuNzg5NDE5Nyw1LjQzMzg4MDA3IDEyLjc4OTQxOTcsOC4wNzg3NTkgQzEyLjc4OTQxOTcsMTAuNzIyODQwMyAxMC42NTM4ODcyLDEyLjg3Mzk5NzkgOC4wMjk5ODQxNSwxMi44NzM5OTc5IE0xNi4wODEzNjkzLDE0Ljk1MTc3NTIgTDEzLjA4NjI0MTMsMTEuOTIwODUyNCBDMTMuODg4ODQ3LDEwLjg0OTY2MDUgMTQuMzcyNDY4Myw5LjUyMTYzNzc2IDE0LjM3MjQ2ODMsOC4wNzg3NTkgQzE0LjM3MjQ2ODMsNC41NTQxMTQ4NiAxMS41MjY5Mzg1LDEuNjg3NSA4LjAyOTk4NDE1LDEuNjg3NSBDNC41MzMwMjk4MywxLjY4NzUgMS42ODc1LDQuNTU0MTE0ODYgMS42ODc1LDguMDc4NzU5IEMxLjY4NzUsMTEuNjAyNjA1NSA0LjUzMzAyOTgzLDE0LjQ2OTIyMDQgOC4wMjk5ODQxNSwxNC40NjkyMjA0IEM5LjUyNTk2NTA2LDE0LjQ2OTIyMDQgMTAuODk5MjU5NywxMy45NDE5OTkzIDExLjk4NDQzOTUsMTMuMDY2MjIyMiBMMTQuOTYwNTcwOSwxNi4wNzgwMDIzIEMxNS4xMDkzNzc0LDE2LjIyOTU0ODQgMTUuMzA4ODQxNSwxNi4zMTI1IDE1LjUyMDk3MDEsMTYuMzEyNSBDMTUuNzMxNTE1NSwxNi4zMTI1IDE1LjkyOTM5NjYsMTYuMjMwMzQ2IDE2LjA3OTc4NjIsMTYuMDgwMzk1MSBDMTYuMjI4NTkyOCwxNS45Mjk2NDY2IDE2LjMxMTcwMjgsMTUuNzI5NDQ2MiAxNi4zMTI1LDE1LjUxNjQ4NCBDMTYuMzEzMjg1OSwxNS4zMDM1MjE4IDE2LjIzMDk2NzMsMTUuMTAyNTIzNyAxNi4wODEzNjkzLDE0Ljk1MTc3NTIiIGlkPSJGaWxsLTEiIGZpbGw9IiNCQUJBQzMiPjwvcGF0aD4KICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+) no-repeat 10px 10px;
-		width: 330px;
+		background: #f7f7f7 url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTZweCIgaGVpZ2h0PSIxNnB4IiB2aWV3Qm94PSIwIDAgMTYgMTYiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8dGl0bGU+SWNvbiAvIEljVGFiQmFyIC8gSWNTZWFyY2hBbmQ8L3RpdGxlPgogICAgPGcgaWQ9IlVJLS0t7ZmILS8t6rKA7IOJIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiBmaWxsLW9wYWNpdHk9IjAuNzYiPgogICAgICAgIDxnIGlkPSJfR2xvYmFsLS8tTmF2aWdhdGlvbkJhci0vLUl0ZW1zLS8tU2VhcmNoLS8tRW1wdHkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xMS4wMDAwMDAsIC0xMS4wMDAwMDApIiBmaWxsPSIjN0U3RTdFIj4KICAgICAgICAgICAgPGcgaWQ9Ikdyb3VwLTEzIj4KICAgICAgICAgICAgICAgIDxnIGlkPSJJY29uLS8tSWNUYWJCYXItLy1JY1NlYXJjaEFuZCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTAuMDAwMDAwLCAxMC4wMDAwMDApIj4KICAgICAgICAgICAgICAgICAgICA8cGF0aCBkPSJNOC4wMjk5ODQxNSwxMi44NzM5OTc5IEM1LjQwNjA4MTEyLDEyLjg3Mzk5NzkgMy4yNzA1NDg1OCwxMC43MjI4NDAzIDMuMjcwNTQ4NTgsOC4wNzg3NTkgQzMuMjcwNTQ4NTgsNS40MzM4ODAwNyA1LjQwNjA4MTEyLDMuMjgyNzIyNTEgOC4wMjk5ODQxNSwzLjI4MjcyMjUxIEMxMC42NTM4ODcyLDMuMjgyNzIyNTEgMTIuNzg5NDE5Nyw1LjQzMzg4MDA3IDEyLjc4OTQxOTcsOC4wNzg3NTkgQzEyLjc4OTQxOTcsMTAuNzIyODQwMyAxMC42NTM4ODcyLDEyLjg3Mzk5NzkgOC4wMjk5ODQxNSwxMi44NzM5OTc5IE0xNi4wODEzNjkzLDE0Ljk1MTc3NTIgTDEzLjA4NjI0MTMsMTEuOTIwODUyNCBDMTMuODg4ODQ3LDEwLjg0OTY2MDUgMTQuMzcyNDY4Myw5LjUyMTYzNzc2IDE0LjM3MjQ2ODMsOC4wNzg3NTkgQzE0LjM3MjQ2ODMsNC41NTQxMTQ4NiAxMS41MjY5Mzg1LDEuNjg3NSA4LjAyOTk4NDE1LDEuNjg3NSBDNC41MzMwMjk4MywxLjY4NzUgMS42ODc1LDQuNTU0MTE0ODYgMS42ODc1LDguMDc4NzU5IEMxLjY4NzUsMTEuNjAyNjA1NSA0LjUzMzAyOTgzLDE0LjQ2OTIyMDQgOC4wMjk5ODQxNSwxNC40NjkyMjA0IEM5LjUyNTk2NTA2LDE0LjQ2OTIyMDQgMTAuODk5MjU5NywxMy45NDE5OTkzIDExLjk4NDQzOTUsMTMuMDY2MjIyMiBMMTQuOTYwNTcwOSwxNi4wNzgwMDIzIEMxNS4xMDkzNzc0LDE2LjIyOTU0ODQgMTUuMzA4ODQxNSwxNi4zMTI1IDE1LjUyMDk3MDEsMTYuMzEyNSBDMTUuNzMxNTE1NSwxNi4zMTI1IDE1LjkyOTM5NjYsMTYuMjMwMzQ2IDE2LjA3OTc4NjIsMTYuMDgwMzk1MSBDMTYuMjI4NTkyOCwxNS45Mjk2NDY2IDE2LjMxMTcwMjgsMTUuNzI5NDQ2MiAxNi4zMTI1LDE1LjUxNjQ4NCBDMTYuMzEzMjg1OSwxNS4zMDM1MjE4IDE2LjIzMDk2NzMsMTUuMTAyNTIzNyAxNi4wODEzNjkzLDE0Ljk1MTc3NTIiIGlkPSJGaWxsLTEiIGZpbGw9IiNCQUJBQzMiPjwvcGF0aD4KICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+) no-repeat 10px 10px;
+		width: 300px;
 		height: 38px;
 	}
 	
 	.keyword {
 		color: #424242;
 		font-size: 14px;
+		letter-spacing: -0.5px;
 		background: transparent;
 		border: none;
 		margin-left: 30px;
 		width: 280px;
+		padding-top: 3px;
 	}
 	
 	.keyword:focus {
@@ -429,11 +439,12 @@
 		border: none;
 		cursor: pointer;
 		border-radius: 5px;
-		background-color: rgb(240, 240, 240);
+		background-color: #fbfbfb;
 		padding: 5px;
 		width: 65px;
 		font-size: 12px;
 		height: 32px;
+		margin: 0;
 	}
 
 	.signUp {
@@ -446,6 +457,7 @@
 		width: 80px;
 		font-size: 13px;
 		height: 32px;
+		margin: 0;
 	}
 	
 	.modal_content1, .modal_content2 {
@@ -466,15 +478,15 @@
 	
 	.modal_content3 {
 		border-radius: 10px;
-		width: 400px;
-		height: 450px;
+		width: 25%;
+		height: 70%;
 		position: relative;
 		background-color: #fff;
 		text-align: center;
 		top:50%; 
 		left:50%;
 		transform: translate(-50%,-50%);
-		padding: 5px;
+		padding: 1%;
 		display: block;
 	}
 
@@ -494,7 +506,7 @@
 	.close {
 		font-size: 20px;
 		font-weight: bold;
-		margin-left: -350px;
+		margin-left: -95%;
 		color: darkgray;
 		border: 0;
 		background-color: transparent;
@@ -502,7 +514,7 @@
 	
 	.label {
 	    background-color: #F2F2F2;
-	    width: 300px;
+	    width: 80%;
 	    height: 50px;
 	    margin: 5px;
 	    border-radius: 10px;
@@ -526,7 +538,8 @@
 	}
 	
 	.m_btn {
-		width: 300px;
+		width: 80%;
+		margin-top: 1%;
 		border: none;
 		background-color: rgb(255, 53, 94);
 		cursor: pointer;
@@ -552,8 +565,14 @@
 		color: rgb(255, 53, 94);
 	}
 	
-	img {
-		margin: 5%;
+	.logo_short {
+		padding: 5px;
+	}
+	
+	.logo_long {
+		margin: 2%;
+		width: 70%;
+		height: 12%;
 	}
 	
 	.m_title {
@@ -588,8 +607,8 @@
 		font-weight: 700;
 		line-height: 22px;
 		text-align: left;
-		padding-top: 20px;
-		margin-left: 10px;
+		padding-top: 5%;
+		margin-left: 5%;
 		letter-spacing: -0.5px;
 	}
 	
@@ -634,9 +653,10 @@
 	}
 	
 	.lbl_hint {
+		display: none;
 		background-color: #FBEFF2;
 	    border-radius: 5px;
-	    padding: 10px 30px;
+	    padding: 5% 15%;
 	    margin-top: 5%;
 	    color: #6E6E6E;
 	    font-size: 13px;
@@ -648,48 +668,47 @@
 
 	<nav class="navbar navbar-expand-lg bg-light">
 	  <div class="container-fluid">
-	    <a class="navbar-brand" href="<%=request.getContextPath() %>/main.do">
-	   		 <img src="./image/왓챠_로고.png" alt="logo" width="80" height="40">
+	    <a id="menu" class="navbar-brand" href="<%=request.getContextPath() %>/main.do">
+	   		 <img class="logo_short" src="./image/watchapedia2.png" alt="logo" width="150px" height="40">
 	    </a>
 	    &nbsp;&nbsp;&nbsp;
 	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 	        <li class="nav-item">
-	          <a class="nav-link" href="<%=request.getContextPath() %>/moive_main.do">영화</a>
+	          <a id="menu" class="nav-link" href="<%=request.getContextPath() %>/moive_main.do">영화</a>
 	        </li>
 	         &nbsp; &nbsp;&nbsp; 
 	        <li class="nav-item dropdown">
-	          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="<%=request.getContextPath() %>/wacha_info.do">소개</a>
+	          <a id="menu" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="<%=request.getContextPath() %>/wacha_info.do">소개</a>
 	          <ul class="dropdown-menu">
-	          	<li><a class="dropdown-item" href="<%=request.getContextPath() %>/wacha_info.do">안녕?왓챠피디아</a></li>
+	          	<li><a id="menu" class="dropdown-item" href="<%=request.getContextPath() %>/wacha_info.do">안녕?왓챠피디아</a></li>
 	          	<li><hr class="dropdown-divider"></li>
-	          	<li><a class="dropdown-item" href="<%=request.getContextPath() %>/answer_main.do">자주 묻는 질문</a></li>
+	          	<li><a id="menu" class="dropdown-item" href="<%=request.getContextPath() %>/answer_main.do">자주 묻는 질문</a></li>
 	          </ul>
 	        </li>
 	       
 	         &nbsp; &nbsp;&nbsp;
 	        <li class="nav-item dropdown">
-	          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-	            게시판
-	          </a>
-	          <ul class="dropdown-menu">
-	            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/free_main.do">자유게시판</a></li>
-		            <li><hr class="dropdown-divider"></li>
-		       
-		       <%-- 로그인 됨.--%>
-		       <c:if test="${!empty session_id }">
-		            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/inquiry_main.do">Q&A / 1:1문의</a></li>    
-		            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/write_result.do?id=${session_id}">문의내역</a></li>
-		       </c:if>
-				      
-		        <%-- 로그인 안됨. --%>
-		        <c:if test="${empty session_id }">
-		            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/inquiry_main.do">Q&A문의</a></li>		        
-		        </c:if>
-		        
+              <a id="menu" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                게시판
+              </a>
+              <ul class="dropdown-menu">
+                <li><a id="menu" class="dropdown-item" href="<%=request.getContextPath() %>/#">자유게시판</a></li>
+                    <li><hr class="dropdown-divider"></li>
+
+               <%-- 로그인 됨.--%>
+               <c:if test="${!empty session_id }">
+                    <li><a id="menu" class="dropdown-item" href="<%=request.getContextPath() %>/inquiry_main.do">Q&A / 1:1문의</a></li>
+                    <li><a id="menu" class="dropdown-item" href="<%=request.getContextPath() %>/write_result.do">문의내역</a></li>
+               </c:if>
+
+                <%-- 로그인 안됨. --%>
+                <c:if test="${empty session_id }">
+                    <li><a id="menu" class="dropdown-item" href="<%=request.getContextPath() %>/inquiry_main.do">Q&A문의</a></li>
+                </c:if>  
 	          </ul>
 	        </li>
-              
+
 
               </ul>
 
@@ -705,7 +724,7 @@
 	    <c:if test="${!empty session_id }">
 	    	
 	    	<ul class="session">
-	    		<li class="s_id"><img class="s_img" src="${session_img }" alt="프로필 사진" /></li>
+	    		<li class="s_id"><img class="s_img" src="./image/profileupload/${session_img }" alt="프로필 사진" /></li>
 	    		<li class="s_id"><a href="<%=request.getContextPath()%>/member_page.do?member_id=${session_id }">${session_id }</a></li>
 	    	</ul>
 	    		
@@ -731,7 +750,7 @@
 				
 					<br />
 					
-					<img src="./image/watchapedia2.png" alt="왓챠피디아 로고" title="왓챠피디아" width="250" height="50" />
+					<img class="logo_long" src="./image/watchapedia2.png" alt="왓챠피디아 로고" title="왓챠피디아" />
 							
 					<form method="post" action="<%=request.getContextPath()%>/login.do">	
 						<br />
@@ -786,7 +805,7 @@
 					
 					<br />	
 				
-					<img src="./image/watchapedia2.png" alt="왓챠피디아 로고" title="왓챠피디아" width="250" height="50" />
+					<img class="logo_long" src="./image/watchapedia2.png" alt="왓챠피디아 로고" title="왓챠피디아" />
 					
 					<h3 class="m_title">회원가입</h3>
 					

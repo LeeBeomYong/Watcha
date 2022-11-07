@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>ì˜í™” ë¦¬ë·° í”Œë«í¼</title>
+<title>¿µÈ­ ¸®ºä ÇÃ·§Æû</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
@@ -14,13 +14,12 @@
 		margin: auto;
 		width: 85%;
 	}
-
+	
 	#searched {
 		background-color: rgb(248, 248, 248);
-		height: 40px;
+		height: 35px;
 		font-weight: bold;
 		padding-left: 30px;
-		padding-top: 7px;
 		color: rgba(100, 100, 100, 1);
 	}
 	
@@ -95,10 +94,6 @@
 		padding: 5px;
 	}
 	
-	.row {
-		padding: 0;
-	}
-	
 	li a {
 		text-decoration: none;
 		color: black;
@@ -107,12 +102,13 @@
 	.ex_box_1 {
 		font-size: 15px;
 		font-weight: 500;
-		margin-top: 5px;
+		margin-left: 15px;
 	}
 	
 	.ex_box_2 {
 		font-size: 13px;
 		font-weight: 300;
+		margin-left: 15px;
 	}
 	
 	.column {
@@ -125,7 +121,7 @@
 	
 	.poster {
 		border-radius: 5px;
-		width: 200px;
+		width: 210px;
 		height: 300px;
 	}
 	
@@ -143,13 +139,13 @@
 	
 	.res {
 		display: inline;
-		margin-bottom: 1%;
+		
 	}
 	
 	.row.row-cols-2 {
 		list-style-type: none;
-		padding: 1%;
-		margin-left: 0.1%;
+		margin: 5px 0;
+		margin-left: -30px;
 	}
 	
 	.row.row-cols-3 {
@@ -159,7 +155,7 @@
 	
 	.col {
 		border-bottom: 1px solid rgb(240, 240, 240);
-		width: 95%;
+		width: 90%;
 	}
 	
 	.more {
@@ -170,7 +166,7 @@
 		padding: 8px;
 		width: 70px;
 		font-size: 14px;
-		margin-left: 20%;
+		margin-left: 70px;
 	}
 	
 	.nothing {
@@ -180,11 +176,10 @@
 		vertical-align: middle;
 	}
 	
-	.non {
+	.nothing img {
 		width: 80px;
 		height: 100px;
 		border: none;
-		margin-bottom: 5%;
 	}
 </style>
 <script>
@@ -202,9 +197,14 @@
 <body>
 
 	<jsp:include page="../include/user_top.jsp" />
-
+	
+	<c:set var="ilist" value="${iList}" />
+	<c:set var="mtlist" value="${mtList}" />
+	<c:set var="mdlist" value="${mdList}" />
+	<c:set var="ulist" value="${uList}" />
+	
 	<div id="searched">
-		<label>"${keyword }"ì˜ ê²€ìƒ‰ê²°ê³¼</label>
+		<label>"${keyword }"ÀÇ °Ë»ö°á°ú</label>
 	</div>
 
 	<div id="wrapper">
@@ -212,33 +212,33 @@
 		<div class="tab">
 					
 			<input type="radio" id="tab1" name="tabs" checked />
-			<label class="tab_label" for="tab1">ì½˜í…ì¸ </label>
+			<label class="tab_label" for="tab1">ÄÜÅÙÃ÷</label>
 			
 			<input type="radio" id="tab2" name="tabs" />
-			<label class="tab_label" for="tab2">ì¸ë¬¼</label>
+			<label class="tab_label" for="tab2">ÀÎ¹°</label>
 			
 			<input type="radio" id="tab3" name="tabs" />
-			<label class="tab_label" for="tab3">ìœ ì €</label>
+			<label class="tab_label" for="tab3">À¯Àú</label>
 			
-			<%-- ì½˜í…ì¸  íƒ­ : ì˜í™” í¬ìŠ¤í„°, ì˜í™” ì œëª©, ë‚˜ë¼ --%>
+			<%-- ÄÜÅÙÃ÷ ÅÇ : ¿µÈ­ Æ÷½ºÅÍ, ¿µÈ­ Á¦¸ñ, ³ª¶ó --%>
 			<section id="content1">
 				
-				<c:if test="${!empty mList }">
+				<c:if test="${!empty mtlist }">
 				
 					<ul class="row row-cols-4">
 					
-						<c:forEach items="${iList }" var="list" varStatus="status">
+						<c:forEach items="${ilist }" var="list" varStatus="status">
 							<li class="res">
-								<a class="link" href="<%=request.getContextPath()%>/more_info.do?num=${mList[status.index].movie_num}">
+								<a class="link" href="<%=request.getContextPath()%>/more_info.do?num=${mtlist[status.index].movie_num}">
 									<div>	
 										<div>
-									    	<img class="poster" src="${list.image_loc }" alt="ì˜í™” í¬ìŠ¤í„° ì´ë¯¸ì§€" />
+									    	<img class="poster" src="${list.image_loc }" alt="¿µÈ­ Æ÷½ºÅÍ ÀÌ¹ÌÁö" />
 									    </div>
 									    <div class="ex_box_1">
-									    	${mList[status.index].movie_title}
+									    	${mtlist[status.index].movie_title}
 									    </div>
 									    <div class="ex_box_2"> 
-									    	${mList[status.index ].movie_country}
+									    	${mtlist[status.index ].movie_country}
 									    </div>
 								    </div>
 							    </a>
@@ -249,43 +249,42 @@
 					
 				</c:if>		
 				
-				<c:if test="${empty mList }">
+				<c:if test="${empty mtlist }">
 					
 					<div class="nothing">
 						<br />
-						<img class="non" src="https://icon-library.com/images/null-icon/null-icon-3.jpg" alt="null" />
+						<img src="https://icon-library.com/images/null-icon/null-icon-3.jpg" alt="null" />
 						<br />
-						<p>í•´ë‹¹í•˜ëŠ” ê²€ìƒ‰ ê²°ê³¼ê°€ ì—†ìŠµë‹ˆë‹¤. ë‹¤ë¥¸ ê²€ìƒ‰ì–´ë¥¼ ì…ë ¥í•´ë³´ì„¸ìš”.</p>
+						<p>ÇØ´çÇÏ´Â °Ë»ö °á°ú°¡ ¾ø½À´Ï´Ù. ´Ù¸¥ °Ë»ö¾î¸¦ ÀÔ·ÂÇØº¸¼¼¿ä.</p>
 					</div>
 					
 				</c:if>
 				
 			</section>
 			
-			<%-- ì¸ë¬¼ íƒ­ : ê°ë… ì´ë¦„, ê°ë… ì‚¬ì§„ --%>
+			<%-- ÀÎ¹° ÅÇ : °¨µ¶ ÀÌ¸§, °¨µ¶ »çÁø --%>
 			<section id="content2">
 			
-
-				<c:if test="${!empty dlist }">
+				<c:if test="${!empty mdlist }">
 				
 					<ul class="row row-cols-2">
 					
-						<c:forEach items="${dlist }" var="list" varStatus="status">
+						<c:forEach items="${ilist }" var="list" varStatus="status">
 							<li class="res">
-								<a class="link" href="wacha_director_list.do?director=${list.movie_director}">
+								<a class="link" href="#">
 									<div class="col">	
 										
 										<ul class="row row-cols-2">
-											<li class="col-3">
-												<img class="director" src="${ilist[status.index].director_image} " alt="ê°ë… ì´ë¯¸ì§€" />
+											<li class="col-2">
+												<img class="director" src="${list.director_image} " alt="°¨µ¶ ÀÌ¹ÌÁö" />
 											</li>										
 											<li class="col-5">
 												<div class="ex_whole">
 													<div class="ex_box_1">
-												    	${list.movie_director}
+												    	${mdlist[status.index].movie_director}
 												    </div>
 												    <div class="ex_box_2"> 
-												    	ì˜í™” ê°ë…
+												    	¿µÈ­ °¨µ¶
 												    </div>
 											    </div>
 											</li>
@@ -300,34 +299,33 @@
 				
 				</c:if>	
 				
-				<c:if test="${empty dlist }">
-
+				<c:if test="${empty mdlist }">
 					<div class="nothing">
 						<br />
-						<img class="non" src="https://icon-library.com/images/null-icon/null-icon-3.jpg" alt="null" />
+						<img src="https://icon-library.com/images/null-icon/null-icon-3.jpg" alt="null" />
 						<br />
-						<p>í•´ë‹¹í•˜ëŠ” ê²€ìƒ‰ ê²°ê³¼ê°€ ì—†ìŠµë‹ˆë‹¤. ë‹¤ë¥¸ ê²€ìƒ‰ì–´ë¥¼ ì…ë ¥í•´ë³´ì„¸ìš”.</p>
+						<p>ÇØ´çÇÏ´Â °Ë»ö °á°ú°¡ ¾ø½À´Ï´Ù. ´Ù¸¥ °Ë»ö¾î¸¦ ÀÔ·ÂÇØº¸¼¼¿ä.</p>
 					</div>
 				</c:if>
 			
 			</section>
 			
-			<%-- ìœ ì € íƒ­ : ìœ ì € ì´ë¯¸ì§€, ìœ ì € ì´ë¦„ --%>
+			<%-- À¯Àú ÅÇ : À¯Àú ÀÌ¹ÌÁö, À¯Àú ÀÌ¸§ --%>
 			<section id="content3">
 			
-				<c:if test="${!empty uList }">
+				<c:if test="${!empty ulist }">
 					
 						<ul class="row row-cols-2">
 						
-							<c:forEach items="${uList }" var="list" >
+							<c:forEach items="${ulist }" var="list" >
 								<li class="res">
 									<div class="col">
 										
 										<ul class="row row-cols-3">
 											<li class="col-2">
-												<img class="user" src="./image/profileupload/${list.member_image} " alt="ìœ ì € ì´ë¯¸ì§€" />
+												<img class="user" src="${list.member_img} " alt="À¯Àú ÀÌ¹ÌÁö" />
 											</li>										
-											<li class="col-6">
+											<li class="col-5">
 												<div class="ex_whole">
 													<div class="ex_box_1">
 												    	${list.member_name}
@@ -338,7 +336,7 @@
 											    </div>
 											</li>
 											<li>
-												<input class="more" type="button" value="ë”ë³´ê¸°" onclick="location.href='otherprofile.do?member_id=${list.member_id}'" />
+												<input class="more" type="button" value="´õº¸±â" onclick="location.href='member_page.do?member_id=${list.member_id}'" />
 											</li>
 										</ul>
 										
@@ -350,12 +348,12 @@
 					
 				</c:if>	
 				
-				<c:if test="${empty uList }">
+				<c:if test="${empty ulist }">
 					<div class="nothing">
 						<br />
-						<img class="non" src="https://icon-library.com/images/null-icon/null-icon-3.jpg" alt="null" />
+						<img src="https://icon-library.com/images/null-icon/null-icon-3.jpg" alt="null" />
 						<br />
-						<p>í•´ë‹¹í•˜ëŠ” ê²€ìƒ‰ ê²°ê³¼ê°€ ì—†ìŠµë‹ˆë‹¤. ë‹¤ë¥¸ ê²€ìƒ‰ì–´ë¥¼ ì…ë ¥í•´ë³´ì„¸ìš”.</p>
+						<p>ÇØ´çÇÏ´Â °Ë»ö °á°ú°¡ ¾ø½À´Ï´Ù. ´Ù¸¥ °Ë»ö¾î¸¦ ÀÔ·ÂÇØº¸¼¼¿ä.</p>
 					</div>
 				</c:if>
 			
@@ -364,7 +362,6 @@
 		</div>
 		
 	</div>
-	
 	
 	<jsp:include page="../include/user_bottom.jsp" />
 

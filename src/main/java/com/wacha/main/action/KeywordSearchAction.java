@@ -48,13 +48,13 @@ public class KeywordSearchAction implements Action {
 						
 		request.setAttribute("keyword", keyword);
 		
-		request.setAttribute("mList", mlist);
+		request.setAttribute("mlist", mlist);
 		
-		request.setAttribute("dList", dlist);
+		request.setAttribute("dlist", dlist);
+		
+		request.setAttribute("ulist", ulist);
 
-		request.setAttribute("uList", ulist);
-		
-		request.setAttribute("iList", ilist);
+		request.setAttribute("ilist", ilist);
 				
 		ActionForward forward = new ActionForward();
 		

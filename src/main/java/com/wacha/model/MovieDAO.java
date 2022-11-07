@@ -66,7 +66,7 @@ public class MovieDAO {
 				// 2단계 : lookup() 메서드를 이용하여 매칭되는
 				//        커넥션을 찾는다.
 				DataSource ds =
-					(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
+					(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
 				
 				// 3단계 : DataSource 객체를 이용하여
 				//        커넥션을 하나 가져온다.
@@ -188,7 +188,7 @@ public class MovieDAO {
 		
 		}//end
 		
-		public int insertMovie(MovieDTO dto,ImageDTO dto1) {
+		public int insertMovie(MovieDTO dto) {
 			int result=0,count=0;
 		
 			
@@ -234,19 +234,21 @@ public class MovieDAO {
 				
 				result=pstmt.executeUpdate();
 				
-				sql="insert into image values(?,?,?,?)";
-				
-				pstmt=con.prepareStatement(sql);
-				
-				pstmt.setInt(1, count);
-				
-				pstmt.setString(2,dto1.getImage_loc());
-				
-				pstmt.setString(3, dto1.getImage_temp());
-				
-				pstmt.setString(4, dto1.getDirector_image());
-				
-				result=pstmt.executeUpdate();                               
+				/*
+				 * sql="insert into image values(?,?,?,?)";
+				 * 
+				 * pstmt=con.prepareStatement(sql);
+				 * 
+				 * pstmt.setInt(1, count);
+				 * 
+				 * pstmt.setString(2,dto1.getImage_loc());
+				 * 
+				 * pstmt.setString(3, dto1.getImage_temp());
+				 * 
+				 * pstmt.setString(4, dto1.getDirector_image());
+				 * 
+				 * result=pstmt.executeUpdate();
+				 */                           
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

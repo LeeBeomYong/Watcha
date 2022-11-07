@@ -21,7 +21,7 @@ public class AdminDeleteOk implements Action {
 		
 		UserDAO dao = UserDAO.getInstance();
 		
-		int check =dao.userDelete(member_id, member_pwd);
+		int check =dao.AdminuserDelete(member_id, member_pwd);
 		
 		ActionForward forward = new ActionForward();
 		
@@ -32,7 +32,7 @@ public class AdminDeleteOk implements Action {
 			forward.setPath("admin_member_list.do");
 		}else {
 			out.println("<script>");
-			out.println("alert(유저삭제')");
+			out.println("alert('유저삭제실패')");
 			out.println("history.back()");
 			out.println("</script>");
 		}

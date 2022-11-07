@@ -66,7 +66,7 @@ public class ImageDAO {
 					// 2단계 : lookup() 메서드를 이용하여 매칭되는
 					//        커넥션을 찾는다.
 					DataSource ds =
-						(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
+						(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
 					
 					// 3단계 : DataSource 객체를 이용하여
 					//        커넥션을 하나 가져온다.
@@ -303,6 +303,46 @@ public class ImageDAO {
 				return image_dto;
 			}
 
+				
+			public int insertMovieImage(ImageDTO dto1){
+				
+				int result=0,count=0;
+				
+				try {
+					
+					openConn();
+					sql="select max(movie_num) from image";
+					
+					pstmt=con.prepareStatement(sql);
+					
+					rs=pstmt.executeQuery();
+					if(rs.next()) {
+						count=rs.getInt(1)+1;
+					}
+					
+					sql="insert into image values(?,?,?,?)";
+					
+					pstmt=con.prepareStatement(sql);
+					
+					pstmt.setInt(1, count);
+					
+					pstmt.setString(2, dto1.getImage_loc());
+					
+					pstmt.setString(3, dto1.getImage_temp());
+					
+					pstmt.setString(4, dto1.getDirector_image());
+					
+					result=pstmt.executeUpdate();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					closeConn(rs, pstmt, con);
+				}
+				return result;
+				
+				
+			}
 
 
 }

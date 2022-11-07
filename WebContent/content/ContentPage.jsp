@@ -339,9 +339,9 @@ $(function() {
 				</div>
 			<div id="topDiv_cont">
 				<ul>
-					<li>예매 순위 1${rank}위</li>
-					<li>개봉 날짜 /10/17${movie_date.substring(0,10)}일</li>
-					<li>왓챠 평점 ${avgStar }점</li>
+					<li>순위 ${rank} 위 /</li>
+					<li>개봉일 ${mDto.getMovie_date()} 일 /</li>
+					<li>왓챠 평점 ${avgStar}점</li>
 				</ul>
 			</div>
 				
@@ -597,7 +597,7 @@ $(function() {
 										<c:if test="${(((i.count-1)/3)+3)*3 > fn:length(clist)/3}">
 											<c:set var="end" value="${(((i.count-1)/3)+3)*3}"/>
 										</c:if>
-											<c:forEach items="${clist}" var="coment" begin="${(((i.count-1)/3)+1)*3}" end="${end}">
+											<c:forEach items="${clist}" var="coment" begin="${(((i.count-1)/3)+1)*3}" end="${end}" varStatus="k">
 			                     				 <div id="coment_on">
 			                     				 <div class="coment_top">
 			                                          <div>
@@ -624,8 +624,11 @@ $(function() {
 			                                          <img alt="" src="${pageContext.request.contextPath }/image/contImg/talk.png" width="15px" height="15px">&nbsp; <span>${coment.getCocoment_count()}</span>
 			                                       </div>
 			                     				</div>
+			                     				<c:if test="${k.index % 3 == 0  }">
+			                     				</li>
+			                     				<li>
+			                     				</c:if>
 			                     			</c:forEach>
-									</li>
 								</ul>
 						    </div>
 					    </c:forEach>

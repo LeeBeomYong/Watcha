@@ -163,7 +163,7 @@
 		let id ='<%=session.getAttribute("session_id")%>';
 		if(id !="null"){
 			if(chk==0){
-				$("#hidenDiv").append("<ul class=\"list-group list-group-flush\"> <li class=\"list-group-item\"><div><img alt=\"없\" src=\"\" width=\"20px\" height=\"20px\"><span><%=session.getAttribute("session_id")%></span></div><textarea class=\"form-control\" id=\"area1\" rows=\"3\"></textarea><div align=\"right\"><button type=\"button\" id=\"btn3\" class=\"btn btn-secondary\">댓글달기</button></div></li></ul>");
+				$("#hidenDiv").append("<ul class=\"list-group list-group-flush\"> <li class=\"list-group-item\"><div><img class=\"marginimg\" alt=\"없\" src=\"\" width=\"20px\" height=\"20px\"><span><%=session.getAttribute("session_id")%></span></div><textarea class=\"form-control\" id=\"area1\" rows=\"3\"></textarea><div id=\"btn3div\" align=\"right\"><button type=\"button\" id=\"btn3\" class=\"btn btn-secondary\">댓글달기</button></div></li></ul><hr>");
 				chk=1;
 				$("#btn3").on("click",function(){
 						
@@ -346,6 +346,21 @@
 		margin-right:2% !important;
 	}
 	
+	#btn3div{
+		display: flex;
+		justify-content: flex-end;
+	}
+	#hidenDiv{
+	
+		padding: 16px;
+	}
+	a{
+		text-decoration: none !important;
+		
+	}
+	a:hover{
+		transform : none !important;
+	}
 </style>
 <title>Insert title here</title>
 </head>

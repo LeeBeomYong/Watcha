@@ -1117,6 +1117,29 @@ public class StarDAO {
 					closeConn(rs, pstmt, con);
 				}
 			}
+			public int avgStarRank(int movie_num) {
+				int rank=0;
+				openConn();
+				sql="select movie_num,avg(movie_star), rank() over (order by avg(movie_star) desc) "
+						+ "from star "
+						+ "group by movie_num";
+				try {
+					pstmt=con.prepareStatement(sql);
+					rs=pstmt.executeQuery();
+					while(rs.next()) {
+						if(rs.getInt(1) == movie_num) {
+							rank=rs.getInt(3);
+							break;
+						}
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					closeConn(rs, pstmt, con);
+				}
+				return rank;
+			}
 }
 
 

@@ -36,6 +36,8 @@ public class KeywordSearchAction implements Action {
 		
 		List<MovieDTO> mlist = dao1.getMovieKeywordList(keyword);
 		
+		List<MovieDTO> dlist = dao1.getDirectorKeywordList(keyword);
+		
 		UserDAO dao2 = UserDAO.getInstance();
 		
 		List<UserDTO> ulist = dao2.getUserKeywordList(keyword);
@@ -46,11 +48,13 @@ public class KeywordSearchAction implements Action {
 						
 		request.setAttribute("keyword", keyword);
 		
-		request.setAttribute("mList", mlist);
+		request.setAttribute("mlist", mlist);
 		
-		request.setAttribute("uList", ulist);
+		request.setAttribute("dlist", dlist);
 		
-		request.setAttribute("iList", ilist);
+		request.setAttribute("ulist", ulist);
+		
+		request.setAttribute("ilist", ilist);
 				
 		ActionForward forward = new ActionForward();
 		

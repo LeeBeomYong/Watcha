@@ -14,13 +14,12 @@
 		margin: auto;
 		width: 85%;
 	}
-
+	
 	#searched {
 		background-color: rgb(248, 248, 248);
-		height: 40px;
+		height: 35px;
 		font-weight: bold;
 		padding-left: 30px;
-		padding-top: 7px;
 		color: rgba(100, 100, 100, 1);
 	}
 	
@@ -95,10 +94,6 @@
 		padding: 5px;
 	}
 	
-	.row {
-		padding: 0;
-	}
-	
 	li a {
 		text-decoration: none;
 		color: black;
@@ -107,12 +102,13 @@
 	.ex_box_1 {
 		font-size: 15px;
 		font-weight: 500;
-		margin-top: 5px;
+		margin-left: 15px;
 	}
 	
 	.ex_box_2 {
 		font-size: 13px;
 		font-weight: 300;
+		margin-left: 15px;
 	}
 	
 	.column {
@@ -125,7 +121,7 @@
 	
 	.poster {
 		border-radius: 5px;
-		width: 200px;
+		width: 210px;
 		height: 300px;
 	}
 	
@@ -143,13 +139,13 @@
 	
 	.res {
 		display: inline;
-		margin-bottom: 1%;
+		
 	}
 	
 	.row.row-cols-2 {
 		list-style-type: none;
-		padding: 1%;
-		margin-left: 0.1%;
+		margin: 5px 0;
+		margin-left: -30px;
 	}
 	
 	.row.row-cols-3 {
@@ -159,7 +155,7 @@
 	
 	.col {
 		border-bottom: 1px solid rgb(240, 240, 240);
-		width: 95%;
+		width: 90%;
 	}
 	
 	.more {
@@ -170,7 +166,7 @@
 		padding: 8px;
 		width: 70px;
 		font-size: 14px;
-		margin-left: 20%;
+		margin-left: 70px;
 	}
 	
 	.nothing {
@@ -180,11 +176,10 @@
 		vertical-align: middle;
 	}
 	
-	.non {
+	.nothing img {
 		width: 80px;
 		height: 100px;
 		border: none;
-		margin-bottom: 5%;
 	}
 </style>
 <script>
@@ -202,6 +197,11 @@
 <body>
 
 	<jsp:include page="../include/user_top.jsp" />
+	
+	<c:set var="ilist" value="${iList}" />
+	<c:set var="mtlist" value="${mtList}" />
+	<c:set var="mdlist" value="${mdList}" />
+	<c:set var="ulist" value="${uList}" />
 	
 	<div id="searched">
 		<label>"${keyword }"의 검색결과</label>
@@ -223,22 +223,22 @@
 			<%-- 콘텐츠 탭 : 영화 포스터, 영화 제목, 나라 --%>
 			<section id="content1">
 				
-				<c:if test="${!empty mlist }">
+				<c:if test="${!empty mtlist }">
 				
 					<ul class="row row-cols-4">
 					
 						<c:forEach items="${ilist }" var="list" varStatus="status">
 							<li class="res">
-								<a class="link" href="<%=request.getContextPath()%>/more_info.do?num=${mlist[status.index].movie_num}">
+								<a class="link" href="<%=request.getContextPath()%>/more_info.do?num=${mtlist[status.index].movie_num}">
 									<div>	
 										<div>
 									    	<img class="poster" src="${list.image_loc }" alt="영화 포스터 이미지" />
 									    </div>
 									    <div class="ex_box_1">
-									    	${mlist[status.index].movie_title}
+									    	${mtlist[status.index].movie_title}
 									    </div>
 									    <div class="ex_box_2"> 
-									    	${mlist[status.index ].movie_country}
+									    	${mtlist[status.index ].movie_country}
 									    </div>
 								    </div>
 							    </a>
@@ -249,11 +249,11 @@
 					
 				</c:if>		
 				
-				<c:if test="${empty mlist }">
+				<c:if test="${empty mtlist }">
 					
 					<div class="nothing">
 						<br />
-						<img class="non" src="https://icon-library.com/images/null-icon/null-icon-3.jpg" alt="null" />
+						<img src="https://icon-library.com/images/null-icon/null-icon-3.jpg" alt="null" />
 						<br />
 						<p>해당하는 검색 결과가 없습니다. 다른 검색어를 입력해보세요.</p>
 					</div>
@@ -265,23 +265,23 @@
 			<%-- 인물 탭 : 감독 이름, 감독 사진 --%>
 			<section id="content2">
 			
-				<c:if test="${!empty dlist }">
+				<c:if test="${!empty mdlist }">
 				
 					<ul class="row row-cols-2">
 					
-						<c:forEach items="${dlist }" var="list" varStatus="status">
+						<c:forEach items="${ilist }" var="list" varStatus="status">
 							<li class="res">
-								<a class="link" href="wacha_director_list.do?director=${list.movie_director}">
+								<a class="link" href="#">
 									<div class="col">	
 										
 										<ul class="row row-cols-2">
-											<li class="col-3">
-												<img class="director" src="${ilist[status.index].director_image} " alt="감독 이미지" />
+											<li class="col-2">
+												<img class="director" src="${list.director_image} " alt="감독 이미지" />
 											</li>										
 											<li class="col-5">
 												<div class="ex_whole">
 													<div class="ex_box_1">
-												    	${list.movie_director}
+												    	${mdlist[status.index].movie_director}
 												    </div>
 												    <div class="ex_box_2"> 
 												    	영화 감독
@@ -299,10 +299,10 @@
 				
 				</c:if>	
 				
-				<c:if test="${empty dlist }">
+				<c:if test="${empty mdlist }">
 					<div class="nothing">
 						<br />
-						<img class="non" src="https://icon-library.com/images/null-icon/null-icon-3.jpg" alt="null" />
+						<img src="https://icon-library.com/images/null-icon/null-icon-3.jpg" alt="null" />
 						<br />
 						<p>해당하는 검색 결과가 없습니다. 다른 검색어를 입력해보세요.</p>
 					</div>
@@ -323,9 +323,9 @@
 										
 										<ul class="row row-cols-3">
 											<li class="col-2">
-												<img class="user" src="./image/profileupload/${list.member_image} " alt="유저 이미지" />
+												<img class="user" src="${list.member_img} " alt="유저 이미지" />
 											</li>										
-											<li class="col-6">
+											<li class="col-5">
 												<div class="ex_whole">
 													<div class="ex_box_1">
 												    	${list.member_name}
@@ -336,7 +336,7 @@
 											    </div>
 											</li>
 											<li>
-												<input class="more" type="button" value="더보기" onclick="location.href='otherprofile.do?member_id=${list.member_id}'" />
+												<input class="more" type="button" value="더보기" onclick="location.href='member_page.do?member_id=${list.member_id}'" />
 											</li>
 										</ul>
 										
@@ -351,7 +351,7 @@
 				<c:if test="${empty ulist }">
 					<div class="nothing">
 						<br />
-						<img class="non" src="https://icon-library.com/images/null-icon/null-icon-3.jpg" alt="null" />
+						<img src="https://icon-library.com/images/null-icon/null-icon-3.jpg" alt="null" />
 						<br />
 						<p>해당하는 검색 결과가 없습니다. 다른 검색어를 입력해보세요.</p>
 					</div>
@@ -362,7 +362,6 @@
 		</div>
 		
 	</div>
-	
 	
 	<jsp:include page="../include/user_bottom.jsp" />
 

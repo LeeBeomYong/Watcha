@@ -82,11 +82,11 @@
 	}
 	
 	#tit_btn{
-		margin-left: 690px;
 		border: none;
 		font-size: 18px;
 		font-weight: normal;
 		border-radius: 10px;
+		float: right;
 		width: 70px;
 		height: 30px;
 	}
@@ -94,6 +94,8 @@
 		background-color: #ABABAB;
 		font-weight: bold;
 	}
+
+
 	
 	
 </style>
@@ -104,20 +106,19 @@
 		
 		<div id="con_1">
 			<c:set var="dto" value="${Cont }" />
-			<header>
-				<c:if test="${session_id eq dto.getMember_id() }">
-					<h2>${dto.getWrite_title() }<button id="tit_btn" onclick="location.href='<%=request.getContextPath()%>/write_modify.do?num=${dto.getWrite_num() }'">수정</button></h2>				
-				</c:if>
-				
-				<c:if test="${session_id ne dto.getMember_id() }"> 
-					<h2>${dto.getWrite_title() }</h2>
-				</c:if>
+			<header>	
+				<h2>${dto.getWrite_title() }</h2>				
 				<br>
 				<img id="pro_img" src="./image/profileupload/프로필_로고.png">
 				<div>
 					<b style="font-size: 19px;"> ${dto.getMember_id() } </b>
 					<br>
 					<a style="font-size: 13px; pointer-events: none; color: #757575;">${dto.getWrite_date().substring(0,16) } &nbsp; 조회 : ${dto.getWrite_hit() }  </a>
+					
+					<c:if test="${session_id eq dto.getMember_id() }">
+						<button id="tit_btn" onclick="location.href='<%=request.getContextPath()%>/write_modify.do?num=${dto.getWrite_num() }'">수정</button>			
+					</c:if>
+					
 				</div>
 				<hr>
 				

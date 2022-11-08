@@ -96,6 +96,8 @@
 		margin-left: 10px;
 	}
 
+
+
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <script type="text/javascript">

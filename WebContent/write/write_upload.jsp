@@ -5,7 +5,54 @@
 <head>
 <meta charset="UTF-8">
 <title>Q&A 문의등록 페이지</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/write/write_css/write_upload_css.css" type="text/css">
+<style type="text/css">
+
+	header{
+		margin-left: 330px;
+	}
+
+	#container{
+		width: 70%;
+		margin-left: 15%;
+	}
+	
+	#con1{
+		margin-left: 25%;
+	}
+	
+	#img1{
+		
+		height: 30px;
+		width: 30px;
+	}
+	
+	#img_a{
+		border: none;
+		font-size: 18px;
+		color: #000;
+		background-color: #ECECEC;
+		width: 55px;
+		height: 30px;
+		margin-left: 43%;
+		border-radius: 5px;
+	}
+	
+	#img_a:hover{
+		background-color: #c3c3c3;
+	}
+
+	#pwd{
+		width: 250px; 
+		margin-top: 15px;
+	}
+	
+	#exampleFormControlTextarea1{
+		width: 700px; resize: none;
+	}
+
+
+
+</style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <script type="text/javascript">
 
@@ -54,7 +101,7 @@
 	  
 	  <form method="post" action="<%=request.getContextPath() %>/write_upload_ok.do">
 	  	<header>
-			<h2>Q&A문의등록 <input type="submit" value="등록" id="img_a"><img id="img1" src="https://cdn-icons-png.flaticon.com/512/46/46076.png"></h2>
+			<h2>Q&A문의등록<input type="submit" value="등록" id="img_a"></h2>
 			<hr width="70%">
 	 		<br>
 	 		

@@ -30,6 +30,8 @@ public class FreeModifyAction implements Action {
 		forward.setPath("write/free_modify.jsp");
 		
 		return forward;
+		
+		
 	}
 
 }

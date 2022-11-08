@@ -343,7 +343,6 @@ public class FreeWriteDAO {
 		}
 		return result;
 		
-		
 	}
 	
 	public int freeModify(FreeWriteDTO dto) {
@@ -758,5 +757,7 @@ public class FreeWriteDAO {
 		return list;
 	
 	} // seacrhListBoard() 메서드 end		
+	
+	
 	
 }

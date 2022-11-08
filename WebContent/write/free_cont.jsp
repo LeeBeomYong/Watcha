@@ -101,6 +101,7 @@
 					<c:if test="${dto.getMember_id() eq session_id }">
 						<a id="tag_1"style="margin-left: 66%;" href="<%=request.getContextPath()%>/free_modify.do?num=${dto.getFree_num() }">수정</a> / <a id="tag_1" href="<%=request.getContextPath() %>/free_delete.do?num=${dto.getFree_num() }" onclick="return confirm('정말 삭제 하시겠습니까 ?')">삭제</a>					
 					</c:if>
+
 				</div>
 				<hr>
 			</header>
@@ -334,3 +335,5 @@ $(function(){
 
 </body>
 </html>
+
+

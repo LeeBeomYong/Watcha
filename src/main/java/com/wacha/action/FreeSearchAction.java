@@ -95,6 +95,8 @@ public class FreeSearchAction implements Action {
 		forward.setPath("write/free_main.jsp");
 		
 		return forward;
+		
+		
 	}
 
 }

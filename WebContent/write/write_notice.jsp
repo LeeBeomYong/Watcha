@@ -10,6 +10,8 @@
 <title>공지사항 content</title>
 <style type="text/css">
 
+
+
 	#table_1{
 		
 	}

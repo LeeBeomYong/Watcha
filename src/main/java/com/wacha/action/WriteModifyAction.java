@@ -30,6 +30,8 @@ public class WriteModifyAction implements Action {
 		forward.setPath("write/write_modify.jsp");
 		
 		return forward;
+		
+		
 	}
 
 }

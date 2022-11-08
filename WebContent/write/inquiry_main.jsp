@@ -13,6 +13,8 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.easing/1.3/jquery.easing.1.3.js"></script>
 <script type="text/javascript">
 
+
+
 	// 탭 두개 콘텐츠 값 다르게 보여주는 함수.
 	$(document).ready(function(){
 		   
@@ -247,7 +249,7 @@
 	  <form method="post" enctype="multipart/form-data" action="<%=request.getContextPath() %>/w_write_upload.do">
 	  
 	  	<header>
-			<h2>1:1문의(작성양식)<span id="img_text">등록</span><input type="image" src="https://cdn-icons-png.flaticon.com/512/46/46076.png" value="등록" id="img_a"></h2>
+			<h2>1:1문의(작성양식)<input type="submit" value="등록" id="img_a"></h2>
 		</header>
 		 <br>
 		 <br>

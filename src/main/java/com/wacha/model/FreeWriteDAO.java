@@ -64,7 +64,7 @@ public class FreeWriteDAO {
 			// 2단계 : lookup() 메서드를 이용하여 매칭되는
 			//        커넥션을 찾는다.
 			DataSource ds =
-				(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
+				(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
 			
 			// 3단계 : DataSource 객체를 이용하여
 			//        커넥션을 하나 가져온다.
@@ -223,7 +223,7 @@ public class FreeWriteDAO {
 				
 				dto.setFree_num(rs.getInt("free_num"));
 				dto.setFree_title(rs.getString("free_title"));
-				dto.setFree_cont(rs.getString("free_cont"));
+				dto.setFree_cont(rs.getString("free_cont").replace("\r\n","<br>"));
 				dto.setFree_hit(rs.getInt("free_hit"));
 				dto.setFree_date(rs.getString("free_date"));
 				dto.setFree_file(rs.getString("free_file"));
@@ -237,6 +237,7 @@ public class FreeWriteDAO {
 			e.printStackTrace();
 		}finally {
 			closeConn(rs, pstmt, con);
+			
 		}
 		return dto;
 		
@@ -316,6 +317,66 @@ public class FreeWriteDAO {
 		
 	}
 	
+	
+	public int freeDelete(int num) {
+		
+		int result = 0;
+		
+		openConn();
+				
+		try {
+			sql = "delete from free_write where free_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			result = pstmt.executeUpdate();
+			
+			sql = "update free_write set free_num = free_num - 1 where free_num > ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+		
+		
+	}
+	
+	public int freeModify(FreeWriteDTO dto) {
+		
+		int result = 0;
+		
+		openConn();
+				
+		try {
+			sql = "select * from free_write where free_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, dto.getFree_num());
+			rs = pstmt.executeQuery();
+			
+			sql = "update free_write set free_title = ?, free_cont = ? where free_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getFree_title());
+			pstmt.setString(2, dto.getFree_cont());
+			pstmt.setInt(3, dto.getFree_num());
+			
+			result = pstmt.executeUpdate();
+		
+			
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+		
+	}
 	
 	
 	// 글번호에 해당하는 댓글 리스트를 조회하는 메서드.--------------------------------
@@ -399,8 +460,54 @@ public class FreeWriteDAO {
 		}
 		return result;
 		
-	} // getReplyList() 메서드 end	
+	} // getReplyList() 메서드 end
 
+
+	public int deleteReplyList(int no) {
+		
+		int result = 0;
+		
+		openConn();
+		
+		try {			
+			sql = "delete from free_reply where r_free_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			result = pstmt.executeUpdate();
+
+			sql = "update free_reply set r_free_num = r_free_num - 1 where r_free_num > ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+
+	}
+	
+	public void deleteReplyCount(int no) {
+		
+		openConn();
+		
+		try {
+			sql = "update free_write set free_reply_num = free_reply_num - 1 where free_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		
+		
+	}
 	
 // ------------------------------------------------------------------------------------
 	// 검색 시작.

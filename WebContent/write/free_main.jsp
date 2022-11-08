@@ -288,6 +288,7 @@
 					<tr class="tt" onclick="location.href='<%=request.getContextPath()%>/free_content.do?num=${dto.getFree_num() }'">	<%-- 이부분 블럭 자체를 클릭하였을때 글 전체를 제대로 볼 수 있음. --%>
 							<td class="no"> ${dto.getFree_num() } </td>
 							<td> ${dto.getFree_title() } 	
+								<%-- 댓글 갯수 표시 --%>
 								<c:if test="${dto.getFree_reply_num() ne 0 }">
 									<span id="reply_num">[${dto.getFree_reply_num() }]</span>						
 								</c:if>
@@ -307,29 +308,29 @@
 		<nav>
 		  <ul class="pagination justify-content-center">
 		    <li class="page-item">
-		      <a id="link" class="page-link" href="inquiry_main.do?page=1">◀</a>
+		      <a id="link" class="page-link" href="free_main.do?page=1">◀</a>
 		    </li>
 
 		    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
 				<c:if test="${i == page }">
-					<li class="page-item active" aria-current="page"><a id="link" class="page-link" href="inquiry_main.do?page=${i }">${i }</a></li>
+					<li class="page-item active" aria-current="page"><a id="link" class="page-link" href="free_main.do?page=${i }">${i }</a></li>
 				</c:if>
 			
 				<c:if test="${i != page }">
-					<li class="page-item"><a id="link" class="page-link" href="inquiry_main.do?page=${i }">${i }</a></li>
+					<li class="page-item"><a id="link" class="page-link" href="free_main.do?page=${i }">${i }</a></li>
 				</c:if>
 			</c:forEach>
 			
 			<c:if test="${endBlock < allPage }">
 				<li class="page-item">
-					<a id="link" class="page-link" href="inquiry_main.do?page=${endBlock + 1 }">Next</a>
+					<a id="link" class="page-link" href="free_main.do?page=${endBlock + 1 }">Next</a>
 				</li>
 				<li class="page-item">
-					<a id="link"class="page-link" href="inquiry_main.do?page=${allPage }">End</a>
+					<a id="link"class="page-link" href="free_main.do?page=${allPage }">End</a>
 				</li>
 			</c:if>
 			  <li  class="page-item">
-		      <a id="link" class="page-link" href="inquiry_main.do?page=${endBlock }">▶</a>
+		      <a id="link" class="page-link" href="free_main.do?page=${endBlock }">▶</a>
 		    </li>
 		  </ul>
 		</nav>

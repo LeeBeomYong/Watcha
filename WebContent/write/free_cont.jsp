@@ -12,13 +12,17 @@
 <style type="text/css">
 
 	#table_1{
-		width: 70%;
+		
 	}
 	
 	#con_1{
-		margin-left: 25%;
-		margin-top: 50px;
+		margin-left: 23%;
+		margin-top: 30px;
 		margin-bottom: 50px;
+		border: 1px solid #c6c6c6;
+		width: 55%;
+		padding: 40px 30px 30px 30px;
+		border-radius: 10px;
 	}
 	
 	#content{
@@ -26,100 +30,58 @@
 		border: none;
 		outline: none;
 	}
+
 	
-	#tit_btn{
-		margin-left: 690px;
+	
+	#re_writer{
 		border: none;
-		font-size: 18px;
-		font-weight: normal;
-		border-radius: 10px;
-		width: 70px;
-		height: 30px;
-	}
-	#tit_btn:hover {
-		background-color: #ABABAB;
+		pointer-events: none;
 		font-weight: bold;
+		width: 500px;
+	}	
+	
+	#re_content{    
+		width: 100%;
+	    border: none;
+	    resize: none;
+	    outline: none;
 	}
 	
-	.CommentWriter {
-	    margin: 12px 0 29px;
-	    padding: 16px 10px 10px 18px;
-	    border: 2px solid #C6C6C6;
-	    width: 70%;
+	#replyBtn{
+		border: none;
+	    font-size: 15px;
 	    border-radius: 6px;
-	    box-sizing: border-box;
-	    background: var(--skinCommentWriterBg);
-	}
-	.CommentWriter .comment_inbox_text {
-    overflow-x: hidden;
-    overflow-y: auto;
-    display: block;
-    width: 100%;
-    min-height: 17px;
-    padding-right: 1px;
-    border: 0;
-    font-size: 13px;
-    -webkit-appearance: none;
-    resize: none;
-    box-sizing: border-box;
-    background: transparent;
-    color: var(--skinTextColor);
-    outline: 0;
-}
-	
-	.CommentWriter .comment_inbox {
-    position: relative;
-    margin-bottom: 10px;
+	    text-align: center;
+	    background-color: white;
+	    float: right;
 	}
 	
-	.blind {
-    position: absolute;
-    clip: rect(0 0 0 0);
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
+	#con_2{
+		border: 1px solid #c6c6c6;
+		border-radius: 10px;
+		padding: 25px 10px 10px 25px;
+		background-color: #F0F0F0;
 	}
-
-	.CommentWriter .register_box .button {
-    display: inline-block;
-    min-width: 46px;
-    height: 34px;
-    line-height: 36px;
-    font-size: 13px;
-    color: var(--skinCommentWriterText);
-    border-radius: 6px;
-    box-sizing: border-box;
-    font-weight: 700;
-    text-align: center;
-    vertical-align: top;
-}
-
-textarea.comment_inbox_text[data-v-3b426d7d] {
-    max-height: 500px;
-}
+	#con_3{
+		padding: 10px;
+	}
 	
-#re_writer{
-	border: none;
-	pointer-events: none;
-	font-weight: bold;
-}	
-
-#re_content{    
-	width: 100%;
-    border: none;
-    resize: none;
-    outline: none;
-}
-
-#replyBtn{
-	border: none;
-    font-size: 15px;
-    border-radius: 6px;
-    text-align: center;
-    background-color: white;
-    float: right;
-}
+	#pro_img{
+	
+		width: 35px;
+		height: 35px; 
+		margin: 0; 
+		float: left; 
+		margin-top: 10px;
+		margin-left: 10px; 
+		margin-right: 10px;
+	}
+	
+	#tag_1{
+		font-weight: bold; 
+		color: #000; 
+		text-decoration: none;
+	}
 </style>
 </head>
 <body>
@@ -129,99 +91,106 @@ textarea.comment_inbox_text[data-v-3b426d7d] {
 		<div id="con_1">
 			<c:set var="dto" value="${Cont }" />
 			<header>
-					<h2>게시글 상세조회</h2>
+					<h2> ${dto.getFree_title() } </h2>
 				<br>
+				<img id="pro_img" src="./image/profileupload/프로필_로고.png">
+				<div>
+					<b style="font-size: 19px;"> ${dto.getMember_id() } </b>
+					<br>
+					<a style="font-size: 13px; pointer-events: none; color: #757575;">${dto.getFree_date().substring(0,16) } &nbsp; 조회 : ${dto.getFree_hit() } </a>
+					<c:if test="${dto.getMember_id() eq session_id }">
+						<a id="tag_1"style="margin-left: 66%;" href="<%=request.getContextPath()%>/free_modify.do?num=${dto.getFree_num() }">수정</a> / <a id="tag_1" href="<%=request.getContextPath() %>/free_delete.do?num=${dto.getFree_num() }" onclick="return confirm('정말 삭제 하시겠습니까 ?')">삭제</a>					
+					</c:if>
+				</div>
+				<hr>
 			</header>
 			
-			<table class="table table-bordered" id="table_1">
-				<tr id="tr_1">
-					<th id="th_1" style="width: 100px;">제목</th>
-					<td colspan="3"> ${dto.getFree_title() } </td>
-					<th id="th_1">등록일</th>
-					<td colspan="3"> ${dto.getFree_date() } </td>
-				</tr>
+				<div id="con_2">
+					<p>
+					📢 본 게시판은 왓챠 회원님들의 영화 정보 공유게시판입니다.<br>
+					📢 욕설이나 비난글을 작성할 시 활동정지, 영구강퇴 될 수 있음을 알려드립니다.</p>
+				</div>
+				<br>
+				<div id="con_3">
 				
-				<tr id="tr_1">
-					<th id="th_1">작성자</th>
-					<td> ${dto.getMember_id() } </td>
-					<th id="th_1">글자수</th>
-					<td> (${dto.getFree_cont().length() }자 / 1000자) </td>
-					<th id="th_1">조회수</th>
-					<td> ${dto.getFree_hit() } </td>
-				</tr>
+					<p>${dto.getFree_cont() }</p>
 				
-				<tr id="tr_1">
-					<th id="th_1">내용</th>
-					<td colspan="6">
-						<textarea id="content" rows="17" cols="120" readonly>${dto.getFree_cont() }</textarea>
-					</td>
-				</tr>
-			</table>
+				</div>
+				<p style="float: right; font-size: 12px;">(${dto.getFree_cont().length() }자 / 1000자)</p>
 		
 		<br>
 		
-		<hr style="width: 70%;">
+		<hr style="width: 100%;">
 			
 		<%-- 댓글 폼 영역입니다. --%>
-		<h5>댓글</h5>	
-
+		<div id="divReloadLayer"><h5>댓글&nbsp;
+		<c:if test="${dto.getFree_reply_num() eq 0 }"><span></span></c:if>
+		<c:if test="${dto.getFree_reply_num() ne 0 }"><span>${dto.getFree_reply_num() }</span></c:if>
+		</h5></div>
+		<br>
 		<div>
-			<table class="list" cellspacing="0" width="400">
+			<table id="list_id" class="list" cellspacing="0" width="400">
+				
 				<tr>
-					<td colspan="2"></td>				
+					<td colspan="2"></td>		
 				</tr>
 				
 				<tr class="line">
 					<td></td> 
 				</tr>
 				<tr>
-					<td></td>
+					<td><input type="button" id="det" value="삭제"></td>
 				</tr>
-			</table>
-		</div>
-
-		<div style="border: 2px solid #c6c6c6;padding: 16px; border-radius: 5px; width: 70%; ">
-			<table>
-				<tr>
-					<td>
-						<input name="re_id" id="re_writer" value="${session_id }">
-					</td>
-				</tr>	
-				<tr>
-					<td>
-						<textarea name="re_content" id="re_content" cols="500" placeholder="댓글을 입력하세요."></textarea>
-					</td>
-				</tr>
-				<tr>
-					<td>
-					<input type="button" id="replyBtn" value="등록">
-					</td>
-				</tr>		
 
 			</table>
 		</div>
-
-			
-<%-- 		<div>
-			<div data-v-3b426d7d="" class="CommentWriter">
-				<div data-v-3b426d7d="" class="comment_inbox">
-					<strong data-v-3b426d7d="" class="blind">댓글을 입력하세요</strong>
-					<em data-v-3b426d7d="" class="comment_inbox_name" id="r_write">${session_id }세션아이디 나옴</em>
-						<textarea id="re_content" data-v-3b426d7d="" placeholder="댓글을 남겨보세요" rows="1" class="comment_inbox_text" style="overflow: hidden; overflow-wrap: break-word; height: 17px;"></textarea>
-				</div>
-				
-				<div data-v-3b426d7d="" class="comment_attach">
-					<div data-v-3b426d7d="" class="attach_box">
-						<label data-v-60755c74="" data-v-3b426d7d="" for="attach3" class="button_file"></label>
-							<div data-v-3b426d7d="" class="register_box">
-								<a data-v-3b426d7d="" href="#" id="replyBtn" role="button" class="button btn_register">등록</a>
-							</div>
-					</div>
-				</div>
+		
+		<%-- 로그인 안했을때 댓글 작성 불가능 --%>
+		<c:if test="${session_id eq null }">
+			<div style="border: 2px solid #c6c6c6;padding: 16px; border-radius: 5px; width: 100%; ">		
+				<table>
+					<tr>
+						<td>
+							<input name="re_id" id="re_writer" value="로그인 후 댓글 이용해 주세요.">
+						</td>
+					</tr>	
+					<tr>
+						<td>
+							<textarea name="re_content" id="re_content" cols="500" placeholder="댓글을 입력하세요." readonly></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>
+						<input type="button" id="replyBtn" value="등록" style="pointer-events: none;">
+						</td>
+					</tr>	
+				</table>
 			</div>
-		</div> --%>
-			
-			
+		</c:if>
+		
+		<%-- 로그인 하면 댓글 작성 가능 --%>
+		<c:if test="${session_id ne null }">
+			<div style="border: 2px solid #c6c6c6;padding: 16px; border-radius: 5px; width: 100%; ">
+				<table>
+					<tr>
+						<td>
+							<input name="re_id" id="re_writer" value="${session_id }">
+						</td>
+					</tr>	
+					<tr>
+						<td>
+							<textarea name="re_content" id="re_content" cols="500" placeholder="댓글을 입력하세요."></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>
+						<input type="button" id="replyBtn" value="등록">
+						</td>
+					</tr>		
+	
+				</table>
+			</div>
+		</c:if>
 
 	</div> <%-- 전체 컨테이너 div --%>
 
@@ -239,12 +208,14 @@ $(function(){
 		type : "post"
 	});
 	
+	let rr_no;
+	
 	// TBL_REPLY 테이블의 모든 데이터를 가져오는 함수
 	function getList() {
 		
 		$.ajax({
 			url : "/WatchaProject/write/free_reply.jsp",
-			data : {rno : ${dto.free_num } },
+			data : {rno : ${dto.free_num }},
 			datatype : "xml", 		// 결과 데이터 타입
 			success : function(data) {
 				// 테이블 태그의 타이틀태그를 제외한 댓글 목록을 지우는 명령어.
@@ -253,21 +224,21 @@ $(function(){
 				let table = "";
 				
 				$(data).find("reply").each(function() {
+					
 					table += "<tr>";
-					table += "<td colspan='2' style='font-weight: bold;'>" + $(this).find("member_id").text() + "</td>";
-					table += "</tr>";
+					table += "<td colspan='2' style='font-weight: bold;'>" + $(this).find("member_id").text() + "<input type='button' id='det' value='삭제' rno = '"+$(this).find("free_num").text()+"' r_no = '"+$(this).find("r_free_num").text() + "'></td>";
+					table += "</tr>";	
 					
 					table += "<tr>";
 					table += "<td>" + $(this).find("r_free_cont").text() + "</td>";
 					table += "</tr>";
 					
 					table += "<tr>";
-					table += "<td style='font-size: 13px; color:gray;'>" + $(this).find("r_free_date").text().substring(0,16) + "</td>";
+					table += "<td style='font-size: 13px; color:gray; width: 300px;'>" + $(this).find("r_free_date").text().substring(0,16) + "</td>";
 					table += "</tr>";
-					
-					
+
 					table += "<tr>";
-					table += "<td><hr width='1000'></td>";
+					table += "<td><hr width='950'></td>";
 					table += "</tr>";
 				});
 				
@@ -279,6 +250,38 @@ $(function(){
 			}
 		});
 	}	// getList() 함수 end
+
+	
+	// 삭제 버튼을 클릭했을 때 이벤트 적용
+	// 삭제 버튼처럼 동적으로 생성된 요소는 
+	// 제이쿼리에서 on() 함수를 이용해야 함.
+	// 형식) on("click" 이나 "change" 같은 이벤트,
+	//         "이벤트 적용 선택자 또는 태그", 동작함수(무명함수))
+	
+	$(document).on("click", "#det", function() {
+	
+		$.ajax({
+			url : "/WatchaProject/free_reply_delete.do",
+			data : {no : $(this).attr("r_no"),
+					nno : $(this).attr("rno")
+					},
+			datatype : "text",
+			success : function(data) {
+				if(data > 0) {
+					alert('삭제 완료');
+					
+					getList();
+					reloadDivArea(); //함수 실행
+				}else {
+					alert('삭제 실패');
+				}
+			},
+			
+			error : function() {
+				alert('데이터 통신 오류');
+			}
+		});
+	});	 
 	
 	
 	// 댓글 작성 버튼을 클릭했을 때 DB에 추가로 저장.
@@ -294,11 +297,12 @@ $(function(){
 					},
 			success : function(data) {
 				if(data > 0){
-					alert('댓글 작성 완료!!!');
 					
-					// 댓글 작성 후 다시 전체 댓글 리스트를 화면에 뿌려주면 됨.
+					reloadDivArea(); //함수 실행
+
+					// 댓글 작성 후 다시 전체 댓글 리스트를 화면에 뿌려주면 됨.					
 					getList();
-					
+
 					// input 태그에 입력된 내용을 지워줌.
 					$("textarea").each(function(){
 						$(this).val("");	// 입력된 값 지우기.
@@ -313,14 +317,18 @@ $(function(){
 			}
 		});
 	});		// 댓글 등록하기 end
-	
-	
+	 
+	function reloadDivArea() {
+	    $('#divReloadLayer').load(location.href+' #divReloadLayer');
+	}
 	
 	
 	getList(); // 전체 리스트 호출 함수 호출
+
+	reloadDivArea(); //함수 실행
+	
 	});
 
-	
 	
 </script>	
 

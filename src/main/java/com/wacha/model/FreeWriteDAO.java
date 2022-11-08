@@ -360,7 +360,7 @@ public class FreeWriteDAO {
 			sql = "update free_write set free_title = ?, free_cont = ? where free_num = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, dto.getFree_title());
-			pstmt.setString(2, dto.getFree_cont());
+			pstmt.setString(2, dto.getFree_cont().replace("\r\n","<br>"));
 			pstmt.setInt(3, dto.getFree_num());
 			
 			result = pstmt.executeUpdate();
@@ -458,6 +458,8 @@ public class FreeWriteDAO {
 			closeConn(rs, pstmt, con);
 		}
 		return result;
+		
+		
 		
 	} // getReplyList() 메서드 end
 

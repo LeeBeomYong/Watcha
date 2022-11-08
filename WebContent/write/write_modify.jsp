@@ -12,6 +12,8 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <script type="text/javascript">
 
+
+
 	// textarea에서 입력한 글자 만큼 세주는 함수.	
 	$(document).ready(function() {
 	    $('#content').on('keyup', function() {

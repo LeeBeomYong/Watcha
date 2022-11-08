@@ -317,6 +317,66 @@ public class FreeWriteDAO {
 	}
 	
 	
+	public int freeDelete(int num) {
+		
+		int result = 0;
+		
+		openConn();
+				
+		try {
+			sql = "delete from free_write where free_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			result = pstmt.executeUpdate();
+			
+			sql = "update free_write set free_num = free_num - 1 where free_num > ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+		
+	}
+	
+	public int freeModify(FreeWriteDTO dto) {
+		
+		int result = 0;
+		
+		openConn();
+				
+		try {
+			sql = "select * from free_write where free_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, dto.getFree_num());
+			rs = pstmt.executeQuery();
+			
+			sql = "update free_write set free_title = ?, free_cont = ? where free_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getFree_title());
+			pstmt.setString(2, dto.getFree_cont());
+			pstmt.setInt(3, dto.getFree_num());
+			
+			result = pstmt.executeUpdate();
+		
+			
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+		
+	}
+	
+
 	
 	// 글번호에 해당하는 댓글 리스트를 조회하는 메서드.--------------------------------
 	// 답변글을 tbl_reply 테이블에 저장하는 메서드.
@@ -651,32 +711,4 @@ public class FreeWriteDAO {
 		return list;
 	
 	} // seacrhListBoard() 메서드 end		
-	
-	public int freeDelete(int num) {
-
-        int result = 0;
-
-        openConn();
-
-        try {
-            sql = "delete from free_write where free_num = ?";
-            pstmt = con.prepareStatement(sql);
-            pstmt.setInt(1, num);
-            result = pstmt.executeUpdate();
-
-            sql = "update free_write set free_num = free_num - 1 where free_num > ?";
-            pstmt = con.prepareStatement(sql);
-            pstmt.setInt(1, num);
-            pstmt.executeUpdate();
-
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }finally {
-            closeConn(rs, pstmt, con);
-        }
-        return result;
-
-    }
-	
 }

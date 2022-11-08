@@ -34,6 +34,8 @@ public class NoticeContentAction implements Action {
 		forward.setPath("write/write_notice.jsp");
 				
 		return forward;
+		
+		
 	}
 
 }

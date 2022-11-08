@@ -39,6 +39,8 @@ public class W_WriteDeleteAction implements Action {
 		}
 		
 		return forward;
+		
+		
 	}
 
 }

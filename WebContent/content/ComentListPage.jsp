@@ -32,7 +32,6 @@
 	a,span{
 		color : black;
 		text-decoration: none !important;
-		
 	}
 	img{
 		border-radius: 50%;

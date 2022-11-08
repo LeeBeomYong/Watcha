@@ -285,31 +285,39 @@ $(function() {
 	    	$(".modal_body2").css("display","none");
 	    	$(".modal2").css("display","none");
 	    });
+		
+		
+		function weather() {
+			$.ajax({
+				url : "/WatchaProject/content/Weather.jsp",
+				type : "post",
+				timeout : 30000,
+				dataType : "json",
+				success : function(data,status,xhr) {
+					
+					let dataHeader = data.result.response.header.resultCode;
+					if(dataHeader == "00"){
+						console.log("성공 : ");
+						console.log(data);
+					}else{
+						console.log("실패 : ");
+						console.log(data);
+					}
+				},
+				error : function(e,status , xhr, data) {
+					console.log("error : ");
+					console.log(e);
+				}
+			});
+		}
+		
+		
+		
+		weather();
+		
 
 	}); // 제이쿼리 end 부분
 	
-	function showPopUp() {
-		if('<%=session.getAttribute("memberId")%>' != ""){
-			 //창 크기 지정
-		    var width = 500;
-		    var height = 300;
-		
-		    //pc화면기준 가운데 정렬
-		    var left = (window.screen.width / 2) - (width/2);
-		    var top = (window.screen.height / 4);
-		
-		       //윈도우 속성 지정
-		    var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
-		
-		       //연결하고싶은url
-		    const url = "${pageContext.request.contextPath}/content/MyOpinion.jsp?movie_num=${mDto.getMovie_num()}&session_id=${sessionScope.session_id}";
-		       
-		    //등록된 url 및 window 속성 기준으로 팝업창을 연다.
-		    window.open(url, "hello popup", windowStatus);
-		}else{
-			alert("로그인 후 이용해 주시기 바랍니다.");
-		}
-	}
 	
     $(document).mouseup(function (e){
 		if($(".modal2").has(e.target).length === 0) {
@@ -921,6 +929,17 @@ $(function() {
 				
 
 				</script>
+           
+           
+           
+           <div>
+	           <div align="center">기상예보</div>
+	           <div>
+	           		
+	           </div>
+	      </div>
+           
+           
            </div>
            
       	</div>
@@ -956,11 +975,13 @@ $(function() {
 		      </div>
 	   	</div>
 		
-		
+	
       
       
       </div>
-	
+	<div align="center" id="downdiv">
+		<font size="6" color="gray">지금까지 <font color="red">★ <fmt:formatNumber value="${ star_count }"/>개의 평가가</font> 쌓였어요</font>
+	</div>
 
 	<jsp:include page="../include/user_bottom.jsp"/>
 </body>

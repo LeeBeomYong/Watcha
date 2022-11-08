@@ -23,9 +23,8 @@ public class W_WriteUploadAction implements Action {
 		
 		W_WriteDTO dto = new W_WriteDTO();
 		
-		String saveFolder = "C:\\Users\\by\\git\\Watcha\\WebContent\\w_write_file";
-		// 원래경로 : C:\\NCS\\workspace(jsp)\\bhhh\\WebContent\\w_write_file
-		//이범용 테스트 : C:\Users\by\git\Watcha\WebContent\w_write_file
+
+		String saveFolder = "C:\\Users\\user\\git\\Watcha\\WebContent\\w_write_file";
 		int fileSize = 10 * 1024 * 1024;
 		
 		MultipartRequest multi = new MultipartRequest(

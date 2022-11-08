@@ -38,7 +38,7 @@
 			<table class="table table-bordered">
 				<tr>
 					<th>작성자</th>
-					<td>${member_id }</td>
+					<td>${session_id }</td>
 					<th>작성일</th>
 					<td>${rdto.getW_date() }</td>
 				</tr>
@@ -61,6 +61,7 @@
 			</table>
 
 			<c:set var="dto" value="${RRCont }" />
+			<c:if test="${rdto.getW_num() eq dto.getR_num() }">
 			<table class="table table-bordered">
 				<tr>
 					<th style="width: 100px;">↳ 답변</th>
@@ -72,6 +73,7 @@
 					</td>				
 				</tr>
 			</table>
+			</c:if>
 
 
 	</div>

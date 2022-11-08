@@ -188,7 +188,7 @@ public class MovieDAO {
 		
 		}//end
 		
-		public int insertMovie(MovieDTO dto,ImageDTO dto1) {
+		public int insertMovie(MovieDTO dto) {
 			int result=0,count=0;
 		
 			
@@ -234,19 +234,21 @@ public class MovieDAO {
 				
 				result=pstmt.executeUpdate();
 				
-				sql="insert into image values(?,?,?,?)";
-				
-				pstmt=con.prepareStatement(sql);
-				
-				pstmt.setInt(1, count);
-				
-				pstmt.setString(2,dto1.getImage_loc());
-				
-				pstmt.setString(3, dto1.getImage_temp());
-				
-				pstmt.setString(4, dto1.getDirector_image());
-				
-				result=pstmt.executeUpdate();                               
+				/*
+				 * sql="insert into image values(?,?,?,?)";
+				 * 
+				 * pstmt=con.prepareStatement(sql);
+				 * 
+				 * pstmt.setInt(1, count);
+				 * 
+				 * pstmt.setString(2,dto1.getImage_loc());
+				 * 
+				 * pstmt.setString(3, dto1.getImage_temp());
+				 * 
+				 * pstmt.setString(4, dto1.getDirector_image());
+				 * 
+				 * result=pstmt.executeUpdate();
+				 */                           
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -355,7 +357,7 @@ public class MovieDAO {
 			try {
 				openConn();
 				
-				sql = "select m.movie_num, m.movie_title, count(c.movie_coment) as coments from movie m, coment c where m.movie_num = c.movie_num group by m.movie_title, m.movie_num order by coments desc, m.movie_num";
+				sql = "select m.movie_num, m.movie_title, m.movie_date, m.movie_country, count(c.movie_coment) as coments from movie m, coment c where m.movie_num = c.movie_num group by m.movie_title, m.movie_date, m.movie_country, m.movie_num order by coments desc, m.movie_num";
 				
 				pstmt = con.prepareStatement(sql);
 				
@@ -366,6 +368,8 @@ public class MovieDAO {
 					
 					dto.setMovie_num(rs.getInt("movie_num"));
 					dto.setMovie_title(rs.getString("movie_title"));
+					dto.setMovie_date(rs.getString("movie_date"));
+					dto.setMovie_country(rs.getString("movie_country"));
 					
 					list.add(dto);
 				}
@@ -385,7 +389,7 @@ public class MovieDAO {
 			try {
 				openConn();
 				
-				sql = "select m.movie_num, m.movie_title, i.image_loc, avg(s.movie_star) avg from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num group by m.movie_num, m.movie_title, i.image_loc order by avg desc, m.movie_num";
+				sql = "select m.movie_num, m.movie_title, m.movie_date, m.movie_country, i.image_loc, avg(s.movie_star) avg from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num group by m.movie_num, m.movie_title, m.movie_date, m.movie_country, i.image_loc order by avg desc, m.movie_num";
 				
 				pstmt = con.prepareStatement(sql);
 				
@@ -396,6 +400,8 @@ public class MovieDAO {
 					
 					dto.setMovie_num(rs.getInt("movie_num"));
 					dto.setMovie_title(rs.getString("movie_title"));
+					dto.setMovie_date(rs.getString("movie_date"));
+					dto.setMovie_country(rs.getString("movie_country"));
 					
 					list.add(dto);
 				}
@@ -415,7 +421,7 @@ public class MovieDAO {
 			try {
 				openConn();
 				
-				sql = "select m.movie_num, m.movie_title, i.image_loc, sum(s.movie_heart) as heart from movie m, image i, star s where m.movie_num = s.movie_num and s.movie_num = i.movie_num group by m.movie_num, m.movie_title, i.image_loc order by heart desc, m.movie_num";
+				sql = "select m.movie_num, m.movie_title, m.movie_date, m.movie_country, i.image_loc, sum(s.movie_heart) as heart from movie m, image i, star s where m.movie_num = s.movie_num and s.movie_num = i.movie_num group by m.movie_num, m.movie_title, m.movie_date, m.movie_country, i.image_loc order by heart desc, m.movie_num";
 				
 				pstmt = con.prepareStatement(sql);
 				
@@ -424,8 +430,11 @@ public class MovieDAO {
 				while(rs.next()) {
 					MovieDTO dto = new MovieDTO();
 					
+					dto.setMovie_num(rs.getInt("movie_num"));
 					dto.setMovie_title(rs.getString("movie_title"));
-					
+					dto.setMovie_date(rs.getString("movie_date"));
+					dto.setMovie_country(rs.getString("movie_country"));
+
 					list.add(dto);
 				}
 			} catch (SQLException e) {
@@ -444,7 +453,7 @@ public class MovieDAO {
 			try {
 				openConn();
 				
-				sql = "select distinct m.movie_num, m.movie_title, i.image_loc, avg(s.movie_star) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num group by m.movie_title, i.image_loc, m.movie_num order by now desc";
+				sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, i.image_loc, avg(s.movie_star) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num group by m.movie_title, m.movie_date, m.movie_country, i.image_loc, m.movie_num order by now desc";
 				
 				pstmt = con.prepareStatement(sql);
 				
@@ -455,6 +464,8 @@ public class MovieDAO {
 					
 					dto.setMovie_num(rs.getInt("movie_num"));
 					dto.setMovie_title(rs.getString("movie_title"));
+					dto.setMovie_date(rs.getString("movie_date"));
+					dto.setMovie_country(rs.getString("movie_country"));
 					
 					list.add(dto);
 				}
@@ -500,10 +511,13 @@ public class MovieDAO {
 			return list;
 		}	// getMovieKeywordList() end
 		
-		public List<MovieDTO> getDirectorKeywordList(String keyword) {
+
+
+		// 키워드 : 영화 제목,감독 검색 메서드
+				public List<MovieDTO> getDirectorKeywordList(String keyword) {
 					
 					List<MovieDTO> list = new ArrayList<MovieDTO>();
-		
+
 					try {
 						openConn();
 						
@@ -512,16 +526,18 @@ public class MovieDAO {
 						pstmt = con.prepareStatement(sql);
 						
 						pstmt.setString(1, "%"+keyword+"%");
+						
 						rs = pstmt.executeQuery();
 						
 						while(rs.next()) {
+							
 							MovieDTO dto = new MovieDTO();
 							
 							dto.setMovie_num(rs.getInt("movie_num"));
 							dto.setMovie_title(rs.getString("movie_title"));
 							dto.setMovie_director(rs.getString("movie_director"));
 							dto.setMovie_country(rs.getString("movie_country"));
-							System.out.println(dto.getMovie_director());
+							
 							list.add(dto);
 						}
 					} catch (SQLException e) {
@@ -530,9 +546,9 @@ public class MovieDAO {
 						closeConn(rs, pstmt, con);
 					}
 					return list;
-		}	// getMovieKeywordList() end
+				}	// getMovieKeywordList() end
 
-
+		
 		// 메인 -> 영화 페이지 넘겨주는 메서드
 		public MovieDTO getMovie_info(int movie_num) {
 			MovieDTO dto = null;
@@ -619,7 +635,602 @@ public class MovieDAO {
 			return list;
 			
 		}
-
+		
+		// 장르 - 코멘트 TOP10
+		public List<MovieDTO> selectGenre_com(String genre) {
+			
+			List<MovieDTO> list = new ArrayList<MovieDTO>();
+			
+			if(genre.equals("액션")) {
+				try {
+					openConn();
+					
+					sql = "select m.movie_num, m.movie_title, m.movie_genre, m.movie_date, m.movie_country, count(c.movie_coment) as coments from movie m, coment c where m.movie_num = c.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, m.movie_num order by coments desc, m.movie_num";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, "액션");
+					
+					rs = pstmt.executeQuery();
+					
+					while(rs.next()) {
+						MovieDTO dto = new MovieDTO();
+						
+						dto.setMovie_num(rs.getInt("movie_num"));
+						dto.setMovie_title(rs.getString("movie_title"));
+						dto.setMovie_date(rs.getString("movie_date"));
+						dto.setMovie_genre(rs.getString("movie_genre"));
+						dto.setMovie_country(rs.getString("movie_country"));
+						
+						list.add(dto);					
+					}				
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+			}else if(genre.equals("범죄")) {
+				try {
+					openConn();
+					
+					sql = "select m.movie_num, m.movie_title, m.movie_genre, m.movie_date, m.movie_country, count(c.movie_coment) as coments from movie m, coment c where m.movie_num = c.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, m.movie_num order by coments desc, m.movie_num";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, genre);
+					
+					rs = pstmt.executeQuery();
+					
+					while(rs.next()) {
+						MovieDTO dto = new MovieDTO();
+						
+						dto.setMovie_num(rs.getInt("movie_num"));
+						dto.setMovie_title(rs.getString("movie_title"));
+						dto.setMovie_date(rs.getString("movie_date"));
+						dto.setMovie_genre(rs.getString("movie_genre"));
+						dto.setMovie_country(rs.getString("movie_country"));
+						
+						list.add(dto);					
+					}				
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+			}else if(genre.equals("로맨스")) {
+				try {
+					openConn();
+					
+					sql = "select m.movie_num, m.movie_title, m.movie_genre, m.movie_date, m.movie_country, count(c.movie_coment) as coments from movie m, coment c where m.movie_num = c.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, m.movie_num order by coments desc, m.movie_num";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, "로맨스");
+					
+					rs = pstmt.executeQuery();
+					
+					while(rs.next()) {
+						MovieDTO dto = new MovieDTO();
+						
+						dto.setMovie_num(rs.getInt("movie_num"));
+						dto.setMovie_title(rs.getString("movie_title"));
+						dto.setMovie_date(rs.getString("movie_date"));
+						dto.setMovie_genre(rs.getString("movie_genre"));
+						dto.setMovie_country(rs.getString("movie_country"));
+						
+						list.add(dto);					
+					}				
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+			}else if(genre.equals("다큐멘터리")) {
+				try {
+					openConn();
+					
+					sql = "select m.movie_num, m.movie_title, m.movie_genre, m.movie_date, m.movie_country, count(c.movie_coment) as coments from movie m, coment c where m.movie_num = c.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, m.movie_num order by coments desc, m.movie_num";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, "다큐멘터리");
+					
+					rs = pstmt.executeQuery();
+					
+					while(rs.next()) {
+						MovieDTO dto = new MovieDTO();
+						
+						dto.setMovie_num(rs.getInt("movie_num"));
+						dto.setMovie_title(rs.getString("movie_title"));
+						dto.setMovie_date(rs.getString("movie_date"));
+						dto.setMovie_genre(rs.getString("movie_genre"));
+						dto.setMovie_country(rs.getString("movie_country"));
+						
+						list.add(dto);					
+					}				
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+			}else if(genre.equals("코미디")) {
+				try {
+					openConn();
+					
+					sql = "select m.movie_num, m.movie_title, m.movie_genre, m.movie_date, m.movie_country, count(c.movie_coment) as coments from movie m, coment c where m.movie_num = c.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, m.movie_num order by coments desc, m.movie_num";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, "코미디");
+					
+					rs = pstmt.executeQuery();
+					
+					while(rs.next()) {
+						MovieDTO dto = new MovieDTO();
+						
+						dto.setMovie_num(rs.getInt("movie_num"));
+						dto.setMovie_title(rs.getString("movie_title"));
+						dto.setMovie_date(rs.getString("movie_date"));
+						dto.setMovie_genre(rs.getString("movie_genre"));
+						dto.setMovie_country(rs.getString("movie_country"));
+						
+						list.add(dto);					
+					}				
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+			}			
+			return list;
+		}
+		
+		// 장르 - 별점 TOP10 
+		public List<MovieDTO> selectGenre_star(String genre) {
+			
+			List<MovieDTO> list = new ArrayList<MovieDTO>();
+			
+			if(genre.equals("액션")) {
+				try {
+					openConn();
+					
+					sql = "select m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, avg(s.movie_star) avg from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc order by avg desc, m.movie_num";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, "액션");
+					
+					rs = pstmt.executeQuery();
+					
+					while(rs.next()) {
+						MovieDTO dto = new MovieDTO();
+						
+						dto.setMovie_num(rs.getInt("movie_num"));
+						dto.setMovie_title(rs.getString("movie_title"));
+						dto.setMovie_date(rs.getString("movie_date"));
+						dto.setMovie_genre(rs.getString("movie_genre"));
+						dto.setMovie_country(rs.getString("movie_country"));
+						
+						list.add(dto);					
+					}				
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+			}else if(genre.equals("범죄")) {
+				try {
+					openConn();
+					
+					sql = "select m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, avg(s.movie_star) avg from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc order by avg desc, m.movie_num";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, genre);
+					
+					rs = pstmt.executeQuery();
+					
+					while(rs.next()) {
+						MovieDTO dto = new MovieDTO();
+						
+						dto.setMovie_num(rs.getInt("movie_num"));
+						dto.setMovie_title(rs.getString("movie_title"));
+						dto.setMovie_date(rs.getString("movie_date"));
+						dto.setMovie_genre(rs.getString("movie_genre"));
+						dto.setMovie_country(rs.getString("movie_country"));
+						
+						list.add(dto);					
+					}				
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+			}else if(genre.equals("로맨스")) {
+				try {
+					openConn();
+					
+					sql = "select m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, avg(s.movie_star) avg from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc order by avg desc, m.movie_num";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, "로맨스");
+					
+					rs = pstmt.executeQuery();
+					
+					while(rs.next()) {
+						MovieDTO dto = new MovieDTO();
+						
+						dto.setMovie_num(rs.getInt("movie_num"));
+						dto.setMovie_title(rs.getString("movie_title"));
+						dto.setMovie_date(rs.getString("movie_date"));
+						dto.setMovie_genre(rs.getString("movie_genre"));
+						dto.setMovie_country(rs.getString("movie_country"));
+						
+						list.add(dto);					
+					}				
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+			}else if(genre.equals("다큐멘터리")) {
+				try {
+					openConn();
+					
+					sql = "select m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, avg(s.movie_star) avg from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc order by avg desc, m.movie_num";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, "다큐멘터리");
+					
+					rs = pstmt.executeQuery();
+					
+					while(rs.next()) {
+						MovieDTO dto = new MovieDTO();
+						
+						dto.setMovie_num(rs.getInt("movie_num"));
+						dto.setMovie_title(rs.getString("movie_title"));
+						dto.setMovie_date(rs.getString("movie_date"));
+						dto.setMovie_genre(rs.getString("movie_genre"));
+						dto.setMovie_country(rs.getString("movie_country"));
+						
+						list.add(dto);					
+					}				
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+			}else if(genre.equals("코미디")) {
+				try {
+					openConn();
+					
+					sql = "select m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, avg(s.movie_star) avg from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc order by avg desc, m.movie_num";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, "코미디");
+					
+					rs = pstmt.executeQuery();
+					
+					while(rs.next()) {
+						MovieDTO dto = new MovieDTO();
+						
+						dto.setMovie_num(rs.getInt("movie_num"));
+						dto.setMovie_title(rs.getString("movie_title"));
+						dto.setMovie_date(rs.getString("movie_date"));
+						dto.setMovie_genre(rs.getString("movie_genre"));
+						dto.setMovie_country(rs.getString("movie_country"));
+						
+						list.add(dto);					
+					}				
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+			}
+			return list;
+		}
+		
+		// 장르 - 보관함 TOP10
+		public List<MovieDTO> selectGenre_heart(String genre) {
+			List<MovieDTO> list = new ArrayList<MovieDTO>();
+			
+			if(genre.equals("액션")) {
+				try {
+					openConn();
+					
+					sql = "select m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, sum(s.movie_heart) as heart from movie m, image i, star s where m.movie_num = s.movie_num and s.movie_num = i.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc order by heart desc, m.movie_num";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, "액션");
+					
+					rs = pstmt.executeQuery();
+					
+					while(rs.next()) {
+						MovieDTO dto = new MovieDTO();
+						
+						dto.setMovie_num(rs.getInt("movie_num"));
+						dto.setMovie_title(rs.getString("movie_title"));
+						dto.setMovie_date(rs.getString("movie_date"));
+						dto.setMovie_genre(rs.getString("movie_genre"));
+						dto.setMovie_country(rs.getString("movie_country"));
+						
+						list.add(dto);					
+					}				
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+			}else if(genre.equals("범죄")) {
+				try {
+					openConn();
+					
+					sql = "select m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, sum(s.movie_heart) as heart from movie m, image i, star s where m.movie_num = s.movie_num and s.movie_num = i.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc order by heart desc, m.movie_num";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, genre);
+					
+					rs = pstmt.executeQuery();
+					
+					while(rs.next()) {
+						MovieDTO dto = new MovieDTO();
+						
+						dto.setMovie_num(rs.getInt("movie_num"));
+						dto.setMovie_title(rs.getString("movie_title"));
+						dto.setMovie_date(rs.getString("movie_date"));
+						dto.setMovie_genre(rs.getString("movie_genre"));
+						dto.setMovie_country(rs.getString("movie_country"));
+						
+						list.add(dto);					
+					}				
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+			}else if(genre.equals("로맨스")) {
+				try {
+					openConn();
+					
+					sql = "select m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, sum(s.movie_heart) as heart from movie m, image i, star s where m.movie_num = s.movie_num and s.movie_num = i.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc order by heart desc, m.movie_num";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, "로맨스");
+					
+					rs = pstmt.executeQuery();
+					
+					while(rs.next()) {
+						MovieDTO dto = new MovieDTO();
+						
+						dto.setMovie_num(rs.getInt("movie_num"));
+						dto.setMovie_title(rs.getString("movie_title"));
+						dto.setMovie_date(rs.getString("movie_date"));
+						dto.setMovie_genre(rs.getString("movie_genre"));
+						dto.setMovie_country(rs.getString("movie_country"));
+						
+						list.add(dto);					
+					}				
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+			}else if(genre.equals("다큐멘터리")) {
+				try {
+					openConn();
+					
+					sql = "select m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, sum(s.movie_heart) as heart from movie m, image i, star s where m.movie_num = s.movie_num and s.movie_num = i.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc order by heart desc, m.movie_num";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, "다큐멘터리");
+					
+					rs = pstmt.executeQuery();
+					
+					while(rs.next()) {
+						MovieDTO dto = new MovieDTO();
+						
+						dto.setMovie_num(rs.getInt("movie_num"));
+						dto.setMovie_title(rs.getString("movie_title"));
+						dto.setMovie_date(rs.getString("movie_date"));
+						dto.setMovie_genre(rs.getString("movie_genre"));
+						dto.setMovie_country(rs.getString("movie_country"));
+						
+						list.add(dto);					
+					}				
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+			}else if(genre.equals("코미디")) {
+				try {
+					openConn();
+					
+					sql = "select m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, sum(s.movie_heart) as heart from movie m, image i, star s where m.movie_num = s.movie_num and s.movie_num = i.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc order by heart desc, m.movie_num";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, "코미디");
+					
+					rs = pstmt.executeQuery();
+					
+					while(rs.next()) {
+						MovieDTO dto = new MovieDTO();
+						
+						dto.setMovie_num(rs.getInt("movie_num"));
+						dto.setMovie_title(rs.getString("movie_title"));
+						dto.setMovie_date(rs.getString("movie_date"));
+						dto.setMovie_genre(rs.getString("movie_genre"));
+						dto.setMovie_country(rs.getString("movie_country"));
+						
+						list.add(dto);					
+					}				
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+			}
+			return list;
+		}
+		
+		// 장르 - 실시간 TOP10
+		public List<MovieDTO> selectGenre_now(String genre) {
+			
+			List<MovieDTO> list = new ArrayList<MovieDTO>();
+			
+			if(genre.equals("액션")) {
+				try {
+					openConn();
+					
+					sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, m.movie_genre, i.image_loc, avg(s.movie_star) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, m.movie_num order by now desc";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, "액션");
+					
+					rs = pstmt.executeQuery();
+					
+					while(rs.next()) {
+						MovieDTO dto = new MovieDTO();
+						
+						dto.setMovie_num(rs.getInt("movie_num"));
+						dto.setMovie_title(rs.getString("movie_title"));
+						dto.setMovie_date(rs.getString("movie_date"));
+						dto.setMovie_genre(rs.getString("movie_genre"));
+						dto.setMovie_country(rs.getString("movie_country"));
+						
+						list.add(dto);					
+					}				
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+			}else if(genre.equals("범죄")) {
+				try {
+					openConn();
+					
+					sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, m.movie_genre, i.image_loc, avg(s.movie_star) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, m.movie_num order by now desc";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, genre);
+					
+					rs = pstmt.executeQuery();
+					
+					while(rs.next()) {
+						MovieDTO dto = new MovieDTO();
+						
+						dto.setMovie_num(rs.getInt("movie_num"));
+						dto.setMovie_title(rs.getString("movie_title"));
+						dto.setMovie_date(rs.getString("movie_date"));
+						dto.setMovie_genre(rs.getString("movie_genre"));
+						dto.setMovie_country(rs.getString("movie_country"));
+						
+						list.add(dto);					
+					}				
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+			}else if(genre.equals("로맨스")) {
+				try {
+					openConn();
+					
+					sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, m.movie_genre, i.image_loc, avg(s.movie_star) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, m.movie_num order by now desc";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, "로맨스");
+					
+					rs = pstmt.executeQuery();
+					
+					while(rs.next()) {
+						MovieDTO dto = new MovieDTO();
+						
+						dto.setMovie_num(rs.getInt("movie_num"));
+						dto.setMovie_title(rs.getString("movie_title"));
+						dto.setMovie_date(rs.getString("movie_date"));
+						dto.setMovie_genre(rs.getString("movie_genre"));
+						dto.setMovie_country(rs.getString("movie_country"));
+						
+						list.add(dto);					
+					}				
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+			}else if(genre.equals("로맨스")) {
+				try {
+					openConn();
+					
+					sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, m.movie_genre, i.image_loc, avg(s.movie_star) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, m.movie_num order by now desc";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, "다큐멘터리");
+					
+					rs = pstmt.executeQuery();
+					
+					while(rs.next()) {
+						MovieDTO dto = new MovieDTO();
+						
+						dto.setMovie_num(rs.getInt("movie_num"));
+						dto.setMovie_title(rs.getString("movie_title"));
+						dto.setMovie_date(rs.getString("movie_date"));
+						dto.setMovie_genre(rs.getString("movie_genre"));
+						dto.setMovie_country(rs.getString("movie_country"));
+						
+						list.add(dto);					
+					}				
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+			}else if(genre.equals("코미디")) {
+				try {
+					openConn();
+					
+					sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, m.movie_genre, i.image_loc, avg(s.movie_star) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, m.movie_num order by now desc";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, "코미디");
+					
+					rs = pstmt.executeQuery();
+					
+					while(rs.next()) {
+						MovieDTO dto = new MovieDTO();
+						
+						dto.setMovie_num(rs.getInt("movie_num"));
+						dto.setMovie_title(rs.getString("movie_title"));
+						dto.setMovie_date(rs.getString("movie_date"));
+						dto.setMovie_genre(rs.getString("movie_genre"));
+						dto.setMovie_country(rs.getString("movie_country"));
+						
+						list.add(dto);					
+					}				
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+			}
+			return list;
+		}
+		
 
 		public List<MovieImageDTO> getMovie_genre(String movie_genre) {
 			

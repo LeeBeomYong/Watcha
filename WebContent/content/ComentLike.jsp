@@ -13,6 +13,9 @@
     	
     	ComentDAO coment_dao = ComentDAO.getInstance();
     	
-    	coment_dao.likeComent(movie_num,coment_num,member_Id);
+    	int chk = coment_dao.likeComent(movie_num,coment_num,member_Id);
+    			  
+    	// 1이면 -1이고 0이면 +1이고 
+    	out.print(chk);
     	
     %>

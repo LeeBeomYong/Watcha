@@ -64,7 +64,7 @@ public class FreeWriteDAO {
 			// 2단계 : lookup() 메서드를 이용하여 매칭되는
 			//        커넥션을 찾는다.
 			DataSource ds =
-				(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
+				(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
 			
 			// 3단계 : DataSource 객체를 이용하여
 			//        커넥션을 하나 가져온다.
@@ -223,7 +223,7 @@ public class FreeWriteDAO {
 				
 				dto.setFree_num(rs.getInt("free_num"));
 				dto.setFree_title(rs.getString("free_title"));
-				dto.setFree_cont(rs.getString("free_cont").replace("\r\n","<br>"));
+				dto.setFree_cont(rs.getString("free_cont"));
 				dto.setFree_hit(rs.getInt("free_hit"));
 				dto.setFree_date(rs.getString("free_date"));
 				dto.setFree_file(rs.getString("free_file"));
@@ -237,7 +237,6 @@ public class FreeWriteDAO {
 			e.printStackTrace();
 		}finally {
 			closeConn(rs, pstmt, con);
-			
 		}
 		return dto;
 		
@@ -377,6 +376,7 @@ public class FreeWriteDAO {
 		
 	}
 	
+
 	
 	// 글번호에 해당하는 댓글 리스트를 조회하는 메서드.--------------------------------
 	// 답변글을 tbl_reply 테이블에 저장하는 메서드.
@@ -459,54 +459,8 @@ public class FreeWriteDAO {
 		}
 		return result;
 		
-	} // getReplyList() 메서드 end
+	} // getReplyList() 메서드 end	
 
-
-	public int deleteReplyList(int no) {
-		
-		int result = 0;
-		
-		openConn();
-		
-		try {			
-			sql = "delete from free_reply where r_free_num = ?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, no);
-			result = pstmt.executeUpdate();
-
-			sql = "update free_reply set r_free_num = r_free_num - 1 where r_free_num > ?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, no);
-			pstmt.executeUpdate();
-		
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			closeConn(rs, pstmt, con);
-		}
-		return result;
-
-	}
-	
-	public void deleteReplyCount(int no) {
-		
-		openConn();
-		
-		try {
-			sql = "update free_write set free_reply_num = free_reply_num - 1 where free_num = ?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, no);
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			closeConn(rs, pstmt, con);
-		}
-		
-		
-	}
 	
 // ------------------------------------------------------------------------------------
 	// 검색 시작.
@@ -757,7 +711,4 @@ public class FreeWriteDAO {
 		return list;
 	
 	} // seacrhListBoard() 메서드 end		
-	
-	
-	
 }

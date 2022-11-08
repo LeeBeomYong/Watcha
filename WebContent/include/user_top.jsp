@@ -693,7 +693,7 @@
                 게시판
               </a>
               <ul class="dropdown-menu">
-                <li><a id="menu" class="dropdown-item" href="<%=request.getContextPath() %>/free_main.do">자유게시판</a></li>
+                <li><a id="menu" class="dropdown-item" href="<%=request.getContextPath() %>/#">자유게시판</a></li>
                     <li><hr class="dropdown-divider"></li>
 
                <%-- 로그인 됨.--%>

@@ -19,6 +19,7 @@ public class W_WriteDeleteAction implements Action {
 		WriteDAO dao = WriteDAO.getInstance();
 		
 		int w_num = Integer.parseInt(request.getParameter("num").trim());
+		String id = request.getParameter("id").trim();
 		
 		W_WriteDTO dto = dao.w_writeContent(w_num);
 		
@@ -30,7 +31,7 @@ public class W_WriteDeleteAction implements Action {
 		
 		if(res > 0) {
 			forward.setRedirect(true);
-			forward.setPath("write_result.do");
+			forward.setPath("write_result.do?id="+id);
 		}else {
 			out.println("<script>");
 			out.println("alert('실패')");

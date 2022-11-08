@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Q&A / 1:1문의 작성 및 목록 페이지</title>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/write/write_css/inquiry_css.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/write/write_css/inquiry_css.css" type="text/css">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.easing/1.3/jquery.easing.1.3.js"></script>
 <script type="text/javascript">
@@ -60,8 +60,7 @@
 	  </ul>
 	  <%-- 탭 1 버전!!! --%>
 	  <div id="tab1" class="tab-content current">
-		<p>📢 본 게시판은 문의 게시판입니다.<br><br>
-		* 궁금하신 내용이나 불편한 점을 자유롭게 문의해 주세요.<br>
+		<p>* 궁금하신 내용이나 불편한 점을 자유롭게 문의해 주세요.<br>
 		* 욕설이나 비난글은 자제해주세요.</p>
 	 	<br>
 		
@@ -88,12 +87,11 @@
 		<table class="table table-hover">
 			<thead style="background-color: #DADADA;">
 			<tr class="tt">
-				<th style="text-align: center;">번호</th>
+				<th class="no">번호</th>
 				<th class="wrt">작성자</th>
 				<th class="tit">문의제목</th>
-				<th style="text-align: center;">작성일자</th>
-				<th style="text-align: center;">조회수</th>
-				<th style="text-align: center;">상태</th>
+				<th class="date">작성일자</th>
+				<th class="hit">조회수</th>
 			</tr>		
 			</thead>
 			
@@ -101,12 +99,11 @@
 			<c:set var="list_1" value="${List_1 }" />
 				<c:forEach items="${list_1 }" var="dto_1">
 				<tr class="tt" style="background-color: #F0EFEF;" onclick="location.href='<%=request.getContextPath() %>/notice_content.do?no=${dto_1.getNotice_num() }'">
-					<td style="text-align: center; width: 150px;"><img src="https://cdn-icons-png.flaticon.com/512/667/667974.png" style="width: 18px; height: 18px;"><b>공지</b><img src="https://cdn-icons-png.flaticon.com/512/667/667974.png" style="width: 18px; height: 18px;"></td>
+					<td class="no"><img src="https://cdn-icons-png.flaticon.com/512/667/667974.png" style="width: 19px; height: 19px;"><b>공지</b><img src="https://cdn-icons-png.flaticon.com/512/667/667974.png" style="width: 19px; height: 19px;"></td>
 					<td class="wrt"><b>관리자</b></td>
 					<td><a class="admin_tit">${dto_1.getNotice_title() }</a></td>
-					<td class="date" style="width:110px;">${dto_1.getNotice_date() }</td>
-					<td class="hit" style="width:100px;"><b>${dto_1.getNotice_hit() }</b></td>
-					<td style="width:100px;"></td>
+					<td class="date">${dto_1.getNotice_date() }</td>
+					<td class="hit"><b>${dto_1.getNotice_hit() }</b></td>
 				</tr>
 				</c:forEach>
 				
@@ -115,42 +112,31 @@
 				<c:forEach items="${list }" var="dto">
 					<c:if test="${'admin' eq session_id }">
 					<tr class="tt" onclick="location.href='<%=request.getContextPath() %>/write_content.do?num=${dto.getWrite_num() }'">	<%-- 이부분 블럭 자체를 클릭하였을때 글 전체를 제대로 볼 수 있음. --%>
-							<td style="text-align: center;"> ${dto.getWrite_num() } </td>
+							<td class="no"> ${dto.getWrite_num() } </td>
 							<td class="wrt"> ${dto.getMember_id() } </td>
 							<td> 
 								${dto.getWrite_title() } 
 								<c:if test="${dto.getWrite_radio() eq 1}">
 									🔒︎
-								</c:if>						
-								
-							</td>
-							<td style="text-align: center;"> ${dto.getWrite_date().substring(0,10) } </td>
-							<td style="text-align: center;"> ${dto.getWrite_hit() } </td>
-							<td style="text-align: center;">
-								<c:if test="${dto.getWrite_reply() eq 1 }">
-									<span style="font-size: 13px;">답변완료</span>
 								</c:if>
 							</td>
+							<td class="date"> ${dto.getWrite_date().substring(0, 16) } </td>
+							<td class="hit"> ${dto.getWrite_hit() } </td>
 						</tr>													
 					</c:if>
 					<%-- 게시물이 비공개인데 본인회원이랑 관리자가 아닌 경우 --%>
 					<c:if test="${dto.getWrite_radio() eq 1 && session_id ne dto.getMember_id() && 'admin' ne session_id }">
 						<tr class="tt" onclick="alert('관리자, 작성자 외 열람 불가능'); return false;">
-							<td style="text-align: center;"> ${dto.getWrite_num() } </td>
+							<td class="no"> ${dto.getWrite_num() } </td>
 							<td class="wrt"> ${dto.getMember_id() } </td>
 							<td> 
 								${dto.getWrite_title() } 
 								<c:if test="${dto.getWrite_radio() eq 1}">
 									🔒︎
-								</c:if>							
-							</td>
-							<td class="date"> ${dto.getWrite_date().substring(0,10) } </td>
-							<td class="hit"> ${dto.getWrite_hit() } </td>
-							<td style="text-align: center;">
-								<c:if test="${dto.getWrite_reply() eq 1 }">
-									<span style="font-size: 13px;">답변완료</span>
 								</c:if>
 							</td>
+							<td class="date"> ${dto.getWrite_date().substring(0, 16) } </td>
+							<td class="hit"> ${dto.getWrite_hit() } </td>
 						</tr>			
 					</c:if>
 					
@@ -158,21 +144,16 @@
 					<%-- 게시물이 비공개이면서 회원인 경우 --%>
 					<c:if test="${dto.getWrite_radio() eq 1 && session_id eq dto.getMember_id() }">
 					<tr class="tt" onclick="location.href='<%=request.getContextPath() %>/write_content.do?num=${dto.getWrite_num() }'">	<%-- 이부분 블럭 자체를 클릭하였을때 글 전체를 제대로 볼 수 있음. --%>
-							<td style="text-align: center;"> ${dto.getWrite_num() } </td>
+							<td class="no"> ${dto.getWrite_num() } </td>
 							<td class="wrt"> ${dto.getMember_id() } </td>
 							<td> 
 								${dto.getWrite_title() } 
 								<c:if test="${dto.getWrite_radio() eq 1}">
 									🔒︎
-								</c:if>							
-							</td>
-							<td class="date"> ${dto.getWrite_date().substring(0,10) } </td>
-							<td class="hit"> ${dto.getWrite_hit() } </td>
-							<td style="text-align: center;">
-								<c:if test="${dto.getWrite_reply() eq 1 }">
-									<span style="font-size: 13px;">답변완료</span>
 								</c:if>
 							</td>
+							<td class="date"> ${dto.getWrite_date().substring(0, 16) } </td>
+							<td class="hit"> ${dto.getWrite_hit() } </td>
 						</tr>					
 					</c:if>			
 					
@@ -180,21 +161,16 @@
 					<%-- 게시물이 비공개가 아닌 경우 --%>
 					<c:if test="${dto.getWrite_radio() eq 0 && 'admin' ne session_id }">
 					<tr class="tt" onclick="location.href='<%=request.getContextPath() %>/write_content.do?num=${dto.getWrite_num() }'">	<%-- 이부분 블럭 자체를 클릭하였을때 글 전체를 제대로 볼 수 있음. --%>
-						<td style="text-align: center;"> ${dto.getWrite_num() } </td>
+						<td class="no"> ${dto.getWrite_num() } </td>
 						<td class="wrt"> ${dto.getMember_id() } </td>
 						<td> 
 							${dto.getWrite_title() } 
 							<c:if test="${dto.getWrite_radio() eq 1}">
 								🔒︎
-							</c:if>						
-						</td>
-						<td class="date"> ${dto.getWrite_date().substring(0,10) } </td>
-						<td class="hit"> ${dto.getWrite_hit() } </td>
-						<td style="text-align: center;">
-							<c:if test="${dto.getWrite_reply() eq 1 }">
-								<span style="font-size: 13px;">답변완료</span>
 							</c:if>
 						</td>
+						<td class="date"> ${dto.getWrite_date().substring(0, 16) } </td>
+						<td class="hit"> ${dto.getWrite_hit() } </td>
 					</tr>
 					</c:if>
 				</c:forEach>

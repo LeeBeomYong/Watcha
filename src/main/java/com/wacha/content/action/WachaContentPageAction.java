@@ -47,12 +47,12 @@ public class WachaContentPageAction implements Action {
 		int count = star_dao.getMovieStarcount(movie_num);
 		int coment_count=clist.size();
 		int rank = star_dao.avgStarRank(movie_num);
-		
+		int star_count = star_dao.gestarcount();
 		// 해당 이미지 출력
 		ImageDAO image_dao = ImageDAO.getInstance();
 		ImageDTO img_dto = image_dao.getMovie(movie_num);
 		String[] images = image_dao.getMovieImage(movie_num).split(",");
-		
+		String hi ="hi,hello,nice";
 		
 		
 		HttpSession session = request.getSession();
@@ -82,6 +82,8 @@ public class WachaContentPageAction implements Action {
 		request.setAttribute("images", images);
 		request.setAttribute("img_dto", img_dto);
 		request.setAttribute("rank", rank);
+		request.setAttribute("star_count", star_count);
+		request.setAttribute("hi", hi);
 		
 		ActionForward forward = new ActionForward();
 		

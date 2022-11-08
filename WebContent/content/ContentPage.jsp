@@ -154,7 +154,7 @@ $(function() {
 
 				}
 			}else{
-				alert("로그인 부터 ㅠㅠ");
+				alert("로그인 후 이용해 주시기 바랍니다.");
 				if(star_chk==0){
 					$("label").css({"text-shadow":"0 0 0 #f0f0f0" , "color":"transparent"});
 					$("label").hover(function(){
@@ -209,7 +209,7 @@ $(function() {
 					}				
 			});
 			}else{
-				alert("로그인 부터 ㅠㅠ");
+				alert("로그인 후 이용해 주시기 바랍니다.");
 			}
 			
 		});
@@ -263,7 +263,7 @@ $(function() {
 			}
 				
 			}else{
-				alert("로그인 부터 ㅠㅠ");
+				alert(" 로그인 후 이용해 주시기 바랍니다.");
 			}
 			
 		});	
@@ -276,7 +276,7 @@ $(function() {
 				$(".modal_body2").css("display","block");
 		    	$(".modal2").css("display","block");
 			}else{
-				alert("로그인 부터 ㅠㅠ");
+				alert("로그인 후 이용해 주시기 바랍니다.");
 			}
 	    	
 	    });
@@ -307,7 +307,7 @@ $(function() {
 		    //등록된 url 및 window 속성 기준으로 팝업창을 연다.
 		    window.open(url, "hello popup", windowStatus);
 		}else{
-			alert("로그인 부터 ㅠㅠ");
+			alert("로그인 후 이용해 주시기 바랍니다.");
 		}
 	}
 	
@@ -464,7 +464,7 @@ $(function() {
 		<div id="cd_data">
 			<div id="cd_cont1">
 				<h4>기본정보</h4>
-				<a href="<%=request.getContextPath()%>/wacha_contentInfo.do?movie_num=1${dto.movie_num}" class="moreCont">더보기</a>
+				<a href="<%=request.getContextPath()%>/wacha_contentInfo.do?movie_num=${mDto.getMovie_num()}" class="moreCont">더보기</a>
 			</div>
 			
 			<div id="cd_cont2">
@@ -552,7 +552,7 @@ $(function() {
 			 			<h4>코멘트 <span>${coment_count }+</span></h4>
 			 		</div>
 			 		
-			 		<a href="<%=request.getContextPath()%>/wacha_comentList.do?movie_num=1" class="moreCont">더보기</a> 
+			 		<a href="<%=request.getContextPath()%>/wacha_comentList.do?movie_num=${mDto.getMovie_num()}" class="moreCont">더보기</a> 
 			 	</div>
 		<%-- 코멘트 리스트 영역 --%> 	
            <%--게시글 상단 --%>
@@ -732,8 +732,12 @@ $(function() {
                    <br/>
               
               </div>
+              <div id="mapdiv">
+              	<div align="center"><b>주변 영화관 위치</b></div>
+              	<div id="map" style="width:300px;height:300px;"></div>
+              </div>
+ 
               
-              <div id="map" style="width:300px;height:300px;"></div>
 				<script>
 				
 				var MARKER_ICON_URL = './img/sp_pins_spot_v3.png';
@@ -829,7 +833,7 @@ $(function() {
 					    lngSpan = northEast.lng() - southWest.lng(),
 					    latSpan = northEast.lat() - southWest.lat();
 					
-					var markers = [];
+					var markers = [], infoWindows = [];
 					
 					for (var key in MARKER_SPRITE_POSITION) {
 					
@@ -849,9 +853,16 @@ $(function() {
 					            origin: new naver.maps.Point(MARKER_SPRITE_POSITION[key][0], MARKER_SPRITE_POSITION[key][1])
 					        },
 					        zIndex: 100
+					        
+					        
 					    });
-					
+					    
+					    var infoWindow = new naver.maps.InfoWindow({
+					        content: '<div style="width:150px;text-align:center;padding:10px;">The Letter is <b>"'+ key.substr(0, 1) +'"</b>.</div>'
+					    });
+
 					    markers.push(marker);
+					    infoWindows.push(infoWindow);
 					};
 					
 					naver.maps.Event.addListener(map, 'zoom_changed', function() {
@@ -891,6 +902,20 @@ $(function() {
 					
 					    if (!marker.setMap()) return;
 					    marker.setMap(null);
+					}
+					
+					// 해당 마커의 인덱스를 seq라는 클로저 변수로 저장하는 이벤트 핸들러를 반환합니다.
+					function getClickHandler(seq) {
+					    return function(e) {
+					        var marker = markers[seq],
+					            infoWindow = infoWindows[seq];
+
+					        if (infoWindow.getMap()) {
+					            infoWindow.close();
+					        } else {
+					            infoWindow.open(map, marker);
+					        }
+					    }
 					}
 				}
 				

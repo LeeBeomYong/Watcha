@@ -652,4 +652,31 @@ public class FreeWriteDAO {
 	
 	} // seacrhListBoard() 메서드 end		
 	
+	public int freeDelete(int num) {
+
+        int result = 0;
+
+        openConn();
+
+        try {
+            sql = "delete from free_write where free_num = ?";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, num);
+            result = pstmt.executeUpdate();
+
+            sql = "update free_write set free_num = free_num - 1 where free_num > ?";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, num);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally {
+            closeConn(rs, pstmt, con);
+        }
+        return result;
+
+    }
+	
 }

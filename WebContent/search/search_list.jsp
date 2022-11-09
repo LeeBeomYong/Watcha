@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>영화 리뷰 플랫폼</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
@@ -13,6 +13,7 @@
 	#wrapper {
 		margin: auto;
 		width: 85%;
+		background-color: #fff;
 	}
 
 	#searched {
@@ -22,6 +23,10 @@
 		padding-left: 30px;
 		padding-top: 7px;
 		color: rgba(100, 100, 100, 1);
+	}
+	
+	section {
+		background-color: #fff;
 	}
 	
 	input[type="radio"] {
@@ -47,7 +52,7 @@
 	}
 	
 	input[type="radio"]:checked + .tab_label  {
-		color: #000;
+		
 		font-weight: bold;
 		border-bottom: 2px solid rgb(41, 42, 50);
 	}
@@ -101,7 +106,7 @@
 	
 	li a {
 		text-decoration: none;
-		color: black;
+		color: #000;
 	}
 	
 	.ex_box_1 {
@@ -123,10 +128,16 @@
 		list-style-position: inside;
 	}
 	
+	.cols {
+		width: 80%;
+		margin: auto;
+		padding-left: 10%;
+	}
+	
 	.poster {
 		border-radius: 5px;
-		width: 200px;
-		height: 300px;
+		width: 150px;
+		height: 220px;
 	}
 	
 	.director {
@@ -154,7 +165,9 @@
 	
 	.row.row-cols-3 {
 		list-style-type: none;
-		margin: 5px 0;
+		margin: auto;
+		width: 75%;
+		padding-bottom: 3%;
 	}
 	
 	.col {
@@ -178,6 +191,7 @@
 		height: 70vh;
 		text-align: center;
 		vertical-align: middle;
+		background-color: #fff;
 	}
 	
 	.non {
@@ -223,22 +237,22 @@
 			<%-- 콘텐츠 탭 : 영화 포스터, 영화 제목, 나라 --%>
 			<section id="content1">
 				
-				<c:if test="${!empty mList }">
+				<c:if test="${!empty mlist }">
 				
-					<ul class="row row-cols-4">
+					<ul class="row row-cols-3">
 					
-						<c:forEach items="${iList }" var="list" varStatus="status">
+						<c:forEach items="${ilist }" var="list" varStatus="status">
 							<li class="res">
-								<a class="link" href="<%=request.getContextPath()%>/more_info.do?num=${mList[status.index].movie_num}">
-									<div>	
+								<a class="link" href="<%=request.getContextPath()%>/more_info.do?num=${mlist[status.index].movie_num}">
+									<div class="cols">	
 										<div>
 									    	<img class="poster" src="${list.image_loc }" alt="영화 포스터 이미지" />
 									    </div>
 									    <div class="ex_box_1">
-									    	${mList[status.index].movie_title}
+									    	${mlist[status.index].movie_title}
 									    </div>
 									    <div class="ex_box_2"> 
-									    	${mList[status.index ].movie_country}
+									    	${mlist[status.index ].movie_country}
 									    </div>
 								    </div>
 							    </a>
@@ -249,11 +263,11 @@
 					
 				</c:if>		
 				
-				<c:if test="${empty mList }">
+				<c:if test="${empty mlist }">
 					
 					<div class="nothing">
 						<br />
-						<img class="non" src="https://icon-library.com/images/null-icon/null-icon-3.jpg" alt="null" />
+						<img class="non" src="./image/null.png" alt="null" />
 						<br />
 						<p>해당하는 검색 결과가 없습니다. 다른 검색어를 입력해보세요.</p>
 					</div>
@@ -304,7 +318,7 @@
 
 					<div class="nothing">
 						<br />
-						<img class="non" src="https://icon-library.com/images/null-icon/null-icon-3.jpg" alt="null" />
+						<img class="non" src="./image/null.png" alt="null" />
 						<br />
 						<p>해당하는 검색 결과가 없습니다. 다른 검색어를 입력해보세요.</p>
 					</div>
@@ -315,11 +329,11 @@
 			<%-- 유저 탭 : 유저 이미지, 유저 이름 --%>
 			<section id="content3">
 			
-				<c:if test="${!empty uList }">
+				<c:if test="${!empty ulist }">
 					
 						<ul class="row row-cols-2">
 						
-							<c:forEach items="${uList }" var="list" >
+							<c:forEach items="${ulist }" var="list" >
 								<li class="res">
 									<div class="col">
 										
@@ -350,10 +364,10 @@
 					
 				</c:if>	
 				
-				<c:if test="${empty uList }">
+				<c:if test="${empty ulist }">
 					<div class="nothing">
 						<br />
-						<img class="non" src="https://icon-library.com/images/null-icon/null-icon-3.jpg" alt="null" />
+						<img class="non" src="./image/null.png" alt="null" />
 						<br />
 						<p>해당하는 검색 결과가 없습니다. 다른 검색어를 입력해보세요.</p>
 					</div>

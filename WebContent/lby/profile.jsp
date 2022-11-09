@@ -181,9 +181,7 @@
 				<div align="right">
 					<a id="a1" href="#" data-toggle="modal" data-target="#myModal"><img alt="★" src="${pageContext.request.contextPath }/image/profile/pngwing.com.png" width="30px" height="30px"></a>				
 				</div>
-				
-				
-				
+								
 			</div>
 			<div class="picture">
 				<c:if test="${!empty dto.getMember_image() }">

@@ -66,7 +66,7 @@ public class MovieDAO {
 				// 2단계 : lookup() 메서드를 이용하여 매칭되는
 				//        커넥션을 찾는다.
 				DataSource ds =
-					(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
+					(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
 				
 				// 3단계 : DataSource 객체를 이용하여
 				//        커넥션을 하나 가져온다.
@@ -483,7 +483,7 @@ public class MovieDAO {
 			try {
 				openConn();
 				
-				sql = "select movie_num, movie_title, movie_director, movie_country from movie where movie_title like ? order by movie_num";
+				sql = "select * from movie where movie_title like ? order by movie_num";
 				
 				pstmt = con.prepareStatement(sql);
 				
@@ -495,9 +495,17 @@ public class MovieDAO {
 					
 					dto.setMovie_num(rs.getInt("movie_num"));
 					dto.setMovie_title(rs.getString("movie_title"));
-					dto.setMovie_director(rs.getString("movie_director"));
+					dto.setMovie_cont(rs.getString("movie_cont"));
+					dto.setMovie_time(rs.getString("movie_time"));
+					dto.setMovie_date(rs.getString("movie_date"));
+					dto.setMovie_age(rs.getString("movie_age"));
+					dto.setMovie_genre(rs.getString("movie_genre"));
 					dto.setMovie_country(rs.getString("movie_country"));
-					System.out.println("영화 리스트 : "+dto.getMovie_title());
+					dto.setMovie_director(rs.getString("movie_director"));
+					dto.setMovie_video(rs.getString("movie_video"));
+					dto.setMovie_count(rs.getInt("movie_count"));
+					dto.setMovie_hit(rs.getInt("movie_hit"));
+					//System.out.println("영화 리스트 : "+dto.getMovie_title());
 					
 					list.add(dto);
 				}
@@ -509,38 +517,7 @@ public class MovieDAO {
 			return list;
 		}	// getMovieKeywordList() end
 		
-		public List<MovieDTO> getDirectorKeywordList(String keyword) {
-					
-					List<MovieDTO> list = new ArrayList<MovieDTO>();
 		
-					try {
-						openConn();
-						
-						sql = "select movie_num, movie_title, movie_director, movie_country from movie where movie_director like ? order by movie_num";
-						
-						pstmt = con.prepareStatement(sql);
-						
-						pstmt.setString(1, "%"+keyword+"%");
-						rs = pstmt.executeQuery();
-						
-						while(rs.next()) {
-							MovieDTO dto = new MovieDTO();
-							
-							dto.setMovie_num(rs.getInt("movie_num"));
-							dto.setMovie_title(rs.getString("movie_title"));
-							dto.setMovie_director(rs.getString("movie_director"));
-							dto.setMovie_country(rs.getString("movie_country"));
-							System.out.println(dto.getMovie_director());
-							list.add(dto);
-						}
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}finally {
-						closeConn(rs, pstmt, con);
-					}
-					return list;
-		}	// getMovieKeywordList() end
-
 
 		// 키워드 : 영화 제목,감독 검색 메서드
 				public List<MovieDTO> getDirectorKeywordList(String keyword) {
@@ -576,6 +553,38 @@ public class MovieDAO {
 					}
 					return list;
 				}	// getMovieKeywordList() end
+				
+		// 검색 - 감독 대표작 
+		public List<MovieDTO> getDirectorWork(String director) {
+			
+			List<MovieDTO> list = new ArrayList<MovieDTO>();
+			
+			try {
+				openConn();
+				
+				sql = "select movie_title from movie where movie_director = ?";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, director);
+				
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					
+					MovieDTO dto = new MovieDTO();
+					
+					dto.setMovie_title(rs.getString("movie_title"));
+					
+					list.add(dto);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
+			}
+			return list;
+		}
 
 		
 		// 메인 -> 영화 페이지 넘겨주는 메서드

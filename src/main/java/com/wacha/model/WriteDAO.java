@@ -63,7 +63,7 @@ public class WriteDAO {
 				// 2단계 : lookup() 메서드를 이용하여 매칭되는
 				//        커넥션을 찾는다.
 				DataSource ds =
-					(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
+					(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
 				
 				// 3단계 : DataSource 객체를 이용하여
 				//        커넥션을 하나 가져온다.
@@ -186,8 +186,8 @@ public class WriteDAO {
 					WriteDTO dto = new WriteDTO();
 					
 					dto.setWrite_num(rs.getInt("write_num"));
-					dto.setWrite_title(rs.getString("write_title"));
 					dto.setWrite_cont(rs.getString("write_cont"));
+					dto.setWrite_title(rs.getString("write_title"));
 					dto.setWrite_pwd(rs.getString("write_pwd"));
 					dto.setWrite_hit(rs.getInt("write_hit"));
 					dto.setWrite_date(rs.getString("write_date"));
@@ -345,7 +345,7 @@ public class WriteDAO {
 				pstmt = con.prepareStatement(sql);
 				
 				pstmt.setInt(1, count);
-				pstmt.setString(2, dto.getWrite_cont());	
+				pstmt.setString(2, dto.getWrite_cont());
 				pstmt.setString(3, dto.getWrite_title());
 				pstmt.setString(4, dto.getWrite_pwd());
 				pstmt.setString(5, dto.getWrite_radio());
@@ -478,38 +478,39 @@ public class WriteDAO {
 		//XD
 		
 		public WriteDTO userContentWrite(String id) {
-            WriteDTO dto = null;
+			WriteDTO dto = null;
+			
+			try {
+				openConn();
+				
+				sql="select * from write where member_id=?";
+								
+				pstmt=con.prepareStatement(sql);
+				
+				pstmt.setString(1, id);
+				
+				rs= pstmt.executeQuery();
+				
+				if(rs.next()) {
+					dto=new WriteDTO();
+					
+					dto.setWrite_num(rs.getInt("write_num"));
+					dto.setWrite_title(rs.getString("write_title"));
+					dto.setWrite_cont(rs.getString("write_cont"));
+					dto.setWrite_pwd(rs.getString("write_pwd"));
+					dto.setWrite_hit(rs.getInt("write_hit"));
+					dto.setWrite_date(rs.getString("write_date"));
+					dto.setMember_id(rs.getString("member_id"));
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+			}return dto;
+		}
 
-            try {
-                openConn();
-
-                sql="select * from write where member_id=?";
-
-                pstmt=con.prepareStatement(sql);
-
-                pstmt.setString(1, id);
-
-                rs= pstmt.executeQuery();
-
-                if(rs.next()) {
-                    dto=new WriteDTO();
-
-                    dto.setWrite_num(rs.getInt("write_num"));
-                    dto.setWrite_title(rs.getString("write_title"));
-                    dto.setWrite_cont(rs.getString("write_cont").replace("\r\n","<br>"));
-                    dto.setWrite_pwd(rs.getString("write_pwd"));
-                    dto.setWrite_hit(rs.getInt("write_hit"));
-                    dto.setWrite_date(rs.getString("write_date"));
-                    dto.setMember_id(rs.getString("member_id"));
-                }
-
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }finally {
-                closeConn(rs, pstmt, con);
-            }return dto;
-        }
 
 		// board 테이블의 전체 게시물의 수를 확인하는 메서드.
 		public int getWriteCount() {

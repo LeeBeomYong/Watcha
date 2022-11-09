@@ -64,7 +64,7 @@ public class FreeWriteDAO {
 			// 2단계 : lookup() 메서드를 이용하여 매칭되는
 			//        커넥션을 찾는다.
 			DataSource ds =
-				(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
+				(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
 			
 			// 3단계 : DataSource 객체를 이용하여
 			//        커넥션을 하나 가져온다.
@@ -204,81 +204,81 @@ public class FreeWriteDAO {
 		
 	} 
 
-	public FreeWriteDTO getFreeContent(int num) {	
+	public FreeWriteDTO getFreeContent(int num) {
 		
-		FreeWriteDTO dto = null;	
+		FreeWriteDTO dto = null;
+		
+		openConn();
+		
+		try {
 			
-		openConn();	
+			sql = "select * from free_write where free_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
 			
-		try {	
+			if(rs.next()) {
 				
-			sql = "select * from free_write where free_num = ?";	
-			pstmt = con.prepareStatement(sql);	
-			pstmt.setInt(1, num);	
-			rs = pstmt.executeQuery();	
+				dto = new FreeWriteDTO();
 				
-			if(rs.next()) {	
-					
-				dto = new FreeWriteDTO();	
-					
-				dto.setFree_num(rs.getInt("free_num"));	
-				dto.setFree_title(rs.getString("free_title"));	
-				dto.setFree_cont(rs.getString("free_cont").replace("\r\n","<br>"));	
-				dto.setFree_hit(rs.getInt("free_hit"));	
-				dto.setFree_date(rs.getString("free_date"));	
-				dto.setFree_file(rs.getString("free_file"));	
-				dto.setFree_radio(rs.getInt("free_radio"));	
-				dto.setFree_reply_num(rs.getInt("free_reply_num"));	
-				dto.setMember_id(rs.getString("member_id"));	
-					
-			}	
-		} catch (SQLException e) {	
-			// TODO Auto-generated catch block	
-			e.printStackTrace();	
-		}finally {	
-			closeConn(rs, pstmt, con);	
+				dto.setFree_num(rs.getInt("free_num"));
+				dto.setFree_title(rs.getString("free_title"));
+				dto.setFree_cont(rs.getString("free_cont").replace("\r\n","<br>"));
+				dto.setFree_hit(rs.getInt("free_hit"));
+				dto.setFree_date(rs.getString("free_date"));
+				dto.setFree_file(rs.getString("free_file"));
+				dto.setFree_radio(rs.getInt("free_radio"));
+				dto.setFree_reply_num(rs.getInt("free_reply_num"));
+				dto.setMember_id(rs.getString("member_id"));
 				
-		}	
-		return dto;	
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
 			
-	}	
-	public FreeWriteDTO getFreeContent1(int num) {	
+		}
+		return dto;
+		
+	}
+	public FreeWriteDTO getFreeContent1(int num) {
+		
+		FreeWriteDTO dto = null;
+		
+		openConn();
+		
+		try {
 			
-		FreeWriteDTO dto = null;	
+			sql = "select * from free_write where free_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
 			
-		openConn();	
-			
-		try {	
+			if(rs.next()) {
 				
-			sql = "select * from free_write where free_num = ?";	
-			pstmt = con.prepareStatement(sql);	
-			pstmt.setInt(1, num);	
-			rs = pstmt.executeQuery();	
+				dto = new FreeWriteDTO();
 				
-			if(rs.next()) {	
-					
-				dto = new FreeWriteDTO();	
-					
-				dto.setFree_num(rs.getInt("free_num"));	
-				dto.setFree_title(rs.getString("free_title"));	
-				dto.setFree_cont(rs.getString("free_cont").replace("<br>","\r\n"));	
-				dto.setFree_hit(rs.getInt("free_hit"));	
-				dto.setFree_date(rs.getString("free_date"));	
-				dto.setFree_file(rs.getString("free_file"));	
-				dto.setFree_radio(rs.getInt("free_radio"));	
-				dto.setFree_reply_num(rs.getInt("free_reply_num"));	
-				dto.setMember_id(rs.getString("member_id"));	
-					
-			}	
-		} catch (SQLException e) {	
-			// TODO Auto-generated catch block	
-			e.printStackTrace();	
-		}finally {	
-			closeConn(rs, pstmt, con);	
+				dto.setFree_num(rs.getInt("free_num"));
+				dto.setFree_title(rs.getString("free_title"));
+				dto.setFree_cont(rs.getString("free_cont").replace("<br>","\r\n"));
+				dto.setFree_hit(rs.getInt("free_hit"));
+				dto.setFree_date(rs.getString("free_date"));
+				dto.setFree_file(rs.getString("free_file"));
+				dto.setFree_radio(rs.getInt("free_radio"));
+				dto.setFree_reply_num(rs.getInt("free_reply_num"));
+				dto.setMember_id(rs.getString("member_id"));
 				
-		}	
-		return dto;	
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
 			
+		}
+		return dto;
+		
 	}
 	
 	
@@ -318,42 +318,42 @@ public class FreeWriteDAO {
 		}
 	}
 	
-	public int insertFreeUpload(FreeWriteDTO dto) {	
+	public int insertFreeUpload(FreeWriteDTO dto) {
 		
-		int result = 0, count = 0;	
+		int result = 0, count = 0;
+		
+		openConn();
+		
+		try {
+			sql = "select max(free_num) from free_write";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
 			
-		openConn();	
+			if(rs.next()) {
+				
+				count = rs.getInt(1)+1;
+			}
 			
-		try {	
-			sql = "select max(free_num) from free_write";	
-			pstmt = con.prepareStatement(sql);	
-			rs = pstmt.executeQuery();	
-				
-			if(rs.next()) {	
-					
-				count = rs.getInt(1)+1;	
-			}	
-				
-			sql = "insert into free_write values(?, ?, ?, 0, sysdate, ?, ?, 0, ?)";	
-			pstmt = con.prepareStatement(sql);	
-			pstmt.setInt(1, count);	
-			pstmt.setString(2, dto.getFree_title());	
-			pstmt.setString(3, dto.getFree_cont());	
-			pstmt.setString(4, dto.getFree_file());	
-			pstmt.setInt(5, dto.getFree_radio());	
-			pstmt.setString(6, dto.getMember_id());	
-				
-			result = pstmt.executeUpdate();	
-				
-		} catch (SQLException e) {	
-			// TODO Auto-generated catch block	
-			e.printStackTrace();	
-		}finally {	
-			closeConn(rs, pstmt, con);	
-		}	
-		return result;	
+			sql = "insert into free_write values(?, ?, ?, 0, sysdate, ?, ?, 0, ?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, count);
+			pstmt.setString(2, dto.getFree_title());
+			pstmt.setString(3, dto.getFree_cont());
+			pstmt.setString(4, dto.getFree_file());
+			pstmt.setInt(5, dto.getFree_radio());
+			pstmt.setString(6, dto.getMember_id());
 			
+			result = pstmt.executeUpdate();
 			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+		
+		
 	}
 	
 	
@@ -369,7 +369,7 @@ public class FreeWriteDAO {
 			pstmt.setInt(1, num);
 			result = pstmt.executeUpdate();
 			
-			sql = "insert into free_write values(?, ?, ?, 0, sysdate, ?, ?, 0, ?)";
+			sql = "update free_write set free_num = free_num - 1 where free_num > ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.executeUpdate();
@@ -384,36 +384,36 @@ public class FreeWriteDAO {
 		
 	}
 	
-	public int freeModify(FreeWriteDTO dto) {	
+	public int freeModify(FreeWriteDTO dto) {
 		
-		int result = 0;	
-			
-		openConn();	
-					
-		try {	
-			sql = "select * from free_write where free_num = ?";	
-			pstmt = con.prepareStatement(sql);	
-			pstmt.setInt(1, dto.getFree_num());	
-			rs = pstmt.executeQuery();	
+		int result = 0;
+		
+		openConn();
 				
-			sql = "update free_write set free_title = ?, free_cont = ? where free_num = ?";	
-			pstmt = con.prepareStatement(sql);	
-			pstmt.setString(1, dto.getFree_title());	
-			pstmt.setString(2, dto.getFree_cont());	
-			pstmt.setInt(3, dto.getFree_num());	
-				
-			result = pstmt.executeUpdate();	
+		try {
+			sql = "select * from free_write where free_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, dto.getFree_num());
+			rs = pstmt.executeQuery();
 			
-				
+			sql = "update free_write set free_title = ?, free_cont = ? where free_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getFree_title());
+			pstmt.setString(2, dto.getFree_cont());
+			pstmt.setInt(3, dto.getFree_num());
 			
-		} catch (SQLException e) {	
-			// TODO Auto-generated catch block	
-			e.printStackTrace();	
-		}finally {	
-			closeConn(rs, pstmt, con);	
-		}	
-		return result;	
+			result = pstmt.executeUpdate();
+		
 			
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+		
 	}
 	
 	
@@ -497,41 +497,43 @@ public class FreeWriteDAO {
 			closeConn(rs, pstmt, con);
 		}
 		return result;
+
 		
 	} // getReplyList() 메서드 end
 
-	public String getReplyNum(int no) {	
+	public String getReplyNum(int no) {
 		
-	String result = "";	
+		String result = "";
 		
-	openConn();	
+		openConn();
 		
-	try {	
-		sql = "select free_reply_num from free_write where free_num = ?";	
-		pstmt = con.prepareStatement(sql);	
-		pstmt.setInt(1, no);	
-		rs = pstmt.executeQuery();	
+		try {
+			sql = "select free_reply_num from free_write where free_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
 			
-		result += "<replys>";	
+			result += "<replys>";
 			
-		while(rs.next()) {	
+			while(rs.next()) {
 				
-			result += "<reply>";	
-			result += "<free_reply_num>" + rs.getInt("free_reply_num") + "</free_reply_num>";	
-			result += "</reply>";	
-		}	
+				result += "<reply>";
+				result += "<free_reply_num>" + rs.getInt("free_reply_num") + "</free_reply_num>";
+				result += "</reply>";
+			}
 			
-		result += "</replys>";	
+			result += "</replys>";
 			
-	} catch (SQLException e) {	
-		// TODO Auto-generated catch block	
-		e.printStackTrace();	
-	}finally {	
-		closeConn(rs, pstmt, con);	
-	}	
-	return result;	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
 		
-}
+	}
+	
 
 	public int deleteReplyList(int no) {
 		
@@ -660,225 +662,175 @@ public class FreeWriteDAO {
 
 	} // searchListCount() 메서드 end	
 	// board 테이블에서 검색한 내용을 가지고 페이징 처리를 하는 메서드.
-	public List<FreeWriteDTO> searchBoardList(String field, String keyword, int page, int rowsize){	
+	public List<FreeWriteDTO> searchBoardList(String field, String keyword, int page, int rowsize){
 		
-		List<FreeWriteDTO> list = new ArrayList<FreeWriteDTO>();	
-			
-		// 해당 페이지에서 시작 번호.	
-		int startNo = (page * rowsize) - (rowsize - 1);	
-			
-		// 해당 페이지에서 마지막 번호.	
-		int endNo = (page * rowsize);	
-			
-		openConn();	
-			
-		if(field.equals("title")) {	
-				
-			try {	
-				sql = "select * from (select row_number() over(order by free_num desc) rnum,"	
-						+ " b.* from free_write b where free_title like ?) where rnum >= ? and rnum <= ?";					
-					
-				pstmt = con.prepareStatement(sql);	
-					
-				pstmt.setString(1, "%"+keyword+"%");	
-				pstmt.setInt(2, startNo);	
-				pstmt.setInt(3, endNo);	
-					
-				rs = pstmt.executeQuery();	
-					
-				while(rs.next()) {	
-						
-					FreeWriteDTO dto = new FreeWriteDTO();	
-						
-					dto.setFree_num(rs.getInt("free_num"));	
-					dto.setFree_title(rs.getString("free_title"));	
-					dto.setFree_cont(rs.getString("free_cont"));	
-					dto.setFree_hit(rs.getInt("free_hit"));	
-					dto.setFree_date(rs.getString("free_date"));	
-					dto.setFree_file(rs.getString("free_file"));	
-					dto.setFree_radio(rs.getInt("free_radio"));	
-					dto.setFree_reply_num(rs.getInt("free_reply_num"));	
-					dto.setMember_id(rs.getString("member_id"));	
-						
-					list.add(dto);	
-				}	
-					
-			} catch (SQLException e) {	
-				// TODO Auto-generated catch block	
-				e.printStackTrace();	
-			}finally {	
-				closeConn(rs, pstmt, con);	
-			}	
-				
-		}else if(field.equals("cont")) {	
-				
-			try {	
-				sql = "select * from (select row_number() over(order by free_num desc) rnum,"	
-						+ " b.* from free_write b where free_cont like ?) where rnum >= ? and rnum <= ?";					
-					
-				pstmt = con.prepareStatement(sql);	
-					
-				pstmt.setString(1, "%"+keyword+"%");	
-				pstmt.setInt(2, startNo);	
-				pstmt.setInt(3, endNo);	
-					
-				rs = pstmt.executeQuery();	
-					
-				while(rs.next()) {	
-						
-					FreeWriteDTO dto = new FreeWriteDTO();	
-						
-					dto.setFree_num(rs.getInt("free_num"));	
-					dto.setFree_title(rs.getString("free_title"));	
-					dto.setFree_cont(rs.getString("free_cont"));	
-					dto.setFree_hit(rs.getInt("free_hit"));	
-					dto.setFree_date(rs.getString("free_date"));	
-					dto.setFree_file(rs.getString("free_file"));	
-					dto.setFree_radio(rs.getInt("free_radio"));	
-					dto.setFree_reply_num(rs.getInt("free_reply_num"));	
-					dto.setMember_id(rs.getString("member_id"));	
-						
-					list.add(dto);	
-				}	
-					
-			} catch (SQLException e) {	
-				// TODO Auto-generated catch block	
-				e.printStackTrace();	
-			}finally {	
-				closeConn(rs, pstmt, con);	
-			}	
-				
-		}else if(field.equals("title_cont")) {	
-				
-			try {	
-				sql = "select * from (select row_number() over(order by free_num desc) rnum,"	
-						+ " b.* from free_write b where free_title like ? or free_cont like ?) where rnum >= ? and rnum <= ?";					
-					
-				pstmt = con.prepareStatement(sql);	
-					
-				pstmt.setString(1, "%"+keyword+"%");	
-				pstmt.setString(2, "%"+keyword+"%");	
-				pstmt.setInt(2, startNo);	
-				pstmt.setInt(3, endNo);	
-					
-				rs = pstmt.executeQuery();	
-					
-				while(rs.next()) {	
-						
-					FreeWriteDTO dto = new FreeWriteDTO();	
-						
-					dto.setFree_num(rs.getInt("free_num"));	
-					dto.setFree_title(rs.getString("free_title"));	
-					dto.setFree_cont(rs.getString("free_cont"));	
-					dto.setFree_hit(rs.getInt("free_hit"));	
-					dto.setFree_date(rs.getString("free_date"));	
-					dto.setFree_file(rs.getString("free_file"));	
-					dto.setFree_radio(rs.getInt("free_radio"));	
-					dto.setFree_reply_num(rs.getInt("free_reply_num"));	
-					dto.setMember_id(rs.getString("member_id"));	
-						
-					list.add(dto);	
-				}	
-					
-			} catch (SQLException e) {	
-				// TODO Auto-generated catch block	
-				e.printStackTrace();	
-			}finally {	
-				closeConn(rs, pstmt, con);	
-			}	
-				
-		}else if(field.equals("writer")) {	
-				
-			try {	
-				sql = "select * from (select row_number() over(order by free_num desc) rnum,"	
-						+ " b.* from free_write b where member_id like ?) where rnum >= ? and rnum <= ?";					
-					
-				pstmt = con.prepareStatement(sql);	
-					
-				pstmt.setString(1, "%"+keyword+"%");	
-				pstmt.setInt(2, startNo);	
-				pstmt.setInt(3, endNo);	
-					
-				rs = pstmt.executeQuery();	
-					
-				while(rs.next()) {	
-						
-					FreeWriteDTO dto = new FreeWriteDTO();	
-						
-					dto.setFree_num(rs.getInt("free_num"));	
-					dto.setFree_title(rs.getString("free_title"));	
-					dto.setFree_cont(rs.getString("free_cont"));	
-					dto.setFree_hit(rs.getInt("free_hit"));	
-					dto.setFree_date(rs.getString("free_date"));	
-					dto.setFree_file(rs.getString("free_file"));	
-					dto.setFree_radio(rs.getInt("free_radio"));	
-					dto.setFree_reply_num(rs.getInt("free_reply_num"));	
-					dto.setMember_id(rs.getString("member_id"));	
-						
-					list.add(dto);	
-				}	
-					
-			} catch (SQLException e) {	
-				// TODO Auto-generated catch block	
-				e.printStackTrace();	
-			}finally {	
-				closeConn(rs, pstmt, con);	
-			}	
-		}	
-		return list;	
+		List<FreeWriteDTO> list = new ArrayList<FreeWriteDTO>();
 		
-	} // seacrhListBoard() 메서드 end	
-	
-	public List<FreeWriteDTO> getFreeList(int page){
-		int count=1;
-		sql="select * from free_write order by free_num asc";
-		List<FreeWriteDTO> free_list = new ArrayList<FreeWriteDTO>();
+		// 해당 페이지에서 시작 번호.
+		int startNo = (page * rowsize) - (rowsize - 1);
+		
+		// 해당 페이지에서 마지막 번호.
+		int endNo = (page * rowsize);
+		
 		openConn();
-		try {
-			pstmt=con.prepareStatement(sql);
-			rs=pstmt.executeQuery();
-			while(rs.next()) {
-				FreeWriteDTO dto = new FreeWriteDTO();
+		
+		if(field.equals("title")) {
+			
+			try {
+				sql = "select * from (select row_number() over(order by free_num desc) rnum,"
+						+ " b.* from free_write b where free_title like ?) where rnum >= ? and rnum <= ?";				
 				
-				dto.setFree_num(rs.getInt("free_num"));
-				dto.setFree_title(rs.getString("free_title"));
-				dto.setFree_cont(rs.getString("free_cont"));
-				dto.setFree_hit(rs.getInt("free_hit"));
-				dto.setFree_date(rs.getString("free_date"));
-				dto.setFree_file(rs.getString("free_file"));
-				dto.setFree_radio(rs.getInt("free_radio"));
-				dto.setFree_reply_num(rs.getInt("free_reply_num"));
-				dto.setMember_id(rs.getString("member_id"));
+				pstmt = con.prepareStatement(sql);
 				
-				if(count>=((page-1)*10)+1 && count <=10*page) {
-					free_list.add(dto);
+				pstmt.setString(1, "%"+keyword+"%");
+				pstmt.setInt(2, startNo);
+				pstmt.setInt(3, endNo);
+				
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					
+					FreeWriteDTO dto = new FreeWriteDTO();
+					
+					dto.setFree_num(rs.getInt("free_num"));
+					dto.setFree_title(rs.getString("free_title"));
+					dto.setFree_cont(rs.getString("free_cont"));
+					dto.setFree_hit(rs.getInt("free_hit"));
+					dto.setFree_date(rs.getString("free_date"));
+					dto.setFree_file(rs.getString("free_file"));
+					dto.setFree_radio(rs.getInt("free_radio"));
+					dto.setFree_reply_num(rs.getInt("free_reply_num"));
+					dto.setMember_id(rs.getString("member_id"));
+					
+					list.add(dto);
 				}
-				count++;
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			closeConn(rs, pstmt, con);
+			
+		}else if(field.equals("cont")) {
+			
+			try {
+				sql = "select * from (select row_number() over(order by free_num desc) rnum,"
+						+ " b.* from free_write b where free_cont like ?) where rnum >= ? and rnum <= ?";				
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, "%"+keyword+"%");
+				pstmt.setInt(2, startNo);
+				pstmt.setInt(3, endNo);
+				
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					
+					FreeWriteDTO dto = new FreeWriteDTO();
+					
+					dto.setFree_num(rs.getInt("free_num"));
+					dto.setFree_title(rs.getString("free_title"));
+					dto.setFree_cont(rs.getString("free_cont"));
+					dto.setFree_hit(rs.getInt("free_hit"));
+					dto.setFree_date(rs.getString("free_date"));
+					dto.setFree_file(rs.getString("free_file"));
+					dto.setFree_radio(rs.getInt("free_radio"));
+					dto.setFree_reply_num(rs.getInt("free_reply_num"));
+					dto.setMember_id(rs.getString("member_id"));
+					
+					list.add(dto);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+			}
+			
+		}else if(field.equals("title_cont")) {
+			
+			try {
+				sql = "select * from (select row_number() over(order by free_num desc) rnum,"
+						+ " b.* from free_write b where free_title like ? or free_cont like ?) where rnum >= ? and rnum <= ?";				
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, "%"+keyword+"%");
+				pstmt.setString(2, "%"+keyword+"%");
+				pstmt.setInt(2, startNo);
+				pstmt.setInt(3, endNo);
+				
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					
+					FreeWriteDTO dto = new FreeWriteDTO();
+					
+					dto.setFree_num(rs.getInt("free_num"));
+					dto.setFree_title(rs.getString("free_title"));
+					dto.setFree_cont(rs.getString("free_cont"));
+					dto.setFree_hit(rs.getInt("free_hit"));
+					dto.setFree_date(rs.getString("free_date"));
+					dto.setFree_file(rs.getString("free_file"));
+					dto.setFree_radio(rs.getInt("free_radio"));
+					dto.setFree_reply_num(rs.getInt("free_reply_num"));
+					dto.setMember_id(rs.getString("member_id"));
+					
+					list.add(dto);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+			}
+			
+		}else if(field.equals("writer")) {
+			
+			try {
+				sql = "select * from (select row_number() over(order by free_num desc) rnum,"
+						+ " b.* from free_write b where member_id like ?) where rnum >= ? and rnum <= ?";				
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, "%"+keyword+"%");
+				pstmt.setInt(2, startNo);
+				pstmt.setInt(3, endNo);
+				
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					
+					FreeWriteDTO dto = new FreeWriteDTO();
+					
+					dto.setFree_num(rs.getInt("free_num"));
+					dto.setFree_title(rs.getString("free_title"));
+					dto.setFree_cont(rs.getString("free_cont"));
+					dto.setFree_hit(rs.getInt("free_hit"));
+					dto.setFree_date(rs.getString("free_date"));
+					dto.setFree_file(rs.getString("free_file"));
+					dto.setFree_radio(rs.getInt("free_radio"));
+					dto.setFree_reply_num(rs.getInt("free_reply_num"));
+					dto.setMember_id(rs.getString("member_id"));
+					
+					list.add(dto);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+			}
 		}
-		return free_list;
-	}
-
-
-	public void updaeWriteToAdmin(int freeNum) {
-		sql="update free_write set free_cont = ? where free_num = ?";
-		openConn();
-		try {
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, "관리자가 블라인드 처리한 게시글입니다.");
-			pstmt.setInt(2, freeNum);
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			closeConn(rs, pstmt, con);
-		}
-	}
+		return list;
+	
+	} // seacrhListBoard() 메서드 end		
+	
+	
 	
 }

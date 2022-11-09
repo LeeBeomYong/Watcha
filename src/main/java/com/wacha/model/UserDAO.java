@@ -64,7 +64,7 @@ public class UserDAO {
 				// 2단계 : lookup() 메서드를 이용하여 매칭되는
 				//        커넥션을 찾는다.
 				DataSource ds =
-					(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
+					(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
 				
 				// 3단계 : DataSource 객체를 이용하여
 				//        커넥션을 하나 가져온다.
@@ -183,35 +183,50 @@ public class UserDAO {
 	}
 
 		
-		public int userDelete(String id, String pwd) {
-			
-			int result = 0;
+//		public int userDelete(String id) {
+//			
+//			int result = 0;
+//			
+//			try {
+//				openConn();
+//				
+//				sql="select * from member where member_id=?";
+//				pstmt=con.prepareStatement(sql);
+//				pstmt.setString(1, id);
+//				rs=pstmt.executeQuery();
+//				
+//				if(rs.next()) {
+//					
+//					sql="update member set member_use = 0 where member_id = ?";
+//					pstmt=con.prepareStatement(sql);
+//					pstmt.setString(1, id);
+//					result = pstmt.executeUpdate();
+//				}
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} finally {
+//				closeConn(rs, pstmt, con);
+//			}
+//			return result;
+//		}
+		
+		public void userDelete(String id) {
 			
 			try {
 				openConn();
 				
-				sql="select * from member where member_id=?";
+				sql="update member set member_use = 0 where member_id = ?";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setString(1, id);
-				rs=pstmt.executeQuery();
+				pstmt.executeUpdate();
 				
-				if(rs.next()) {
-					if(pwd.equals(rs.getString("member_pwd"))) {
-						sql="update member set member_use = 0 where member_id = ?";
-						pstmt=con.prepareStatement(sql);
-						pstmt.setString(1, id);
-						result = pstmt.executeUpdate();
-					}else {
-						result = -1;
-					}
-				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} finally {
 				closeConn(rs, pstmt, con);
 			}
-			return result;
 		}
 		
 //		public void starDelete(String id, String pwd) {
@@ -241,32 +256,32 @@ public class UserDAO {
 //			}
 //		}
 		
-		public void writeDelete(String id, String pwd) {
-			
-			
-			try {
-				openConn();
-				
-				sql="select * from member where member_id='test1'";
-				pstmt=con.prepareStatement(sql);
-				//pstmt.setString(1, id);
-				rs=pstmt.executeQuery();
-				
-				if(rs.next()) {
-					if(pwd.equals(rs.getString("member_pwd"))) {
-						sql="delete from write where member_id = 'test1'";
-						pstmt=con.prepareStatement(sql);
-						//pstmt.setString(1, id);
-						pstmt.executeUpdate();
-					}
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				closeConn(rs, pstmt, con);
-			}
-		}
+//		public void writeDelete(String id, String pwd) {
+//			
+//			
+//			try {
+//				openConn();
+//				
+//				sql="select * from member where member_id=?";
+//				pstmt=con.prepareStatement(sql);
+//				//pstmt.setString(1, id);
+//				rs=pstmt.executeQuery();
+//				
+//				if(rs.next()) {
+//					if(pwd.equals(rs.getString("member_pwd"))) {
+//						sql="delete from write where member_id = 'test1'";
+//						pstmt=con.prepareStatement(sql);
+//						//pstmt.setString(1, id);
+//						pstmt.executeUpdate();
+//					}
+//				}
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} finally {
+//				closeConn(rs, pstmt, con);
+//			}
+//		}
 		
 //		public void comentDelete(String id, String pwd) {
 //			
@@ -365,6 +380,7 @@ public class UserDAO {
 					dto.setMember_profile(rs.getString("member_profile"));
 					dto.setMember_birth(rs.getString("member_birth"));
 					dto.setMember_image(rs.getString("member_image"));
+					dto.setMember_email(rs.getString("member_email"));
 				
 				}
 			} catch (SQLException e) {
@@ -426,14 +442,17 @@ public class UserDAO {
 			
 			try {
 				openConn();
-				sql="update member set member_name=?, member_pwd=?, member_profile=?, member_birth = ?, member_image=? where member_id = ?";
+
+				sql="update member set member_name=?, member_pwd=?, member_profile=?, member_birth = ?, member_image=?, member_email=? where member_id = ?";
+
 				pstmt=con.prepareStatement(sql);
 				pstmt.setString(1, dto.getMember_name());
 				pstmt.setString(2, dto.getMember_pwd());
 				pstmt.setString(3, dto.getMember_profile());
 				pstmt.setString(4, dto.getMember_birth());
 				pstmt.setString(5, dto.getMember_image());
-				pstmt.setString(6, dto.getMember_id());
+				pstmt.setString(6, dto.getMember_email());
+				pstmt.setString(7, dto.getMember_id());
 				result = pstmt.executeUpdate();
 				
 			} catch (SQLException e) {

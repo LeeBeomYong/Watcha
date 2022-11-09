@@ -64,7 +64,7 @@ public class UserDAO {
 				// 2단계 : lookup() 메서드를 이용하여 매칭되는
 				//        커넥션을 찾는다.
 				DataSource ds =
-					(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
+					(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
 				
 				// 3단계 : DataSource 객체를 이용하여
 				//        커넥션을 하나 가져온다.
@@ -426,14 +426,14 @@ public class UserDAO {
 			
 			try {
 				openConn();
-				sql="update member set member_name=?, member_pwd=?, member_profile=?, member_birth = ?, member_image=? where member_id = 'test1'";
+				sql="update member set member_name=?, member_pwd=?, member_profile=?, member_birth = ?, member_image=? where member_id = ?";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setString(1, dto.getMember_name());
 				pstmt.setString(2, dto.getMember_pwd());
 				pstmt.setString(3, dto.getMember_profile());
 				pstmt.setString(4, dto.getMember_birth());
 				pstmt.setString(5, dto.getMember_image());
-				//pstmt.setString(6, dto.getMember_id());
+				pstmt.setString(6, dto.getMember_id());
 				result = pstmt.executeUpdate();
 				
 			} catch (SQLException e) {
@@ -673,6 +673,34 @@ public class UserDAO {
 		return res;
 	}	// findIdforPwd() end
 	
+
+	public int signUpKakao(String id, String email, String name) {
+		int result = 0, count = 0;
+		
+		try {
+			openConn();
+			
+			sql = "select max(member_num) from member";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1) + 1;
+			}
+			
+			sql = "insert into member values (?,?,?,'','','',sysdate,default,1)";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, count);
+			pstmt.setString(2, id);
+			pstmt.setString(3, name);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+
 	public int AdminuserDelete(String id, String pwd) {
 		
 		int result = 0;
@@ -688,11 +716,13 @@ public class UserDAO {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		} finally {
 			closeConn(rs, pstmt, con);
 		}
-		return result;
+
+		return result;		
 	}
 }
 

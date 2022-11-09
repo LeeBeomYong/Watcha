@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -18,7 +19,7 @@ public class ProfileUpdateAction2 implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		String saveFolder = "C:\\Users\\by\\git\\Watcha\\WebContent\\image\\profileupload";
+		String saveFolder = "C:\\Users\\user1\\git\\Watcha\\WebContent\\image\\profileupload";
 //		C:\\myJSP\\wrokspace(jsp)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\WatchaProject\\image
 		int fileSize = 10 * 1024 * 1024;  // 10MB 
 		
@@ -50,6 +51,7 @@ public class ProfileUpdateAction2 implements Action {
 		if(result > 0 ) {
 			forward.setRedirect(false);
 			forward.setPath("profile.do");
+			
 		}else {
 			out.println("<script>");
 			out.println("alert('프로필 수정 실패')");

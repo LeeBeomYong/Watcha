@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>자유게시판 상세보기 페이지</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js"></script>
+
 <style type="text/css">
 
 	#table_1{
@@ -30,7 +31,8 @@
 		border: none;
 		outline: none;
 	}
-
+	
+	textarea.autosize { min-height: 50px; }
 	
 	
 	#re_writer{
@@ -64,6 +66,7 @@
 	}
 	#con_3{
 		padding: 10px;
+		width: 100%;
 	}
 	
 	#pro_img{
@@ -82,6 +85,30 @@
 		color: #000; 
 		text-decoration: none;
 	}
+	
+	#det{
+		border: none;
+	    font-size: 13px;
+	    text-align: center;
+	    background-color: white;
+		margin-left: 2%;
+	}
+	
+	#det:hover {
+		font-weight: bold; 
+	}
+	
+	#singo{
+		border: none;
+	    font-size: 13px;
+	    text-align: center;
+	    background-color: white;
+		margin-left: 2%;
+	}
+	
+	#singo:hover {
+		font-weight: bold; 
+	}
 </style>
 </head>
 <body>
@@ -90,10 +117,11 @@
 		
 		<div id="con_1">
 			<c:set var="dto" value="${Cont }" />
+			<c:set var="dto1" value="${userProfile }" />
 			<header>
 					<h2> ${dto.getFree_title() } </h2>
 				<br>
-				<img id="pro_img" src="./image/profileupload/프로필_로고.png">
+				<img id="pro_img" alt="프로필" src="${pageContext.request.contextPath }/image/profileupload/${dto1.getMember_image()}">
 				<div>
 					<b style="font-size: 19px;"> ${dto.getMember_id() } </b>
 					<br>
@@ -112,6 +140,11 @@
 					📢 욕설이나 비난글을 작성할 시 활동정지, 영구강퇴 될 수 있음을 알려드립니다.</p>
 				</div>
 				<br>
+				<div id="con_4">
+					<c:if test="${dto.getFree_file() ne null }">
+						<a href="<%=request.getContextPath() %>/free_write_file/${dto.getFree_file() }">📂${dto.getFree_file() }</a>			
+					</c:if>
+				</div>
 				<div id="con_3">
 				
 					<p>${dto.getFree_cont() }</p>
@@ -128,10 +161,14 @@
 		<c:if test="${dto.getFree_reply_num() eq 0 }"><span></span></c:if>
 		<c:if test="${dto.getFree_reply_num() ne 0 }"><span>${dto.getFree_reply_num() }</span></c:if>
 		</h5></div>
+		<table class="list_2">
+			<tr>
+				<td></td>
+			</tr>
+		</table>
 		<br>
 		<div>
 			<table id="list_id" class="list" cellspacing="0" width="400">
-				
 				<tr>
 					<td colspan="2"></td>		
 				</tr>
@@ -180,7 +217,7 @@
 					</tr>	
 					<tr>
 						<td>
-							<textarea name="re_content" id="re_content" cols="500" placeholder="댓글을 입력하세요."></textarea>
+							<textarea class="autosize" name="re_content" id="re_content" cols="500" placeholder="댓글을 입력하세요." style="overflow: hidden;"></textarea>
 						</td>
 					</tr>
 					<tr>
@@ -226,21 +263,59 @@ $(function(){
 				
 				$(data).find("reply").each(function() {
 					
-					table += "<tr>";
-					table += "<td colspan='2' style='font-weight: bold;'>" + $(this).find("member_id").text() + "<input type='button' id='det' value='삭제' rno = '"+$(this).find("free_num").text()+"' r_no = '"+$(this).find("r_free_num").text() + "'></td>";
-					table += "</tr>";	
-					
-					table += "<tr>";
-					table += "<td>" + $(this).find("r_free_cont").text() + "</td>";
-					table += "</tr>";
-					
-					table += "<tr>";
-					table += "<td style='font-size: 13px; color:gray; width: 300px;'>" + $(this).find("r_free_date").text().substring(0,16) + "</td>";
-					table += "</tr>";
+					if('<%=session.getAttribute("session_id")%>' == "null"){
+						table += "<tr>";
+						table += "<td colspan='2' style='font-weight: bold;'>" + $(this).find("member_id").text() + "</td>";
+						table += "</tr>";	
+						
+						table += "<tr>";
+						table += "<td>" + $(this).find("r_free_cont").text() + "</td>";
+						table += "</tr>";
+						
+						table += "<tr>";
+						table += "<td style='font-size: 13px; color:gray; width: 300px;'>" + $(this).find("r_free_date").text().substring(0,16) + "</td>";
+						table += "</tr>";
+						
+						table += "<tr>";
+						table += "<td><hr width='950'></td>";
+						table += "</tr>";
+						
+					}else if('<%=session.getAttribute("session_id")%>' == $(this).find("member_id").text()){ 
+						
+						table += "<tr>";
+						table += "<td colspan='2' style='font-weight: bold;'>" + $(this).find("member_id").text() + "</td>";
+						table += "</tr>";	
+						
+						table += "<tr>";
+						table += "<td>" + $(this).find("r_free_cont").text() + "</td>";
+						table += "</tr>";
+						
+						table += "<tr>";
+						table += "<td style='font-size: 13px; color:gray; width: 300px;'>" + $(this).find("r_free_date").text().substring(0,16) + "<input type='button' id='det' value='삭제' rno = '"+$(this).find("free_num").text()+"' r_no = '"+$(this).find("r_free_num").text() + "'>" + "</td>";
+						table += "</tr>";
+	
+						table += "<tr>";
+						table += "<td><hr width='950'></td>";
+						table += "</tr>";
+						
+					}else{
+						
+						table += "<tr>";
+						table += "<td colspan='2' style='font-weight: bold;'>" + $(this).find("member_id").text() + "</td>";
+						table += "</tr>";	
+						
+						table += "<tr>";
+						table += "<td>" + $(this).find("r_free_cont").text() + "</td>";
+						table += "</tr>";
+						
+						table += "<tr>";
+						table += "<td style='font-size: 13px; color:gray; width: 300px;'>" + $(this).find("r_free_date").text().substring(0,16) + "<input type='button' id='singo' value='신고🚨' si_id = '"+$(this).find("member_id").text()+ "'>" + "</td>";
+						table += "</tr>";
 
-					table += "<tr>";
-					table += "<td><hr width='950'></td>";
-					table += "</tr>";
+						table += "<tr>";
+						table += "<td><hr width='950'></td>";
+						table += "</tr>";						
+					}
 				});
 				
 				$(".list tr:eq(1)").after(table);	//두번재 인덱스임.
@@ -253,6 +328,49 @@ $(function(){
 	}	// getList() 함수 end
 
 	
+	
+	function getReplyNum() {
+		
+		$.ajax({
+			url : "/WatchaProject/write/free_getReply_num.jsp",
+			data : {rno1 : ${dto.free_num }},
+			datatype : "xml", 		// 결과 데이터 타입
+			success : function(data) {
+				// 테이블 태그의 타이틀태그를 제외한 댓글 목록을 지우는 명령어.
+				$(".list_2 tr:gt(1)").remove();
+				
+				let table = "";
+				
+				$(data).find("reply").each(function() {	
+	
+					table += "<tr>";
+					table += "<td colspan='2' style='font-weight: bold;'>" + $(this).find("member_id").text() + "</td>";
+					table += "</tr>";	
+					
+					table += "<tr>";
+					table += "<td>" + $(this).find("r_free_cont").text() + "</td>";
+					table += "</tr>";
+					
+					table += "<tr>";
+					table += "<td style='font-size: 13px; color:gray; width: 300px;'>" + $(this).find("r_free_date").text().substring(0,16) + "</td>";
+					table += "</tr>";
+					
+					table += "<tr>";
+					table += "<td><hr width='950'></td>";
+					table += "</tr>";	
+			});
+			
+			$(".list_2 tr:eq(1)").after(table);	//두번재 인덱스임.
+		},
+		
+		error : function() {
+			alert('데이터 통신 에러');
+		}
+	});
+}	// getList() 함수 end		
+
+
+
 	// 삭제 버튼을 클릭했을 때 이벤트 적용
 	// 삭제 버튼처럼 동적으로 생성된 요소는 
 	// 제이쿼리에서 on() 함수를 이용해야 함.
@@ -284,6 +402,24 @@ $(function(){
 		});
 	});	 
 	
+	$(document).on("click", "#singo", function(){
+		
+		$.ajax({
+			url : "/WatchaProject/free_reply_singo.do",
+			data : {si_id : $(this).attr("si_id")
+					},
+			datatype : "text",
+			success : function(data){
+					getList();
+					alert('신고 접수 되셨습니다.');
+					},
+			error : function(){
+				alert('데이터 통신 오류');
+			}
+		});
+		
+	});
+	
 	
 	// 댓글 작성 버튼을 클릭했을 때 DB에 추가로 저장.
 	$("#replyBtn").on("click", function(){
@@ -293,7 +429,7 @@ $(function(){
 			datatype : "text",
 			data : {
 					writer : $("#re_writer").val(),	
-					content : $("#re_content").val(),
+					content : $("#re_content").val().replace("\r\n","<br>"),
 					bno : ${dto.free_num }
 					},
 			success : function(data) {
@@ -322,6 +458,10 @@ $(function(){
 	function reloadDivArea() {
 	    $('#divReloadLayer').load(location.href+' #divReloadLayer');
 	}
+	
+	$("textarea.autosize").on('keydown keyup', function () {
+		  $(this).height(1).height( $(this).prop('scrollHeight')+12 );	
+		});	
 	
 	
 	getList(); // 전체 리스트 호출 함수 호출

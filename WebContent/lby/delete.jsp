@@ -6,6 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<%! public int getRandom(){
+	int random = 0;
+	random = (int)Math.floor((Math.random()*(99999-10000+1)))+10000;
+	return random;
+	} 
+%>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
@@ -36,7 +42,7 @@
 	  min-height: 500px;
 	  overflow: hidden;
 	}
-	#asd {
+	#form1 {
  	  background: #ebecf0;
 	  display: flex;
 	  flex-direction: column;
@@ -45,7 +51,7 @@
 	  justify-content: center;
 	  align-items: center;
 	}
-	#asd input {
+	#form1 input {
 	  background: #eee;
 	  padding: 16px;
 	  margin: 8px 0;
@@ -78,13 +84,13 @@
 	  cursor: pointer;
 	  transition: transform 80ms ease-in;
 	}
-	.form_btn {
+	#submit_btn {
 	  box-shadow: -5px -5px 10px #fff, 5px 5px 8px #babebc;
 	}
-	.form_btn:active {
+	#submit:active {
 	  box-shadow: inset 1px 1px 2px #babebc, inset -1px -1px 2px #fff;
 	}
-	.form_btn:hover {
+	#submit:hover {
 		opacity: 50%;
 	}
 	
@@ -96,7 +102,7 @@
 	  transition: all 0.5s;
 	}
 	
-	#asd h1 {
+	#form1 h1 {
 	  font-weight: bold;
 	  margin: 0;
 	  color: #000;
@@ -111,11 +117,13 @@
 	<div class="wrapper2">
   		<div class="container2">
    		 	<div class="sign-in-container2">
-				<form id="asd" method="post" action="<%=request.getContextPath()%>/delete_ok.do">
-					<h1>비밀번호 확인</h1>
+				<form id="form1" method="post" action="<%=request.getContextPath()%>/send.do">
+					<h1>이메일 인증</h1>
 			        <br><br>
-			        <input type="password" name="pwd">
-			        <input class="form_btn" type="submit" value="확인">
+			        <c:set var="dto" value="${profileList }"/>
+			        <input type='text' id="receiver" name='receiver' value="${dto.getMember_email()}" readonly="readonly"/>
+					<input id="submit" type="submit"  value="인증번호발송">
+					<input type="hidden" readonly="readonly" name="code_check" id="code_check" value="<%=getRandom()%>" />
 				</form>
 	   		 </div>
 	  	</div>

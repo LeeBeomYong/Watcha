@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>(ʃ⌣́,⌣́ƪ)(ʃ⌣́,⌣́ƪ)</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
 <style type="text/css">
 body {
   color: #666;
@@ -131,8 +134,38 @@ text-align: center;
 
 .rot-135:hover {
   filter: hue-rotate(135deg);
-
+}
+	.pagination {
+		justify-content: center;
+		color: green;
+}
 /*END ROTATE*/
+.dbtn{
+width: 70px;
+
+}
+
+.search {
+  position: relative;
+  width: 300px;
+}
+
+input {
+  width: 100%;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+img {
+  position : absolute;
+  width: 17px;
+  top: 10px;
+  right: 12px;
+  margin: 0;
+}
+
 </style>
 
 </head>
@@ -148,7 +181,7 @@ text-align: center;
   <thead align="center">
     <tr>
       <th>영화번호</th>
-      <th>삭제</th>
+      <th class="dbtn">삭제</th>
       <th class="th-3">영화제목</th>
       <th>상영시간</th>
       <th>개봉일</th>
@@ -205,11 +238,42 @@ text-align: center;
   </tr>
 </table>
 
-	
   </div>
-</section>
-	
+ <br>
+ 	
+		  <ul class="pagination">
 		
+		    <c:forEach begin="${startBlock }"
+	       				end="${endBlock }" var="i">
+		      
+		      <c:if test="${i == page }">
+		         <li class="page-item active" aria-current="page">
+		           <a class="page-link" href="admin_movie_list.do?page=${i }">${i }</a>
+		         </li>
+		      </c:if>
+	      
+		      <c:if test="${i != page }">
+		         <li class="page-item">
+		           <a class="page-link" href="admin_movie_list.do?page=${i }">${i }</a>
+		         </li>
+		      </c:if>
+	   		</c:forEach>
+		    
+		    <c:if test="${endBlock < allPage }">
+		      
+		       <li class="page-item">
+		      	<a class="page-link" href="admin_moive_list.do?page=${page + 1 }">Next</a>
+		      </li>
+		      
+		      
+		      <li class="page-item">
+		      	<a class="page-link" href="admin_movie_list.do?page=${allPage }">End</a>
+		      </li>
+		    </c:if>
+		  </ul>
+		
+
+</section>
 
 	<jsp:include page="../include/admin_bottom.jsp" />
 </body>

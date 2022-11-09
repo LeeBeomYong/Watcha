@@ -29,6 +29,7 @@ public class FreeReplyDeleteAction implements Action {
 		
 		dao.deleteReplyCount(free_no);
 		
+		
 		out.println(res);
 		
 		return null;

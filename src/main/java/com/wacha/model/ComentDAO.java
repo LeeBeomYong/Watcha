@@ -760,7 +760,7 @@ public List<ComentDTO>getComentcontent(int num,String id,int no){
 			}return list;
 		}
 		
-public List<ComentDTO>getComentcontentson(int num,String id,int no){
+		public List<ComentDTO>getComentcontentson(int num,String id,int no){
 			
 			List<ComentDTO>list = new ArrayList<ComentDTO>();
 					
@@ -806,28 +806,100 @@ public List<ComentDTO>getComentcontentson(int num,String id,int no){
 				closeConn(rs, pstmt, con);
 			}return list;
 		}
-public int ComentDelete(int num) {
-	
-	int result = 0;
-	
-	openConn();
+		public int ComentDelete(int num) {
+			
+			int result = 0;
+			
+			openConn();
+						
+			try {
+				sql = "delete from coment where coment_num = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				result = pstmt.executeUpdate();
 				
-	try {
-		sql = "delete from coment where coment_num = ?";
-		pstmt = con.prepareStatement(sql);
-		pstmt.setInt(1, num);
-		result = pstmt.executeUpdate();
+				sql = "update coment set coment_num = coment_num - 1 where coment_num > ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}closeConn(rs, pstmt, con);
+			
+			return result;
+			
+		}
+
+	public List<ComentDTO> getComentListPage(int page) {
+		sql="select * from coment where coment_num_son is null order by movie_num asc, member_id asc";
+		int count=1;
+		List<ComentDTO> coment_list = new ArrayList<ComentDTO>();
+		openConn();
+		try {
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				ComentDTO dto = new ComentDTO();
+				dto.setComent_num(rs.getInt("coment_num"));
+				dto.setMovie_num(rs.getInt("movie_num"));
+				dto.setMember_id(rs.getString("member_id"));
+				dto.setMovie_coment(rs.getString("movie_coment"));
+				dto.setComent_num_son(rs.getInt("coment_num_son"));
+				dto.setComent_hit(rs.getInt("coment_hit"));
+				dto.setComent_nohit(rs.getInt("coment_nohit"));
+				
+				if(count>=((page-1)*10)+1 && count <=10*page) {
+					coment_list.add(dto);
+				}
+				count++;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		return coment_list;
+	}
+
+	public int getComentListCount() {
+		int count=0;
+		sql="select count(*) from coment where coment_num_son is null";
+		openConn();
+		try {
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				count=rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		return count;
+	}
+
+
+	public void Adminupdate(int coNum) {
 		
-		sql = "update coment set coment_num = coment_num - 1 where coment_num > ?";
-		pstmt = con.prepareStatement(sql);
-		pstmt.setInt(1, num);
-		pstmt.executeUpdate();
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}closeConn(rs, pstmt, con);
-	
-	return result;
-	
-}
+		sql="update coment set movie_coment = ? where coment_num = ? and coment_num_son is null";
+		openConn();
+		try {
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, "관리자가 블라인드 처리한 댓글입니다.");
+			pstmt.setInt(2, coNum);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		
+		
+	}
+
 }

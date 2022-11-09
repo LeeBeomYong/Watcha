@@ -16,7 +16,6 @@ import javax.sql.DataSource;
 
 public class MovieDAO {
 	
-
 	// DB와 연동하는 객체.
 		Connection con = null;
 		
@@ -294,7 +293,7 @@ public class MovieDAO {
 					
 					dto.setMovie_country(rs.getString("movie_country"));
 					
-					dto.setMovie_video(rs.getString("movie_video"));
+					
 					
 				}
 				
@@ -313,29 +312,29 @@ public class MovieDAO {
 			try {
 				openConn();
 				
-				sql="update movie set movie_video=?, movie_title=?, movie_cont=?, movie_time=?, movie_date=?, movie_age=?, movie_genre=?, movie_director=?, movie_country=? where movie_num=?";
+				sql="update movie set movie_title=?, movie_cont=?, movie_time=?, movie_date=?, movie_age=?, movie_genre=?, movie_director=?, movie_country=? where movie_num=?";
 				
 				pstmt=con.prepareStatement(sql);
 				
-				pstmt.setString(1, dto.getMovie_video());
 				
-				pstmt.setString(2, dto.getMovie_title());
 				
-				pstmt.setString(3, dto.getMovie_cont());
+				pstmt.setString(1, dto.getMovie_title());
 				
-				pstmt.setString(4, dto.getMovie_time());
+				pstmt.setString(2, dto.getMovie_cont());
 				
-				pstmt.setString(5, dto.getMovie_date());
+				pstmt.setString(3, dto.getMovie_time());
 				
-				pstmt.setString(6, dto.getMovie_age());
+				pstmt.setString(4, dto.getMovie_date());
 				
-				pstmt.setString(7, dto.getMovie_genre());
+				pstmt.setString(5, dto.getMovie_age());
 				
-				pstmt.setString(8, dto.getMovie_director());
+				pstmt.setString(6, dto.getMovie_genre());
 				
-				pstmt.setString(9, dto.getMovie_country());
+				pstmt.setString(7, dto.getMovie_director());
 				
-				pstmt.setInt(10, dto.getMovie_num());
+				pstmt.setString(8, dto.getMovie_country());
+				
+				pstmt.setInt(9, dto.getMovie_num());
 				
 				result=pstmt.executeUpdate();
 				
@@ -485,7 +484,7 @@ public class MovieDAO {
 			try {
 				openConn();
 				
-				sql = "select movie_num, movie_title, movie_director, movie_country from movie where movie_title like ? order by movie_num";
+				sql = "select * from movie where movie_title like ? order by movie_num";
 				
 				pstmt = con.prepareStatement(sql);
 				
@@ -497,9 +496,17 @@ public class MovieDAO {
 					
 					dto.setMovie_num(rs.getInt("movie_num"));
 					dto.setMovie_title(rs.getString("movie_title"));
-					dto.setMovie_director(rs.getString("movie_director"));
+					dto.setMovie_cont(rs.getString("movie_cont"));
+					dto.setMovie_time(rs.getString("movie_time"));
+					dto.setMovie_date(rs.getString("movie_date"));
+					dto.setMovie_age(rs.getString("movie_age"));
+					dto.setMovie_genre(rs.getString("movie_genre"));
 					dto.setMovie_country(rs.getString("movie_country"));
-					System.out.println("영화 리스트 : "+dto.getMovie_title());
+					dto.setMovie_director(rs.getString("movie_director"));
+					dto.setMovie_video(rs.getString("movie_video"));
+					dto.setMovie_count(rs.getInt("movie_count"));
+					dto.setMovie_hit(rs.getInt("movie_hit"));
+					//System.out.println("영화 리스트 : "+dto.getMovie_title());
 					
 					list.add(dto);
 				}
@@ -547,6 +554,38 @@ public class MovieDAO {
 					}
 					return list;
 				}	// getMovieKeywordList() end
+				
+		// 검색 - 감독 대표작 
+		public List<MovieDTO> getDirectorWork(String director) {
+			
+			List<MovieDTO> list = new ArrayList<MovieDTO>();
+			
+			try {
+				openConn();
+				
+				sql = "select movie_title from movie where movie_director = ?";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, director);
+				
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					
+					MovieDTO dto = new MovieDTO();
+					
+					dto.setMovie_title(rs.getString("movie_title"));
+					
+					list.add(dto);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				closeConn(rs, pstmt, con);
+			}
+			return list;
+		}
 
 		
 		// 메인 -> 영화 페이지 넘겨주는 메서드

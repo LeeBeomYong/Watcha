@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 
 import com.wacha.controller.Action;
 import com.wacha.controller.ActionForward;
-import com.wacha.model.FreeReplyDTO;
 import com.wacha.model.FreeWriteDAO;
 import com.wacha.model.FreeWriteDTO;
 import com.wacha.model.UserDAO;
@@ -29,11 +28,10 @@ public class FreeContentAction implements Action {
 		request.setAttribute("userProfile", dto1);
 		
 		int free_num = Integer.parseInt(request.getParameter("num").trim());
-
+		
 		FreeWriteDAO dao = FreeWriteDAO.getInstance();
 		
 		FreeWriteDTO dto = dao.getFreeContent(free_num);
-		
 		dao.freeHit(free_num);
 
 		request.setAttribute("Cont", dto);

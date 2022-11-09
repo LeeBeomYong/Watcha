@@ -1574,6 +1574,31 @@ public class StarDAO {
 					}
 					return list;
 				}
+        
+				// 평가 개수 구하기		
+				public int countStars() {
+					
+					int count = 0;
+					
+					try {
+						openConn();
+						
+						sql = "select count(movie_star) from star";
+						
+						pstmt = con.prepareStatement(sql);
+						
+						rs = pstmt.executeQuery();
+						
+						if(rs.next()) {
+							count = rs.getInt(1);
+						}
+					} catch (SQLException e) {
+						e.printStackTrace();
+					} finally {
+						closeConn(rs, pstmt, con);
+					}
+					return count;			
+				}
 
 
 				public int gestarcount() {
@@ -1595,7 +1620,7 @@ public class StarDAO {
 					}
 					return count;
 				}
-		
+
 		
 }
 

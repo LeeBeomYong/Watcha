@@ -183,6 +183,7 @@ public class SingoDAO {
 							}
 						}
 						
+						
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

@@ -35,7 +35,7 @@
 		               if( tmpId == '${sessionScope.session_id}'){
 		            	   result+="<li><a class=\"dropdown-item\" onclick=\"deleteThis("+$("movie_num",this).text()+","+$("coment_num",this).text()+","+$("coment_num_son",this).text()+",'"+$("member_id",this).text()+"')\">삭제</a></li>"+"</ul></div></div></li></ul></div>";
 		               }else{
-		            	   result+="<li><a class=\"dropdown-item\" onclick=\"alert('신고가 접수 되었습니다.')\">신고</a></li>"+"</ul></div></div></li></ul></div>";
+		            	   result+="<li><a class=\"dropdown-item\" onclick=\" if('${session_id}' != null){ alert('신고가 접수 되었습니다.'); location.href='singo_update.do?member_id="+$("member_id",this).text()+"&coment_num=${coment_dto.getComent_num()}&movie_num=${coment_dto.getMovie_num()}&coment_id=${coment_dto.getMember_id()}'; }else{alert('로그인 후 이용해 주시기 바랍니다.');}\">신고</a></li>"+"</ul></div></div></li></ul></div>";
 		               }
 		               $("#toggleDiv").append(result);
 		               cnt++;

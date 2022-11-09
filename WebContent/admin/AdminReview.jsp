@@ -141,6 +141,12 @@
 	});
 
 </script>
+<style type="text/css">
+	table{
+	width: 800px;
+	
+	}
+</style>
 <title>Insert title here</title>
 </head>
 <body>
@@ -151,7 +157,7 @@
 		<div>
 			<div>코멘트 리스트</div>
 			<div>
-				<table border="1" cellspacing="0" id="table">
+				<table border="1" cellspacing="0" id="table" align="center">
 					<tr>
 						<th>영화 번호</th>
 						<th>게시글 번호</th>
@@ -172,7 +178,7 @@
 		<div>
 			<div>자유게시판 리스트</div>
 			<div>
-				<table border="1" cellspacing="0" id="table2">
+				<table border="1" cellspacing="0" id="table2" align="center">
 					<tr>
 						<th>자유 게시판 번호</th>
 						<th>아이디</th>
@@ -193,7 +199,7 @@
 		<div>
 			<div>회원 신고 리스트</div>
 			<div>
-				<table border="1" cellspacing="0" id="table2">
+				<table border="1" cellspacing="0" id="table2" align="center">
 					<tr>
 						<th>회원 아이디</th>
 						<th>신고받은 횟수</th>

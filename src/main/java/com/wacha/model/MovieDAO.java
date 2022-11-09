@@ -294,7 +294,7 @@ public class MovieDAO {
 					
 					dto.setMovie_country(rs.getString("movie_country"));
 					
-					dto.setMovie_video(rs.getString("movie_video"));
+					
 					
 				}
 				
@@ -313,29 +313,29 @@ public class MovieDAO {
 			try {
 				openConn();
 				
-				sql="update movie set movie_video=?, movie_title=?, movie_cont=?, movie_time=?, movie_date=?, movie_age=?, movie_genre=?, movie_director=?, movie_country=? where movie_num=?";
+				sql="update movie set movie_title=?, movie_cont=?, movie_time=?, movie_date=?, movie_age=?, movie_genre=?, movie_director=?, movie_country=? where movie_num=?";
 				
 				pstmt=con.prepareStatement(sql);
 				
-				pstmt.setString(1, dto.getMovie_video());
 				
-				pstmt.setString(2, dto.getMovie_title());
 				
-				pstmt.setString(3, dto.getMovie_cont());
+				pstmt.setString(1, dto.getMovie_title());
 				
-				pstmt.setString(4, dto.getMovie_time());
+				pstmt.setString(2, dto.getMovie_cont());
 				
-				pstmt.setString(5, dto.getMovie_date());
+				pstmt.setString(3, dto.getMovie_time());
 				
-				pstmt.setString(6, dto.getMovie_age());
+				pstmt.setString(4, dto.getMovie_date());
 				
-				pstmt.setString(7, dto.getMovie_genre());
+				pstmt.setString(5, dto.getMovie_age());
 				
-				pstmt.setString(8, dto.getMovie_director());
+				pstmt.setString(6, dto.getMovie_genre());
 				
-				pstmt.setString(9, dto.getMovie_country());
+				pstmt.setString(7, dto.getMovie_director());
 				
-				pstmt.setInt(10, dto.getMovie_num());
+				pstmt.setString(8, dto.getMovie_country());
+				
+				pstmt.setInt(9, dto.getMovie_num());
 				
 				result=pstmt.executeUpdate();
 				

@@ -760,7 +760,7 @@ public List<ComentDTO>getComentcontent(int num,String id,int no){
 			}return list;
 		}
 		
-public List<ComentDTO>getComentcontentson(int num,String id,int no){
+		public List<ComentDTO>getComentcontentson(int num,String id,int no){
 			
 			List<ComentDTO>list = new ArrayList<ComentDTO>();
 					
@@ -830,7 +830,6 @@ public int ComentDelete(int num) {
 	return result;
 	
 }
-
 
 	public List<ComentDTO> getComentListPage(int page) {
 		sql="select * from coment where coment_num_son is null order by movie_num asc, member_id asc";

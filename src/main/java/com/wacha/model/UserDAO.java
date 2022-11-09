@@ -694,5 +694,41 @@ public class UserDAO {
 		}
 		return result;
 	}
+
+
+	public List<UserDTO> getmemberList() {
+		sql="select * from member";
+		List<UserDTO> list = new ArrayList<UserDTO>();
+		openConn();
+		try {
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				UserDTO dto = new UserDTO();
+				dto.setMember_num(rs.getInt("member_num"));
+				
+				dto.setMember_name(rs.getString("member_name"));
+				
+				dto.setMember_id(rs.getString("member_id"));
+				
+				dto.setMember_pwd(rs.getString("member_pwd"));
+				
+				dto.setMember_birth(rs.getString("member_birth"));
+				
+				dto.setMember_profile(rs.getString("member_profile"));
+				
+				dto.setMember_image(rs.getString("member_image"));					
+				
+				dto.setMember_regdate(rs.getString("member_regdate"));
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		return list;
+	}
 }
 

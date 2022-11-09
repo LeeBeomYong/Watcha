@@ -23,11 +23,12 @@ public class WachaComentAction implements Action {
 		
 		int movie_num =Integer.parseInt(request.getParameter("movie_num"));
 		int coment_num = Integer.parseInt(request.getParameter("coment_num"));
-		HttpSession session = request.getSession();
-		String member_Id="";
-		if(session.getAttribute("session_id")!=null) {
-			member_Id = (String)session.getAttribute("session_id");
-		}
+		//HttpSession session = request.getSession();
+		String member_Id=request.getParameter("session_id");
+		/*
+		 * if(session.getAttribute("session_id")!=null) { member_Id =
+		 * (String)session.getAttribute("session_id"); }
+		 */
 		
 		
 		System.out.println("데이터 넘겨받기\n"+movie_num);

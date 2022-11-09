@@ -30,6 +30,7 @@ public class ProfileUpdateAction2 implements Action {
 		String user_intro = multi.getParameter("pr_intro").trim();
 		String user_birth = multi.getParameter("pr_birth").trim();
 		String user_img = multi.getFilesystemName("pr_img");
+		String user_email = multi.getParameter("pr_email").trim();
 		
 		UserDTO dto = new UserDTO();
 		
@@ -39,6 +40,7 @@ public class ProfileUpdateAction2 implements Action {
 		dto.setMember_profile(user_intro);
 		dto.setMember_birth(user_birth);
 		dto.setMember_image(user_img);
+		dto.setMember_email(user_email);
 		
 		UserDAO dao = UserDAO.getInstance();
 		

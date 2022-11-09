@@ -11,9 +11,16 @@ public class UserDTO {
 	private String member_regdate;
 	private String member_image;
 	private int member_use;
+	private String member_email;
 	
 	
 	
+	public String getMember_email() {
+		return member_email;
+	}
+	public void setMember_email(String member_email) {
+		this.member_email = member_email;
+	}
 	public int getMember_use() {
 		return member_use;
 	}

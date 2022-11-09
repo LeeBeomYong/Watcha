@@ -229,7 +229,7 @@
 	      
 	        <!-- Modal Header -->
 	        <div class="modal-header">
-	          <h1 class="modal-title">설정</h1>
+	          <h1 class="modal-title" style="font-weight: bold;">설정</h1>
 	          <button type="button" id="modal-close" data-dismiss="modal">&times</button>
 	        </div>
 	        

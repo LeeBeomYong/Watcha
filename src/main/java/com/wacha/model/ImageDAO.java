@@ -793,6 +793,46 @@ public class ImageDAO {
 				return image_dto;
 			}
 
+				
+			public int insertMovieImage(ImageDTO dto1){
+				
+				int result=0,count=0;
+				
+				try {
+					
+					openConn();
+					sql="select max(movie_num) from image";
+					
+					pstmt=con.prepareStatement(sql);
+					
+					rs=pstmt.executeQuery();
+					if(rs.next()) {
+						count=rs.getInt(1)+1;
+					}
+					
+					sql="insert into image values(?,?,?,?)";
+					
+					pstmt=con.prepareStatement(sql);
+					
+					pstmt.setInt(1, count);
+					
+					pstmt.setString(2, dto1.getImage_loc());
+					
+					pstmt.setString(3, dto1.getImage_temp());
+					
+					pstmt.setString(4, dto1.getDirector_image());
+					
+					result=pstmt.executeUpdate();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					closeConn(rs, pstmt, con);
+				}
+				return result;
+				
+				
+			}
 
 
 }

@@ -23,6 +23,7 @@ public class WachaComentListAction implements Action {
 		
 		request.setAttribute("list", list);
 		
+		
 		ActionForward forward = new ActionForward();
 		forward.setPath("/content/ComentListPage.jsp");
 		forward.setRedirect(false);

@@ -32,7 +32,9 @@ public class W_WriteContentAction implements Action {
 		forward.setRedirect(false);
 		forward.setPath("write/w_write_content.jsp");
 		
-		return forward;		
+		return forward;	
+		
+		
 		
 	}
 

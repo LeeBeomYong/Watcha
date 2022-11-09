@@ -188,7 +188,7 @@ public class MovieDAO {
 		
 		}//end
 		
-		public int insertMovie(MovieDTO dto,ImageDTO dto1) {
+		public int insertMovie(MovieDTO dto) {
 			int result=0,count=0;
 		
 			
@@ -234,19 +234,21 @@ public class MovieDAO {
 				
 				result=pstmt.executeUpdate();
 				
-				sql="insert into image values(?,?,?,?)";
-				
-				pstmt=con.prepareStatement(sql);
-				
-				pstmt.setInt(1, count);
-				
-				pstmt.setString(2,dto1.getImage_loc());
-				
-				pstmt.setString(3, dto1.getImage_temp());
-				
-				pstmt.setString(4, dto1.getDirector_image());
-				
-				result=pstmt.executeUpdate();                               
+				/*
+				 * sql="insert into image values(?,?,?,?)";
+				 * 
+				 * pstmt=con.prepareStatement(sql);
+				 * 
+				 * pstmt.setInt(1, count);
+				 * 
+				 * pstmt.setString(2,dto1.getImage_loc());
+				 * 
+				 * pstmt.setString(3, dto1.getImage_temp());
+				 * 
+				 * pstmt.setString(4, dto1.getDirector_image());
+				 * 
+				 * result=pstmt.executeUpdate();
+				 */                           
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -517,7 +519,7 @@ public class MovieDAO {
 			return list;
 		}	// getMovieKeywordList() end
 		
-		
+
 
 		// 키워드 : 영화 제목,감독 검색 메서드
 				public List<MovieDTO> getDirectorKeywordList(String keyword) {

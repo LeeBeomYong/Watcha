@@ -366,12 +366,14 @@ max-height:100%;
 	<jsp:include page="../include/admin_top.jsp" />
 	<br><br><br>
       <form enctype="multipart/form-data" action="<%=request.getContextPath() %>/admin_movie_write_ok.do" method="post">
+      
       <input type="hidden" id="mm" name="movie_main" value= "">
       <input type="hidden" id ="gallery1" name="movie_gallery1" value = "">
       <input type="hidden" id = "gallery2" name="movie_gallery2" value = "">
       
       
-    <input type="hidden" name="movie_num" value="${dto.getMovie_num() }">
+   <%--  <input type="hidden" name="movie_num" value="${dto.getMovie_num() }"> --%>
+    
         <h1>영화등록</h1>
 
     <script defer="defer">

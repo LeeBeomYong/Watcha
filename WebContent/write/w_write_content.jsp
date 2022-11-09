@@ -10,12 +10,21 @@
 <title>Insert title here</title>
 <style type="text/css">
 
-	#con1{
-		width: 50%;
-		margin-left: 25%;
-		margin-top: 3%;
+
+
+	#table_1{
+		
 	}
 	
+	#con_1{
+		margin-left: 23%;
+		margin-top: 30px;
+		margin-bottom: 50px;
+		border: 1px solid #c6c6c6;
+		width: 55%;
+		padding: 40px 30px 30px 30px;
+		border-radius: 10px;
+
 	#content{
 		resize: none;
 		border: none;

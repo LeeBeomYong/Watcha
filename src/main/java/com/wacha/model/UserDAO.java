@@ -169,7 +169,8 @@ public class UserDAO {
 				dto.setMember_regdate(rs.getString("member_regdate"));
 
 				dto.setMember_image(rs.getString("member_image"));
-
+				
+				dto.setMember_use(rs.getInt("member_use"));
 				
 				list.add(dto);
 			}
@@ -189,16 +190,16 @@ public class UserDAO {
 			try {
 				openConn();
 				
-				sql="select * from member where member_id='test1'";
+				sql="select * from member where member_id=?";
 				pstmt=con.prepareStatement(sql);
-				//pstmt.setString(1, id);
+				pstmt.setString(1, id);
 				rs=pstmt.executeQuery();
 				
 				if(rs.next()) {
 					if(pwd.equals(rs.getString("member_pwd"))) {
-						sql="update member set member_use = 0 where member_id = 'test1'";
+						sql="update member set member_use = 0 where member_id = ?";
 						pstmt=con.prepareStatement(sql);
-						//pstmt.setString(1, id);
+						pstmt.setString(1, id);
 						result = pstmt.executeUpdate();
 					}else {
 						result = -1;
@@ -672,6 +673,7 @@ public class UserDAO {
 		return res;
 	}	// findIdforPwd() end
 	
+
 	public int signUpKakao(String id, String email, String name) {
 		int result = 0, count = 0;
 		
@@ -698,13 +700,29 @@ public class UserDAO {
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
+
+	public int AdminuserDelete(String id, String pwd) {
+		
+		int result = 0;
+		
+		try {
+			openConn();
+			sql="update member set member_use = 0 where member_id = ?";
+			
+			pstmt=con.prepareStatement(sql);
+			
+			pstmt.setString(1, id);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		} finally {
 			closeConn(rs, pstmt, con);
 		}
+
 		return result;		
 	}
-	
-	
 }
 

@@ -18,6 +18,7 @@
 		margin : 5% 5%;
 		background-color: #F5F5F5;
 		border-radius: 2%;
+		height: 260px;
 	}
 	.comentdiv div{
 		margin: 2% 2%;
@@ -31,11 +32,13 @@
 	a,span{
 		color : black;
 		text-decoration: none !important;
-		
 	}
 	img{
 		border-radius: 50%;
 		margin: 0 !important;
+	}
+	.codiv{
+		height: 100px;
 	}
 	
 	
@@ -61,18 +64,18 @@
 							<a href="#">
 							<div class="comentTopDiv">
 								<div>
-									<img alt="없" src="">
+									<img alt="없" src="${pageContext.request.contextPath}/image/contImg/defualtImg.png" width="30px" height="30px" >
 									<span>${dto.getMember_id() }</span>
 								</div>
 								<div>
 									<img alt="없" src="${pageContext.request.contextPath}/image/contImg/star.png" width="20px" height="20px">
-									<span>(미해결)점</span>
+									<span>${dto.getMember_star()}점</span>
 								</div>
 							</div>
 							</a>
 							<hr>
 							<%--게시글 중단 --%>
-							<div>
+							<div class="codiv">
 								<a class="aTag" href="wacha_coment.do?coment_num=${dto.getComent_num() }&movie_num=${dto.getMovie_num() }&member_Id=${dto.getMember_id()}">
 								<span>
 									${dto.getMovie_coment()}
@@ -87,10 +90,7 @@
 								<img alt="" src="${pageContext.request.contextPath }/image/contImg/talk.png" width="15px" height="15px">&nbsp;<span>${dto.getCocoment_count() }</span>
 								</a>
 							</div>
-							<hr>
-							<div>
-								<a href="#"><img alt="" src="${pageContext.request.contextPath }/image/contImg/heart.png" width="15px" height="15px"> 좋아요</a>
-							</div>
+							
 						</div>
 						
 					

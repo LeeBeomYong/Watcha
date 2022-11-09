@@ -35,6 +35,8 @@ public class WriteContentAction implements Action {
 		forward.setPath("write/write_content.jsp");
 		
 		return forward;
+		
+		
 	}
 
 }

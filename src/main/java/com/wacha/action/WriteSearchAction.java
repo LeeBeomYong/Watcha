@@ -93,6 +93,8 @@ public class WriteSearchAction implements Action {
 		forward.setPath("write/inquiry_main.jsp");
 		
 		return forward;
+		
+		
 	}
 
 }

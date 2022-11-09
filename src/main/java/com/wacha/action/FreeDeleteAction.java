@@ -1,4 +1,4 @@
-package com.admin.action;
+package com.wacha.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,34 +8,38 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.wacha.controller.Action;
 import com.wacha.controller.ActionForward;
-import com.wacha.model.UserDAO;
+import com.wacha.model.FreeWriteDAO;
+import com.wacha.model.FreeWriteDTO;
 
-public class AdminDeleteOk implements Action {
+public class FreeDeleteAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		//유저상세페이지에서 삭제버튼 누를시 
-		String member_id =	request.getParameter("id").trim();
+		// 
+		FreeWriteDAO dao = FreeWriteDAO.getInstance();
 		
-		String member_pwd = request.getParameter("pwd").trim();
+		int num = Integer.parseInt(request.getParameter("num").trim());
 		
-		UserDAO dao = UserDAO.getInstance();
-		
-		int check =dao.AdminuserDelete(member_id, member_pwd);
+		FreeWriteDTO dto = dao.getFreeContent(num);
 		
 		ActionForward forward = new ActionForward();
 		
 		PrintWriter out = response.getWriter();
 		
-		if(check>0) {
+		int res = dao.freeDelete(num);
+		
+		if(res > 0) {
 			forward.setRedirect(true);
-			forward.setPath("admin_member_list.do");
+			forward.setPath("free_main.do");
 		}else {
 			out.println("<script>");
-			out.println("alert('유저삭제실패')");
+			out.println("alert('실패')");
 			out.println("history.back()");
 			out.println("</script>");
 		}
+		
+		
+		
 		
 		return forward;
 	}

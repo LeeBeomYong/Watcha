@@ -345,8 +345,8 @@ public class WriteDAO {
 				pstmt = con.prepareStatement(sql);
 				
 				pstmt.setInt(1, count);
-				pstmt.setString(2, dto.getWrite_title());
-				pstmt.setString(3, dto.getWrite_cont());
+				pstmt.setString(2, dto.getWrite_cont());	
+				pstmt.setString(3, dto.getWrite_title());
 				pstmt.setString(4, dto.getWrite_pwd());
 				pstmt.setString(5, dto.getWrite_radio());
 				pstmt.setString(6, dto.getMember_id());
@@ -1049,7 +1049,7 @@ public class WriteDAO {
 				dto = new ReplyDTO();
 				
 				dto.setReply_num(rs.getInt("reply_num"));
-				dto.setReply_cont(rs.getString("reply_cont"));
+				dto.setReply_cont(rs.getString("reply_cont").replace("\r\n","<br>"));
 				dto.setReply_date(rs.getString("reply_date"));
 				dto.setWrite_num(rs.getInt("write_num"));
 			}
@@ -1079,7 +1079,7 @@ public class WriteDAO {
 				dto = new W_ReplyDTO();
 				
 				dto.setR_num(rs.getInt("r_num"));
-				dto.setR_cont(rs.getString("r_cont"));
+				dto.setR_cont(rs.getString("r_cont").replace("\r\n","<br>"));
 				dto.setR_date(rs.getString("r_date"));
 				dto.setW_num(rs.getInt("w_num"));
 			}
@@ -1091,9 +1091,6 @@ public class WriteDAO {
 		}
 		return dto;
 	}
-	
-	
-	
 	
 	public int insertReply(ReplyDTO dto) {
 		

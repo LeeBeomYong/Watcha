@@ -4,17 +4,14 @@
     
 <%
 	int reply_no = Integer.parseInt(request.getParameter("rno").trim());
-	
+
 	FreeWriteDAO dao = FreeWriteDAO.getInstance();
 	
 	String str = dao.getReplyList(reply_no);
 	
 	out.println(str);
 %>
-    
- 
-    
-    
+
 <!DOCTYPE html>
 <html>
 <head>

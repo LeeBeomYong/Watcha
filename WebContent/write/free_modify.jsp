@@ -7,10 +7,31 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js"></script>
+<script type="text/javascript">
+
+$(function(){
+	
+
+	$("textarea.autosize").on('keydown keyup', function () {
+	  	$(this).height(1).height( $(this).prop('scrollHeight')+12 );	
+		});	
+	
+	// textarea에서 입력한 글자 만큼 세주는 함수.	
+	$(document).ready(function() {
+	    $('#text1').on('keyup', function() {
+	        $('#cnt').html("("+$(this).val().length+" / 1000)");
+	 
+	        if($(this).val().length > 1000) {
+	            $(this).val($(this).val().substring(0, 1000));
+	            $('#cnt').html("(1000 / 1000)");
+	        }
+	    });
+	});
+	
+});
+</script>
 <style type="text/css">
-
-
-
 
 	#table_1{
 		
@@ -45,64 +66,7 @@
 		background-color: #ABABAB;
 		font-weight: bold;
 	}
-	
-	.CommentWriter {
-	    margin: 12px 0 29px;
-	    padding: 16px 10px 10px 18px;
-	    border: 2px solid #C6C6C6;
-	    width: 70%;
-	    border-radius: 6px;
-	    box-sizing: border-box;
-	    background: var(--skinCommentWriterBg);
-	}
-	.CommentWriter .comment_inbox_text {
-    overflow-x: hidden;
-    overflow-y: auto;
-    display: block;
-    width: 100%;
-    min-height: 17px;
-    padding-right: 1px;
-    border: 0;
-    font-size: 13px;
-    -webkit-appearance: none;
-    resize: none;
-    box-sizing: border-box;
-    background: transparent;
-    color: var(--skinTextColor);
-    outline: 0;
-}
-	
-	.CommentWriter .comment_inbox {
-    position: relative;
-    margin-bottom: 10px;
-	}
-	
-	.blind {
-    position: absolute;
-    clip: rect(0 0 0 0);
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-	}
 
-	.CommentWriter .register_box .button {
-    display: inline-block;
-    min-width: 46px;
-    height: 34px;
-    line-height: 36px;
-    font-size: 13px;
-    color: var(--skinCommentWriterText);
-    border-radius: 6px;
-    box-sizing: border-box;
-    font-weight: 700;
-    text-align: center;
-    vertical-align: top;
-}
-
-textarea.comment_inbox_text[data-v-3b426d7d] {
-    max-height: 500px;
-}
 	
 #re_writer{
 	border: none;
@@ -155,6 +119,21 @@ textarea.comment_inbox_text[data-v-3b426d7d] {
 	background-color: white;
 }
 
+/* 제목 입력 박스 */
+#title_box{
+	width: 100%;
+	border: none;
+ 	resize: none;
+	outline: none;
+}
+
+#text1{
+	width: 100%;
+	border: none;
+ 	resize: none;
+	outline: none;
+}
+
 </style>
 </head>
 <body>
@@ -164,12 +143,13 @@ textarea.comment_inbox_text[data-v-3b426d7d] {
 		<div id="con_1">
 		<form method="post" action="<%=request.getContextPath()%>/free_modify_ok.do">
 			<c:set var="dto" value="${Modify }" />
-			<input type="hidden" name="free_num" value="${dto.getFree_num() }">
+			<c:set var="dto1" value="${userProfile }" />
+			<input type="hidden" name="free_num"  value="${dto.getFree_num() }">
 			<header>
 				<p style="color: red;">[ 수정중 ]</p>
-					<h2><input name="free_title" value="${dto.getFree_title() }"></h2>
+					<h2><textarea name="free_title" id="title_box" class="autosize" style="overflow: hidden; min-height: 50px;">${dto.getFree_title() }</textarea></h2>
 				<br>
-				<img id="pro_img" src="./image/profileupload/프로필_로고.png">
+				<img id="pro_img" src="${pageContext.request.contextPath }/image/profileupload/${dto1.getMember_image()}">
 				<div>
 					<b style="font-size: 19px;"> ${dto.getMember_id() } </b>
 					<br>
@@ -187,14 +167,14 @@ textarea.comment_inbox_text[data-v-3b426d7d] {
 				<br>
 				<div id="con_3">
 				
-					<p><textarea name="free_cont">${dto.getFree_cont() }</textarea></p>
+					<textarea name="free_cont" id="text1" class="autosize" style="overflow: hidden; min-height:250px;">${dto.getFree_cont() }</textarea>
 				
 				</div>
-				<p style="float: right; font-size: 12px;">(${dto.getFree_cont().length() }자 / 1000자)</p>
+				<p id="cnt" style="float: right; font-size: 12px;">(${dto.getFree_cont().length() }자 / 1000자)</p>
 		
 		<br>
 		
-		<hr style="width: 100%;">
+		<hr>
 		</form>
 	</div> <%-- 전체 컨테이너 div --%>
 

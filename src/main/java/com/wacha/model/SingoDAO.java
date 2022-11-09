@@ -169,9 +169,7 @@ public class SingoDAO {
 							pstmt.setString(2, member_id);
 							pstmt.executeUpdate();
 						}
-						
-						
-						
+										
 						sql="select singo_count from singo where member_id=?";
 						pstmt=con.prepareStatement(sql);
 						pstmt.setString(1, member_id);
@@ -184,6 +182,7 @@ public class SingoDAO {
 								pstmt.executeUpdate();
 							}
 						}
+						
 						
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block

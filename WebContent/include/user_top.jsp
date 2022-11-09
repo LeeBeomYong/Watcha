@@ -724,7 +724,7 @@
 	    <c:if test="${!empty session_id }">
 	    	
 	    	<ul class="session">
-	    		<li class="s_id"><img class="s_img" src="./image/profileupload/${session_img }" alt="프로필 사진" /></li>
+	    		<li class="s_id"><img class="s_img" alt="프로필 사진" /></li>
 	    		<li class="s_id"><a href="<%=request.getContextPath()%>/member_page.do?member_id=${session_id }">${session_id }</a></li>
 	    	</ul>
 	    		

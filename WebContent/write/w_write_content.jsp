@@ -95,10 +95,11 @@
 	
 	<div id="con_1">
 		<c:set var="rdto" value="${RCont }" />
+		<c:set var="dto1" value="${userProfile }"></c:set>
 		<header>
 			<h2>1:1 답변</h2>
 				<br>
-				<img id="pro_img" src="./image/profileupload/프로필_로고.png">
+				<img id="pro_img" src="${pageContext.request.contextPath }/image/profileupload/${dto1.getMember_image()}">
 				<div>
 					<b style="font-size: 19px;"> ${session_id } </b>
 					<br>

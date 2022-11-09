@@ -77,7 +77,7 @@
 				<option value="writer">작성자</option>
 			</select>
 				&nbsp;
-			<input class="form-control me-2" type="search" name="search_keyword" style="width: 500px; height: 35px;">
+			<input class="form-control me-2" type="search" name="search_keyword" style="width: 500px; height: 35px; margin: 0;">
 			<button id="btn2" class="btn btn-outline-success" type="submit">검색</button>
 			<a class="total" href="inquiry_main.do">전체목록</a>
 			
@@ -137,7 +137,7 @@
 					</c:if>
 					<%-- 게시물이 비공개인데 본인회원이랑 관리자가 아닌 경우 --%>
 					<c:if test="${dto.getWrite_radio() eq 1 && session_id ne dto.getMember_id() && 'admin' ne session_id }">
-						<tr class="tt" onclick="alert('관리자, 작성자 외 열람 불가능'); return false;">
+						<tr class="tt" onclick="alert('이 게시물은 비공개입니다.\n관리자, 작성자 외 열람 불가능'); return false;">
 							<td style="text-align: center;"> ${dto.getWrite_num() } </td>
 							<td class="wrt"> ${dto.getMember_id() } </td>
 							<td> 

@@ -186,8 +186,8 @@ public class WriteDAO {
 					WriteDTO dto = new WriteDTO();
 					
 					dto.setWrite_num(rs.getInt("write_num"));
-					dto.setWrite_title(rs.getString("write_title"));
 					dto.setWrite_cont(rs.getString("write_cont"));
+					dto.setWrite_title(rs.getString("write_title"));
 					dto.setWrite_pwd(rs.getString("write_pwd"));
 					dto.setWrite_hit(rs.getInt("write_hit"));
 					dto.setWrite_date(rs.getString("write_date"));
@@ -345,8 +345,8 @@ public class WriteDAO {
 				pstmt = con.prepareStatement(sql);
 				
 				pstmt.setInt(1, count);
-				pstmt.setString(2, dto.getWrite_title());
-				pstmt.setString(3, dto.getWrite_cont());
+				pstmt.setString(2, dto.getWrite_cont());
+				pstmt.setString(3, dto.getWrite_title());
 				pstmt.setString(4, dto.getWrite_pwd());
 				pstmt.setString(5, dto.getWrite_radio());
 				pstmt.setString(6, dto.getMember_id());
@@ -499,7 +499,7 @@ public class WriteDAO {
 					
 					dto.setWrite_num(rs.getInt("write_num"));
 					dto.setWrite_title(rs.getString("write_title"));
-					dto.setWrite_cont(rs.getString("write_cont").replace("\r\n","<br>"));
+					dto.setWrite_cont(rs.getString("write_cont"));
 					dto.setWrite_pwd(rs.getString("write_pwd"));
 					dto.setWrite_hit(rs.getInt("write_hit"));
 					dto.setWrite_date(rs.getString("write_date"));

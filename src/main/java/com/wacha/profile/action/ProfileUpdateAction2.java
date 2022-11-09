@@ -18,7 +18,7 @@ public class ProfileUpdateAction2 implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		String saveFolder = "C:\\Users\\by\\git\\Watcha\\WebContent\\image\\profileupload";
+		String saveFolder = "C:\\Users\\user\\git\\Watcha\\WebContent\\image\\profileupload";
 //		C:\\myJSP\\wrokspace(jsp)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\WatchaProject\\image
 		int fileSize = 10 * 1024 * 1024;  // 10MB 
 		

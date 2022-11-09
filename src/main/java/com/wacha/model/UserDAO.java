@@ -426,14 +426,14 @@ public class UserDAO {
 			
 			try {
 				openConn();
-				sql="update member set member_name=?, member_pwd=?, member_profile=?, member_birth = ?, member_image=? where member_id = 'test1'";
+				sql="update member set member_name=?, member_pwd=?, member_profile=?, member_birth = ?, member_image=? where member_id = ?";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setString(1, dto.getMember_name());
 				pstmt.setString(2, dto.getMember_pwd());
 				pstmt.setString(3, dto.getMember_profile());
 				pstmt.setString(4, dto.getMember_birth());
 				pstmt.setString(5, dto.getMember_image());
-				//pstmt.setString(6, dto.getMember_id());
+				pstmt.setString(6, dto.getMember_id());
 				result = pstmt.executeUpdate();
 				
 			} catch (SQLException e) {

@@ -43,6 +43,7 @@ public class ImageDAO {
 			private ImageDAO() {  }  // 기본 생성자
 			
 			
+			
 			// 3단계 : 기본 생성자 대신에 싱글턴 객체를 return 해 주는
 			//        getInstance() 라는 메서드를 만들어서 해당
 			//        getInstance() 라는 메서드를 외부에서 접근할 수

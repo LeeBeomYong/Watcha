@@ -806,30 +806,30 @@ public List<ComentDTO>getComentcontent(int num,String id,int no){
 				closeConn(rs, pstmt, con);
 			}return list;
 		}
-public int ComentDelete(int num) {
-	
-	int result = 0;
-	
-	openConn();
+		public int ComentDelete(int num) {
+			
+			int result = 0;
+			
+			openConn();
+						
+			try {
+				sql = "delete from coment where coment_num = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				result = pstmt.executeUpdate();
 				
-	try {
-		sql = "delete from coment where coment_num = ?";
-		pstmt = con.prepareStatement(sql);
-		pstmt.setInt(1, num);
-		result = pstmt.executeUpdate();
-		
-		sql = "update coment set coment_num = coment_num - 1 where coment_num > ?";
-		pstmt = con.prepareStatement(sql);
-		pstmt.setInt(1, num);
-		pstmt.executeUpdate();
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}closeConn(rs, pstmt, con);
-	
-	return result;
-	
-}
+				sql = "update coment set coment_num = coment_num - 1 where coment_num > ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}closeConn(rs, pstmt, con);
+			
+			return result;
+			
+		}
 
 	public List<ComentDTO> getComentListPage(int page) {
 		sql="select * from coment where coment_num_son is null order by movie_num asc, member_id asc";
@@ -898,6 +898,7 @@ public int ComentDelete(int num) {
 		}finally {
 			closeConn(rs, pstmt, con);
 		}
+		
 		
 	}
 

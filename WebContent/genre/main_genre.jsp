@@ -1,81 +1,112 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>선택 장르 메인 페이지</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+<title>영화 리뷰 플랫폼</title>
+<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 <script>
-	$(function () {
-		
-		$(".signIn").click(function() {
-			$(".modal").css({
-				'display': 'block'
-			});
-			$(".modal_content1").css({
-				'display': 'block'
-			});
-			$(".modal_content2").css({
-				'display': 'none'
-			});
-		});
-		
-		$(".signUp").click(function() {
-			$(".modal").css({
-				'display': 'block'
-			});
-			$(".modal_content2").css({
-				'display': 'block'
-			});
-			$(".modal_content1").css({
-				'display': 'none'
-			});
-		});
-		
-		$(".modal").click(function() {
-			$(".modal").hide();
-			$(".modal_content").hide();
-		});
-	
-	});
-	
-	function signUp() {
-		$(".modal_content2").css({
-			'display': 'block'
-		});
-		$(".modal_content1").css({
-			'display': 'none'
-		});
-	}
 
-function logIn() {
-	$(".modal_content1").css({
-		'display': 'block'
+	$(function() {
+		
+		$("#prv_btn1").css({
+			'display' : 'none'
+		});
+		$("#prv_btn2").css({
+			'display' : 'none'
+		});
+		$("#prv_btn3").css({
+			'display' : 'none'
+		});
+		$("#prv_btn4").css({
+			'display' : 'none'
+		});
+		
+		// next 클릭 > prev show, next hide
+		$("#nxt_btn1").on("click",function() {
+			$("#prv_btn1").show();
+			$("#nxt_btn1").hide();
+		});
+		$("#nxt_btn2").on("click",function() {
+			$("#prv_btn2").show();
+			$("#nxt_btn2").hide();
+		});
+		$("#nxt_btn3").on("click",function() {
+			$("#prv_btn3").show();
+			$("#nxt_btn3").hide();
+		});
+		$("#nxt_btn4").on("click",function() {
+			$("#prv_btn4").show();
+			$("#nxt_btn4").hide();
+		});
+		// prev 클릭 > next hide, prev show
+		$("#prv_btn1").on("click",function() {
+			$("#nxt_btn1").show();
+			$("#prv_btn1").hide();
+		});
+		$("#prv_btn2").on("click",function() {
+			$("#nxt_btn2").show();
+			$("#prv_btn2").hide();
+		});
+		$("#prv_btn3").on("click",function() {
+			$("#nxt_btn3").show();
+			$("#prv_btn3").hide();
+		});
+		$("#prv_btn4").on("click",function() {
+			$("#nxt_btn4").show();
+			$("#prv_btn4").hide();
+		});
+				
 	});
-	$(".modal_content2").css({
-		'display': 'none'
-	});
-}
+
 </script>
 <style>
 
 #wrapper {
 	margin: auto;
-	width: 85%;
+	width: 90%;
 	padding-top: 45px;
 }
 
-li > a {
-	text-decoration: none;
+
+.ul_1 {
+	list-style-type: none;
+	padding: 0;
+	text-align: center;
 }
 
-li {
+.li_1 > a {
+	text-decoration: none;
+	color: #000;
 	display: inline-block;
-	margin: 20px;
+}
+
+a:linked, a:visited {
+	color: #000;
+}
+
+
+.li_1 {
+	display: inline;
+	margin: 1%;
+	width: 100%;
+	text-align: center;
+}
+
+.li_1 > a {
+	text-decoration: none;
+	text-align: left;
+}
+
+.selectbox {
+	border: none;
+}
+
+.selectbox option {
+	font-size: 13px;
+	padding-bottom: 5px;
 }
 
 .logins {
@@ -88,93 +119,129 @@ li {
 	display: none;	
 }
 
-.modal_content {
-	border-radius: 10px;
-	width: 400px;
-	height: 600px;
-	position: relative;
-	text-align: center;
-	background-color: #fff;
-	top:50%; 
-	left:50%;
-	transform: translate(-50%,-50%);
-	padding: 5px;
-	display: block;
-}
-
-.modal {
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	background-color: #000;
-	top:0; left:0;
-	cursor: pointer;
-	display: none;
-}
-
-.modal_form {
-	text-align: center;	
-}
-
-.label {
-    background-color: lightgray;
-    width: 300px;
-    height: 50px;
-    margin: 5px;
-    border-radius: 10px;
-}
-
-input {
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-    margin: 5px;	
-}
-
-.text {
-	width: 250px;
-	line-height: 40px;
-	border: none;
-	background: transparent;
-}
-
-.m_btn {
-	width: 300px;
-	border: none;
-	background-color: rgb(255, 53, 94);
-	cursor: pointer;
-	color: white;
-	border-radius: 10px;
-	height: 50px;
-}
-
-.m_btn1 {
-	width: 300px;
-	height: 50px;
-	border: none;
-	background-color: transparent;
-	cursor: pointer;
-	color: rgb(255, 53, 94);
-}
-
-.m_btn2 {
-	border: none;
-	background-color: transparent;
-	cursor: pointer;
-	color: rgb(255, 53, 94);
-}
-
-img {
-	margin: 5%;
-}
-
 p {
 	font-weight: bold;
 	font-size: 27px;
 }
 
+#carouselExampleControls1, #carouselExampleControls2, #carouselExampleControls3 {
+	margin-bottom: 3%;
+}
+
+.poster {
+	border-radius: 5%;
+	width: 230px;
+	height: 330px;
+}
+
+
+.ex_box_1 {
+	margin-left: 10px;
+	font-size: 16px;
+	font-weight: 500;
+}
+
+.ex_box_2 {
+	margin-left: 10px;
+	font-size: 13px;
+	color: rgb(255, 53, 94);
+}
+
+.ex_box3 {
+	margin-left: 10px;
+	font-size: 13.5px;
+}
+
+.main_poster {
+	padding: relative;
+}
+
+.caption {
+	display: inline-block;
+	position: absolute;
+	width: 28px;
+	height: 28px;
+	text-align: center;
+	font-size: 14px;
+	font-weight: 700;
+	color: #fff;
+	background-color: #000;
+	border-radius: 5px;
+	margin-top: 25px;
+	margin-left: 25px;
+}
+
 .carousel-control-prev, .carousel-control-next {
-	opacity: 0;
+	width:  !important;
+	height: 50px !important;
+	top: 180px !important;
+	color: #000 !important;
+	z-index: 0 !important;
+}
+
+#prv, #nxt {
+	visibility: hidden;
+}
+
+#slide_p {
+	width: 30px;
+	height: 30px;
+}
+
+#slide_n {
+	width: 30px;
+	height: 30px;
+}
+
+.genre {
+	font-size: 15px;
+	color: #d2d2d2;
+}
+
+.selected {
+	font-size: 20px;
+	color: #000;
+	text-shadow: gray;
+}
+
+.nothing {
+	width: 100%;
+	height: 350px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.non {
+	width: 80px;
+	height: 100px;
+	border: none;
+	margin-bottom: 5%;
+}
+
+.n_message {
+	font-size: 16px;
+	font-weight: 400;
+	color: #A4A4A4;
+}
+
+.arrow_p {
+	background: url("./image/arrowl.png") 0px center / 32px no-repeat rgb(255, 255, 255);
+	border-radius: 50%;
+	border: 1px solid rgb(249,249,249);
+	box-sizing: border-box;
+	width: 34px;
+	height: 34px;
+	cursor: pointer;
+}
+
+.arrow_n {
+	background: url("./image/arrowr.png") 0px center / 32px no-repeat rgb(255, 255, 255);
+	border-radius: 50%;
+	border: 1px solid rgb(249,249,249);
+	box-sizing: border-box;
+	width: 34px;
+	height: 34px;
+	cursor: pointer;
 }
 
 </style>
@@ -185,248 +252,339 @@ p {
 
 	<div id="wrapper">
 	
-	<c:set var="mlist" value="${movieList }" />
-	<c:set var="ilist" value="${imageList }" />
-	<c:set var="slist" value="${starList }" />
+	<p class="genre">홈 > <span class="selected">${param.genre }</span></p>
 	
-		<br />	<br />
-		
-		<%-- 코멘트(한줄평) 많은 영화 기준 TOP10 (comment) --%>
-		<p>인기순위 : 리뷰 TOP10</p>
-		
-		<div id="carouselExampleControls"1 class="carousel slide">
+	<br />
+
+	
+	<%-- 코멘트(한줄평) 많은 영화 기준 TOP10 (comment) --%>
+	<p>인기순위 : 리뷰 TOP10</p>
+	
+	<c:if test="${!empty ilist }">
+	
+		<div id="carouselExampleControls1" class="carousel slide">
 		
 			<div class="carousel-inner">
 			
-				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="prev">
-				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				    <span class="visually-hidden">Previous</span>
-				</button>
 				
 				<div class="carousel-item active">
+					
+					<ul class="ul_1">
+						<c:forEach var="list" items="${ilist}" begin="0" end="4" varStatus="status">
+							<li class="li_1">
+								<a href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${list.movie_num}">
+									<div class="main_poster">
+										<div class="caption">${num[status.index] }</div>
+								    	<img class="poster" src="${list.image_loc}" alt="영화 포스터 이미지" />
+								    </div>
+								    <div class="ex_box_1">
+								    	${mlist[status.index].movie_title}
+								    </div>
+								    <div class="ex_box3">
+								    	${mlist[status.index].movie_date} ㆍ ${mlist[status.index].movie_country }
+								    </div>
+								    <div class="ex_box_2"> 
+								    	평균★${slist[status.index].movie_star }
+								    </div>
+							    </a>
+							 </li>
+						</c:forEach>
+					</ul>
+					
+				</div>
 				
-					<c:if test="${!empty mlist }">
-						<ul>
-							<c:forEach begin="1" end="5">
-								<li>
-									<a href="<%=request.getContextPath()%>">
-										<div class="poster">
-											<img alt="포스터 이미지" src="${ilist.image_loc }" width="210" height="300">
-										</div>
-										<div class="bref">
-											${mlist.movie_title }
-										</div>
-										<div class="star">
-											${slist.movie_star }
-										</div>
-									</a>
-								</li>
-							</c:forEach>	
-						</ul>
-						
+				<div class="carousel-item">
+				
+					<ul class="ul_1">
+						<c:forEach var="list" items="${ilist}" begin="5" end="9" varStatus="status">
+							<li class="li_1">
+								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${list.movie_num}">	
+									<div class="main_poster">
+										<div class="caption">${num[status.index] }</div>
+								    	<img class="poster" src="${list.image_loc} " alt="영화 포스터 이미지" />
+								    </div>
+								    <div class="ex_box_1">
+								    	${mlist[status.index].movie_title}
+								    </div>
+								    <div class="ex_box3">
+								    	${mlist[status.index].movie_date} ㆍ ${mlist[status.index].movie_country }
+								    </div>
+								    <div class="ex_box_2"> 
+								    	평균★${slist[status.index].movie_star}
+								    </div>
+							    </a>
+							</li>
+						</c:forEach>
+					</ul>
 				</div>
-					
-				<div class="carousel-item">	
-						<ul>
-							<c:forEach begin="6" end="10">
-								<li>
-									<a href="<%=request.getContextPath()%>">
-										<div class="poster">
-											<img alt="포스터 이미지" src="${ilist.image_loc }" width="210" height="300">
-										</div>
-										<div class="bref">
-											${mlist.movie_title }
-										</div>
-										<div class="star">
-											${slist.movie_star }
-										</div>
-									</a>
-								</li>
-							</c:forEach>	
-						</ul>
-					</c:if>
-				</div>
-					
-					<c:if test="${empty mlist }">
-						<p>조회된 영화가 없습니다.</p>
-					</c:if>
-								
-				<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="next">
-				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-				    <span class="visually-hidden">Next</span>
+				
+				<button id="prv_btn1" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="prev">
+				    <span id="prv" class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="arrow_p"></span>
 				</button>
-			
+					
+				<button id="nxt_btn1" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="next">
+				    <span id="nxt" class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="arrow_n"></span>
+				</button>
+		
 			</div>
 			
 		</div>
 		
-		<%-- 별점 높은 영화 기준 TOP10 (comment) --%>
-		<p>인기순위 : 별점 TOP10</p>
+	</c:if>
+	
+	<c:if test="${empty ilist }">
+		<div class="nothing">
+			<img class="non" src="./image/null.png" alt="nothing" /> <br />
+			<p class="n_message">코멘트가 달린 해당 장르 영화가 없습니다.</p>
+		</div>
+	</c:if>
+	
 		
+	<%-- 별점 높은 영화 기준 TOP10 (comment) --%>
+	<p>인기순위 : 별점 TOP10</p>
+	
+	<c:if test="${!empty ilist2 }">
+	
 		<div id="carouselExampleControls2" class="carousel slide">
 		
 			<div class="carousel-inner">
 			
-				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="prev">
-				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				    <span class="visually-hidden">Previous</span>
-				</button>
-				
 				<div class="carousel-item active">
-				
-					<c:if test="${!empty mlist }">
-						<ul>
-							<c:forEach begin="1" end="5">
-								<li>
-									<a href="<%=request.getContextPath()%>">
-										<div class="poster">
-											<img alt="포스터 이미지" src="${ilist.image_loc }" width="210" height="300">
-										</div>
-										<div class="bref">
-											${mlist.movie_title }
-										</div>
-										<div class="star">
-											${slist.movie_star }
-										</div>
-									</a>
-								</li>
-							</c:forEach>	
-						</ul>
-						
-				</div>
-					
-				<div class="carousel-item">	
-						<ul>
-							<c:forEach begin="6" end="10">
-								<li>
-									<a href="<%=request.getContextPath()%>">
-										<div class="poster">
-											<img alt="포스터 이미지" src="${ilist.image_loc }" width="210" height="300">
-										</div>
-										<div class="bref">
-											${mlist.movie_title }
-										</div>
-										<div class="star">
-											${slist.movie_star }
-										</div>
-									</a>
-								</li>
-							</c:forEach>	
-						</ul>
-					</c:if>
-				</div>
-					
-					<c:if test="${empty mlist }">
-						<ul>
-							<li>
-								<a href="<%=request.getContextPath()%>/content.do?num=${list.movie_num }">
-									<div class="poster">
-										영화 포스터
-									</div>
-									<div class="bref">
-										영화 제목
-									</div>
-									<div class="star">
-										영화 평균 별점
-									</div>
-								</a>
+					<ul class="ul_1">
+						<c:forEach var="list" items="${ilist2}" begin="0" end="4" varStatus="status">
+							<li class="li_1">
+								<a href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${mlist2[status.index].movie_num}">	
+									<div class="main_poster">
+										<div class="caption">${num[status.index] }</div>
+								    	<img class="poster" src="${list.image_loc} " alt="영화 포스터 이미지" />
+								    </div>
+								    <div class="ex_box_1">
+								    	${mlist2[status.index].movie_title}
+								    </div>
+								    <div class="ex_box3">
+								    	${mlist2[status.index].movie_date} ㆍ ${mlist2[status.index].movie_country }
+								    </div>
+								    <div class="ex_box_2"> 
+								    	평균★${slist2[status.index].movie_star}
+								    </div>
+							    </a>
 							</li>
-						</ul>
-					</c:if>
-									
-				<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="next">
-				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-				    <span class="visually-hidden">Next</span>
+						</c:forEach>
+					</ul>
+				</div>
+				
+				<div class="carousel-item">
+					<ul class="ul_1">
+						<c:forEach var="list" items="${ilist2}" begin="5" end="9" varStatus="status">
+							<li class="li_1">
+								<a href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${mlist2[status.index].movie_num}">	
+									<div class="main_poster">
+										<div class="caption">${num[status.index] }</div>
+								    	<img class="poster" src="${list.image_loc} " alt="영화 포스터 이미지" />
+								    </div>
+								    <div class="ex_box_1">
+								    	${mlist2[status.index].movie_title}
+								    </div>
+								    <div class="ex_box3">
+								    	${mlist2[status.index].movie_date} ㆍ ${mlist2[status.index].movie_country }
+								    </div>
+								    <div class="ex_box_2"> 
+								 		평균★${slist2[status.index].movie_star}
+								    </div>
+							    </a>
+							</li>
+						</c:forEach>
+					</ul>
+				</div>
+				
+				<button id="prv_btn2" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="prev">
+				    <span id="prv" class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="arrow_p"></span>
+				</button>
+			
+				<button id="nxt_btn2" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="next">
+				    <span id="nxt" class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="arrow_n"></span>
 				</button>
 			
 			</div>
 			
 		</div>
-		
-		<%-- '찜하기' 높은 영화 기준 TOP10 (comment) --%>
-		<p>인기순위: 보관함 TOP10</p>
-		
+	
+	</c:if>
+	
+	<c:if test="${empty ilist2 }">
+		<div class="nothing">
+			<img class="non" src="./image/null.png" alt="nothing" /> <br />
+			<p class="n_message">평가된 해당 장르 영화가 없습니다.</p>
+		</div>
+	</c:if>
+			
+	<%-- '찜하기' 높은 영화 기준 TOP10 (comment) --%>
+	<p>인기순위: 보관함 TOP10</p>
+	
+	<c:if test="${!empty ilist3 }">
+	
 		<div id="carouselExampleControls3" class="carousel slide">
-		
+	
 			<div class="carousel-inner">
 			
-				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls3" data-bs-slide="prev">
-				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				    <span class="visually-hidden">Previous</span>
-				</button>
-				
 				<div class="carousel-item active">
-				
-					<c:if test="${!empty mlist }">
-						<ul>
-							<c:forEach begin="1" end="5">
-								<li>
-									<a href="<%=request.getContextPath()%>">
-										<div class="poster">
-											<img alt="포스터 이미지" src="${ilist.image_loc }" width="210" height="300">
-										</div>
-										<div class="bref">
-											${mlist.movie_title }
-										</div>
-										<div class="star">
-											${slist.movie_star }
-										</div>
-									</a>
-								</li>
-							</c:forEach>	
-						</ul>
-						
-				</div>
-					
-				<div class="carousel-item">	
-						<ul>
-							<c:forEach begin="6" end="10">
-								<li>
-									<a href="<%=request.getContextPath()%>">
-										<div class="poster">
-											<img alt="포스터 이미지" src="${ilist.image_loc }" width="210" height="300">
-										</div>
-										<div class="bref">
-											${mlist.movie_title }
-										</div>
-										<div class="star">
-											${slist.movie_star }
-										</div>
-									</a>
-								</li>
-							</c:forEach>	
-						</ul>
-					</c:if>
-				</div>
-					
-					<c:if test="${empty mlist }">
-						<ul>
-							<li>
-								<a href="<%=request.getContextPath()%>/content.do?num=${list.movie_num }">
-									<div class="poster">
-										영화 포스터
-									</div>
-									<div class="bref">
-										영화 제목
-									</div>
-									<div class="star">
-										영화 평균 별점
-									</div>
-								</a>
+					<ul class="ul_1">
+						<c:forEach var="list" items="${ilist3}" begin="0" end="4" varStatus="status">
+							<li class="li_1">
+								<a href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${mlist3[status.index].movie_num}">	
+									<div class="main_poster">
+										<div class="caption">${num[status.index] }</div>
+								    	<img class="poster" src="${list.image_loc} " alt="영화 포스터 이미지" />
+								    </div>
+								    <div class="ex_box_1">
+								    	${mlist3[status.index].movie_title}
+								    </div>
+								    <div class="ex_box3">
+								    	${mlist3[status.index].movie_date} ㆍ ${mlist3[status.index].movie_country }
+								    </div>
+								    <div class="ex_box_2"> 
+								    	평균★${slist3[status.index].movie_star}
+								    </div>
+							    </a>
 							</li>
-						</ul>
-					</c:if>
-									
-				<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls3" data-bs-slide="next">
-				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-				    <span class="visually-hidden">Next</span>
+						</c:forEach>
+					</ul>
+				</div>
+				
+				<div class="carousel-item">
+					<ul class="ul_1">
+						<c:forEach var="list" items="${ilist3}" begin="5" end="9" varStatus="status">
+							<li class="li_1">
+								<a href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${mlist3[status.index].movie_num}">	
+									<div class="main_poster">
+										<div class="caption">${num[status.index] }</div>
+								    	<img class="poster" src="${list.image_loc} " alt="영화 포스터 이미지" />
+								    </div>
+								    <div class="ex_box_1">
+								    	${mlist3[status.index].movie_title}
+								    </div>
+								    <div class="ex_box3">
+								    	${mlist3[status.index].movie_date} ㆍ ${mlist3[status.index].movie_country }
+								    </div>
+								    <div class="ex_box_2"> 
+								    	평균★${slist3[status.index].movie_star}
+								    </div>
+							    </a>
+							</li>
+						</c:forEach>
+					</ul>
+				</div>
+				
+				<button id="prv_btn3" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls3" data-bs-slide="prev">
+				    <span id="prv" class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="arrow_p"></span>
+				</button>
+			
+				<button id="nxt_btn3" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls3" data-bs-slide="next">
+				    <span id="nxt" class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="arrow_n"></span>
 				</button>
 			
 			</div>
 			
 		</div>
+	
+	</c:if>
+	
+	<c:if test="${empty ilist3 }">
+		<div class="nothing">
+			<img class="non" src="./image/null.png" alt="nothing" /> <br />
+			<p class="n_message">'찜하기'가 된 해당 장르 영화가 없습니다.</p>
+		</div>
+	</c:if>
+	
+	<%-- '보는 중' 높은 영화 기준 TOP10 (star) --%>
+	<p>실시간 급상승 TOP10</p>
+	
+	<c:if test="${!empty mlist4 }">
+	
+		<div id="carouselExampleControls4" class="carousel slide">
+	
+			<div class="carousel-inner">
+			
+				<div class="carousel-item active">
+					<ul class="ul_1">
+						<c:forEach var="list" items="${ilist4}" begin="0" end="4" varStatus="status">
+							<li class="li_1">
+								<a href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${mlist4[status.index].movie_num}">	
+									<div class="main_poster">
+										<div class="caption">${num[status.index] }</div>
+								    	<img class="poster" src="${list.image_loc} " alt="영화 포스터 이미지" />
+								    </div>
+								    <div class="ex_box_1">
+								    	${mlist4[status.index].movie_title}
+								    </div>
+								    <div class="ex_box3">
+								    	${mlist4[status.index].movie_date} ㆍ ${mlist4[status.index].movie_country }
+								    </div>
+								    <div class="ex_box_2"> 
+								    	평균★${slist4[status.index].movie_star}
+								    </div>
+							    </a>
+							</li>    
+						</c:forEach>
+					</ul>
+				</div>
+				
+				<div class="carousel-item">
+					<ul class="ul_1">
+						<c:forEach var="list" items="${ilist4}" begin="5" end="9" varStatus="status">
+							<li class="li_1">
+								<a href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${mlist4[status.index].movie_num}">	
+									<div class="main_poster">
+										<div class="caption">${num[status.index] }</div>
+								    	<img class="poster" src="${list.image_loc} " alt="영화 포스터 이미지" />
+								    </div>
+								    <div class="ex_box_1">
+								    	${mlist4[status.index].movie_title}
+								    </div>
+								    <div class="ex_box3">
+								    	${mlist4[status.index].movie_date} ㆍ ${mlist4[status.index].movie_country }
+								    </div>
+								    <div class="ex_box_2"> 
+								    	평균★${slist4[status.index].movie_star}
+								    </div>
+							    </a>
+							</li>
+						</c:forEach>
+					</ul>
+				</div>
+				
+				<button id="prv_btn4" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls4" data-bs-slide="prev">
+				    <span id="prv" class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="arrow_p"></span>
+				</button>
+			
+				<button id="nxt_btn4" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls4" data-bs-slide="next">
+				    <span id="nxt" class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="arrow_n"></span>
+				</button>
+			
+			</div>
 		
-	</div>
+		</div>
+	
+	</c:if>
+	
+	<c:if test="${empty mlist4 }">
+		<div class="nothing">
+			<img class="non" src="./image/null.png" alt="nothing" /> <br />
+			<p class="n_message">실시간 급상승 중인 해당 장르 영화가 없습니다.</p>
+		</div>
+	</c:if>
+	
+	<br />
+		
+	</div> <%-- #wrapper end --%>
 	
 	<jsp:include page="../include/user_bottom.jsp" />
 

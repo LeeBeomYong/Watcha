@@ -17,10 +17,12 @@ public class AdminServiceListAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		//
+		
+		
 		WriteDAO dao = WriteDAO.getInstance();
 		
-		List<WriteDTO> list = dao.getWriteList1();
-		List<W_WriteDTO> list_1 = dao.getW_WriteList();
+		List<WriteDTO> list = dao.getWriteList2();
+		List<W_WriteDTO> list_1 = dao.getW_WriteList2();
 		
 		request.setAttribute("List", list);
 		request.setAttribute("List_1", list_1);
@@ -34,3 +36,5 @@ public class AdminServiceListAction implements Action {
 	}
 
 }
+
+

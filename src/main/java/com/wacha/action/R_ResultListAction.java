@@ -18,7 +18,9 @@ public class R_ResultListAction implements Action {
 		//
 		WriteDAO dao = WriteDAO.getInstance();
 		
-		List<W_WriteDTO> list = dao.getW_WriteList();
+		String id = request.getParameter("id");
+		
+		List<W_WriteDTO> list = dao.getW_WriteList(id);
 		
 		request.setAttribute("RList", list);
 		
@@ -29,6 +31,8 @@ public class R_ResultListAction implements Action {
 		forward.setPath("write/write_result.jsp");
 		
 		return forward;
+		
+		
 	}
 
 }

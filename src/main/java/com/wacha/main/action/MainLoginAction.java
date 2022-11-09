@@ -31,37 +31,37 @@ public class MainLoginAction implements Action {
 		PrintWriter out = response.getWriter();
 		
 		if(res == 1) {	// 회원
-			UserDTO dto = dao.getMember(member_id);
+			UserDTO sdto = dao.getMember(member_id);
 			
 			HttpSession session1 = request.getSession();
 			
 			HttpSession session2 = request.getSession();
 			
-			session1.setAttribute("session_id", dto.getMember_id());
+			session1.setAttribute("session_id", sdto.getMember_id());
 			
-			session2.setAttribute("session_img", dto.getMember_image());
+			session2.setAttribute("session_img", sdto.getMember_image());
 			
 			forward.setRedirect(false);
 			
 			forward.setPath("main.jsp");	
 		}else if(res == 2) {	// 관리자
 			
-			UserDTO dto = dao.getMember(member_id);
+			UserDTO sdto = dao.getMember(member_id);
 			
 			HttpSession session1 = request.getSession();
 			
 			HttpSession session2 = request.getSession();
 			
-			session1.setAttribute("session_id", dto.getMember_id());
+			session1.setAttribute("session_id", sdto.getMember_id());
 			
-			session2.setAttribute("session_img", dto.getMember_image());
+			session2.setAttribute("session_img", sdto.getMember_image());
 			
 			forward.setRedirect(false);
 			
 			forward.setPath("admin/admin_main.jsp");
 		}else {	// 비밀번호 틀림
 			
-			out.println("<script> alert(비밀번호가 틀립니다. 다시 입력해주세요.); history.back(); </script>");
+			out.println("<script> alert('비밀번호가 틀립니다.'); history.back(); </script>");
 			
 		}
 		

@@ -21,11 +21,12 @@ public class ProfileOkAction implements Action {
 		// 세션정보 가져오기
 		HttpSession session = request.getSession();
 		String member_Id = (String)session.getAttribute("session_id");
-		
+				
 		UserDAO dao = UserDAO.getInstance();
 		
 		UserDTO dto = dao.profileUpdate(member_Id);
 		request.setAttribute("userProfile", dto);
+		session.setAttribute("session_img", dto.getMember_image());
 		
 		StarDAO dao2 = StarDAO.getInstance();
 		int star = dao2.reviewCheck(member_Id);

@@ -13,6 +13,8 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.easing/1.3/jquery.easing.1.3.js"></script>
 <script type="text/javascript">
 
+
+
 	// 탭 두개 콘텐츠 값 다르게 보여주는 함수.
 	$(document).ready(function(){
 		   
@@ -98,11 +100,11 @@
 			<%-- 공지사항 받아온 것 리스트 --%>
 			<c:set var="list_1" value="${List_1 }" />
 				<c:forEach items="${list_1 }" var="dto_1">
-				<tr style="background-color: #F0EFEF;" onclick="location.href='<%=request.getContextPath() %>/notice_content.do?no=${dto_1.getNotice_num() }'">
+				<tr class="tt" style="background-color: #F0EFEF;" onclick="location.href='<%=request.getContextPath() %>/notice_content.do?no=${dto_1.getNotice_num() }'">
 					<td class="no"><img src="https://cdn-icons-png.flaticon.com/512/667/667974.png" style="width: 19px; height: 19px;"><b>공지</b><img src="https://cdn-icons-png.flaticon.com/512/667/667974.png" style="width: 19px; height: 19px;"></td>
 					<td class="wrt"><b>관리자</b></td>
 					<td><a class="admin_tit">${dto_1.getNotice_title() }</a></td>
-					<td class="date">날짜 넣으면됨.</td>
+					<td class="date">${dto_1.getNotice_date() }</td>
 					<td class="hit"><b>${dto_1.getNotice_hit() }</b></td>
 				</tr>
 				</c:forEach>
@@ -223,7 +225,7 @@
 	  <form method="post" enctype="multipart/form-data" action="<%=request.getContextPath() %>/w_write_upload.do">
 	  
 	  	<header>
-			<h2>1:1문의(작성양식)<span id="img_text">등록</span><input type="image" src="https://cdn-icons-png.flaticon.com/512/46/46076.png" value="등록" id="img_a"></h2>
+			<h2>1:1문의(작성양식)<input type="submit" value="등록" id="img_a"></h2>
 		</header>
 		 <br>
 		 <br>

@@ -340,9 +340,73 @@ public class ImageDAO {
 					closeConn(rs, pstmt, con);
 				}
 				return result;
+			}
+				public ImageDTO movieImage(int num) {
+					
+					ImageDTO dto = null;
+			
+					try {						
+						
+						openConn();
+						
+						sql="select * from image where movie_num=?";
+						
+						pstmt= con.prepareStatement(sql);
+						
+						pstmt.setInt(1, num);
+						
+						rs=pstmt.executeQuery();
+						
+						if(rs.next()) {
+							dto = new ImageDTO();
+							
+							dto.setMovie_num(rs.getInt("movie_num"));
+							
+							dto.setImage_loc(rs.getString("image_loc"));
+							
+							dto.setImage_temp(rs.getString("image_temp"));
+							
+							dto.setDirector_image(rs.getString("director_image"));
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}finally {
+						closeConn(rs, pstmt, con);
+					}return dto;
+					
+				
+				}
+		public int updateMoviepic(ImageDTO dto) {
+			int result=0;
+			
+			try {
+				openConn();
+				sql="update image set image_loc=?,image_temp=?,director_image=? where movie_num=?";
+				
+				pstmt=con.prepareStatement(sql);
+				
+				pstmt.setString(1, dto.getImage_loc());
+				
+				pstmt.setString(2, dto.getImage_temp());
+				
+				pstmt.setString(3, dto.getDirector_image());
+				
+				pstmt.setInt(4, dto.getMovie_num());
+				
+				result=pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+					closeConn(rs, pstmt, con);
+				}return result;
+			}
+
 				
 				
 			}
+			
+		
 
 
-}

@@ -1,17 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<%! public int getRandom(){
-	int random = 0;
-	random = (int)Math.floor((Math.random()*(99999-10000+1)))+10000;
-	return random;
-	} 
-%>
+<script type="text/javascript">
+	function checkCode(){
+		  var v1 = form2.code_check.value;
+		  var v2 = form2.code.value;
+		  if(v1!=v2){
+			   document.getElementById('checkCode').style.color = "red";
+			   document.getElementById('checkCode').innerHTML = "잘못된인증번호";
+               makeNull();
+		  }else{
+			   document.getElementById('checkCode').style.color = "blue";
+			   document.getElementById('checkCode').innerHTML = "인증되었습니다."; 
+			   makeReal();
+		  }
+		 }
+	function makeReal(){
+		var hiddenbutton = document.getElementById("hiddenbutton");
+		hiddenbutton.type="submit";
+	}
+    function makeNull(){
+		var hiddenbutton = document.getElementById("hiddenbutton");
+		hiddenbutton.type="hidden";
+	}
+</script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
@@ -42,7 +58,7 @@
 	  min-height: 500px;
 	  overflow: hidden;
 	}
-	#form1 {
+	#form2 {
  	  background: #ebecf0;
 	  display: flex;
 	  flex-direction: column;
@@ -51,7 +67,7 @@
 	  justify-content: center;
 	  align-items: center;
 	}
-	#form1 input {
+	#form2 input {
 	  background: #eee;
 	  padding: 16px;
 	  margin: 8px 0;
@@ -102,7 +118,7 @@
 	  transition: all 0.5s;
 	}
 	
-	#form1 h1 {
+	#form2 h1 {
 	  font-weight: bold;
 	  margin: 0;
 	  color: #000;
@@ -111,24 +127,24 @@
 </style>
 </head>
 <body>
-
-	<jsp:include page = "../include/user_top.jsp" />
 	
+	<jsp:include page = "../include/user_top.jsp" />
 	<div class="wrapper2">
   		<div class="container2">
    		 	<div class="sign-in-container2">
-				<form id="form1" method="post" action="<%=request.getContextPath()%>/send.do">
-					<h1>이메일 인증</h1>
+				<form id="form2" method="post" action="<%=request.getContextPath()%>/delete_ok.do">
+					<h1>인증번호 확인</h1>
 			        <br><br>
-			        <c:set var="dto" value="${profileList }"/>
-			        <input type='text' id="receiver" name='receiver' value="${dto.getMember_email()}" readonly="readonly"/>
-					<input id="submit" type="submit"  value="인증번호발송">
-					<input type="hidden" readonly="readonly" name="code_check" id="code_check" value="<%=getRandom()%>" />
+			        <input type="text" name="code" id="code" onkeyup="checkCode()" placeholder="인증번호를 입력하세요." />
+			       	<div id="checkCode"></div>
+			       	<input type="hidden" readonly="readonly" name="code_check" id="code_check" value="<%=request.getAttribute("code")%>" />
+			        <input id ="hiddenbutton" type="hidden" value='인증하기'/>
 				</form>
 	   		 </div>
 	  	</div>
 	</div>
 	<br><br>
 	<jsp:include page = "../include/user_bottom.jsp" />
+	
 </body>
 </html>

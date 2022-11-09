@@ -64,7 +64,7 @@ public class FreeWriteDAO {
 			// 2단계 : lookup() 메서드를 이용하여 매칭되는
 			//        커넥션을 찾는다.
 			DataSource ds =
-				(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
+				(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
 			
 			// 3단계 : DataSource 객체를 이용하여
 			//        커넥션을 하나 가져온다.
@@ -399,7 +399,7 @@ public class FreeWriteDAO {
 			sql = "update free_write set free_title = ?, free_cont = ? where free_num = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, dto.getFree_title());
-			pstmt.setString(2, dto.getFree_cont().replace("\r\n","<br>"));
+			pstmt.setString(2, dto.getFree_cont());
 			pstmt.setInt(3, dto.getFree_num());
 			
 			result = pstmt.executeUpdate();
@@ -831,56 +831,6 @@ public class FreeWriteDAO {
 	
 	} // seacrhListBoard() 메서드 end		
 	
-	public List<FreeWriteDTO> getFreeList(int page){
-		int count=1;
-		sql="select * from free_write order by free_num asc";
-		List<FreeWriteDTO> free_list = new ArrayList<FreeWriteDTO>();
-		openConn();
-		try {
-			pstmt=con.prepareStatement(sql);
-			rs=pstmt.executeQuery();
-			while(rs.next()) {
-				FreeWriteDTO dto = new FreeWriteDTO();
-				
-				dto.setFree_num(rs.getInt("free_num"));
-				dto.setFree_title(rs.getString("free_title"));
-				dto.setFree_cont(rs.getString("free_cont"));
-				dto.setFree_hit(rs.getInt("free_hit"));
-				dto.setFree_date(rs.getString("free_date"));
-				dto.setFree_file(rs.getString("free_file"));
-				dto.setFree_pwd(rs.getString("free_pwd"));
-				dto.setFree_reply_num(rs.getInt("free_reply_num"));
-				dto.setMember_id(rs.getString("member_id"));
-				
-				if(count>=((page-1)*10)+1 && count <=10*page) {
-					free_list.add(dto);
-				}
-				count++;
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			closeConn(rs, pstmt, con);
-		}
-		return free_list;
-	}
-
-
-	public void updaeWriteToAdmin(int freeNum) {
-		sql="update free_write set free_cont = ? where free_num = ?";
-		openConn();
-		try {
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, "관리자가 블라인드 처리한 게시글입니다.");
-			pstmt.setInt(2, freeNum);
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			closeConn(rs, pstmt, con);
-		}
-	}
+	
 	
 }

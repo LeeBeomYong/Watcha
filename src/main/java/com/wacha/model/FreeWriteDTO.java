@@ -68,6 +68,7 @@ public class FreeWriteDTO {
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
 	}
+
 	
 	
 	

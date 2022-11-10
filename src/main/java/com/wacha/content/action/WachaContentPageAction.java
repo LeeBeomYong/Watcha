@@ -54,7 +54,9 @@ public class WachaContentPageAction implements Action {
 		String[] images = image_dao.getMovieImage(movie_num).split(",");
 		String hi ="hi,hello,nice";
 		
-		
+		System.out.println("이미지s : "+images[0]);
+		System.out.println("이미지s : "+images[1]);
+		System.out.println("이미지s : "+images[2]);
 		HttpSession session = request.getSession();
 		if(session.getAttribute("session_id")!=null) {
 			StarDTO star_dto=star_dao.getStar(movie_num, (String)session.getAttribute("session_id"));
@@ -69,7 +71,6 @@ public class WachaContentPageAction implements Action {
 				System.out.println("보는중 >>>>"+ star_dto.getMovie_watch());
 			}
 			request.setAttribute("coment_dto", coment_dto);
-			
 			
 		}
 		request.setAttribute("chk", 1);

@@ -43,6 +43,7 @@ public class ImageDAO {
 			private ImageDAO() {  }  // 기본 생성자
 			
 			
+			
 			// 3단계 : 기본 생성자 대신에 싱글턴 객체를 return 해 주는
 			//        getInstance() 라는 메서드를 만들어서 해당
 			//        getInstance() 라는 메서드를 외부에서 접근할 수
@@ -67,7 +68,7 @@ public class ImageDAO {
 					// 2단계 : lookup() 메서드를 이용하여 매칭되는
 					//        커넥션을 찾는다.
 					DataSource ds =
-						(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
+						(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
 					
 					// 3단계 : DataSource 객체를 이용하여
 					//        커넥션을 하나 가져온다.
@@ -244,7 +245,7 @@ public class ImageDAO {
 						dto.setImage_loc(rs.getString("image_loc"));
 						dto.setImage_temp(rs.getString("image_temp"));
 						dto.setDirector_image(rs.getString("director_image"));
-						System.out.println("감독 이미지 : "+dto.getDirector_image());
+						//System.out.println("감독 이미지 : "+dto.getDirector_image());
 						
 						list.add(dto);
 					}
@@ -767,6 +768,7 @@ public class ImageDAO {
 				
 				return res;
 			}
+			
 
 			// 해당 번호 영화 dto 가져오자자
 			public ImageDTO getMovie(int movie_num) {
@@ -779,9 +781,9 @@ public class ImageDAO {
 					rs=pstmt.executeQuery();
 					if(rs.next()) {
 						image_dto=new ImageDTO();
-						image_dto.setDirector_image("director_image");
-						image_dto.setImage_loc("image_loc");
-						image_dto.setImage_temp("image_temp");
+						image_dto.setDirector_image(rs.getString("director_image"));
+						image_dto.setImage_loc(rs.getString("image_loc"));
+						image_dto.setImage_temp(rs.getString("image_temp"));
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block

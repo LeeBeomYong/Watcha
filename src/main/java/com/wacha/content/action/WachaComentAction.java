@@ -10,10 +10,14 @@ import com.wacha.controller.Action;
 import com.wacha.controller.ActionForward;
 import com.wacha.model.ComentDAO;
 import com.wacha.model.ComentDTO;
+import com.wacha.model.ImageDAO;
+import com.wacha.model.ImageDTO;
 import com.wacha.model.MovieDAO;
 import com.wacha.model.MovieDTO;
 import com.wacha.model.StarDAO;
 import com.wacha.model.StarDTO;
+import com.wacha.model.UserDAO;
+import com.wacha.model.UserDTO;
 
 public class WachaComentAction implements Action {
 
@@ -46,16 +50,28 @@ public class WachaComentAction implements Action {
 		MovieDAO movie_dao = MovieDAO.getInstance();
 		MovieDTO movie_dto = movie_dao.getContentInfo(movie_num);
 		
-		
+		ImageDAO image_dao = ImageDAO.getInstance();
+		ImageDTO image_dto= image_dao.getMovie(movie_num);
+		String[] images = image_dao.getMovieImage(movie_num).split(",");
 		
 		
 		StarDAO star_dao = StarDAO.getInstance();
 		StarDTO star_dto = star_dao.getStar(movie_num,member_Id);
 		
+		UserDAO user_dao = UserDAO.getInstance();
+		UserDTO user_dto= user_dao.getMember(member_Id);
+		
+		
 		request.setAttribute("coment_dto", coment_dto);
 		request.setAttribute("movie_dto", movie_dto);
 		request.setAttribute("star_dto", star_dto);
 		request.setAttribute("id_hit", id_hit);
+		
+		request.setAttribute("image_dto", image_dto);
+		request.setAttribute("images", images);
+		
+		request.setAttribute("user_dto", user_dto);
+		
 		
 		ActionForward forward = new ActionForward();
 		

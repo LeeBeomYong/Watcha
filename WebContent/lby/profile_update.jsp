@@ -22,7 +22,7 @@
 	}
 	.wrapper2 {
 	  width: 100%;
-	  height: 80vh;
+	  height: 90vh;
 	  display: flex;
 	  justify-content: center;
 	  align-items: center;
@@ -33,22 +33,22 @@
 	  box-shadow: -5px -5px 10px #fff, 5px 5px 10px #babebc;
 	  position: absolute;
 	  width: 768px;
-	  min-height: 700px;
+	  min-height: 900px;
 	  overflow: hidden;
 	}
 	#asd {
  	  background: #ebecf0;
 	  display: flex;
 	  flex-direction: column;
-	  padding: 0 50px;
-	  height: 700px;
+	  padding: 0 70px;
+	  height: 900px;
 	  justify-content: center;
 	  align-items: center;
 	}
 	#asd input {
 	  background: #eee;
-	  padding: 16px;
-	  margin: 8px 0;
+	  padding: 15px;
+	  margin: 2px 0;
 	  width: 85%;
 	  border: 0;
 	  outline: none;
@@ -112,12 +112,20 @@
 			      <form id="asd" method="post" enctype="multipart/form-data" action="<%=request.getContextPath() %>/profile_update.do">
 			        <h1>프로필 수정</h1>
 			        <br><br>
+			        <span class="ff">아이디</span>
 			        <input type="text" name="pr_id" value="${dto.getMember_id()}" readonly>
+			        <span class="ff">이름</span>
 			        <input type="text" name="pr_name" value="${dto.getMember_name()}">
+			        <span class="ff">비밀번호</span>
 			        <input type="password" name="pr_pwd" value="${dto.getMember_pwd()}">
+			        <span class="ff">자기소개</span>
 			        <textarea rows="7" cols="25" name="pr_intro">${dto.getMember_profile()}</textarea>
-			        <input type="text" name="pr_birth"value="${dto.getMember_birth()}" readonly>
+			        <span class="ff">생년월일</span>
+			        <input type="text" name="pr_birth"value="${dto.getMember_birth()}">
+			        <span class="ff">프로필이미지</span>
 			        <input type="file" name="pr_img" value="${dto.getMember_image()}">
+			        <span class="ff">이메일</span>
+			        <input type="text" name="pr_email" value="${dto.getMember_email()}">
 			        <br><br>
 					<input class="form_btn" type="submit" value="수정">
 			      </form>

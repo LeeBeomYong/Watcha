@@ -26,6 +26,7 @@
 		color: #BDBDBD;
 	}
 	
+	
 	.stars {
 		font-size: 20px;
 		font-weight: bold;
@@ -134,7 +135,7 @@
 </head>
 <body>
 	
-	<div class="wrapper">
+	<div class="wrapper2">
 	
 			<section class="rates">
 				<p class="stars">

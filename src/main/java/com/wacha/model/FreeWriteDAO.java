@@ -125,7 +125,7 @@ public class FreeWriteDAO {
 				dto.setFree_hit(rs.getInt("free_hit"));
 				dto.setFree_date(rs.getString("free_date"));
 				dto.setFree_file(rs.getString("free_file"));
-				dto.setFree_pwd(rs.getString("free_pwd"));
+				dto.setFree_radio(rs.getInt("free_radio"));
 				dto.setFree_reply_num(rs.getInt("free_reply_num"));
 				dto.setMember_id(rs.getString("member_id"));
 				
@@ -227,7 +227,45 @@ public class FreeWriteDAO {
 				dto.setFree_hit(rs.getInt("free_hit"));
 				dto.setFree_date(rs.getString("free_date"));
 				dto.setFree_file(rs.getString("free_file"));
-				dto.setFree_pwd(rs.getString("free_pwd"));
+				dto.setFree_radio(rs.getInt("free_radio"));
+				dto.setFree_reply_num(rs.getInt("free_reply_num"));
+				dto.setMember_id(rs.getString("member_id"));
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+			
+		}
+		return dto;
+		
+	}
+	public FreeWriteDTO getFreeContent1(int num) {
+		
+		FreeWriteDTO dto = null;
+		
+		openConn();
+		
+		try {
+			
+			sql = "select * from free_write where free_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				dto = new FreeWriteDTO();
+				
+				dto.setFree_num(rs.getInt("free_num"));
+				dto.setFree_title(rs.getString("free_title"));
+				dto.setFree_cont(rs.getString("free_cont").replace("<br>","\r\n"));
+				dto.setFree_hit(rs.getInt("free_hit"));
+				dto.setFree_date(rs.getString("free_date"));
+				dto.setFree_file(rs.getString("free_file"));
+				dto.setFree_radio(rs.getInt("free_radio"));
 				dto.setFree_reply_num(rs.getInt("free_reply_num"));
 				dto.setMember_id(rs.getString("member_id"));
 				
@@ -296,13 +334,14 @@ public class FreeWriteDAO {
 				count = rs.getInt(1)+1;
 			}
 			
-			sql = "insert into free_write values(?, ?, ?, 0, sysdate, ?, '', 0, ?)";
+			sql = "insert into free_write values(?, ?, ?, 0, sysdate, ?, ?, 0, ?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, count);
 			pstmt.setString(2, dto.getFree_title());
 			pstmt.setString(3, dto.getFree_cont());
 			pstmt.setString(4, dto.getFree_file());
-			pstmt.setString(5, dto.getMember_id());
+			pstmt.setInt(5, dto.getFree_radio());
+			pstmt.setString(6, dto.getMember_id());
 			
 			result = pstmt.executeUpdate();
 			
@@ -360,7 +399,7 @@ public class FreeWriteDAO {
 			sql = "update free_write set free_title = ?, free_cont = ? where free_num = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, dto.getFree_title());
-			pstmt.setString(2, dto.getFree_cont().replace("\r\n","<br>"));
+			pstmt.setString(2, dto.getFree_cont());
 			pstmt.setInt(3, dto.getFree_num());
 			
 			result = pstmt.executeUpdate();
@@ -458,9 +497,43 @@ public class FreeWriteDAO {
 			closeConn(rs, pstmt, con);
 		}
 		return result;
+
 		
 	} // getReplyList() 메서드 end
 
+	public String getReplyNum(int no) {
+		
+		String result = "";
+		
+		openConn();
+		
+		try {
+			sql = "select free_reply_num from free_write where free_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			
+			result += "<replys>";
+			
+			while(rs.next()) {
+				
+				result += "<reply>";
+				result += "<free_reply_num>" + rs.getInt("free_reply_num") + "</free_reply_num>";
+				result += "</reply>";
+			}
+			
+			result += "</replys>";
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+		
+	}
+	
 
 	public int deleteReplyList(int no) {
 		
@@ -625,7 +698,7 @@ public class FreeWriteDAO {
 					dto.setFree_hit(rs.getInt("free_hit"));
 					dto.setFree_date(rs.getString("free_date"));
 					dto.setFree_file(rs.getString("free_file"));
-					dto.setFree_pwd(rs.getString("free_pwd"));
+					dto.setFree_radio(rs.getInt("free_radio"));
 					dto.setFree_reply_num(rs.getInt("free_reply_num"));
 					dto.setMember_id(rs.getString("member_id"));
 					
@@ -663,7 +736,7 @@ public class FreeWriteDAO {
 					dto.setFree_hit(rs.getInt("free_hit"));
 					dto.setFree_date(rs.getString("free_date"));
 					dto.setFree_file(rs.getString("free_file"));
-					dto.setFree_pwd(rs.getString("free_pwd"));
+					dto.setFree_radio(rs.getInt("free_radio"));
 					dto.setFree_reply_num(rs.getInt("free_reply_num"));
 					dto.setMember_id(rs.getString("member_id"));
 					
@@ -702,7 +775,7 @@ public class FreeWriteDAO {
 					dto.setFree_hit(rs.getInt("free_hit"));
 					dto.setFree_date(rs.getString("free_date"));
 					dto.setFree_file(rs.getString("free_file"));
-					dto.setFree_pwd(rs.getString("free_pwd"));
+					dto.setFree_radio(rs.getInt("free_radio"));
 					dto.setFree_reply_num(rs.getInt("free_reply_num"));
 					dto.setMember_id(rs.getString("member_id"));
 					
@@ -740,7 +813,7 @@ public class FreeWriteDAO {
 					dto.setFree_hit(rs.getInt("free_hit"));
 					dto.setFree_date(rs.getString("free_date"));
 					dto.setFree_file(rs.getString("free_file"));
-					dto.setFree_pwd(rs.getString("free_pwd"));
+					dto.setFree_radio(rs.getInt("free_radio"));
 					dto.setFree_reply_num(rs.getInt("free_reply_num"));
 					dto.setMember_id(rs.getString("member_id"));
 					
@@ -757,7 +830,23 @@ public class FreeWriteDAO {
 		return list;
 	
 	} // seacrhListBoard() 메서드 end		
-	
+
+
+	public void updateWriteToAdmin(int freeNum) {
+		sql="update free_write set free_cont = ? where freeNum = ?";
+		try {
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, "관리자가 블라인드 처리한 댓글입니다.");
+			pstmt.setInt(2, freeNum);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		
+	}
 	public List<FreeWriteDTO> getFreeList(int page){
 		int count=1;
 		sql="select * from free_write order by free_num asc";
@@ -775,7 +864,6 @@ public class FreeWriteDAO {
 				dto.setFree_hit(rs.getInt("free_hit"));
 				dto.setFree_date(rs.getString("free_date"));
 				dto.setFree_file(rs.getString("free_file"));
-				dto.setFree_pwd(rs.getString("free_pwd"));
 				dto.setFree_reply_num(rs.getInt("free_reply_num"));
 				dto.setMember_id(rs.getString("member_id"));
 				
@@ -793,21 +881,4 @@ public class FreeWriteDAO {
 		return free_list;
 	}
 
-
-	public void updaeWriteToAdmin(int freeNum) {
-		sql="update free_write set free_cont = ? where free_num = ?";
-		openConn();
-		try {
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, "관리자가 블라인드 처리한 게시글입니다.");
-			pstmt.setInt(2, freeNum);
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			closeConn(rs, pstmt, con);
-		}
-	}
-	
 }

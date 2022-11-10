@@ -287,33 +287,6 @@ $(function() {
 	    });
 		
 		
-		function weather() {
-			$.ajax({
-				url : "/WatchaProject/content/Weather.jsp",
-				type : "post",
-				timeout : 30000,
-				dataType : "json",
-				success : function(data,status,xhr) {
-					
-					let dataHeader = data.result.response.header.resultCode;
-					if(dataHeader == "00"){
-						console.log("성공 : ");
-						console.log(data);
-					}else{
-						console.log("실패 : ");
-						console.log(data);
-					}
-				},
-				error : function(e,status , xhr, data) {
-					console.log("error : ");
-					console.log(e);
-				}
-			});
-		}
-		
-		
-		
-		weather();
 		
 
 	}); // 제이쿼리 end 부분
@@ -325,6 +298,9 @@ $(function() {
 	    	$(".modal2").css("display","none");
 		}
     });
+	
+	
+	
     
 
     
@@ -347,16 +323,22 @@ $(function() {
 	<div id="topImg">
 			<div id="imgT">
 			<%-- 상단 예매 순위 / 개봉 날짜 / 평균 별점 --%>
-			<img id="imgT_img" alt="${images[0]}" src="">
+			<img id="imgT_img" alt="" src="${pageContext.request.contextPath}/image/${images[0].trim()}">
 			<div id="topShow">
 				<div id="topDiv_img">
-					<img alt="이미지 없음" src="${pageContext.request.contextPath }/image/contImg/black_adam_content_sub.jpg" width="150px">
+					<c:if test="${!empty img_dto.getImage_loc() }">
+						<img alt="" src="${pageContext.request.contextPath}/image/${img_dto.getImage_loc()}" width="150px">					
+										
+					</c:if>
+					<c:if test="${empty img_dto.getImage_loc() }">
+						<img alt="" src="${pageContext.request.contextPath}/image/null.png" width="150px">	
+					</c:if>
 				</div>
 			<div id="topDiv_cont">
 				<ul>
-					<li>순위 ${rank} 위 /</li>
-					<li>개봉일 ${mDto.getMovie_date()} 일 /</li>
-					<li>왓챠 평점 ${avgStar}점</li>
+					<li>순위 ${rank} 위 / </li>
+					<li>&nbsp; 개봉일 ${mDto.getMovie_date()} 일 / </li>
+					<li>&nbsp; 왓챠 평점 ${avgStar}점</li>
 				</ul>
 			</div>
 				
@@ -477,7 +459,7 @@ $(function() {
 			
 			<div id="cd_cont2">
 				<span>${mDto.getMovie_date() } ${mDto.getMovie_country() } ${mDto.getMovie_genre() }</span><br>
-				<span>${mDto.getMovie_time()} ${mDto.getMovie_age()}세</span><br>
+				<span>${mDto.getMovie_time()}&nbsp; 이용 가능 연령가 : ${mDto.getMovie_age()}</span><br>
 				<span>
 				${mDto.getMovie_cont() }
 				</span>
@@ -490,7 +472,7 @@ $(function() {
 					<ul>
 					<a href="<%=request.getContextPath()%>/wacha_director_list.do?director=${mDto.getMovie_director()}" >
 						<li class="director_actor">
-							<img alt="없" width="40px" height="40px" id="direcImg" src="${pageContext.request.contextPath }/image/contImg/black_adam_director.jpg">
+							<img alt="없" width="40px" height="40px" id="direcImg" src="${pageContext.request.contextPath}/image/${img_dto.getDirector_image().trim()}">
 							<div>
 								<span>${mDto.getMovie_director()}<br>감독</span>
 								
@@ -666,7 +648,13 @@ $(function() {
 					<c:forEach items="${same}" var="same" varStatus="status">
 						<li class="same_movie_list">
 							<a title="" href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${same.getMovie_num() }">
-								<div><img alt="없음" src="${same.getMovie_imgloc()}" width="130px" height="100px"></div>
+								<c:if test="${!empty same.getMovie_imgloc() }">
+									<div><img alt="없음" src="${same.getMovie_imgloc()}" width="130px" height="100px"></div>
+								</c:if>
+								<c:if test="${empty same.getMovie_imgloc() }">
+									<div><img alt="없음" src="${pageContext.request.contextPath }/image/null.png" width="130px" height="100px"></div>
+								</c:if>
+								
 								<div>
 									<div>${same.getMovie_title()}</div>
 									<div>평균 ★ ${same.getMovie_avgstar() }</div>
@@ -693,8 +681,8 @@ $(function() {
 	      <div id="cd_youtube">
          
          <%-- 동영상 재생 부분 --%>
-      <div id="cd_youFirst">
-          <iframe id="player" type="text/html" width="300" height="300" src="https://www.youtube.com/embed/9qQuoqpw7KA?autoplay=1&mute=1" frameborder="0"></iframe>
+      <div id="cd_youFirst"><%--  --%>
+          <iframe  id="player" type="text/html" width="300" height="300" src="${mDto.getMovie_video() }?autoplay=1&mute=1" frameborder="0" autoplay></iframe>
            
               <%-- 동영상 하단 div --%>
            <div id="cd_youCont">
@@ -722,10 +710,10 @@ $(function() {
                  <div id="carouselExampleControlsNoTouching" class="mh-100 carousel slide" data-bs-touch="false" data-bs-interval="false">
 					  <div class="carousel-inner align-middle">
 					    <div class="carousel-item active">
-					      <img class="d-block w-100 mh-100" alt="${images[1]}" src="">
+					      <img class="d-block w-100 mh-100" alt="" src="${pageContext.request.contextPath}/image/${images[1].trim()}">
 					    </div>
 					    <div class="carousel-item">
-					      <img alt="${images[2]}" src="">
+					      <img alt="" src="${pageContext.request.contextPath}/image/${images[2].trim()}">
 					    </div>
 					  </div>
 					  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
@@ -741,7 +729,7 @@ $(function() {
               
               </div>
               <div id="mapdiv">
-              	<div align="center"><b>주변 영화관 위치</b></div>
+              	<div align="center" id="mapt"><b>주변 영화관 위치</b></div>
               	<div id="map" style="width:300px;height:300px;"></div>
               </div>
  
@@ -931,13 +919,7 @@ $(function() {
 				</script>
            
            
-           
-           <div>
-	           <div align="center">기상예보</div>
-	           <div>
-	           		
-	           </div>
-	      </div>
+           	
            
            
            </div>
@@ -979,10 +961,6 @@ $(function() {
       
       
       </div>
-	<div align="center" id="downdiv">
-		<font size="6" color="gray">지금까지 <font color="red">★ <fmt:formatNumber value="${ star_count }"/>개의 평가가</font> 쌓였어요</font>
-	</div>
-
 	<jsp:include page="../include/user_bottom.jsp"/>
 </body>
 </html>

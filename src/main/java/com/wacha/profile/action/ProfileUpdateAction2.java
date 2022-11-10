@@ -19,7 +19,9 @@ public class ProfileUpdateAction2 implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		String saveFolder = "C:\\Users\\user1\\git\\Watcha\\WebContent\\image\\profileupload";
+
+		String saveFolder = "C:\\NCS\\workspace(jsp)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\WatchaProject\\image\\profileupload";
+
 //		C:\\myJSP\\wrokspace(jsp)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\WatchaProject\\image
 		int fileSize = 10 * 1024 * 1024;  // 10MB 
 		
@@ -31,6 +33,7 @@ public class ProfileUpdateAction2 implements Action {
 		String user_intro = multi.getParameter("pr_intro").trim();
 		String user_birth = multi.getParameter("pr_birth").trim();
 		String user_img = multi.getFilesystemName("pr_img");
+		String user_email = multi.getParameter("pr_email").trim();
 		
 		UserDTO dto = new UserDTO();
 		
@@ -40,6 +43,7 @@ public class ProfileUpdateAction2 implements Action {
 		dto.setMember_profile(user_intro);
 		dto.setMember_birth(user_birth);
 		dto.setMember_image(user_img);
+		dto.setMember_email(user_email);
 		
 		UserDAO dao = UserDAO.getInstance();
 		

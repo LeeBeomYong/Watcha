@@ -16,7 +16,6 @@ import javax.sql.DataSource;
 
 public class MovieDAO {
 	
-
 	// DB와 연동하는 객체.
 		Connection con = null;
 		
@@ -66,7 +65,7 @@ public class MovieDAO {
 				// 2단계 : lookup() 메서드를 이용하여 매칭되는
 				//        커넥션을 찾는다.
 				DataSource ds =
-					(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
+					(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
 				
 				// 3단계 : DataSource 객체를 이용하여
 				//        커넥션을 하나 가져온다.
@@ -1313,7 +1312,7 @@ public class MovieDAO {
 					pstmt2.setInt(1, dto.getMovie_num());
 					rs2=pstmt2.executeQuery();
 					if(rs2.next()) {
-						dto.setMovie_avgstar(rs.getDouble(1));
+						dto.setMovie_avgstar(rs2.getDouble(1));
 					}
 					
 					list.add(dto);

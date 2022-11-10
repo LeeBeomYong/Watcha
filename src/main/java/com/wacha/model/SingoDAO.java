@@ -115,9 +115,13 @@ public class SingoDAO {
 				}
 
 
-				public void updateSingo(String member_id) {
+				public void updateSingo(String member_id,String session_id) {
 					sql="select * from singo where member_id =?";
-					
+					System.out.println("여기여기여기>>>> "+session_id);
+					String res="";
+					String cur ="";
+					String[] arr;
+					int cnt=0;
 					openConn();
 					try {
 						pstmt=con.prepareStatement(sql);
@@ -125,17 +129,47 @@ public class SingoDAO {
 						rs=pstmt.executeQuery();
 						
 						if(!rs.next()) {
-							sql="insert into singo values(?,default)";
+							sql="insert into singo values(?,default,'')";
 							pstmt=con.prepareStatement(sql);
 							pstmt.setString(1, member_id);
 							pstmt.executeUpdate();
 						}
 						
-						sql="update singo set singo_count=singo_count+1 where member_id=?";
+						sql="select id_list from singo where member_id=?";
 						pstmt=con.prepareStatement(sql);
 						pstmt.setString(1, member_id);
-						pstmt.executeUpdate();
+						rs=pstmt.executeQuery();
 						
+						if(rs.next()) {
+							if(rs.getString(1)!=null) {
+								res+=rs.getString(1);
+							}
+						}
+						System.out.println("여기여기 >>>> "+res);
+						
+						if(res!=null) {
+							
+							arr=res.split(",");
+							
+							for(String x : arr) {
+								if(x.equals(session_id)) {
+									cnt++;
+									System.out.println("ㅇㅇ 들어옴");
+								}
+							}
+
+						}
+						
+						if(cnt==0) {
+							res+=session_id+",";
+							System.out.println("업데이트 완완완완");
+							sql="update singo set singo_count=singo_count+1, id_list = ?  where member_id=?";
+							pstmt=con.prepareStatement(sql);
+							pstmt.setString(1,res);
+							pstmt.setString(2, member_id);
+							pstmt.executeUpdate();
+						}
+										
 						sql="select singo_count from singo where member_id=?";
 						pstmt=con.prepareStatement(sql);
 						pstmt.setString(1, member_id);
@@ -148,6 +182,8 @@ public class SingoDAO {
 								pstmt.executeUpdate();
 							}
 						}
+						
+						
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

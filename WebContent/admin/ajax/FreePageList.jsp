@@ -9,7 +9,6 @@
 	FreeWriteDAO free_dao = FreeWriteDAO.getInstance();
 	List<FreeWriteDTO> free_list= free_dao.getFreeList(Integer.parseInt(request.getParameter("page")));
 
-	
 	String res="";
 	
 	int cnt=(Integer.parseInt(request.getParameter("page"))-1)*10+1;

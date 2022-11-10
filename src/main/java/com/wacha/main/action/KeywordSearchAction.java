@@ -9,8 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.wacha.controller.Action;
 import com.wacha.controller.ActionForward;
 
-import com.wacha.model.ComentDAO;
-import com.wacha.model.ComentDTO;
+
 import com.wacha.model.ImageDAO;
 import com.wacha.model.ImageDTO;
 import com.wacha.model.MovieDAO;
@@ -49,6 +48,7 @@ public class KeywordSearchAction implements Action {
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);
 		forward.setPath("search/search_list_test.jsp");
+		
 		
 		return forward;
 	}

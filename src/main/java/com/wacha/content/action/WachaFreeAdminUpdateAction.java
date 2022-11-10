@@ -18,7 +18,7 @@ public class WachaFreeAdminUpdateAction implements Action {
 			freeNum = Integer.parseInt(request.getParameter("free_num"));
 		}
 		FreeWriteDAO free_dao = FreeWriteDAO.getInstance();
-		free_dao.updaeWriteToAdmin(freeNum);
+		free_dao.updateWriteToAdmin(freeNum);
 		
 		ActionForward forward = new ActionForward();
 		forward.setPath("admin_review_list.do");

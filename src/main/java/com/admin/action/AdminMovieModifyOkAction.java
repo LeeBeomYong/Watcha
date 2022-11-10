@@ -10,6 +10,8 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.wacha.controller.Action;
 import com.wacha.controller.ActionForward;
+import com.wacha.model.ImageDAO;
+import com.wacha.model.ImageDTO;
 import com.wacha.model.MovieDAO;
 import com.wacha.model.MovieDTO;
 
@@ -51,15 +53,45 @@ public class AdminMovieModifyOkAction implements Action {
 		
 		String movie_country=multi.getParameter("movie_country").trim();
 		
+		String movie_video=multi.getParameter("movie_video").trim();
+		
 		int movie_num=Integer.parseInt(multi.getParameter("movie_num").trim());
+	
 		
-		String movie_video=multi.getFilesystemName("movie_new_video");
+		  String movie_main = multi.getFilesystemName("movie_main");
+		  if(movie_main==null) {
+			  movie_main=multi.getParameter("movie_old_movie_main");
+				
+			}
+		  String movie_gallery1 = multi.getFilesystemName("movie_gallery1");
+		  if(movie_gallery1==null) {
+			  movie_gallery1=multi.getParameter("movie_old_movie_gallery1");
+				
+			}
+		  String movie_gallery2 = multi.getFilesystemName("movie_gallery2");
+		  if(movie_gallery2==null) {
+			  movie_gallery2=multi.getParameter("movie_old_movie_gallery2");
+				
+			}
+		  String movie_directpic= multi.getFilesystemName("movie_directpic");
+		  if(movie_directpic==null) {
+			  movie_directpic=multi.getParameter("movie_old_Director_image");
+				
+			}
+
+		  String movie_poster = multi.getFilesystemName("movie_poster");
 		
-		if(movie_video==null) {
-			movie_video=multi.getParameter("movie_old_video");
+		if(movie_poster==null) {
+			movie_poster=multi.getParameter("movie_old_posters");
 			
 		}
+		String res ="";
+		 
+		 res+=movie_main+","; res+=movie_gallery1+","; res+=movie_gallery2;
+		
 		MovieDTO dto = new MovieDTO();
+		
+		ImageDTO dto1 = new ImageDTO();
 		
 		 dto.setMovie_num(movie_num);
 		
@@ -79,10 +111,23 @@ public class AdminMovieModifyOkAction implements Action {
 		
 		dto.setMovie_country(movie_country);
 		
+		dto.setMovie_video(movie_video);
+		
+		dto1.setMovie_num(movie_num);
+		
+		dto1.setImage_loc(movie_poster);
+		
+		dto1.setImage_temp(res);
+		
+		dto1.setDirector_image(movie_directpic);
+		
 		MovieDAO dao = MovieDAO.getInstance();
+		
+		ImageDAO dao1= ImageDAO.getInstance();
 		
 		int check=dao.updateMovie(dto);
 		
+		int check1 = dao1.updateMoviepic(dto1);
 		System.out.println("check>>"+check);
 		
 		ActionForward forward = new ActionForward();
@@ -93,6 +138,15 @@ public class AdminMovieModifyOkAction implements Action {
 		if(check>0) {
 			forward.setRedirect(true);
 			forward.setPath("admin_movie_list.do");
+			if(check1>0) {
+				forward.setRedirect(true);
+				forward.setPath("admin_movie_list.do");
+			}else {
+				out.println("<script>");
+				out.println("alert('이미지정보 수정실패')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
 		}else {
 			out.println("<script>");
 			out.println("alert('영화정보 수정실패')");

@@ -831,7 +831,55 @@ public class FreeWriteDAO {
 		return list;
 	
 	} // seacrhListBoard() 메서드 end		
-	
-	
-	
+
+
+	public void updateWriteToAdmin(int freeNum) {
+		sql="update free_write set free_cont = ? where freeNum = ?";
+		try {
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, "관리자가 블라인드 처리한 댓글입니다.");
+			pstmt.setInt(2, freeNum);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		
+	}
+	public List<FreeWriteDTO> getFreeList(int page){
+		int count=1;
+		sql="select * from free_write order by free_num asc";
+		List<FreeWriteDTO> free_list = new ArrayList<FreeWriteDTO>();
+		openConn();
+		try {
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				FreeWriteDTO dto = new FreeWriteDTO();
+				
+				dto.setFree_num(rs.getInt("free_num"));
+				dto.setFree_title(rs.getString("free_title"));
+				dto.setFree_cont(rs.getString("free_cont"));
+				dto.setFree_hit(rs.getInt("free_hit"));
+				dto.setFree_date(rs.getString("free_date"));
+				dto.setFree_file(rs.getString("free_file"));
+				dto.setFree_reply_num(rs.getInt("free_reply_num"));
+				dto.setMember_id(rs.getString("member_id"));
+				
+				if(count>=((page-1)*10)+1 && count <=10*page) {
+					free_list.add(dto);
+				}
+				count++;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		return free_list;
+	}
+
 }

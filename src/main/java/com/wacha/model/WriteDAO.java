@@ -402,7 +402,7 @@ public class WriteDAO {
 					
 					dto.setWrite_num(rs.getInt("write_num"));
 					dto.setWrite_title(rs.getString("write_title"));
-					dto.setWrite_cont(rs.getString("write_cont").replace("\r\n","<br>"));
+					dto.setWrite_cont(rs.getString("write_cont"));
 					dto.setWrite_pwd(rs.getString("write_pwd"));
 					dto.setWrite_hit(rs.getInt("write_hit"));
 					dto.setWrite_date(rs.getString("write_date"));
@@ -466,13 +466,10 @@ public class WriteDAO {
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, num);
 				pstmt.executeUpdate();
-				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}finally {
-				closeConn(rs, pstmt, con);
-			}
+			}closeConn(rs, pstmt, con);
 			
 			return result;
 			
@@ -513,6 +510,7 @@ public class WriteDAO {
 				closeConn(rs, pstmt, con);
 			}return dto;
 		}
+
 
 		// board 테이블의 전체 게시물의 수를 확인하는 메서드.
 		public int getWriteCount() {
@@ -805,6 +803,7 @@ public class WriteDAO {
 		
 // -------------------------이 부분은 1:1 게시판 부분 --------------------------------------------------------------------
 		
+		
 		public int insertW_Write(W_WriteDTO dto) {
 			
 			int result = 0, count = 0;
@@ -932,7 +931,7 @@ public class WriteDAO {
 					dto = new W_WriteDTO();
 					
 					dto.setW_num(rs.getInt("w_num"));
-					dto.setW_cont(rs.getString("w_cont").replace("\r\n","<br>"));
+					dto.setW_cont(rs.getString("w_cont"));
 					dto.setW_date(rs.getString("w_date"));
 					dto.setW_file(rs.getString("w_file"));
 					dto.setW_reply(rs.getString("w_reply"));
@@ -1017,7 +1016,7 @@ public class WriteDAO {
 				
 				dto.setNotice_num(rs.getInt("notice_num"));
 				dto.setNotice_title(rs.getString("notice_title"));
-				dto.setNotice_content(rs.getString("notice_content").replace("\r\n","<br>"));
+				dto.setNotice_content(rs.getString("notice_content"));
 				dto.setNotice_hit(rs.getInt("notice_hit"));
 				dto.setNotice_date(rs.getString("notice_date"));
 				
@@ -1096,10 +1095,7 @@ public class WriteDAO {
 		return dto;
 	}
 	
-	
-	
-	
-	public int Reply(ReplyDTO dto) {
+	public int insertReply(ReplyDTO dto) {
 		
 		int result = 0, count = 0;
 		
@@ -1125,6 +1121,43 @@ public class WriteDAO {
 			sql = "update write set write_reply = 1 where write_num = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, dto.getWrite_num());
+			pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+		
+	}public int insertw_reply(W_ReplyDTO dto) {
+		
+		int result = 0, count = 0;
+		
+		openConn();
+		
+		try {
+			sql = "select max(r_num) from w_reply"; 
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				count = rs.getInt(1) + 1;
+			}
+			
+			sql = "insert into w_reply values(?, ?, sysdate, ?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, count);
+			pstmt.setString(2, dto.getR_cont());
+			pstmt.setInt(3, dto.getW_num());
+			
+			result = pstmt.executeUpdate();
+			
+			sql = "update w_write set w_reply = 1 where w_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, dto.getW_num());
 			pstmt.executeUpdate();
 			
 			

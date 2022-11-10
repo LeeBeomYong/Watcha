@@ -63,7 +63,7 @@
 		height: 180px;
 	}
 	
-	.bottom {
+	.review {
 		width: 800px;
 		height: 200px;
 	}
@@ -137,7 +137,7 @@
 		border: 0;
 	}
 	
-	span {
+	#span1 {
 		font-size: 12px;
 		color : gray;
 	}
@@ -181,9 +181,7 @@
 				<div align="right">
 					<a id="a1" href="#" data-toggle="modal" data-target="#myModal"><img alt="★" src="${pageContext.request.contextPath }/image/profile/pngwing.com.png" width="30px" height="30px"></a>				
 				</div>
-				
-				
-				
+								
 			</div>
 			<div class="picture">
 				<c:if test="${!empty dto.getMember_image() }">
@@ -197,7 +195,7 @@
 				<div class="name">
 					<h4><strong>${dto.getMember_name() }</strong></h4>
 					<c:if test="${dto.getMember_image() == '프로필로고.png' }">
-					<h6><span style="color: red;">프로필이없음</span></h6>
+					<h6><span id="span1" style="color: red;">프로필이없음</span></h6>
 					</c:if>
 				</div>
 				<div class="taste" align="center">
@@ -206,7 +204,7 @@
 					
 				</div>
 			</div>
-			<div class="bottom">
+			<div class="review">
 				<div class="content">
 					<div align="center">
 						<a href ="<%=request.getContextPath() %>/review.do?member_id=<%=request.getParameter("member_id")%>">
@@ -229,7 +227,7 @@
 	      
 	        <!-- Modal Header -->
 	        <div class="modal-header">
-	          <h1 class="modal-title">설정</h1>
+	          <h1 class="modal-title" style="font-weight: bold;">설정</h1>
 	          <button type="button" id="modal-close" data-dismiss="modal">&times</button>
 	        </div>
 	        

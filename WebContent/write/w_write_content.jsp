@@ -24,21 +24,11 @@
 		padding: 40px 30px 30px 30px;
 		border-radius: 10px;
 	}
-	
-	
+
 	#content{
 		resize: none;
 		border: none;
 		outline: none;
-	}
-
-	
-	
-	#re_writer{
-		border: none;
-		pointer-events: none;
-		font-weight: bold;
-		width: 500px;
 	}	
 	
 	#re_content{    
@@ -88,12 +78,14 @@
 		text-decoration: none;
 	}
 	
+
 </style>
 </head>
 <body>
 
 	<jsp:include page="../include/user_top.jsp" />
 	
+
 	<div id="con_1">
 		<c:set var="rdto" value="${RCont }" />
 		<c:set var="dto1" value="${userProfile }" />
@@ -110,6 +102,7 @@
 		</header>	
 		
 
+
 			<div id="con_2">
 				<p>
 				📢 본 게시판은 왓챠 회원님들의 영화 정보 공유게시판입니다.<br>
@@ -117,6 +110,7 @@
 			</div>
 			<br>		
 						
+
 			<div id="con_4">
 				<c:if test="${rdto.getW_file() ne null }">
 					<a href="<%=request.getContextPath() %>/w_write_file/${rdto.getW_file() }">📂${rdto.getW_file() }</a>			
@@ -125,28 +119,47 @@
 			<br>
 			
 			<div id="con_3">
-			
-				<p>${rdto.getW_cont() }</p>
-			
-			</div>
 
-			<hr>
+			
+		<c:set var="rdto" value="${RCont }" />
+			<table class="table table-bordered">
+				<tr>
+					<th>작성자</th>
+					<td>${session_id }</td>
+					<th>작성일</th>
+					<td>${rdto.getW_date() }</td>
+				</tr>
+				<tr>
+					<th>첨부파일</th>
+					<c:if test="${rdto.getW_file() ne null }">
+						<td colspan="4">${rdto.getW_file() }</td>					
+					</c:if>
+					
+					<c:if test="${rdto.getW_file() eq null }">
+						<td colspan="4"><h6>첨부파일이 없습니다.</h6></td>					
+					</c:if>
+				</tr>
+				<tr>
+					<th>문의내용</th>
+					<td colspan="4"><textarea id="content" rows="10" cols="90" readonly>${rdto.getW_cont() }</textarea>
+				</tr>
+				
+			
+			</table>
 
 			<c:set var="dto" value="${RRCont }" />
 			<c:if test="${rdto.getW_num() eq dto.getR_num() }">
-					<table id="table_1">
-						<tr>
-							<th style="font-size: 20px;">↳ 답변</th>
-						</tr>
-						<tr>
-							<td><br><span style="font-weight: bold; font-style: italic; font-size: 23px;">WATCHA</span><br>
-								안녕하세요. 왓챠피디아입니다.<br><br>
-								${dto.getR_cont() }<br><br>
-								궁금하신 내용에 대해 도움이 되셨길 바랍니다.<br><br>
-								감사합니다.😄<br>
-							</td>
-						</tr>
-					</table>
+			<table class="table table-bordered">
+				<tr>
+					<th style="width: 100px;">↳ 답변</th>
+					<td><span style="font-weight: bold; font-style: italic; font-size: 23px;">WATCHA</span><br>
+						안녕하세요. 왓챠피디아입니다.<br><br>
+						${dto.getR_cont() }<br><br>
+						궁금하신 내용에 대해 도움이 되셨길 바랍니다.<br><br>
+						감사합니다.😄<br>
+					</td>				
+				</tr>
+			</table>
 			</c:if>
 			
 	</div>

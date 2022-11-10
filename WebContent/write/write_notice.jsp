@@ -10,17 +10,13 @@
 <style type="text/css">
 
 	#table_1{
-		
+		width: 65%;
 	}
 	
 	#con_1{
-		margin-left: 23%;
-		margin-top: 30px;
+		margin-left: 300px;
+		margin-top: 50px;
 		margin-bottom: 50px;
-		border: 1px solid #c6c6c6;
-		width: 55%;
-		padding: 40px 30px 30px 30px;
-		border-radius: 10px;
 	}
 	
 	#content{
@@ -28,7 +24,6 @@
 		border: none;
 		outline: none;
 	}
-
 	
 	
 	#re_writer{
@@ -81,6 +76,7 @@
 		color: #000; 
 		text-decoration: none;
 	}
+
 </style>
 </head>
 <body>
@@ -92,32 +88,40 @@
 			<c:set var="ndto" value="${NCont }" />
 			
 			<header>
-				<h2>❗ 공지사항 ❗</h2>
+				<h2>공지사항</h2>
 				<br>
-				<h4>${ndto.getNotice_title() }</h4>
-				<br>
-				<img id="pro_img" src="./image/profileupload/프로필_로고.png">
-				<div>
-					<b style="font-size: 18px;">관리자</b>
-					<br>
-					<a style="font-size: 13px; pointer-events: none; color: #757575;">${ndto.getNotice_date() } &nbsp; 조회 : ${ndto.getNotice_hit() } </a>				
-				</div>
-				<hr>
 			</header>
-				<div id="con_2">
-					<p>
-					📢 본 공지사항을 필독 부탁드립니다.<br>
-					📢 욕설이나 비난글을 작성할 시 활동정지, 영구강퇴 될 수 있음을 알려드립니다.</p>
-				</div>
-				<br>
-				<div id="con_3">
+			
+			<table class="table table-bordered" id="table_1">
+				<tr id="tr_1">
+					<th id="th_1">제목</th>
+					<td colspan="3"> ${ndto.getNotice_title() } </td>
+					<th id="th_1">등록일</th>
+					<td colspan="3"> <%-- ${ndto.getNotice_date() } --%> </td>
+				</tr>
 				
-					<p>${ndto.getNotice_content() }</p>
+				<tr id="tr_1">
+					<th id="th_1">작성자</th>
+					<td> 관리자 </td>
+					<th id="th_1">글자수</th>
+					<td> (${ndto.getNotice_content().length() }자 / 1000자) </td>
+					<th id="th_1">조회수</th>
+					<td> ${ndto.getNotice_hit() } </td>
+				</tr>
 				
 				</div>
 				<p style="float: right; font-size: 12px;">(${ndto.getNotice_content().length() }자 / 1000자)</p>
 		
 		<br>
+
+				<tr id="tr_1">
+					<th id="th_1">내용</th>
+					<td colspan="6">
+						<textarea id="content" rows="20" cols="120" readonly>${ndto.getNotice_content() }</textarea>
+					</td>
+				</tr>
+			</table>
+
 				
 		</div>
 

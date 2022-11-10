@@ -67,7 +67,7 @@
 	#div1 h3 {
 		position: absolute;
 		top: 305px;
-		left: 100px;
+ 		left: 100px; 
 		color: white;
 	}
 	#div2 {
@@ -87,12 +87,12 @@
 	
 	h5 {
 		position: absolute;
-		left: 20px;
+ 		left: 20px; 
 	}
 
-	p {
+	.p1 {
 		position: absolute;
-		left: 50%;
+ 		left: 50%; 
 	}
 	
 	#test {
@@ -134,7 +134,7 @@
 				<c:if test="${empty dto2.getMember_image() }">
 					<img alt="프로필" src="${pageContext.request.contextPath }/image/profileupload/프로필_로고.png" width="50px" height="50px">
 				</c:if>
-				<h3>${dto2.getMember_name() }</h3>
+				<h3 style="font-weight: bold;">${dto2.getMember_name() }</h3>
 			</div>
 			<br>
 			<div id="div2">
@@ -148,9 +148,9 @@
 					
 				<div>
 					<c:set var="review_count" value ="${review_count }"/>
-					<p>&nbsp;&nbsp;${review_count }</p>
+					<p class="p1">&nbsp;&nbsp;${review_count }</p>
 					<br>
-					<p>영화</p>
+					<p class="p1">영화</p>
 				</div>
 				
 					<br><br><br>
@@ -161,8 +161,8 @@
 						<h5><strong>별점분포</strong></h5><br>
 						<c:set var="member_Id" value ="${member_Id }"/>
 						<input type="hidden" value="${member_Id }" id="chart">
-						<c:if test="${review_count < 10}">
-							<p style="position:absolute; left: 40%; color: red;">평가가 너무 적어요 ㅠ.ㅠ</p>
+						<c:if test="${review_count < 30}">
+							<p class="p1" style="position:absolute; left: 40%; color: red;">평가가 너무 적어요 ㅠ.ㅠ</p>
 							<br><br>
 						</c:if>
 					</div>
@@ -207,7 +207,7 @@
 						</c:forEach>
 					</c:if>
 				<c:if test="${empty countrylist }">
-						<p>조회된 데이터가 없습니다.</p>
+						<p class="p1">조회된 데이터가 없습니다.</p>
 				</c:if>
 				</div>
 				<br><br><br>
@@ -238,10 +238,10 @@
 				<br><br>
 				<div>
 					<c:set var="time_sum" value ="${time_sum }"/>
-					<p>${time_sum }시간</p><br>
+					<p class="p1">${time_sum }시간</p><br>
 					<br>
-					<c:if test="${time_sum < 10}">
-						<p style="position: absolute; left: 35%; color: red;">에이 설마 이것만 본 건 아닐 거에요..</p>
+					<c:if test="${time_sum < 60}">
+						<p class="p1" style="position: absolute; left: 35%; color: red;">에이 설마 이것만 본 건 아닐 거에요..</p>
 					</c:if>
 				</div>
 			</div>

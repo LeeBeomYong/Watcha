@@ -7,13 +7,13 @@
 <%
 	String memId = request.getParameter("paramId").trim();
 
-	System.out.println(memId);
+	//System.out.println(memId);
 
 	UserDAO dao = UserDAO.getInstance();
 	
 	String test = dao.findIdforPwd(memId);
 	
-	System.out.println(test);
+	//System.out.println(test);
 	
 	PrintWriter writer = response.getWriter();
 	

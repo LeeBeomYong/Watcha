@@ -9,6 +9,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
 	$(function () {
 		// 로그인 팝업
@@ -58,9 +59,9 @@
 			$("#sii_wrong").show();
 			
 			if($(this).val() == '') {
-				$("#sii_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
+				$("#sii_wrong").html("<img src='./image/warning.png' width='25px' height='25px'>");
 				$("#sii_checked").hide();
-				$("#span_signinId").html("<br><font style='color:red; font-size:13px;'>아이디를 입력하세요.</font>");
+				$("#span_signinId").html("<br><font style='color:red; font-size:13px;'>이메일을 입력하세요.</font>");
 			}else {
 				$.ajax({
 					type : "post",
@@ -68,9 +69,9 @@
 					data : {paramId : id},
 					datatype : "jsp",
 					success : function(res) {
-						if(res == 1) {  // DB에 아이디가 존재하는 경우
+						if(res == 1) {  // DB에 이메일이 존재하는 경우
 							$("#sii_wrong").hide();
-							$("#sii_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='29px' height='29px'>");
+							$("#sii_checked").html("<img src='./image/check.png' width='29px' height='29px'>");
 							$("#span_signinId").hide();
 							$("#login_btn").attr("disabled", false);
 							$("#login_btn").css({
@@ -79,8 +80,8 @@
 							});
 						}else {
 							$("#sii_checked").hide();
-							$("#sii_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
-							$("#span_signinId").html("<br><font style='color:red; font-size:13px;'>존재하지 않는 아이디입니다.</font>");
+							$("#sii_wrong").html("<img src='./image/warning.png' width='25px' height='25px'>");
+							$("#span_signinId").html("<br><font style='color:red; font-size:13px;'>존재하지 않는 아이디입니다.</font>");							
 							$("#login_btn").attr("disabled", true);
 							$("#login_btn").css({
 								'cursor' : 'default',
@@ -89,7 +90,7 @@
 						}
 					},					
 					error: function(e) {
-						$("#sii_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
+						$("#sii_wrong").html("<img src='./image/warning.png' width='25px' height='25px'>");
 						$("#span_signinId").html("<br><font style='color:blue; font-size:13px;'>오류 발생. 다시 입력하세요.</font>");
 						$("#sui_checked").hide();
 						$("#login_btn").attr("disabled", true);
@@ -101,7 +102,7 @@
 		
 		
 		// 비밀번호 찾기창 '닫기'
-		$(".close").click(function() {
+		$("#x").click(function() {
 			$("#bg3").css({
 				'display':'none'
 			});
@@ -119,14 +120,28 @@
 			$("#lbl_hint").hide();
 		});
 		
-		// 아이디 : 영문/숫자 5~10자
-		const pattern_id = /^[a-zA-Z][0-9a-zA-Z]{4,9}$/;
-		// 이름 : 영문/한글 2~15자
-		const pattern_name = /^[a-zA-Zㄱ-힣][a-zA-Zㄱ-힣 ]{1,14}$/;
-		// 비밀번호 : 영문/숫자/특수문자 8~10자
-		const pattern_pwd = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{4,9}$/;
+		$("#kx").click(function() {
+			$("#bg4").css({
+				'display':'none'
+			});
+			$(".modal_content4").css({
+				'display': 'none'
+			});
+			$("#bg1").css({
+				'display': 'block'
+			});
+		})
 		
-		// 회원가입 - 이름 체크
+		// 아이디 : 영문+숫자 5~15자
+		const pattern_id =  /^[a-zA-Z][0-9a-zA-Z]{4,14}$/;
+		// 닉네임 : 영문/한글 2~15자
+		const pattern_name = /^[a-zA-Zㄱ-힣][a-zA-Zㄱ-힣 ]{1,14}$/;
+		// 비밀번호 : 영문+숫자+특수문자 8~10자
+		const pattern_pwd = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{4,9}$/;
+		// 이메일 : 
+		let pattern_email = /^([\w\.\_])*[a-zA-Z0-9]+([\w\.\_])*([a-zA-Z0-9])+([\w\.\_])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
+		
+		// 회원가입 - 닉네임 체크
 		$("#memName").keyup(function() {
 			
 			const name = $(this).val();
@@ -134,7 +149,7 @@
 			$("#sun_checked").show();	$("#sun_wrong").show();
 			
 			if(pattern_name.test(name)) {
-				$("#sun_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='29px' height='29px'>");
+				$("#sun_checked").html("<img src='./image/check.png' width='29px' height='29px'>");
 				$("#span_signupName").hide();
 				$("#sun_wrong").hide();
 				$("#signup_btn").attr("disabled", false);
@@ -143,8 +158,8 @@
 					'background-color' : '#FF355E'
 				});
 			}else {
-				$("#sun_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
-				$("#span_signupName").html("<br/><font style='color:red; font-size:13px;'>이름은 한글/영문 2~10자까지 가능합니다.</font>");
+				$("#sun_wrong").html("<img src='./image/warning.png' width='25px' height='25px'>");
+				$("#span_signupName").html("<br/><font style='color:red; font-size:13px;'>닉네임은 한글/영문 2~10자까지 가능합니다.</font>");
 				$("#sun_checked").hide();
 				$("#signup_btn").attr("disabled", true);
 				$("#signup_btn").css({
@@ -163,8 +178,9 @@
 			$("#sui_wrong").show();
 			
 			if($(this).val() == '') {
-				$("#span_signupId").html("<br><font style='color:red; font-size:13px;'>아이디는 영문/숫자 5~10자까지 가능합니다.</font>");
-				$("#sui_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
+				$("sui_checked").hide();
+				$("#span_signupId").html("<br><font style='color:red; font-size:13px;'>아이디 : 영문+숫자 5~15자</font>");
+				$("#sui_wrong").html("<img src='./image/warning.png' width='25px' height='25px'>");
 			}else {
 				if(pattern_id.test(id)) {
 					$.ajax({
@@ -173,8 +189,8 @@
 						data : {paramId : id},
 						datatype : "jsp",
 						success : function(res) {
-							if(res == 1) {  // DB에 아이디가 존재하는 경우
-								$("sui_#wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
+							if(res == 1) {  // DB에 이메일이 존재하는 경우
+								$("sui_#wrong").html("<img src='./image/warning.png' width='25px' height='25px'>");
 								$("#span_signupId").html("<br/><font style='color:red; font-size:13px;'>중복된 아이디입니다.</font>");
 								$("#signup_btn").attr("disabled", true);
 								$("#sui_checked").hide();
@@ -184,7 +200,7 @@
 								});							
 								return false;
 							}else {
-								$("#sui_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='29px' height='29px'>");
+								$("#sui_checked").html("<img src='./image/check.png' width='29px' height='29px'>");
 								$("#span_signupId").hide();
 								$("#sui_wrong").hide();
 								$("#signup_btn").attr("disabled", false);
@@ -195,7 +211,7 @@
 							}
 						},					
 						error: function(e) {
-							$("#sui_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
+							$("#sui_wrong").html("<img src='./image/warning.png' width='25px' height='25px'>");
 							$("#span_signupId").html("<br><font style='color:blue; font-size:13px;'>오류 발생. 다시 입력하세요.</font>");
 							$("#sui_checked").hide();
 							$("#signup_btn").attr("disabled", true);
@@ -206,8 +222,8 @@
 			            }
 					});
 				}else {
-					$("#sui_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
-					$("#span_signupId").html("<br><font style='color:red; font-size:13px;'>아이디 : 영문/숫자 5~10자</font>");
+					$("#sui_wrong").html("<img src='./image/warning.png' width='25px' height='25px'>");
+					$("#span_signupId").html("<br><font style='color:red; font-size:13px;'>아이디 : 영문+숫자 5~15자");
 					$("#sui_checked").hide();
 					$("#signup_btn").attr("disabled", true);
 					$("#signup_btn").css({
@@ -219,6 +235,34 @@
 			}
 		});
 		
+		// 회원가입 - 이메일 체크
+		$("#signup_email").keyup(function() {
+			let email = $(this).val();
+			
+			$("#span_signupEmail").show();	$("#sue_checked").show();	$("#sue_wrong").show();
+			
+			if(pattern_email.test(email)) {
+				$("#sue_checked").html("<img src='./image/check.png' width='29px' height='29px'>");
+				$("#span_signupEmail").hide(); $("#sue_wrong").hide();
+				$("#signup_btn").attr("disabled", false);
+				$("#signup_btn").css({
+					'cursor' : 'pointer',
+					'background-color' : '#FF355E'
+				});
+			}else {
+				$("#sue_wrong").html("<img src='./image/warning.png' width='25px' height='25px'>");
+				$("#span_signupEmail").html("<br><font style='color:red; font-size:13px;'>이메일 : example@example.com</font>");
+				$("#sue_checked").hide();
+				$("#signup_btn").attr("disabled", true);
+				$("#signup_btn").css({
+					'cursor' : 'default',
+					'background-color' : '#FCDFEB'
+				});
+			}
+			
+			
+		});
+		
 		// 회원가입 - 비밀번호 체크
 		$("#signup_pwd").keyup(function() {
 			const pwd = $(this).val();
@@ -227,7 +271,7 @@
 			$("#sup_checked").show();	$("#sup_wrong").show();
 			
 			if(pattern_pwd.test(pwd)) {
-				$("#sup_checked").html("<img src='https://image.similarpng.com/very-thumbnail/2021/06/Green-check-mark-icon-on-transparent-background-PNG.png' width='29px' height='29px'>");
+				$("#sup_checked").html("<img src='./image/check.png' width='29px' height='29px'>");
 				$("#span_signupPwd").hide(); $("#sup_wrong").hide();
 				$("#signup_btn").attr("disabled", false);
 				$("#signup_btn").css({
@@ -235,8 +279,8 @@
 					'background-color' : '#FF355E'
 				});
 			}else {
-				$("#sup_wrong").html("<img src='https://cdn-icons-png.flaticon.com/512/179/179386.png' width='25px' height='25px'>");
-				$("#span_signupPwd").html("<br><font style='color:red; font-size:13px;'>비밀번호 : 영문/숫자/특수문자 5~10자</font>");
+				$("#sup_wrong").html("<img src='./image/warning.png' width='25px' height='25px'>");
+				$("#span_signupPwd").html("<br><font style='color:red; font-size:13px;'>비밀번호 : 영문+숫자+특수문자 5~10자</font>");
 				$("#sup_checked").hide();
 				$("#signup_btn").attr("disabled", true);
 				$("#signup_btn").css({
@@ -269,7 +313,7 @@
 					}else{
 						$("#pwd_hint").html("");
 						$("#lbl_hint").show();	$("#pwd_hint").show();
-						$("#pwd_hint").html("존재하지 않는 아이디입니다.");
+						$("#pwd_hint").html("존재하지 않는 이메일입니다.");
 						$("#pwd_hint").show();
 					}
 				},					
@@ -282,9 +326,66 @@
 		}
 		
 		$("#find_pwd").on("click",function(){
-				pwd_hint();
-			});
+			pwd_hint();
+		});
+			
+		Kakao.init('20cd1dccdb46e0c83a3760d24c498ff8');
+		Kakao.isInitialized();
 		
+		console.log("Kakao.isInitialized()",Kakao.isInitialized());
+		
+		/* Kakao.Auth.createLoginButton({
+			container: "#kakao_btn",
+			success: function(response) {
+					Kakao.API.request({
+						url: '/v2/user/me',
+						success: function(response) {
+							let userId = response.id;
+							let userEmail = response.kakao_account.email;
+							let userNickName = response.properties.nickname;
+							
+							console.log("userId", "k"+userId);
+							console.log("userEmail", userEmail);
+							console.log("userNickName", userNickName);
+							
+							$.ajax ({
+								type : "post",
+								url : "/WatchaProject/check/loginKakao.jsp",
+								data : {
+									paramId : userId,
+									paramEmail : userEmail,
+									paramNickName : userNickName
+								},
+								datatype : "jsp",
+								success : function(data) {
+									let data1 = $.trim(data);
+									if(data1 != 1 ) {  
+										$("#bg4").css({
+											'display' : 'block'
+										});
+										$("#bg1").css({
+											'display' : 'none'
+										});
+									}else{
+										let session_id = session.setAttribute("session_id", dto.getMember_id());
+										
+										let session_img = session.setAttribute("session_img", dto.getMember_image());
+									}
+								},					
+								error: function(e) {
+									console.log("ajax fail", error);
+						        }
+							});
+						},
+						fail: function(error) {
+							console.log("request fail", error);
+						}
+					});
+				},
+				fail: function(error) {
+					console.log("fail", error);
+				}
+			}); */
 		
 	});
 	// 모달 레이어 클릭할 경우 모달 닫기 (값 초기화)
@@ -294,14 +395,13 @@
 			$(".modal").hide();
 			// 회원가입 input 초기화
 			$("#memId").val('');	$("#memPwd").val('');	$("#memName").val('');
-			$("#signup_id").val('');	$("#signup_pwd").val('');
-			$("#span_signupName").hide();	$("#span_signupId").hide();		$("span_signupPwd").hide();
-			$("#span_signinId").hide();		$("span_signinPwd").hide();
-			$("#span_signupPwd").hide();
+			$("#signup_id").val('');	$("#signup_pwd").val('');	$("#signup_email").val('');
+			$("#span_signupName").hide();	$("#span_signupId").hide();		$("#span_signupEmail").hide();	$("#span_signupPwd").hide();
+			$("#span_signinId").hide();		$("#span_signinPwd").hide();
 			// 이미지 hide
 			$("#sii_checked").hide();	$("#sii_wrong").hide();
-			$("#sun_checked").hide();		$("#sui_checked").hide();		$("#sup_checked").hide();
-			$("#sun_wrong").hide();		$("#sui_wrong").hide();		$("#sup_wrong").hide();
+			$("#sun_checked").hide();		$("#sui_checked").hide();	$("#sue_checkd").hide();	$("#sup_checked").hide();
+			$("#sun_wrong").hide();		$("#sui_wrong").hide();	$("#sue_wrong").hide();	$("#sup_wrong").hide();
 			// 버튼 활성화
 			$("#login_btn").attr("disabled", false);
 			$("#login_btn").css({
@@ -314,6 +414,7 @@
 				'background-color' : '#FF355E'
 			});
 		}
+				
 	});
 	
 	// 로그인 팝업에서 회원가입 링크 클릭
@@ -361,12 +462,36 @@
 		$("#bg1").css({
 			'display' : 'none'
 		});
-	}
+	};
+	
+	
+	
+	function kakaoLogout() {
+		
+		if(!Kakao.Auth.getAccessToken()) {
+			
+			console.log("Not logged in.");
+			return;
+			
+		}
+		
+		Kakao.Auth.logout(function() {
+			console.log(Kakao.Auth.getAccessToken());
+		});
+	};
+	
+	
 	
 </script>
 <style type="text/css">
-
-	*{marmin: 0; padding: 0;}
+	
+	html {
+		background-color: #fff;
+	}
+	
+	body {
+		background-color: #fff;
+	}
 	
 	#menu:hover{
 		font-weight: bold;
@@ -375,6 +500,9 @@
 	nav{
 		height: 55px;
 		z-index: 1;
+		margin: auto;
+		background-color: #fff;
+		border-bottom: 1px solid #d2d2d2;
 	}
 	
 	.navbar-collapse {
@@ -382,6 +510,7 @@
 	}
 	
 	.container-fluid{
+		padding: 0 7.5%;
 		position: fixed;
 		background-color: #FFF;
 		padding-bottom: 5px;
@@ -418,14 +547,20 @@
 		margin: 0;
 	}
 	
+	.s_id a {
+		text-decoration: none;
+		color: #424242;
+	}
+	
 	.s_img {
 		display: inline-block;
 		border: none;
 		border-radius: 70%;
 		width: 35px;
 		height: 35px;
-		padding-right:5px;
+		
 	}
+	
 	
 	.s_id {
 		display: inline-block;
@@ -439,7 +574,7 @@
 		border: none;
 		cursor: pointer;
 		border-radius: 5px;
-		background-color: #fbfbfb;
+		background-color: transparent;
 		padding: 5px;
 		width: 65px;
 		font-size: 12px;
@@ -460,10 +595,26 @@
 		margin: 0;
 	}
 	
-	.modal_content1, .modal_content2 {
+	.modal_content1 {
 		border-radius: 10px;
 		width: 400px;
-		height: 550px;
+		height: auto;
+		z-index: 2;
+		position: relative;
+		text-align: center;
+		background-color: #fff;
+		margin-top: -2%;
+		top:50%; 
+		left:50%;
+		transform: translate(-50%,-50%);
+		padding: 5px;
+		display: none;
+	}
+	
+	.modal_content2 {
+		border-radius: 10px;
+		width: 400px;
+		height: auto;
 		z-index: 2;
 		position: relative;
 		text-align: center;
@@ -478,8 +629,23 @@
 	
 	.modal_content3 {
 		border-radius: 10px;
-		width: 25%;
-		height: 70%;
+		width: 400px;
+		height: 500px;
+		position: relative;
+		background-color: #fff;
+		text-align: center;
+		top:50%; 
+		left:50%;
+		transform: translate(-50%,-50%);
+		padding: 1%;
+		display: block;
+	}
+	
+	#modal_content4 {
+		border-radius: 10px;
+		width: 400px;
+		height: 250px;
+		z-index: 1;
 		position: relative;
 		background-color: #fff;
 		text-align: center;
@@ -556,6 +722,7 @@
 		background-color: transparent;
 		cursor: pointer;
 		color: rgb(255, 53, 94);
+		font-weight: bold;
 	}
 	
 	.m_btn2 {
@@ -563,6 +730,7 @@
 		background-color: transparent;
 		cursor: pointer;
 		color: rgb(255, 53, 94);
+		font-weight: bold;
 	}
 	
 	.logo_short {
@@ -602,7 +770,7 @@
 		margin: 0px 16px;
 	}
 	
-	.pwd_title {
+	.pwd_title, .login_error {
 		font-size: 25px;
 		font-weight: 700;
 		line-height: 22px;
@@ -662,12 +830,29 @@
 	    font-size: 13px;
 	}
 	
+	.kakao {
+		cursor: pointer;
+		width: 40px;
+		height: 40px;
+		margin: 2% 0;
+	}
+	
+	.modal_login {
+		height: 50px;
+		padding-top: 3%;
+	}
+	
+	.modal_hint {
+		margin-top: 5%;
+	}
 </style>
 </head>
 <body>
 
 	<nav class="navbar navbar-expand-lg bg-light">
 	  <div class="container-fluid">
+	  
+	  	
 	    <a id="menu" class="navbar-brand" href="<%=request.getContextPath() %>/main.do">
 	   		 <img class="logo_short" src="./image/watchapedia2.png" alt="logo" width="150px" height="40">
 	    </a>
@@ -693,7 +878,7 @@
                 게시판
               </a>
               <ul class="dropdown-menu">
-                <li><a id="menu" class="dropdown-item" href="<%=request.getContextPath() %>/free_main.do">자유게시판</a></li>
+                <li><a id="menu" class="dropdown-item" href="<%=request.getContextPath() %>/#">자유게시판</a></li>
                     <li><hr class="dropdown-divider"></li>
 
                <%-- 로그인 됨.--%>
@@ -724,7 +909,9 @@
 	    <c:if test="${!empty session_id }">
 	    	
 	    	<ul class="session">
-	    		<li class="s_id"><img class="s_img" alt="프로필 사진" /></li>
+
+	    		<li class="s_id"><img class="s_img" src="${pageContext.request.contextPath }/image/profileupload/${session_img }" alt="프로필" /></li>
+
 	    		<li class="s_id"><a href="<%=request.getContextPath()%>/member_page.do?member_id=${session_id }">${session_id }</a></li>
 	    	</ul>
 	    		
@@ -738,6 +925,8 @@
 				<input class="signIn" type="button" value="로그인" />
 				
 				<input class="signUp" type="button" value="회원가입" />
+				
+				<!-- <input type="button" value="로그아웃" onclick="kakaoLogout()" /> -->
 			
 			</div>
 	    
@@ -753,8 +942,7 @@
 					<img class="logo_long" src="./image/watchapedia2.png" alt="왓챠피디아 로고" title="왓챠피디아" />
 							
 					<form method="post" action="<%=request.getContextPath()%>/login.do">	
-						<br />
-					
+						
 						<h3 class="m_title">로그인</h3>
 					
 						
@@ -790,7 +978,13 @@
 							<input class="m_btn2" type="button" value="회원가입" onclick="signUp()" />
 						</div>
 							
-						<%-- <div class="hr-sect">OR</div> --%>
+						<div class="hr-sect">OR</div>
+					
+						<div id="kakao_btn">
+							<a href="https://kauth.kakao.com/oauth/authorize?client_id=f106a112e059bfa2a2f1faeb9614402b&redirect_uri=http://localhost:8282/WatchaProject/kakao_login.do&response_type=code">
+								<img id="k_login" class="kakao" src="https://cdn-icons-png.flaticon.com/512/3669/3669973.png" alt="카카오 로그인" />
+							</a>
+						</div>
 					
 					</form>	
 				
@@ -812,7 +1006,7 @@
 					<form class="modal_form" method="post" action="<%=request.getContextPath()%>/member_signup.do">
 						<div class="modal_name">
 							<label class="label">
-								<input id="memName" class="text" name="memName" placeholder="이름" required/>
+								<input id="memName" class="text" name="memName" placeholder="닉네임" required/>
 								<span id="sun_checked" class="checked"></span>
 								<span id="sun_wrong" class="checked"></span>
 							</label>
@@ -828,6 +1022,15 @@
 							<span id="span_signupId"></span>
 						</div>	
 					
+						<div class="modal_email">
+							<label class="label">
+								<input id="signup_email" class="text" name="memEmail" placeholder="이메일" required/>
+								<span id="sue_checked" class="checked"></span>
+								<span id="sue_wrong" class="checked"></span>
+							</label>
+							<span id="span_signupEmail"></span>
+						</div>
+						
 						<div class="modal_pwd">
 							<label class="label">
 								<input id="signup_pwd" class="text" type="password" name="memPwd" placeholder="비밀번호" required/>
@@ -835,19 +1038,25 @@
 								<span id="sup_wrong" class="checked"></span>
 							</label>
 							<span id="span_signupPwd"></span>
-						</div>	
+						</div>		
 					
 						<div class="modal_signup">
 							<input id="signup_btn" class="m_btn" type="submit" value="회원가입" onclick="complete()"/>
 						</div>	
 					</form>
-				
+					
 					<div class="modal_login">
 						<span>이미 가입하셨나요?</span>
 						<input class="m_btn2" type="button" value="로그인" onclick="logIn()" />
 					</div>
 					
-					<%-- <div class="hr-sect">OR</div> --%>
+					<div class="hr-sect">OR</div>
+					
+					<div>
+						<a href="https://kauth.kakao.com/oauth/authorize?client_id=f106a112e059bfa2a2f1faeb9614402b&redirect_uri=http://localhost:8282/WatchaProject/kakao_login.do&response_type=code">
+							<img id="k_login" class="kakao" src="https://cdn-icons-png.flaticon.com/512/3669/3669973.png" alt="카카오" />
+						</a>
+					</div>
 					
 				</div>
 			
@@ -862,7 +1071,7 @@
 				
 					<br />	
 					
-					<p class="pwd_title">비밀번호 재설정</p>			
+					<p class="pwd_title">비밀번호 찾기</p>			
 				
 					<hr />
 					
@@ -871,14 +1080,14 @@
 					<div class="findPwd2">
 						<b class="findPwd1">비밀번호를 잊으셨나요?</b>	<br />
 						아이디를 입력해주세요. <br />
-						입력하신 아이디의 비밀번호를 알려드립니다.
+						해당 아이디의 비밀번호를 알려드립니다.
 					</div>
 					
 					<br />
 									
 					<div class="modal_id">
 						<label class="label">
-							<input id="hint_id" class="text" placeholder="아이디"/>
+							<input id="hint_id" class="text" placeholder="이메일"/>
 						</label>
 					</div>	
 	
@@ -893,8 +1102,34 @@
 				</div>	
 				
 			</div> <%-- 비밀번호 찾기 end --%>
+			
+			<div id="bg4" class="modal1">
+			
+				<div id="modal_content4">
+			
+					<button id="kx" class="close" type="button">&times;</button>
+					
+					<br />	
+					
+					<p class="login_error">카카오 로그인 실패</p>			
+				
+					<hr />
+					
+					<br />
+					
+					<div class="findPwd2">
+						<b class="findPwd1">해당 정보로 가입한 이력이 없습니다.</b>	<br />
+						회원가입을 진행해주세요. <br />
+					</div>
+					
+					<br />
+				
+				</div>
+			
+			</div>
 				     
-	    &nbsp;
+	  	  &nbsp;
+	  	</div>
 	  </div>
 	</nav>
      

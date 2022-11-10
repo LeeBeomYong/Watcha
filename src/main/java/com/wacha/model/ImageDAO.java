@@ -245,7 +245,7 @@ public class ImageDAO {
 						dto.setImage_loc(rs.getString("image_loc"));
 						dto.setImage_temp(rs.getString("image_temp"));
 						dto.setDirector_image(rs.getString("director_image"));
-						System.out.println("감독 이미지 : "+dto.getDirector_image());
+						//System.out.println("감독 이미지 : "+dto.getDirector_image());
 						
 						list.add(dto);
 					}

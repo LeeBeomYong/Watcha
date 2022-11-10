@@ -59,6 +59,7 @@ public class MainLoginAction implements Action {
 			forward.setRedirect(false);
 			
 			forward.setPath("admin/admin_main.jsp");
+			
 		}else {	// 비밀번호 틀림
 			
 			out.println("<script> alert('비밀번호가 틀립니다.'); history.back(); </script>");

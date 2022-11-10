@@ -602,7 +602,7 @@ public class UserDAO {
 		return dto;
 	}
 		// 회원가입 메서드
-	public int insertMember(String name, String id, String pwd) {
+	public int insertMember(String name, String id, String pwd, String email) {
 		int result = 0, count = 0;
 		
 		try {
@@ -618,7 +618,7 @@ public class UserDAO {
 				count = rs.getInt(1) + 1;
 			}
 			
-			sql = "insert into member values(?,?,?,?,'','',sysdate,default, 1)";
+			sql = "insert into member values(?,?,?,?,'','',sysdate,default, 1, ?)";
 			
 			pstmt = con.prepareStatement(sql);
 			
@@ -626,6 +626,7 @@ public class UserDAO {
 			pstmt.setString(2, id);
 			pstmt.setString(3, name);
 			pstmt.setString(4, pwd);
+			pstmt.setString(5, email);
 			
 			result = pstmt.executeUpdate();
 			
@@ -693,31 +694,50 @@ public class UserDAO {
 	}	// findIdforPwd() end
 	
 
-	public int signUpKakao(String id, String email, String name) {
-		int result = 0, count = 0;
+	public int signInKakao(String id, String email) {
+		
+		int result = 0;
+
 		
 		try {
 			openConn();
 			
-			sql = "select max(member_num) from member";
+			sql = "select member_id from member where member_id = ?";
 			
 			pstmt = con.prepareStatement(sql);
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeConn(rs, pstmt, con);
+		}
+		return result;
+	}
+	
+	
+
+
+	public int kakaoLogin(String k_id) {
+		
+		int result = 0;
+		
+		try {
+			openConn();
+			
+			sql = "select * from member where member_id = ?";
+					
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, k_id);
 			
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				count = rs.getInt(1) + 1;
+				result = 1;
 			}
 			
-			sql = "insert into member values (?,?,?,'','','',sysdate,default,1)";
-			
-			pstmt = con.prepareStatement(sql);
-			
-			pstmt.setInt(1, count);
-			pstmt.setString(2, id);
-			pstmt.setString(3, name);
-			
-			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -747,7 +767,8 @@ public class UserDAO {
 			closeConn(rs, pstmt, con);
 		}
 
-		return result;		
+		return result;
+
 	}
 
 

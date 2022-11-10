@@ -26,6 +26,7 @@
 		color: #BDBDBD;
 	}
 	
+	
 	.stars {
 		font-size: 20px;
 		font-weight: bold;

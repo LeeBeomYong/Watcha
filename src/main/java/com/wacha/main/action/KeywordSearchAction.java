@@ -49,6 +49,7 @@ public class KeywordSearchAction implements Action {
 		forward.setRedirect(false);
 		forward.setPath("search/search_list_test.jsp");
 		
+		
 		return forward;
 	}
 

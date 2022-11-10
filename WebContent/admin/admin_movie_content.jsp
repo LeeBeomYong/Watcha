@@ -599,6 +599,15 @@ height: 180px;
         	</fieldset>
         	</div>
        </div>
+              <div>
+             <div class="can-1-1">
+	          <fieldset >
+	          <legend><span class="number" >11</span>영화영상</legend>
+	          <label for="name"></label>
+	          <input type="text" id="name" name="movie_video" width="200px" height="150px" value="${dto.getMovie_video() }">	
+        	</fieldset>
+        	</div>
+       </div>
        <br><br><br><br><br><br>
    			<div  class="center">   
    			    

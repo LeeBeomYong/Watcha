@@ -401,7 +401,7 @@ height: 180px;
 	let noimage =
 	  "https://ami-sni.com/wp-content/themes/consultix/images/no-image-found-360x250.png";
 	$(function() {
-       	$('#files').click(function(){
+       	$('#id').click(function(){
             var files=$('input[name="gallery"]')[0].files;
             $("#mm").attr("value",files[0].name);
             $("#gallery1").attr("value",files[1].name);
@@ -604,10 +604,18 @@ height: 180px;
         	</fieldset>
         	</div>
        </div>
-      
+       <div>
+             <div class="can-1-1">
+	          <fieldset >
+	          <legend><span class="number" >11</span>영화영상</legend>
+	          <label for="name"></label>
+	          <input type="text" id="name" name="movie_video" width="200px" height="150px">	
+        	</fieldset>
+        	</div>
+       </div>
        <div  class="center">       
 	          <fieldset>
-	          <legend><span class="number" >11</span>갤러리</legend>
+	          <legend><span class="number" >12</span>갤러리</legend>
 	        
  			   <div style='padding:14px'>
         <label for="files"></label>
@@ -623,7 +631,7 @@ height: 180px;
         	</fieldset>
         	</div>
 
-        <button type="submit" >Add List</button>
+        <button type="submit" id="id" >Add List</button>
       </form>
       <jsp:include page="../include/admin_bottom.jsp" />
     </body>

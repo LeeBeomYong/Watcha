@@ -768,6 +768,7 @@ public class ImageDAO {
 				
 				return res;
 			}
+			
 
 			// 해당 번호 영화 dto 가져오자자
 			public ImageDTO getMovie(int movie_num) {
@@ -780,9 +781,9 @@ public class ImageDAO {
 					rs=pstmt.executeQuery();
 					if(rs.next()) {
 						image_dto=new ImageDTO();
-						image_dto.setDirector_image("director_image");
-						image_dto.setImage_loc("image_loc");
-						image_dto.setImage_temp("image_temp");
+						image_dto.setDirector_image(rs.getString("director_image"));
+						image_dto.setImage_loc(rs.getString("image_loc"));
+						image_dto.setImage_temp(rs.getString("image_temp"));
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block

@@ -134,7 +134,7 @@
 </head>
 <body>
 	
-	<div class="wrapper">
+	<div class="wrapper2">
 	
 			<section class="rates">
 				<p class="stars">

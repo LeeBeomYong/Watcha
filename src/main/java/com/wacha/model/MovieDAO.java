@@ -1299,7 +1299,7 @@ public class MovieDAO {
 					pstmt2.setInt(1, dto.getMovie_num());
 					rs2=pstmt2.executeQuery();
 					if(rs2.next()) {
-						dto.setMovie_avgstar(rs.getDouble(1));
+						dto.setMovie_avgstar(rs2.getDouble(1));
 					}
 					
 					list.add(dto);

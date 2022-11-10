@@ -323,11 +323,11 @@ $(function() {
 	<div id="topImg">
 			<div id="imgT">
 			<%-- 상단 예매 순위 / 개봉 날짜 / 평균 별점 --%>
-			<img id="imgT_img" alt="" src="${pageContext.request.contextPath}/image/${images[0]}">
+			<img id="imgT_img" alt="" src="${pageContext.request.contextPath}/image/${images[0].trim()}">
 			<div id="topShow">
 				<div id="topDiv_img">
 					<c:if test="${!empty img_dto.getImage_loc() }">
-						<img alt="" src="${img_dto.getImage_loc()}" width="150px">					
+						<img alt="" src="${pageContext.request.contextPath}/image/${img_dto.getImage_loc()}" width="150px">					
 										
 					</c:if>
 					<c:if test="${empty img_dto.getImage_loc() }">
@@ -472,7 +472,7 @@ $(function() {
 					<ul>
 					<a href="<%=request.getContextPath()%>/wacha_director_list.do?director=${mDto.getMovie_director()}" >
 						<li class="director_actor">
-							<img alt="없" width="40px" height="40px" id="direcImg" src="${img_dto.getDirector_image()}">
+							<img alt="없" width="40px" height="40px" id="direcImg" src="${pageContext.request.contextPath}/image/${img_dto.getDirector_image().trim()}">
 							<div>
 								<span>${mDto.getMovie_director()}<br>감독</span>
 								
@@ -710,10 +710,10 @@ $(function() {
                  <div id="carouselExampleControlsNoTouching" class="mh-100 carousel slide" data-bs-touch="false" data-bs-interval="false">
 					  <div class="carousel-inner align-middle">
 					    <div class="carousel-item active">
-					      <img class="d-block w-100 mh-100" alt="" src="${pageContext.request.contextPath}/image/${images[1]}">
+					      <img class="d-block w-100 mh-100" alt="" src="${pageContext.request.contextPath}/image/${images[1].trim()}">
 					    </div>
 					    <div class="carousel-item">
-					      <img alt="" src="${pageContext.request.contextPath}/image/${images[2]}">
+					      <img alt="" src="${pageContext.request.contextPath}/image/${images[2].trim()}">
 					    </div>
 					  </div>
 					  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">

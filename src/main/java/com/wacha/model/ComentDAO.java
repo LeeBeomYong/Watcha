@@ -220,7 +220,9 @@ public class ComentDAO {
 		public String getMoviecoComent(int movie_num,int coment_num){
 			
 			//List<ComentDTO> cocoment_list = new ArrayList<ComentDTO>();
-			
+			String sql2;
+			PreparedStatement pstmt2;
+			ResultSet rs2;
 			sql="select * from coment "
 					+ "where movie_num=? and coment_num=? "
 					+ "and coment_num_son is not null order by coment_num_son desc";
@@ -242,6 +244,16 @@ public class ComentDAO {
 					res+="<coment_num_son>"+rs.getString("coment_num_son")+"</coment_num_son>";
 					res+="<coment_hit>"+rs.getInt("coment_hit")+"</coment_hit>";
 					res+="<coment_nohit>"+rs.getInt("coment_nohit")+"</coment_nohit>";
+					sql2="select member_image from member where member_id = ?";
+					pstmt2=con.prepareStatement(sql2);
+					pstmt2.setString(1, rs.getString("member_id"));
+					rs2=pstmt2.executeQuery();
+					if(rs2.next()) {
+						System.err.println("이미지 넣기 하하");
+						res+="<coment_image>"+rs2.getString(1)+"</coment_image>";
+					}
+					
+					
 					res+="</coment>";
 	
 					System.out.println("댓글이 있어요");

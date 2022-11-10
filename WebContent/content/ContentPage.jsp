@@ -347,10 +347,16 @@ $(function() {
 	<div id="topImg">
 			<div id="imgT">
 			<%-- 상단 예매 순위 / 개봉 날짜 / 평균 별점 --%>
-			<img id="imgT_img" alt="${images[0]}" src="">
+			<img id="imgT_img" alt="" src="${pageContext.request.contextPath}/image/${images[0]}">
 			<div id="topShow">
 				<div id="topDiv_img">
-					<img alt="이미지 없음" src="${pageContext.request.contextPath }/image/contImg/black_adam_content_sub.jpg" width="150px">
+					<c:if test="${!empty img_dto.getImage_loc() }">
+						<img alt="" src="${img_dto.getImage_loc()}" width="150px">					
+										
+					</c:if>
+					<c:if test="${empty img_dto.getImage_loc() }">
+						<img alt="" src="${pageContext.request.contextPath}/image/null.png" width="150px">	
+					</c:if>
 				</div>
 			<div id="topDiv_cont">
 				<ul>
@@ -490,7 +496,7 @@ $(function() {
 					<ul>
 					<a href="<%=request.getContextPath()%>/wacha_director_list.do?director=${mDto.getMovie_director()}" >
 						<li class="director_actor">
-							<img alt="없" width="40px" height="40px" id="direcImg" src="${pageContext.request.contextPath }/image/contImg/black_adam_director.jpg">
+							<img alt="없" width="40px" height="40px" id="direcImg" src="${img_dto.getDirector_image()}">
 							<div>
 								<span>${mDto.getMovie_director()}<br>감독</span>
 								
@@ -722,10 +728,10 @@ $(function() {
                  <div id="carouselExampleControlsNoTouching" class="mh-100 carousel slide" data-bs-touch="false" data-bs-interval="false">
 					  <div class="carousel-inner align-middle">
 					    <div class="carousel-item active">
-					      <img class="d-block w-100 mh-100" alt="${images[1]}" src="">
+					      <img class="d-block w-100 mh-100" alt="" src="${pageContext.request.contextPath}/image/${images[1]}">
 					    </div>
 					    <div class="carousel-item">
-					      <img alt="${images[2]}" src="">
+					      <img alt="" src="${pageContext.request.contextPath}/image/${images[2]}">
 					    </div>
 					  </div>
 					  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
@@ -741,7 +747,7 @@ $(function() {
               
               </div>
               <div id="mapdiv">
-              	<div align="center"><b>주변 영화관 위치</b></div>
+              	<div align="center" id="mapt"><b>주변 영화관 위치</b></div>
               	<div id="map" style="width:300px;height:300px;"></div>
               </div>
  
@@ -931,13 +937,7 @@ $(function() {
 				</script>
            
            
-           
-           <div>
-	           <div align="center">기상예보</div>
-	           <div>
-	           		
-	           </div>
-	      </div>
+           	
            
            
            </div>
@@ -979,10 +979,6 @@ $(function() {
       
       
       </div>
-	<div align="center" id="downdiv">
-		<font size="6" color="gray">지금까지 <font color="red">★ <fmt:formatNumber value="${ star_count }"/>개의 평가가</font> 쌓였어요</font>
-	</div>
-
 	<jsp:include page="../include/user_bottom.jsp"/>
 </body>
 </html>

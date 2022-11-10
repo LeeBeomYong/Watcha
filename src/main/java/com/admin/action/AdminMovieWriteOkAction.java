@@ -57,7 +57,8 @@ public class AdminMovieWriteOkAction implements Action {
 		String movie_country = multi.getParameter("movie_country").trim();
 
 		String movie_director = multi.getParameter("movie_director").trim();
-
+		
+		String movie_video=multi.getParameter("movie_video").trim();
 		
 		  String movie_main = multi.getParameter("movie_main");
 		  
@@ -99,6 +100,7 @@ public class AdminMovieWriteOkAction implements Action {
 
 		dto.setMovie_country(movie_country);
 		
+		dto.setMovie_video(movie_video);
 		
 		
 		 dto1.setImage_loc(movie_poster);	

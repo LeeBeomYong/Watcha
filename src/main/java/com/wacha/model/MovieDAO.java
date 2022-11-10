@@ -134,15 +134,25 @@ public class MovieDAO {
 			return dto;
 		}
 		//
-		public List<MovieDTO>getmovieList(){
+		public List<MovieDTO>getmovieList(int page,int rowsize){
+			
 			List<MovieDTO>list= new ArrayList<MovieDTO>();
+			
+			int startNo = (page*rowsize)-(rowsize-1);
+			
+			//해당페이지 끝 번호
+			int endNo=(page*rowsize);
 			
 			try {
 				openConn();
 				
-				sql="select * from movie order by movie_num desc";
+				sql="select * from(select row_number() over(order by movie_num) rnum,b.*from movie b) where movie_num>=? and movie_num<=?";
 				
 				pstmt=con.prepareStatement(sql);
+				
+				pstmt.setInt(1, startNo);
+				
+				pstmt.setInt(2, endNo);
 				
 				rs=pstmt.executeQuery();
 				
@@ -293,6 +303,7 @@ public class MovieDAO {
 					
 					dto.setMovie_country(rs.getString("movie_country"));
 					
+					dto.setMovie_video(rs.getString("movie_video"));
 					
 					
 				}
@@ -312,7 +323,7 @@ public class MovieDAO {
 			try {
 				openConn();
 				
-				sql="update movie set movie_title=?, movie_cont=?, movie_time=?, movie_date=?, movie_age=?, movie_genre=?, movie_director=?, movie_country=? where movie_num=?";
+				sql="update movie set movie_title=?, movie_cont=?, movie_time=?, movie_date=?, movie_age=?, movie_genre=?, movie_director=?, movie_country=?,movie_video=? where movie_num=?";
 				
 				pstmt=con.prepareStatement(sql);
 				
@@ -334,7 +345,9 @@ public class MovieDAO {
 				
 				pstmt.setString(8, dto.getMovie_country());
 				
-				pstmt.setInt(9, dto.getMovie_num());
+				pstmt.setString(9, dto.getMovie_video());
+				
+				pstmt.setInt(10, dto.getMovie_num());
 				
 				result=pstmt.executeUpdate();
 				
@@ -1343,6 +1356,29 @@ public class MovieDAO {
 				closeConn(rs, pstmt, con);
 			}return result;
 		}
+		public int getMovieCount() {
+			int count=0;
 		
+			try {
+				
+				openConn();
+				
+				sql="select count(*) from movie";
+				
+				pstmt=con.prepareStatement(sql);
+				
+				rs=pstmt.executeQuery();
+				
+				if(rs.next()) {
+					count=rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+			}return count;			
+			
+		}
 }
 

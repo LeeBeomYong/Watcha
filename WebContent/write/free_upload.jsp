@@ -110,6 +110,13 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <script type="text/javascript">
 	
+$(function(){
+	
+	$("#validationTextarea1").on('keydown keyup', function () {
+	  	$(this).height(1).height( $(this).prop('scrollHeight')+12 );	
+		});	
+});	
+	
 	// textarea에서 입력한 글자 만큼 세주는 함수.	
 	$(document).ready(function() {
 	    $('#validationTextarea1').on('keyup', function() {
@@ -164,7 +171,7 @@
 		</div>
 
 		<div class="mb-3">
-		   <textarea style="box-shadow:none !important;" class="form-control is-invalid" rows="14" name="free_cont" id="validationTextarea1" placeholder="내용을 입력하세요." required></textarea>
+		   <textarea style="box-shadow:none !important; overflow: hidden; min-height:250px; padding-right: 2%;" class="form-control is-invalid" rows="14" name="free_cont" id="validationTextarea1" placeholder="내용을 입력하세요." required></textarea>
 		</div>	
 		  
 		  	

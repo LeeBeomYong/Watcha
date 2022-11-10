@@ -25,6 +25,7 @@
 		border-radius: 10px;
 	}
 	
+	
 	#content{
 		resize: none;
 		border: none;

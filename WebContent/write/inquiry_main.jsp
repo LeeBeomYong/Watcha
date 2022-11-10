@@ -41,7 +41,13 @@
 	        }
 	    });
 	});
-
+	
+	$(function(){
+		
+		$("#exampleFormControlTextarea1").on('keydown keyup', function () {
+		  	$(this).height(1).height( $(this).prop('scrollHeight')+12 );	
+			});		
+	});	
 </script>
 <style type="text/css">
 
@@ -283,7 +289,7 @@
 		</div>				
 		<div class="mb-3">
 		  <label for="exampleFormControlTextarea1" class="form-label">문의내용</label>
-		  <textarea class="form-control is-invalid" id="exampleFormControlTextarea1" rows="9" style="width: 700px; resize: none; box-shadow:none !important;" name="w_cont" required></textarea>
+		  <textarea class="form-control is-invalid" id="exampleFormControlTextarea1" rows="9" style="width: 700px; resize: none; box-shadow:none !important;overflow: hidden; min-height:250px;" name="w_cont" required></textarea>
 		  <span id="cnt">(0 / 1000)자 이내로 입력</span>
 		</div>	
 		</form>

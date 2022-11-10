@@ -66,6 +66,11 @@
 	              // radio 버튼의 value 값이 1이라면 비번 입력할 수 있게.
 			};
 		});
+		
+		$("#validationTextarea1").on('keydown keyup', function () {
+		  	$(this).height(1).height( $(this).prop('scrollHeight')+12 );	
+			});	
+		
 	});
 	
 	// textarea에서 입력한 글자 만큼 세주는 함수.	
@@ -118,7 +123,7 @@
 		
 		<div class="mb-3">
 		  <label for="exampleFormControlTextarea1" class="form-label">문의내용</label>
-		  <textarea style="box-shadow:none !important; width: 700px; resize: none;" class="form-control" id="validationTextarea1" rows="9" name="write_cont" required></textarea>
+		  <textarea style="box-shadow:none !important; width: 700px; resize: none; overflow: hidden; min-height:250px;" class="form-control" id="validationTextarea1" rows="9" name="write_cont" required></textarea>
 		  <span id="cnt">(0 / 1000)자 이내로 입력</span>
 		</div>
 		

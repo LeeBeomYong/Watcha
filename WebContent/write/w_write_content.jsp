@@ -23,6 +23,7 @@
 		width: 55%;
 		padding: 40px 30px 30px 30px;
 		border-radius: 10px;
+	}
 
 	#content{
 		resize: none;

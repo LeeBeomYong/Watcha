@@ -15,6 +15,8 @@ import com.wacha.model.W_WriteDTO;
 import com.wacha.model.WriteDAO;
 import com.wacha.model.WriteDTO;
 
+
+
 public class W_WriteContentAction implements Action {
 
 	@Override

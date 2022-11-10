@@ -15,6 +15,8 @@ import com.wacha.controller.ActionForward;
 import com.wacha.model.W_WriteDTO;
 import com.wacha.model.WriteDAO;
 
+
+
 public class W_WriteUploadAction implements Action {
 
 	@Override

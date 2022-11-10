@@ -768,6 +768,7 @@ public class ImageDAO {
 				
 				return res;
 			}
+			
 
 			// 해당 번호 영화 dto 가져오자자
 			public ImageDTO getMovie(int movie_num) {

@@ -26,7 +26,8 @@ public class WriteContentAction implements Action {
 		UserDAO dao1 = UserDAO.getInstance();
 		
 		UserDTO dto1 = dao1.profileUpdate(member_Id);
-		request.setAttribute("userProfile", dto1);		
+		request.setAttribute("userProfile", dto1);	
+		
 		
 		int write_num = Integer.parseInt(request.getParameter("num").trim());
 		

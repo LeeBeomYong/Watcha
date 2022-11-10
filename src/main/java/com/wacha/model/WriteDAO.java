@@ -11,7 +11,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-
 public class WriteDAO {
 
 	// DB와 연동하는 객체.
@@ -158,7 +157,6 @@ public class WriteDAO {
 				
 		}
 		
-	
 		
 		// write 테이블에서 전체 리스트 조회하는 메서드,
 		public List<WriteDTO> getWriteList(int page, int rowsize){

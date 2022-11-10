@@ -290,6 +290,7 @@
 			<c:set var="list" value="${List }" />	<%-- FreeListAction에서 free_write 테이블에서 데이터 가져옴. --%>
 			<c:if test="${!empty list }">
 				<c:forEach items="${list }" var="dto">
+				 	<%-- 관리자 인 경우 --%>
 					<c:if test="${'admin' eq session_id }">
 					<tr class="tt" onclick="location.href='<%=request.getContextPath()%>/free_content.do?num=${dto.getFree_num() }'">	<%-- 이부분 블럭 자체를 클릭하였을때 글 전체를 제대로 볼 수 있음. --%>
 							<td class="no"> ${dto.getFree_num() } </td>
@@ -306,9 +307,9 @@
 
 			
 	
-			<%-- 게시물이 비공개인데 본인회원이랑 관리자가 아닌 경우 --%>
-			<c:if test="${dto.getFree_radio() eq 1 && session_id ne dto.getMember_id() && 'admin' ne session_id }">
-				<tr class="tt" onclick="alert('이 게시물은 비공개입니다.\n관리자, 작성자 외 열람 불가능'); return false;">
+			<%-- 게시물이 회원공개인데 로그인이 안되어있을 경우--%>
+			<c:if test="${dto.getFree_radio() eq 1  && session_id eq null}">
+				<tr id="clik" class="tt" onclick="alert('로그인 후 열람 가능합니다.'); return false; ">
 					<td class="no"> ${dto.getFree_num() } </td>
 					<td> ${dto.getFree_title() } 	
 						<%-- 댓글 갯수 표시 --%>
@@ -327,19 +328,15 @@
 				</tr>			
 			</c:if>			
 
-			<%-- 게시물이 비공개이면서 회원인 경우 --%>
-			<c:if test="${dto.getFree_radio() eq 1 && session_id eq dto.getMember_id() }">
+			<%-- 게시물이 회원공개이면서 로그인 된 경우 --%>
+			<c:if test="${dto.getFree_radio() eq 1 && session_id ne null}">
 					<tr class="tt" onclick="location.href='<%=request.getContextPath()%>/free_content.do?num=${dto.getFree_num() }'">	<%-- 이부분 블럭 자체를 클릭하였을때 글 전체를 제대로 볼 수 있음. --%>
 					<td class="no"> ${dto.getFree_num() } </td>
 					<td> ${dto.getFree_title() } 	
 						<%-- 댓글 갯수 표시 --%>
 						<c:if test="${dto.getFree_reply_num() ne 0 }">
 							<span id="reply_num">[${dto.getFree_reply_num() }]</span>						
-						</c:if>
-						
-						<c:if test="${dto.getFree_radio() eq 1}">
-							🔒︎
-						</c:if>							
+						</c:if>						
 					</td>
 					<td class="wrt"> ${dto.getMember_id() } </td>
 					<td class="date"> ${dto.getFree_date().substring(0, 10) } </td>
@@ -347,7 +344,7 @@
 				</tr>					
 			</c:if>				
 			
-			<%-- 게시물이 비공개가 아닌 경우 --%>
+			<%-- 게시물이 전체공개 인 경우 --%>
 			<c:if test="${dto.getFree_radio() eq 0 && 'admin' ne session_id }">
 				<tr class="tt" onclick="location.href='<%=request.getContextPath()%>/free_content.do?num=${dto.getFree_num() }'">	<%-- 이부분 블럭 자체를 클릭하였을때 글 전체를 제대로 볼 수 있음. --%>
 					<td class="no"> ${dto.getFree_num() } </td>
@@ -405,12 +402,13 @@
 	  </div>		
 	<%--	===================================================================================================== --%> 
 
-	  
 	</div>
 	<br>
 	<br>
 	<%-- 하단 include 바 --%>
 	<jsp:include page="../include/user_bottom.jsp" />
+
+
 
 </body>
 </html>

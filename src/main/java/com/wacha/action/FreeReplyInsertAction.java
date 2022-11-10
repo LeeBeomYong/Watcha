@@ -39,9 +39,7 @@ public class FreeReplyInsertAction implements Action {
 		out.println(check);
 		// 결과값을 클라이언트(ajax)에 보내주면 됨.
 		
-
 		return null;
-		
 		
 	}
 

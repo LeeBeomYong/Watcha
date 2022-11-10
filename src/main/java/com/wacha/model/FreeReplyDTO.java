@@ -8,7 +8,6 @@ public class FreeReplyDTO {
 	private int free_num;
 	private String member_id;
 	
-	
 	public int getR_free_num() {
 		return r_free_num;
 	}

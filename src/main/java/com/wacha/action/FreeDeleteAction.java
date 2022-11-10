@@ -1,3 +1,4 @@
+
 package com.wacha.action;
 
 import java.io.IOException;
@@ -38,10 +39,8 @@ public class FreeDeleteAction implements Action {
 			out.println("</script>");
 		}
 		
-		
-		
-		
 		return forward;
 	}
 
 }
+

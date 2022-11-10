@@ -13,8 +13,6 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.easing/1.3/jquery.easing.1.3.js"></script>
 <script type="text/javascript">
 
-
-
 	// 탭 두개 콘텐츠 값 다르게 보여주는 함수.
 	$(document).ready(function(){
 		   
@@ -43,6 +41,17 @@
 	});
 
 </script>
+<style type="text/css">
+
+	#con4{
+		border: 1px solid #c6c6c6;
+		width: 50%;
+		margin-left: 5px;
+		margin: 5px;
+		border-radius: 10px;
+	}
+	
+</style>
 </head>
 <body>
 	<%-- 상단 include 바 --%>
@@ -224,7 +233,7 @@
 	  
 	  <br>
 	  <br>
-	  <form method="post" enctype="multipart/form-data" action="<%=request.getContextPath() %>/w_write_upload.do">
+	  <form method="post" class="was-validated" enctype="multipart/form-data" action="<%=request.getContextPath() %>/w_write_upload.do">
 	  
 	  	<header>
 			<h2>1:1문의(작성양식)<input type="submit" value="등록" id="img_a"></h2>
@@ -236,19 +245,19 @@
 	  	<br>
 		<div class="mb-3">
 		  <label for="exampleFormControlInput1" class="form-label">아이디</label>
-		  <input class="form-control" id="exampleFormControlInput1" placeholder="아이디 입력" value="${session_id }" style="width: 300px;" name="w_id">
+		  <input class="form-control" id="exampleFormControlInput1" placeholder="아이디 입력" value="${session_id }" style="width: 300px;" name="w_id" readonly>
 		</div>
 <!-- 		<div class="mb-3">
 		  <label class="form-label">비밀번호</label>
 		  <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="비밀번호 입력" style="width: 300px;" name="w_pwd">
 		</div> -->
-		<div class="mb-3">
-		  <label for="formFile" class="form-label">파일 업로드</label>
-		  <input class="form-control" style="width: 400px;" type="file" id="formFile" name="w_file">
-		</div>			
+			<label for="formFile" class="form-label">파일 업로드</label>
+		<div id="con4">
+		  <input style="width: 100%; border-color:#c6c6c6; box-shadow-color:#000; box-shadow:none !important;" type="file" id="formFile" name="w_file">
+		</div>				
 		<div class="mb-3">
 		  <label for="exampleFormControlTextarea1" class="form-label">문의내용</label>
-		  <textarea class="form-control" id="exampleFormControlTextarea1" rows="9" style="width: 700px; resize: none;" name="w_cont"></textarea>
+		  <textarea class="form-control is-invalid" id="exampleFormControlTextarea1" rows="9" style="width: 700px; resize: none; box-shadow:none !important;" name="w_cont" required></textarea>
 		  <span id="cnt">(0 / 1000)자 이내로 입력</span>
 		</div>	
 		</form>

@@ -42,9 +42,6 @@ public class FreeContentAction implements Action {
 		
 		forward.setPath("write/free_cont.jsp");
 		
-		
-		
-		
 		return forward;
 	}
 

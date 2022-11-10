@@ -12,7 +12,6 @@
 
 $(function(){
 	
-
 	$("textarea.autosize").on('keydown keyup', function () {
 	  	$(this).height(1).height( $(this).prop('scrollHeight')+12 );	
 		});	
@@ -30,6 +29,7 @@ $(function(){
 	});
 	
 });
+
 </script>
 <style type="text/css">
 
@@ -141,7 +141,7 @@ $(function(){
 	<jsp:include page="../include/user_top.jsp" />
 		
 		<div id="con_1">
-		<form method="post" action="<%=request.getContextPath()%>/free_modify_ok.do">
+		<form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/free_modify_ok.do">
 			<c:set var="dto" value="${Modify }" />
 			<c:set var="dto1" value="${userProfile }" />
 			<input type="hidden" name="free_num"  value="${dto.getFree_num() }">
@@ -151,7 +151,7 @@ $(function(){
 				<br>
 				<img id="pro_img" src="${pageContext.request.contextPath }/image/profileupload/${dto1.getMember_image()}">
 				<div>
-					<b style="font-size: 19px;"> ${dto.getMember_id() } </b>
+					<b style="font-size: 19px;"> ${dto.getMember_id() }</b>
 					<br>
 					<a style="font-size: 13px; pointer-events: none; color: #757575;">${dto.getFree_date().substring(0,16) } &nbsp; 조회 : ${dto.getFree_hit() } </a>
 					<input id="tag_1" type="submit" value="수정완료" style="margin-left: 69%;">
@@ -165,6 +165,11 @@ $(function(){
 					📢 욕설이나 비난글을 작성할 시 활동정지, 영구강퇴 될 수 있음을 알려드립니다.</p>
 				</div>
 				<br>
+				<div id="con4">
+				  <img src="<%=request.getContextPath() %>/free_write_file/${dto.getFree_file() }">
+				  <input style="width: 100%; border-color:#c6c6c6; box-shadow-color:#000; box-shadow:none !important;" type="file" name="free_file">
+				  <input type="hidden" name="free_file_old" value="${dto.getFree_file() }">
+				</div>
 				<div id="con_3">
 				
 					<textarea name="free_cont" id="text1" class="autosize" style="overflow: hidden; min-height:250px;">${dto.getFree_cont() }</textarea>

@@ -2,6 +2,8 @@ package com.wacha.model;
 
 public class FreeWriteDTO {
 
+	
+	
 	private int free_num;
 	private String free_title;
 	private String free_cont;

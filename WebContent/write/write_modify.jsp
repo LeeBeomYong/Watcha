@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -11,8 +10,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/write/write_css/write_modify_css.css" type="text/css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <script type="text/javascript">
-
-
 
 	// textarea에서 입력한 글자 만큼 세주는 함수.	
 	$(document).ready(function() {
@@ -29,6 +26,7 @@
 </script>
 </head>
 <body>
+
 	<%-- 상단 include 바 --%>
 	<jsp:include page="../include/user_top.jsp" />
 		

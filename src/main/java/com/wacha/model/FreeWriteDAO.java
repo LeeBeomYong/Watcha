@@ -11,8 +11,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-
-
 public class FreeWriteDAO {
 
 	// DB와 연동하는 객체.
@@ -396,11 +394,12 @@ public class FreeWriteDAO {
 			pstmt.setInt(1, dto.getFree_num());
 			rs = pstmt.executeQuery();
 			
-			sql = "update free_write set free_title = ?, free_cont = ? where free_num = ?";
+			sql = "update free_write set free_title = ?, free_cont = ?, free_file = ? where free_num = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, dto.getFree_title());
 			pstmt.setString(2, dto.getFree_cont());
-			pstmt.setInt(3, dto.getFree_num());
+			pstmt.setString(3, dto.getFree_file());
+			pstmt.setInt(4, dto.getFree_num());
 			
 			result = pstmt.executeUpdate();
 		

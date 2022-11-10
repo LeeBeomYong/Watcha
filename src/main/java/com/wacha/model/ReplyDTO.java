@@ -7,7 +7,6 @@ public class ReplyDTO {
 	private String reply_date;		// 답변 일자
 	private int write_num;			// 답변한 글번호
 	
-
 	public int getReply_num() {
 		return reply_num;
 	}

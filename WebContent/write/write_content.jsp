@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -25,6 +24,61 @@
 		border: none;
 		outline: none;
 	}
+
+
+	
+	
+	#re_writer{
+		border: none;
+		pointer-events: none;
+		font-weight: bold;
+		width: 500px;
+	}	
+	
+	#re_content{    
+		width: 100%;
+	    border: none;
+	    resize: none;
+	    outline: none;
+	}
+	
+	#replyBtn{
+		border: none;
+	    font-size: 15px;
+	    border-radius: 6px;
+	    text-align: center;
+	    background-color: white;
+	    float: right;
+	}
+	
+	#con_2{
+		border: 1px solid #c6c6c6;
+		border-radius: 10px;
+		padding: 25px 10px 25px 25px;
+		background-color: #F0F0F0;
+	}
+	
+	#con_3{
+		padding: 10px;
+	}
+	
+	#pro_img{
+	
+		width: 35px;
+		height: 35px; 
+		margin: 0; 
+		float: left; 
+		margin-top: 10px;
+		margin-left: 10px; 
+		margin-right: 10px;
+	}
+	
+	#tag_1{
+		font-weight: bold; 
+		color: #000; 
+		text-decoration: none;
+	}
+
 	
 	#tit_btn{
 		border: none;
@@ -39,9 +93,6 @@
 		background-color: #ABABAB;
 		font-weight: bold;
 	}
-
-
-	
 	
 </style>
 </head>

@@ -78,7 +78,6 @@ public class W_WriteUploadAction implements Action {
 		dto.setW_id(w_id);
 		dto.setW_cont(w_cont);
 		
-		
 		WriteDAO dao = WriteDAO.getInstance();
 		
 		int res = dao.insertW_Write(dto);

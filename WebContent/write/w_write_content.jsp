@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
  
 <!DOCTYPE html>
@@ -9,8 +8,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-
-
 
 	#table_1{
 		
@@ -30,6 +27,54 @@
 		border: none;
 		outline: none;
 	}	
+	
+	#re_content{    
+		width: 100%;
+	    border: none;
+	    resize: none;
+	    outline: none;
+	}
+	
+	#replyBtn{
+		border: none;
+	    font-size: 15px;
+	    border-radius: 6px;
+	    text-align: center;
+	    background-color: white;
+	    float: right;
+	}
+	
+	#con_2{
+		border: 1px solid #c6c6c6;
+		border-radius: 10px;
+		padding: 25px 10px 10px 25px;
+		background-color: #F0F0F0;
+	}
+	
+	#con_3{
+		padding: 10px;
+	}
+	
+	#con_4{
+	}
+	
+	#pro_img{
+	
+		width: 35px;
+		height: 35px; 
+		margin: 0; 
+		float: left; 
+		margin-top: 10px;
+		margin-left: 10px; 
+		margin-right: 10px;
+	}
+	
+	#tag_1{
+		font-weight: bold; 
+		color: #000; 
+		text-decoration: none;
+	}
+	
 
 </style>
 </head>
@@ -53,14 +98,25 @@
 				<hr>
 		</header>	
 		
+
+
+			<div id="con_2">
+				<p>
+				📢 본 게시판은 왓챠 회원님들의 영화 정보 공유게시판입니다.<br>
+				📢 욕설이나 비난글을 작성할 시 활동정지, 영구강퇴 될 수 있음을 알려드립니다.</p>
+			</div>
+			<br>		
+						
+
 			<div id="con_4">
 				<c:if test="${rdto.getW_file() ne null }">
 					<a href="<%=request.getContextPath() %>/w_write_file/${rdto.getW_file() }">📂${rdto.getW_file() }</a>			
 				</c:if>
 			</div>
-
 			<br>
-		</header>	
+			
+			<div id="con_3">
+
 			
 		<c:set var="rdto" value="${RCont }" />
 			<table class="table table-bordered">
@@ -102,8 +158,7 @@
 				</tr>
 			</table>
 			</c:if>
-
-
+			
 	</div>
 	<jsp:include page="../include/user_bottom.jsp" />
 

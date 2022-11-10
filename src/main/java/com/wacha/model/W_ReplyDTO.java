@@ -1,11 +1,11 @@
 package com.wacha.model;
 
 public class W_ReplyDTO {
+	
 	private int r_num;
 	private String r_cont;
 	private String r_date;
 	private int w_num;
-	
 	
 	public int getR_num() {
 		return r_num;

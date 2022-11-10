@@ -10,15 +10,19 @@
 <style type="text/css">
 
 	#table_1{
-		width: 70%;
+		
 	}
 	
 	
 	
 	#con_1{
-		margin-left: 25%;
-		margin-top: 50px;
+		margin-left: 23%;
+		margin-top: 30px;
 		margin-bottom: 50px;
+		border: 1px solid #c6c6c6;
+		width: 55%;
+		padding: 40px 30px 30px 30px;
+		border-radius: 10px;
 	}
 	
 	#content{
@@ -26,7 +30,6 @@
 		border: none;
 		outline: none;
 	}
-
 
 	
 	
@@ -80,7 +83,6 @@
 		color: #000; 
 		text-decoration: none;
 	}
-
 	
 	#tit_btn{
 		border: none;
@@ -100,9 +102,7 @@
 		
 		<div id="con_1">
 			<c:set var="dto" value="${Cont }" />
-
 			<c:set var="dto1" value="${userProfile }"></c:set>
-
 			<header>	
 				<h2>${dto.getWrite_title() }</h2>				
 				<br>
@@ -119,41 +119,39 @@
 				</div>
 				<hr>
 				
-
 			</header>
 			
-			<table class="table table-bordered" id="table_1">
-				<tr id="tr_1">
-					<th id="th_1" style="width: 100px;">제목</th>
-					<td colspan="3"> ${dto.getWrite_title() } </td>
-					<th id="th_1">등록일</th>
-					<td colspan="3"> ${dto.getWrite_date() } </td>
-				</tr>
-				
-				<tr id="tr_1">
-					<th id="th_1">작성자</th>
-					<td> ${dto.getMember_id() } </td>
-					<th id="th_1">글자수</th>
-					<td> (${dto.getWrite_cont().length() }자 / 1000자) </td>
-					<th id="th_1">조회수</th>
-					<td> ${dto.getWrite_hit() } </td>
-				</tr>
-				
-				<tr id="tr_1">
-					<th id="th_1">내용</th>
-					<td colspan="6">
-						<textarea id="content" rows="17" cols="120" readonly>${dto.getWrite_cont() }</textarea>
-					</td>
-				</tr>
-			</table>
-			<%-- 여기서 관리자가 답변을 주었다면 관리자 답변도 함께 띄워주고 / 답변이 없다면 null이라면 콘텐츠만 띄워준다. --%>
 			<div id="con_2">
+				<p>
+				📢 본 게시판은 문의 게시판입니다.<br>
+				📢 궁금하신 내용이나 불편한 점을 자유롭게 문의해 주세요.</p>
+				
+				문의하신 내용은 고객센터에서 확인 후 영업일 기준 1~3일 이내에 답변 드리도록 하겠습니다.<br>
+				* 운영 시간: 평일 (월 ~ 금) 10:00 ~ 18:00
+			</div>
+			<br>
+			<div id="con_3">
+			
+				<p>${dto.getWrite_cont() }</p>
+			
+			</div>
+			<p style="float: right; font-size: 12px;">(${dto.getWrite_cont().length() }자 / 1000자)</p>
+			
+			<br>
+			
+			<hr style="width: 100%;">
+			
+			
+			<%-- 여기서 관리자가 답변을 주었다면 관리자 답변도 함께 띄워주고 / 답변이 없다면 null이라면 콘텐츠만 띄워준다. --%>
+			<div>
 			<c:set var="rdto" value="${Reply }" />
 				<c:if test="${dto.getWrite_num() eq rdto.getWrite_num() }">
-					<table class="table table-bordered" id="table_1">
+					<table id="table_1">
 						<tr>
-							<th style="width: 100px;">↳ 답변</th>
-							<td><span style="font-weight: bold; font-style: italic; font-size: 23px;">WATCHA</span><br>
+							<th style="font-size: 20px;">↳ 답변</th>
+						</tr>
+						<tr>
+							<td><br><span style="font-weight: bold; font-style: italic; font-size: 23px;">WATCHA</span><br>
 								안녕하세요. 왓챠피디아입니다.<br><br>
 								${rdto.getReply_cont() }<br><br>
 								궁금하신 내용에 대해 도움이 되셨길 바랍니다.<br><br>

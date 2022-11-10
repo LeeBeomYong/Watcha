@@ -72,7 +72,6 @@ public class WachaContentPageAction implements Action {
 			}
 			request.setAttribute("coment_dto", coment_dto);
 			
-			
 		}
 		request.setAttribute("chk", 1);
 		request.setAttribute("mDto", mDto);

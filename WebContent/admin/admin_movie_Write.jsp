@@ -378,6 +378,37 @@ width: 130px;
 height: 180px;
 
 }
+.button-wrapper {
+  position: relative;
+  width: 150px;
+  text-align: center;
+  margin: 20% auto;
+}
+
+.button-wrapper span.label {
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  width: 100%;
+  background: #00bfff;
+  cursor: pointer;
+  color: #fff;
+  padding: 10px 0;
+  text-transform:uppercase;
+  font-size:12px;
+}
+
+#upload {
+    display: inline-block;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 50px;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+} 
         </style>
         <link rel="stylesheet" href="css/normalize.css">
         <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
@@ -401,7 +432,7 @@ height: 180px;
 	let noimage =
 	  "https://ami-sni.com/wp-content/themes/consultix/images/no-image-found-360x250.png";
 	$(function() {
-       	$('#files').click(function(){
+       	$('#id').click(function(){
             var files=$('input[name="gallery"]')[0].files;
             $("#mm").attr("value",files[0].name);
             $("#gallery1").attr("value",files[1].name);
@@ -501,6 +532,8 @@ height: 180px;
 		    }
 		    $(this).parent().parent().remove();
 		  });
+
+		  document.getElementById('#files').readOnly = true;
 		}
 	
 
@@ -604,14 +637,22 @@ height: 180px;
         	</fieldset>
         	</div>
        </div>
-      
+      <div class="button-wrapper">
+  <span class="label">
+    Upload File
+  </span>
+  
+    <input type="file" name="upload" id="upload" class="upload-box" placeholder="Upload File">
+  
+</div>
        <div  class="center">       
 	          <fieldset>
 	          <legend><span class="number" >11</span>갤러리</legend>
 	        
  			   <div style='padding:14px'>
         <label for="files"></label>
-        <input id="files" type="file" name="gallery" multiple/>        
+        <input id="files" type="file" name="gallery" multiple/>
+ <!--       <input type="button"  id="id" value="저장">    -->   
   	  </div>
 				  <div style='padding:14px; margin:auto';>
 				  <div id="sortableImgThumbnailPreview">
@@ -623,7 +664,7 @@ height: 180px;
         	</fieldset>
         	</div>
 
-        <button type="submit" >Add List</button>
+        <button id="id" type="submit" >Add List</button>
       </form>
       <jsp:include page="../include/admin_bottom.jsp" />
     </body>

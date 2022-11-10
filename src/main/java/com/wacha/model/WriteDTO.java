@@ -13,6 +13,7 @@ public class WriteDTO {
 	private String write_radio;			// 글 비번 비공개 / 공개
 	private String write_reply;
 
+	
 	public String getWrite_reply() {
 		return write_reply;
 	}

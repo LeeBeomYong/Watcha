@@ -13,8 +13,6 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.easing/1.3/jquery.easing.1.3.js"></script>
 <script type="text/javascript">
 
-
-
 	// 탭 두개 콘텐츠 값 다르게 보여주는 함수.
 	$(document).ready(function(){
 		   
@@ -44,6 +42,7 @@
 
 </script>
 <style type="text/css">
+
 	#con4{
 		border: 1px solid #c6c6c6;
 		width: 50%;
@@ -51,6 +50,7 @@
 		margin: 5px;
 		border-radius: 10px;
 	}
+	
 </style>
 </head>
 <body>

@@ -7,6 +7,7 @@
 <title>왓챠피디아 소개 페이지</title>
 <script type="text/javascript">
 
+
 	onload = function(){
 		
 		let button1 = document.getElementById("btn1");

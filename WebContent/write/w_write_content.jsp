@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
  
 <!DOCTYPE html>
@@ -9,8 +8,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-
-
 
 	#table_1{
 		
@@ -87,6 +84,7 @@
 		color: #000; 
 		text-decoration: none;
 	}
+	
 </style>
 </head>
 <body>
@@ -147,8 +145,7 @@
 						</tr>
 					</table>
 			</c:if>
-
-
+			
 	</div>
 	<jsp:include page="../include/user_bottom.jsp" />
 

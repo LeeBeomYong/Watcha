@@ -1,4 +1,5 @@
 @charset "UTF-8";	
+
 	/* 자주하는 질문 */
 	.title-area {
 		margin-top: 100px;
@@ -80,4 +81,5 @@
 	#aa{
 		text-decoration: none;
 		color: #000;
+		
 }

@@ -46,8 +46,6 @@
 		margin-top: 15px;
 	}
 
-
-
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <script type="text/javascript">
@@ -64,9 +62,9 @@
 			}else if($("input[name=show]:checked").val() == "1"){
 	              $("#pwd").attr("disabled",false);
 	              // radio 버튼의 value 값이 1이라면 비번 입력할 수 있게.
-		};
+			};
+		});
 	});
-});
 	
 	// textarea에서 입력한 글자 만큼 세주는 함수.	
 	$(document).ready(function() {
@@ -79,9 +77,6 @@
 	        }
 	    });
 	});
-
-	
-	
 
 </script>
 </head>

@@ -47,8 +47,6 @@ public class W_WriteContentAction implements Action {
 		
 		return forward;	
 		
-		
-		
 	}
 
 }

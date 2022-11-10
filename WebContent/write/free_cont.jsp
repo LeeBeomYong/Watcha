@@ -142,7 +142,7 @@
 				<br>
 				<div id="con_4">
 					<c:if test="${dto.getFree_file() ne null }">
-<%-- 	<a href="<%=request.getContextPath() %>/free_write_file/${dto.getFree_file() }">📂${dto.getFree_file() }</a>	 --%>	
+<%--  <a href="<%=request.getContextPath() %>/free_write_file/${dto.getFree_file() }">📂${dto.getFree_file() }</a>	 --%>	
 						<img src="<%=request.getContextPath() %>/free_write_file/${dto.getFree_file() }">	
 					</c:if>
 				</div>

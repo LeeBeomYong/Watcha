@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -9,8 +8,6 @@
 <meta charset="UTF-8">
 <title>공지사항 content</title>
 <style type="text/css">
-
-
 
 	#table_1{
 		
@@ -63,6 +60,7 @@
 		padding: 25px 10px 10px 25px;
 		background-color: #F0F0F0;
 	}
+	
 	#con_3{
 		padding: 10px;
 	}
@@ -120,7 +118,6 @@
 				<p style="float: right; font-size: 12px;">(${ndto.getNotice_content().length() }자 / 1000자)</p>
 		
 		<br>
-		
 				
 		</div>
 

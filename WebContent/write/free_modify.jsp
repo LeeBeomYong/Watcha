@@ -12,7 +12,6 @@
 
 $(function(){
 	
-
 	$("textarea.autosize").on('keydown keyup', function () {
 	  	$(this).height(1).height( $(this).prop('scrollHeight')+12 );	
 		});	
@@ -30,6 +29,7 @@ $(function(){
 	});
 	
 });
+
 </script>
 <style type="text/css">
 
@@ -151,7 +151,7 @@ $(function(){
 				<br>
 				<img id="pro_img" src="${pageContext.request.contextPath }/image/profileupload/${dto1.getMember_image()}">
 				<div>
-					<b style="font-size: 19px;"> ${dto.getMember_id() } </b>
+					<b style="font-size: 19px;"> ${dto.getMember_id() }</b>
 					<br>
 					<a style="font-size: 13px; pointer-events: none; color: #757575;">${dto.getFree_date().substring(0,16) } &nbsp; 조회 : ${dto.getFree_hit() } </a>
 					<input id="tag_1" type="submit" value="수정완료" style="margin-left: 69%;">

@@ -38,9 +38,6 @@ public class FreeDeleteAction implements Action {
 			out.println("</script>");
 		}
 		
-		
-		
-		
 		return forward;
 	}
 

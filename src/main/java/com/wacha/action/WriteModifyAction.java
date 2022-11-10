@@ -15,6 +15,7 @@ public class WriteModifyAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
+		
 		int write_num = Integer.parseInt(request.getParameter("num").trim());
 		
 		WriteDAO dao = WriteDAO.getInstance();

@@ -33,8 +33,6 @@ public class FreeModifyOkAction implements Action {
 				new DefaultFileRenamePolicy()
 				);
 		
-		
-		
 		String free_title = multi.getParameter("free_title").trim();
 		
 		String free_cont = multi.getParameter("free_cont").trim();
@@ -77,8 +75,7 @@ public class FreeModifyOkAction implements Action {
 		}
 		
 		return forward;
-		
-		
+			
 	}
 
 }

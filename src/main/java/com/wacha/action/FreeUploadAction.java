@@ -20,7 +20,6 @@ public class FreeUploadAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		// 
 		
 		FreeWriteDTO dto = new FreeWriteDTO();
 	
@@ -35,7 +34,6 @@ public class FreeUploadAction implements Action {
 				"UTF-8",
 				new DefaultFileRenamePolicy()
 				);
-
 		
 		String member_id = multi.getParameter("member_id").trim();
 		String free_title = multi.getParameter("free_title").trim();

@@ -35,7 +35,6 @@ public class NoticeContentAction implements Action {
 				
 		return forward;
 		
-		
 	}
 
 }

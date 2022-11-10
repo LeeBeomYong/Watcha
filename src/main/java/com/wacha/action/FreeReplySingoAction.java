@@ -31,6 +31,8 @@ public class FreeReplySingoAction implements Action {
 		forward.setPath("free_main.do");
 		return forward;		
 
+		
+		
 	}
 
 }

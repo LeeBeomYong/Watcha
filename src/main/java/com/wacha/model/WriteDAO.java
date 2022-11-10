@@ -186,8 +186,8 @@ public class WriteDAO {
 					WriteDTO dto = new WriteDTO();
 					
 					dto.setWrite_num(rs.getInt("write_num"));
-					dto.setWrite_title(rs.getString("write_title"));
 					dto.setWrite_cont(rs.getString("write_cont"));
+					dto.setWrite_title(rs.getString("write_title"));
 					dto.setWrite_pwd(rs.getString("write_pwd"));
 					dto.setWrite_hit(rs.getInt("write_hit"));
 					dto.setWrite_date(rs.getString("write_date"));
@@ -345,8 +345,8 @@ public class WriteDAO {
 				pstmt = con.prepareStatement(sql);
 				
 				pstmt.setInt(1, count);
-				pstmt.setString(2, dto.getWrite_title());
-				pstmt.setString(3, dto.getWrite_cont());
+				pstmt.setString(2, dto.getWrite_cont());
+				pstmt.setString(3, dto.getWrite_title());
 				pstmt.setString(4, dto.getWrite_pwd());
 				pstmt.setString(5, dto.getWrite_radio());
 				pstmt.setString(6, dto.getMember_id());
@@ -477,8 +477,8 @@ public class WriteDAO {
 
 		//XD
 		
-		public List<WriteDTO> userContentWrite(String id) {
-			 List<WriteDTO>list=new ArrayList<WriteDTO>();
+		public WriteDTO userContentWrite(String id) {
+			WriteDTO dto = null;
 			
 			try {
 				openConn();
@@ -492,7 +492,7 @@ public class WriteDAO {
 				rs= pstmt.executeQuery();
 				
 				if(rs.next()) {
-					WriteDTO dto=new WriteDTO();
+					dto=new WriteDTO();
 					
 					dto.setWrite_num(rs.getInt("write_num"));
 					dto.setWrite_title(rs.getString("write_title"));
@@ -501,7 +501,6 @@ public class WriteDAO {
 					dto.setWrite_hit(rs.getInt("write_hit"));
 					dto.setWrite_date(rs.getString("write_date"));
 					dto.setMember_id(rs.getString("member_id"));
-					list.add(dto);
 				}
 				
 			} catch (SQLException e) {
@@ -509,8 +508,9 @@ public class WriteDAO {
 				e.printStackTrace();
 			}finally {
 				closeConn(rs, pstmt, con);
-			}return list;
+			}return dto;
 		}
+
 
 		// board 테이블의 전체 게시물의 수를 확인하는 메서드.
 		public int getWriteCount() {
@@ -1050,7 +1050,7 @@ public class WriteDAO {
 				dto = new ReplyDTO();
 				
 				dto.setReply_num(rs.getInt("reply_num"));
-				dto.setReply_cont(rs.getString("reply_cont"));
+				dto.setReply_cont(rs.getString("reply_cont").replace("\r\n","<br>"));
 				dto.setReply_date(rs.getString("reply_date"));
 				dto.setWrite_num(rs.getInt("write_num"));
 			}
@@ -1080,7 +1080,7 @@ public class WriteDAO {
 				dto = new W_ReplyDTO();
 				
 				dto.setR_num(rs.getInt("r_num"));
-				dto.setR_cont(rs.getString("r_cont"));
+				dto.setR_cont(rs.getString("r_cont").replace("\r\n","<br>"));
 				dto.setR_date(rs.getString("r_date"));
 				dto.setW_num(rs.getInt("w_num"));
 			}
@@ -1092,9 +1092,6 @@ public class WriteDAO {
 		}
 		return dto;
 	}
-	
-	
-	
 	
 	public int insertReply(ReplyDTO dto) {
 		
@@ -1172,6 +1169,8 @@ public class WriteDAO {
 		
 	}
 
+	
+	
 	
 	
 	

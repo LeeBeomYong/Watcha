@@ -884,7 +884,7 @@
                <%-- 로그인 됨.--%>
                <c:if test="${!empty session_id }">
                     <li><a id="menu" class="dropdown-item" href="<%=request.getContextPath() %>/inquiry_main.do">Q&A / 1:1문의</a></li>
-                    <li><a id="menu" class="dropdown-item" href="<%=request.getContextPath() %>/write_result.do">문의내역</a></li>
+                    <li><a id="menu" class="dropdown-item" href="<%=request.getContextPath() %>/write_result.do?id=${session_id}">문의내역</a></li>
                </c:if>
 
                 <%-- 로그인 안됨. --%>
@@ -909,7 +909,9 @@
 	    <c:if test="${!empty session_id }">
 	    	
 	    	<ul class="session">
+
 	    		<li class="s_id"><img class="s_img" src="${pageContext.request.contextPath }/image/profileupload/${session_img }" alt="프로필" /></li>
+
 	    		<li class="s_id"><a href="<%=request.getContextPath()%>/member_page.do?member_id=${session_id }">${session_id }</a></li>
 	    	</ul>
 	    		
@@ -1130,6 +1132,8 @@
 	  	</div>
 	  </div>
 	</nav>
+     
+     
      
      
 	

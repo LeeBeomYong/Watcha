@@ -6,8 +6,7 @@
 <meta charset="UTF-8">
 <title>자주 묻는 질문 페이지</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/write/write_css/answer_css.css" type="text/css">
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.easing/1.3/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <script type="text/javascript">
 
 	// 눌렀을때 나머지 내용이 나오게 하는 함수.

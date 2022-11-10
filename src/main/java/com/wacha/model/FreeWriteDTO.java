@@ -8,7 +8,7 @@ public class FreeWriteDTO {
 	private int free_hit;
 	private String free_date;
 	private String free_file;
-	private String free_pwd;
+	private int free_radio;
 	private int free_reply_num;
 	private String member_id;
 	
@@ -56,11 +56,11 @@ public class FreeWriteDTO {
 	public void setFree_file(String free_file) {
 		this.free_file = free_file;
 	}
-	public String getFree_pwd() {
-		return free_pwd;
+	public int getFree_radio() {
+		return free_radio;
 	}
-	public void setFree_pwd(String free_pwd) {
-		this.free_pwd = free_pwd;
+	public void setFree_radio(int free_radio) {
+		this.free_radio = free_radio;
 	}
 	public String getMember_id() {
 		return member_id;
@@ -68,6 +68,7 @@ public class FreeWriteDTO {
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
 	}
+
 	
 	
 	

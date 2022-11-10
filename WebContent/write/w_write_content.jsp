@@ -10,12 +10,21 @@
 <title>Insert title here</title>
 <style type="text/css">
 
-	#con1{
-		width: 50%;
-		margin-left: 25%;
-		margin-top: 3%;
+
+
+	#table_1{
+		
 	}
 	
+	#con_1{
+		margin-left: 23%;
+		margin-top: 30px;
+		margin-bottom: 50px;
+		border: 1px solid #c6c6c6;
+		width: 55%;
+		padding: 40px 30px 30px 30px;
+		border-radius: 10px;
+
 	#content{
 		resize: none;
 		border: none;
@@ -28,9 +37,28 @@
 
 	<jsp:include page="../include/user_top.jsp" />
 	
-	<div id="con1">
+
+	<div id="con_1">
+		<c:set var="rdto" value="${RCont }" />
+		<c:set var="dto1" value="${userProfile }"></c:set>
 		<header>
 			<h2>1:1 답변</h2>
+				<br>
+				<img id="pro_img" src="${pageContext.request.contextPath }/image/profileupload/${dto1.getMember_image()}">
+				<div>
+					<b style="font-size: 19px;"> ${session_id } </b>
+					<br>
+					<a style="font-size: 13px; pointer-events: none; color: #757575;">${rdto.getW_date().substring(0,16) }</a>
+				</div>
+				<hr>
+		</header>	
+		
+			<div id="con_4">
+				<c:if test="${rdto.getW_file() ne null }">
+					<a href="<%=request.getContextPath() %>/w_write_file/${rdto.getW_file() }">📂${rdto.getW_file() }</a>			
+				</c:if>
+			</div>
+
 			<br>
 		</header>	
 			

@@ -284,7 +284,7 @@ float: left;
         .RearangeBox.dragElemThumbnail{opacity:0.6;}
         .RearangeBox {
             width: 180px;
-            height:240px;
+            height:300px;
             padding:10px 5px;
             cursor: all-scroll;
             float: left;
@@ -337,7 +337,6 @@ max-height:100%;
 
 .imgThumbContainer > .imgName{
   text-align:center;
-  padding: 2px 6px;
   margin-top:4px;
   font-size:13px;
   height: 15px;
@@ -356,6 +355,60 @@ max-height:100%;
 .RearangeBox:hover > .imgRemoveBtn{ 
     display: block;
 }
+.rightfield{
+width: 260px;
+
+}
+.leftfield{
+float: left;
+width: 260px;
+
+}
+.img_no{
+height: 111px;
+width: 139px;
+margin-right: 100px;
+}
+.center{
+
+margin-top: 100px;
+}
+.image_gallery{
+width: 130px;
+height: 180px;
+
+}
+.button-wrapper {
+  position: relative;
+  width: 150px;
+  text-align: center;
+  margin: 20% auto;
+}
+
+.button-wrapper span.label {
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  width: 100%;
+  background: #00bfff;
+  cursor: pointer;
+  color: #fff;
+  padding: 10px 0;
+  text-transform:uppercase;
+  font-size:12px;
+}
+
+#upload {
+    display: inline-block;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 50px;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+} 
         </style>
         <link rel="stylesheet" href="css/normalize.css">
         <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
@@ -366,12 +419,12 @@ max-height:100%;
 	<jsp:include page="../include/admin_top.jsp" />
 	<br><br><br>
       <form enctype="multipart/form-data" action="<%=request.getContextPath() %>/admin_movie_write_ok.do" method="post">
+      
       <input type="hidden" id="mm" name="movie_main" value= "">
       <input type="hidden" id ="gallery1" name="movie_gallery1" value = "">
       <input type="hidden" id = "gallery2" name="movie_gallery2" value = "">
-      
-      
-    <input type="hidden" name="movie_num" value="${dto.getMovie_num() }">
+     
+    
         <h1>영화등록</h1>
 
     <script defer="defer">
@@ -379,7 +432,7 @@ max-height:100%;
 	let noimage =
 	  "https://ami-sni.com/wp-content/themes/consultix/images/no-image-found-360x250.png";
 	$(function() {
-       	$('#files').click(function(){
+       	$('#id').click(function(){
             var files=$('input[name="gallery"]')[0].files;
             $("#mm").attr("value",files[0].name);
             $("#gallery1").attr("value",files[1].name);
@@ -388,7 +441,7 @@ max-height:100%;
 	});
 	
 	
-	
+	/* 포스터 출력 */
 	function readURL(input) {
 	  console.log(input.files);
 	  if (input.files && input.files[0]) {
@@ -402,7 +455,24 @@ max-height:100%;
 	    $("#img-preview").attr("src", noimage);
 	  }
 	}
- 
+	 
+	/* 영화감독 이미지출력 */
+
+	function readURL1(input) {
+	  console.log(input.files);
+	  if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	    reader.onload = function (e) {
+	      $("#img-preview1").attr("src", e.target.result);
+	    };
+
+	    reader.readAsDataURL(input.files[0]);
+	  } else {
+	    $("#img-preview1").attr("src", noimage);
+	  }
+	}
+	
+	/* 갤러리 출력 */
 	jQuery(document).ready(function () {
 		  ImgUpload();
 		});
@@ -462,17 +532,21 @@ max-height:100%;
 		    }
 		    $(this).parent().parent().remove();
 		  });
+
+		  document.getElementById('#files').readOnly = true;
 		}
 	
 
     </script>
+       <div>
        <div  class="can-1">
           <fieldset>
            <legend><span class="number">1</span>영화사진</legend>
              <label for="image"></label>
-           <img id="img-preview" src="https://ami-sni.com/wp-content/themes/consultix/images/no-image-found-360x250.png" width="250px" />
+            <img id="img-preview" src="https://ami-sni.com/wp-content/themes/consultix/images/no-image-found-360x250.png" width="250px" />
+           
 						<div>
-						  <input type="file" accept="image/*" onchange="readURL(this)" width="280" name="movie_poster"/>
+						  <input type="file" accept="image/*" onchange="readURL(this)" class="image_gallery" name="movie_poster" />
 						</div>
 
     			<div id="image_container"></div>
@@ -513,65 +587,72 @@ max-height:100%;
           <label for="name"></label>
           <input type="text" id="name" name="movie_date" width="100px" >
         </fieldset>
+        </div>
         
 	        <div class="can-1-1">
-	          <fieldset >
+	          <fieldset  class="rightfield">
 	          <legend><span class="number" >6</span>영화장르</legend>
 	          <label for="name"></label>
 	          <input type="text" id="name" name="movie_genre" >	
         	</fieldset>
         	</div>
         	
-<!--         	
-        	<div  class="can-1">
-          <fieldset>
-           <legend><span class="number">9</span>감독사진</legend>
-             <label for="image"></label>
-           <img id="img-preview" src="https://ami-sni.com/wp-content/themes/consultix/images/no-image-found-360x250.png" width="250px"
-            />
-						<div>
-						  <input type="file" accept="image/*" onchange="readURL(this)" width="280" name="movie_dpic" />
-						</div>
-
-    			<div id="image_container"></div>
-          </fieldset>
-        </div> -->
-        	
-        	
-        </div>
-        
-       
-        	          <div class="can-1">
-        <fieldset >
+         	
+	<div class="can-1">
+        <fieldset class="leftfield">
           <legend><span class="number" >7</span>상영연령</legend>
           <label for="name"></label>
           <input type="text" id="name" name="movie_age"  >
         </fieldset>
-        
-        
-         <fieldset >
+         	</div>
+         	
+               <div>
+         <fieldset class="rightfield">
           <legend><span class="number" >8</span>국가</legend>
           <label for="name"></label>
           <input type="text" id="name" name="movie_country" >
         </fieldset>
-        
-        
-	        <div class="can-1-1">
-	          <fieldset >
-	          <legend><span class="number" >10</span>영화감독</legend>
-	          <label for="name"></label>
-	          <input type="text" id="name" name="movie_director" width="500px">	
-        	</fieldset>
-        	</div>
+        </div>	
+        	<div  class="can-1">
+          <fieldset>
+           <legend><span class="number">9</span>감독사진</legend>
+             <label for="image"></label>
+             
+           <img id="img-preview1" class="img_no" src="https://ami-sni.com/wp-content/themes/consultix/images/no-image-found-360x250.png" width="250px"
+            />
+						<div>
+						  <input type="file" accept="image/*" onchange="readURL1(this)" width="280" name="movie_dpic" >
+						</div>
+
+    			<div id="image_container"></div>
+          </fieldset>
         </div>
 
-            <div >
-	          <fieldset >
+        
+	        <div class="can-1-1">
+	          <fieldset class="rightfield">
+	          <legend><span class="number" >10</span>영화감독</legend>
+	          <label for="name"></label>
+	          <input type="text" id="name" name="movie_director" width="200px" height="150px">	
+        	</fieldset>
+        	</div>
+       </div>
+      <div class="button-wrapper">
+  <span class="label">
+    Upload File
+  </span>
+  
+    <input type="file" name="upload" id="upload" class="upload-box" placeholder="Upload File">
+  
+</div>
+       <div  class="center">       
+	          <fieldset>
 	          <legend><span class="number" >11</span>갤러리</legend>
 	        
  			   <div style='padding:14px'>
         <label for="files"></label>
-        <input id="files" type="file" name="gallery" multiple/>        
+        <input id="files" type="file" name="gallery" multiple/>
+ <!--       <input type="button"  id="id" value="저장">    -->   
   	  </div>
 				  <div style='padding:14px; margin:auto';>
 				  <div id="sortableImgThumbnailPreview">
@@ -579,12 +660,11 @@ max-height:100%;
 					        
 				    </div>
 				  </div>
+				  
         	</fieldset>
         	</div>
-      
- 
-   
-        <button type="submit" >Add List</button>
+
+        <button id="id" type="submit" >Add List</button>
       </form>
       <jsp:include page="../include/admin_bottom.jsp" />
     </body>

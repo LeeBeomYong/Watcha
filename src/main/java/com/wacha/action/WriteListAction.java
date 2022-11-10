@@ -94,6 +94,8 @@ public class WriteListAction implements Action {
 		forward.setPath("write/inquiry_main.jsp");
 
 		return forward;
+		
+		
 	}
 
 }

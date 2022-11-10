@@ -27,6 +27,8 @@
 </script>
 <style type="text/css">
 
+
+
 	/* 전체 콘테이너 */
 	#con{
 		margin-left: 13%;
@@ -74,10 +76,10 @@
 	/* 문의 등록 버튼 */
 	#btn1{
 		border: none;
-		width: 120px;
+		width: 90px;
 		height: 40px;
-		border-radius: 10px;
-		margin-left: 530px;
+		border-radius: 5px;
+		margin-left: 39%;
 		margin-top: 5px;
 	}
 	
@@ -188,11 +190,12 @@
 	/* 번호 클릭하는 부분 */
 	#link{
 	 color: #000;
+	 z-index: 0;
 	}
 
 	.page-item.active
 	.page-link {
-	 z-index: 1;
+	 z-index: 0;
 	 color: #555;
 	 font-weight:bold;
 	 background-color: #f1f1f1;
@@ -251,10 +254,12 @@
 				&nbsp;
 			<input class="form-control me-2" type="search" name="search_keyword" style="width: 35%; height: 37px;">
 			<button id="btn2" class="btn btn-outline-success" type="submit">검색</button>
-			<a class="total" href="free_main.do">전체목록</a>
+			<a class="total" href="free_main.do" style="margin: 10px 5px 5px 15px;">전체목록</a>
 			
 			<%-- 문의 등록 폼 버튼 --%>
-			<button id="btn1" onclick="event.cancelBubble=true;"><a href="free_upload.do">게시글등록</a></button>
+			<c:if test="${session_id ne null }">
+				<button id="btn1" onclick="event.cancelBubble=true;"><a href="free_upload.do">✏️글쓰기</a></button>		
+			</c:if>
 		</form>
 		</div>
 		
@@ -285,6 +290,7 @@
 			<c:set var="list" value="${List }" />	<%-- FreeListAction에서 free_write 테이블에서 데이터 가져옴. --%>
 			<c:if test="${!empty list }">
 				<c:forEach items="${list }" var="dto">
+					<c:if test="${'admin' eq session_id }">
 					<tr class="tt" onclick="location.href='<%=request.getContextPath()%>/free_content.do?num=${dto.getFree_num() }'">	<%-- 이부분 블럭 자체를 클릭하였을때 글 전체를 제대로 볼 수 있음. --%>
 							<td class="no"> ${dto.getFree_num() } </td>
 							<td> ${dto.getFree_title() } 	
@@ -295,12 +301,75 @@
 							<td class="wrt"> ${dto.getMember_id() } </td>
 							<td class="date"> ${dto.getFree_date().substring(0, 10) } </td>
 							<td class="hit"> ${dto.getFree_hit() } </td>
-						</tr>													
-				</c:forEach>
-			</c:if>
-	  		</table>
-			  <br>
-			  <br>
+						</tr>	
+					</c:if>												
+
+			
+	
+			<%-- 게시물이 비공개인데 본인회원이랑 관리자가 아닌 경우 --%>
+			<c:if test="${dto.getFree_radio() eq 1 && session_id ne dto.getMember_id() && 'admin' ne session_id }">
+				<tr class="tt" onclick="alert('이 게시물은 비공개입니다.\n관리자, 작성자 외 열람 불가능'); return false;">
+					<td class="no"> ${dto.getFree_num() } </td>
+					<td> ${dto.getFree_title() } 	
+						<%-- 댓글 갯수 표시 --%>
+						<c:if test="${dto.getFree_reply_num() ne 0 }">
+							<span id="reply_num">[${dto.getFree_reply_num() }]</span>						
+						</c:if>
+						
+						<c:if test="${dto.getFree_radio() eq 1}">
+							🔒︎
+						</c:if>							
+					</td>
+					<td class="wrt"> ${dto.getMember_id() } </td>
+					<td class="date"> ${dto.getFree_date().substring(0, 10) } </td>
+					<td class="hit"> ${dto.getFree_hit() } </td>
+					
+				</tr>			
+			</c:if>			
+
+			<%-- 게시물이 비공개이면서 회원인 경우 --%>
+			<c:if test="${dto.getFree_radio() eq 1 && session_id eq dto.getMember_id() }">
+					<tr class="tt" onclick="location.href='<%=request.getContextPath()%>/free_content.do?num=${dto.getFree_num() }'">	<%-- 이부분 블럭 자체를 클릭하였을때 글 전체를 제대로 볼 수 있음. --%>
+					<td class="no"> ${dto.getFree_num() } </td>
+					<td> ${dto.getFree_title() } 	
+						<%-- 댓글 갯수 표시 --%>
+						<c:if test="${dto.getFree_reply_num() ne 0 }">
+							<span id="reply_num">[${dto.getFree_reply_num() }]</span>						
+						</c:if>
+						
+						<c:if test="${dto.getFree_radio() eq 1}">
+							🔒︎
+						</c:if>							
+					</td>
+					<td class="wrt"> ${dto.getMember_id() } </td>
+					<td class="date"> ${dto.getFree_date().substring(0, 10) } </td>
+					<td class="hit"> ${dto.getFree_hit() } </td>
+				</tr>					
+			</c:if>				
+			
+			<%-- 게시물이 비공개가 아닌 경우 --%>
+			<c:if test="${dto.getFree_radio() eq 0 && 'admin' ne session_id }">
+				<tr class="tt" onclick="location.href='<%=request.getContextPath()%>/free_content.do?num=${dto.getFree_num() }'">	<%-- 이부분 블럭 자체를 클릭하였을때 글 전체를 제대로 볼 수 있음. --%>
+					<td class="no"> ${dto.getFree_num() } </td>
+					<td> ${dto.getFree_title() } 	
+						<%-- 댓글 갯수 표시 --%>
+						<c:if test="${dto.getFree_reply_num() ne 0 }">
+							<span id="reply_num">[${dto.getFree_reply_num() }]</span>						
+						</c:if>
+						
+						<c:if test="${dto.getFree_radio() eq 1}">
+							🔒︎
+						</c:if>							
+					</td>
+					<td class="wrt"> ${dto.getMember_id() } </td>
+					<td class="date"> ${dto.getFree_date().substring(0, 10) } </td>
+					<td class="hit"> ${dto.getFree_hit() } </td>
+				</tr>
+			</c:if>			
+			</c:forEach>
+		</c:if>		  
+	 </table>
+	<br>
 	<%--	=====================================================================================================--%>
 		<%-- 페이징 처리 영역 --%>
 		
@@ -337,9 +406,9 @@
 	<%--	===================================================================================================== --%> 
 
 	  
-
 	</div>
-	
+	<br>
+	<br>
 	<%-- 하단 include 바 --%>
 	<jsp:include page="../include/user_bottom.jsp" />
 

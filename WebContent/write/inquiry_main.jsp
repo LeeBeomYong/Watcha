@@ -13,6 +13,8 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.easing/1.3/jquery.easing.1.3.js"></script>
 <script type="text/javascript">
 
+
+
 	// 탭 두개 콘텐츠 값 다르게 보여주는 함수.
 	$(document).ready(function(){
 		   
@@ -74,7 +76,7 @@
 				<option value="writer">작성자</option>
 			</select>
 				&nbsp;
-			<input class="form-control me-2" type="search" name="search_keyword" style="width: 500px; height: 35px;">
+			<input class="form-control me-2" type="search" name="search_keyword" style="width: 500px; height: 35px; margin: 0;">
 			<button id="btn2" class="btn btn-outline-success" type="submit">검색</button>
 			<a class="total" href="inquiry_main.do">전체목록</a>
 			
@@ -126,8 +128,10 @@
 					</c:if>
 					<%-- 게시물이 비공개인데 본인회원이랑 관리자가 아닌 경우 --%>
 					<c:if test="${dto.getWrite_radio() eq 1 && session_id ne dto.getMember_id() && 'admin' ne session_id }">
-						<tr class="tt" onclick="alert('관리자, 작성자 외 열람 불가능'); return false;">
-							<td class="no"> ${dto.getWrite_num() } </td>
+
+						<tr class="tt" onclick="alert('이 게시물은 비공개입니다.\n관리자, 작성자 외 열람 불가능'); return false;">
+							<td style="text-align: center;"> ${dto.getWrite_num() } </td>
+
 							<td class="wrt"> ${dto.getMember_id() } </td>
 							<td> 
 								${dto.getWrite_title() } 
@@ -223,7 +227,7 @@
 	  <form method="post" enctype="multipart/form-data" action="<%=request.getContextPath() %>/w_write_upload.do">
 	  
 	  	<header>
-			<h2>1:1문의(작성양식)<span id="img_text">등록</span><input type="image" src="https://cdn-icons-png.flaticon.com/512/46/46076.png" value="등록" id="img_a"></h2>
+			<h2>1:1문의(작성양식)<input type="submit" value="등록" id="img_a"></h2>
 		</header>
 		 <br>
 		 <br>

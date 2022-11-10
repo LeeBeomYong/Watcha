@@ -14,6 +14,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.wacha.controller.Action;
 import com.wacha.controller.ActionForward;
+import com.wacha.model.ImageDAO;
 import com.wacha.model.ImageDTO;
 import com.wacha.model.MovieDAO;
 import com.wacha.model.MovieDTO;
@@ -27,11 +28,11 @@ public class AdminMovieWriteOkAction implements Action {
 
 		ImageDTO dto1 = new ImageDTO();
 		// 첨부파일이 저장될 위치(경로) 설정
-		String saveFolder = "C:\\Users\\parkJeongHyeon\\git\\Watcha\\WebContent\\image";
+		String saveFolder = "C:\\myJSP\\wrokspace(jsp)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\WatchaProject\\image";
 
 		// 첨부파일 용량 (크기)제한 -파일 업로드 최대 크기
 
-		int fileSize = 10 * 1024 * 1024;// 10mb
+		int fileSize = 100 * 1024 * 1024;// 10mb
 
 		// 이미지파일 업로드를 위한 객체생성
 		MultipartRequest multi = new MultipartRequest(request, // 일반적인 request 객체
@@ -51,112 +52,36 @@ public class AdminMovieWriteOkAction implements Action {
 
 		String movie_genre = multi.getParameter("movie_genre").trim();
 
-		/* String movie_dpic=multi.getParameter("movie_dpic").trim(); */
-
 		String movie_age = multi.getParameter("movie_age").trim();
 
 		String movie_country = multi.getParameter("movie_country").trim();
 
 		String movie_director = multi.getParameter("movie_director").trim();
-		
-		
-		String movie_main = multi.getParameter("movie_main");			
-		String movie_gallery1 = multi.getParameter("movie_gallery1");			
-		String movie_gallery2 = multi.getParameter("movie_gallery2");			
 
 		
-		System.out.println(movie_main+","+movie_gallery1+","+movie_gallery2);
+		  String movie_main = multi.getParameter("movie_main");
+		  
+		  String movie_gallery1 = multi.getParameter("movie_gallery1");
+		  
+		  String movie_gallery2 = multi.getParameter("movie_gallery2");
+		 
+		  String movie_directpic= multi.getFilesystemName("movie_dpic");
 		
+
+		  String movie_poster = multi.getFilesystemName("movie_poster").trim();
+
 		
-		File movie_video = multi.getFile("movie_poster");
+		 String res ="";
+		 
+		 res+=movie_main+","; res+=movie_gallery1+","; res+=movie_gallery2;
+		 
+		  
+		 saveFolder+="/"+movie_main;
+		  
+		  System.out.println(movie_main+","+movie_gallery1+","+movie_gallery2);
+		 
 
-		// 무비 포스터
-
-		if (movie_video != null) { // 첨부파일이 존재하는 경우
-
-			// 우선은 첨부파일의 이름을 알아야함
-			// getname()메서드를 이용하면 이름을 알 수있음
-			String fileName = movie_video.getName();
-
-			// 날짜 객체 생성
-			Calendar cal = Calendar.getInstance();
-
-			int year = cal.get(Calendar.YEAR);
-
-			int month = cal.get(Calendar.MONTH) + 1;
-
-			int day = cal.get(Calendar.DAY_OF_MONTH);
-
-			// ......./upload/2022-10-11 만드려고함
-
-			String homedir = saveFolder + "/" + year + "-" + month + "-" + day;
-
-			// 날짜 폴더를 만들어 보자
-
-			File path1 = new File(homedir);
-
-			if (!path1.exists()) { // 폴더가 존재하지않는 경우
-
-				path1.mkdir(); // 실제 폴더를 만드는 메서드
-
-			}
-
-			// 파일을 만들어 보자 ==> 예) 작성자_file 명
-
-			String refileName = movie_title + "_" + fileName;
-
-			movie_video.renameTo(new File(homedir + "/" + refileName));
-
-			// 실제로 데이터베이스에 저장하는 파일이름
-			// "/2022-10-11/홍길동_파일명" 으로 저장되게 할 예정
-			String fileDBname = "/" + year + "-" + month + "-" + day + "/" + refileName;
-
-			dto.setMovie_video(fileDBname);
-
-		}
-		// gally 파일
-
-		/*
-		 * if(movie_gallery!=null) { //첨부파일이 존재하는 경우
-		 * 
-		 * //우선은 첨부파일의 이름을 알아야함 //getname()메서드를 이용하면 이름을 알 수있음 String fileName =
-		 * movie_gallery.getName();
-		 * 
-		 * //날짜 객체 생성 Calendar cal= Calendar.getInstance();
-		 * 
-		 * int year = cal.get(Calendar.YEAR);
-		 * 
-		 * int month = cal.get(Calendar.MONTH)+1;
-		 * 
-		 * int day = cal.get(Calendar.DAY_OF_MONTH);
-		 * 
-		 * //......./upload/2022-10-11 만드려고함
-		 * 
-		 * String homedir= saveFolder+"/"+year+"-"+month+"-"+day;
-		 * 
-		 * //날짜 폴더를 만들어 보자
-		 * 
-		 * File path1= new File(homedir);
-		 * 
-		 * if(!path1.exists()) { //폴더가 존재하지않는 경우
-		 * 
-		 * path1.mkdir(); //실제 폴더를 만드는 메서드
-		 * 
-		 * }
-		 * 
-		 * //파일을 만들어 보자 ==> 예) 작성자_file 명
-		 * 
-		 * String refileName = movie_title+"_"+fileName;
-		 * 
-		 * movie_video.renameTo(new File(homedir+"/"+refileName));
-		 * 
-		 * //실제로 데이터베이스에 저장하는 파일이름 //"/2022-10-11/홍길동_파일명" 으로 저장되게 할 예정 String
-		 * fileDBname="/"+year+"-"+month+"-"+day+"/"+refileName;
-		 * 
-		 * dto1.setImage_temp(fileDBname);
-		 * 
-		 * }
-		 */
+		System.out.println(movie_poster);
 
 		dto.setMovie_title(movie_title);
 
@@ -173,17 +98,23 @@ public class AdminMovieWriteOkAction implements Action {
 		dto.setMovie_director(movie_director);
 
 		dto.setMovie_country(movie_country);
+		
+		
+		
+		 dto1.setImage_loc(movie_poster);	
+		 
+		 dto1.setImage_temp(res); 
+		
 
-		/*
-		 * dto1.setImage_loc(movie_gallery.toString());
-		 * 
-		 * System.out.println("dddddddddddddddddd >>>>>>>>>>>>>>>. "+movie_gallery.
-		 * toString());
-		 */
+		 dto1.setDirector_image(movie_directpic); 
 
 		MovieDAO dao = MovieDAO.getInstance();
 
-		int check = dao.insertMovie(dto, dto1);
+		ImageDAO dao1 = ImageDAO.getInstance();
+
+		int check = dao.insertMovie(dto);
+
+		int check2 = dao1.insertMovieImage(dto1);
 
 		ActionForward forward = new ActionForward();
 
@@ -192,6 +123,16 @@ public class AdminMovieWriteOkAction implements Action {
 		if (check > 0) {
 			forward.setRedirect(true);
 			forward.setPath("admin_movie_list.do");
+			if (check2 > 0) {
+				forward.setRedirect(true);
+				forward.setPath("admin_movie_list.do");
+			} else {
+				out.println("<script>");
+				out.println("alert('이미지등록실패')");
+				out.println("history.back()");
+				out.println("</script>");
+
+			}
 		} else {
 			out.println("<script>");
 			out.println("alert('영화등록실패')");

@@ -830,6 +830,23 @@ public class FreeWriteDAO {
 		return list;
 	
 	} // seacrhListBoard() 메서드 end		
+
+
+	public void updateWriteToAdmin(int freeNum) {
+		sql="update free_write set free_cont = ? where freeNum = ?";
+		try {
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, "관리자가 블라인드 처리한 댓글입니다.");
+			pstmt.setInt(2, freeNum);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			closeConn(rs, pstmt, con);
+		}
+		
+	}
 	
 	
 	

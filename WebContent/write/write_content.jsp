@@ -2,9 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +12,8 @@
 	#table_1{
 		
 	}
+	
+	
 	
 	#con_1{
 		margin-left: 23%;

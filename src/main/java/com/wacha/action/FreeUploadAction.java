@@ -24,7 +24,7 @@ public class FreeUploadAction implements Action {
 		
 		FreeWriteDTO dto = new FreeWriteDTO();
 	
-		String saveFolder = "C:\\Users\\user\\git\\Watcha\\WebContent\\free_write_file";
+		String saveFolder = "C:\\NCS\\workspace(jsp)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\WatchaProject\\free_write_file";
 
 		int fileSize = 10 * 1024 * 1024;
 		

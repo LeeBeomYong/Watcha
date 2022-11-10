@@ -141,7 +141,7 @@ $(function(){
 	<jsp:include page="../include/user_top.jsp" />
 		
 		<div id="con_1">
-		<form method="post" action="<%=request.getContextPath()%>/free_modify_ok.do">
+		<form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/free_modify_ok.do">
 			<c:set var="dto" value="${Modify }" />
 			<c:set var="dto1" value="${userProfile }" />
 			<input type="hidden" name="free_num"  value="${dto.getFree_num() }">
@@ -165,6 +165,11 @@ $(function(){
 					📢 욕설이나 비난글을 작성할 시 활동정지, 영구강퇴 될 수 있음을 알려드립니다.</p>
 				</div>
 				<br>
+				<div id="con4">
+				  <img src="<%=request.getContextPath() %>/free_write_file/${dto.getFree_file() }">
+				  <input style="width: 100%; border-color:#c6c6c6; box-shadow-color:#000; box-shadow:none !important;" type="file" name="free_file">
+				  <input type="hidden" name="free_file_old" value="${dto.getFree_file() }">
+				</div>
 				<div id="con_3">
 				
 					<textarea name="free_cont" id="text1" class="autosize" style="overflow: hidden; min-height:250px;">${dto.getFree_cont() }</textarea>

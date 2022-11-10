@@ -45,10 +45,6 @@
 		width: 250px; 
 		margin-top: 15px;
 	}
-	
-	#exampleFormControlTextarea1{
-		width: 700px; resize: none;
-	}
 
 
 
@@ -74,7 +70,7 @@
 	
 	// textarea에서 입력한 글자 만큼 세주는 함수.	
 	$(document).ready(function() {
-	    $('#exampleFormControlTextarea1').on('keyup', function() {
+	    $('#validationTextarea1').on('keyup', function() {
 	        $('#cnt').html("("+$(this).val().length+" / 1000)");
 	 
 	        if($(this).val().length > 1000) {
@@ -99,7 +95,7 @@
 	
 	  <br>
 	  
-	  <form method="post" action="<%=request.getContextPath() %>/write_upload_ok.do">
+	  <form method="post" class="was-validated" action="<%=request.getContextPath() %>/write_upload_ok.do">
 	  	<header>
 			<h2>Q&A문의등록<input type="submit" value="등록" id="img_a"></h2>
 			<hr width="70%">
@@ -115,17 +111,17 @@
 	  
 		<div class="mb-3">
 		  <label for="exampleFormControlInput1" class="form-label">아이디</label>
-		  <input style="width: 250px;" class="form-control" id="exampleFormControlInput1" value="${session_id }" placeholder="아이디 입력" name="member_id" readonly>
+		  <input style="width: 250px;"class="form-control"  value="${session_id }" placeholder="아이디 입력" name="member_id" readonly>
 		</div>
 		
 		<div class="mb-3">
 		  <label for="exampleFormControlInput1" class="form-label">문의제목</label>
-		  <input style="width: 700px;" class="form-control" id="exampleFormControlInput1" placeholder="제목 입력" name="write_title">
+		  <input style="width: 700px; box-shadow:none !important;" class="form-control is-invalid" id="validationTextarea" placeholder="제목 입력" name="write_title" required>
 		</div>
 		
 		<div class="mb-3">
 		  <label for="exampleFormControlTextarea1" class="form-label">문의내용</label>
-		  <textarea class="form-control" id="exampleFormControlTextarea1" rows="9" name="write_cont"></textarea>
+		  <textarea style="box-shadow:none !important; width: 700px; resize: none;" class="form-control" id="validationTextarea1" rows="9" name="write_cont" required></textarea>
 		  <span id="cnt">(0 / 1000)자 이내로 입력</span>
 		</div>
 		
@@ -140,7 +136,7 @@
 		  
 		  <div class="col">
 		  	<label>글 비밀번호</label>
-		    <input id="pwd" type="password" class="form-control" name="write_pwd" disabled>
+		    <input style="box-shadow:none !important;" id="pwd" type="password" class="form-control" id="validationTextarea" name="write_pwd" disabled required>
 		  </div>
 		</div>
 		</div>

@@ -108,12 +108,6 @@
 				<hr>
 		</header>	
 		
-			<div id="con_4">
-				<c:if test="${rdto.getW_file() ne null }">
-					<a href="<%=request.getContextPath() %>/w_write_file/${rdto.getW_file() }">📂${rdto.getW_file() }</a>			
-				</c:if>
-			</div>
-			<br>
 
 			<div id="con_2">
 				<p>
@@ -122,6 +116,13 @@
 			</div>
 			<br>		
 						
+			<div id="con_4">
+				<c:if test="${rdto.getW_file() ne null }">
+					<a href="<%=request.getContextPath() %>/w_write_file/${rdto.getW_file() }">📂${rdto.getW_file() }</a>			
+				</c:if>
+			</div>
+			<br>
+			
 			<div id="con_3">
 			
 				<p>${rdto.getW_cont() }</p>

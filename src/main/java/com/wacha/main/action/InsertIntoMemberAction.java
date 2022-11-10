@@ -18,10 +18,11 @@ public class InsertIntoMemberAction implements Action {
 		String member_name = request.getParameter("memName");
 		String member_id = request.getParameter("memId");
 		String member_pwd = request.getParameter("memPwd");
+		String member_email = request.getParameter("memEmail");
 		
 		UserDAO dao = UserDAO.getInstance();
 		
-		int res = dao.insertMember(member_name, member_id, member_pwd);
+		int res = dao.insertMember(member_name, member_id, member_pwd, member_email);
 		
 		ActionForward forward = new ActionForward();
 		

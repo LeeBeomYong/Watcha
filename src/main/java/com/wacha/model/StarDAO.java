@@ -981,7 +981,7 @@ public class StarDAO {
 					try {
 						openConn();
 						
-						sql = "select s.movie_num, avg(s.movie_star) avg, count(c.movie_coment) coments from star s, coment c where s.movie_num = c.movie_num group by s.movie_num order by coments desc, s.movie_num";
+						sql = "select s.movie_num, round(avg(s.movie_star),1) avg, count(c.movie_coment) coments from star s, coment c where s.movie_num = c.movie_num group by s.movie_num order by coments desc, s.movie_num";
 						
 						pstmt = con.prepareStatement(sql);
 						
@@ -1009,7 +1009,7 @@ public class StarDAO {
 					try {
 						openConn();
 						
-						sql = "select m.movie_num, m.movie_title, i.image_loc, avg(s.movie_star) avg from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num group by m.movie_num, m.movie_title, i.image_loc order by avg desc, m.movie_num";
+						sql = "select m.movie_num, m.movie_title, i.image_loc, round(avg(s.movie_star),1) avg from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num group by m.movie_num, m.movie_title, i.image_loc order by avg desc, m.movie_num";
 						
 						pstmt = con.prepareStatement(sql);
 						
@@ -1039,7 +1039,7 @@ public class StarDAO {
 					try {
 						openConn();
 						
-						sql = "select m.movie_num, avg(s.movie_star) as avg, sum(s.movie_heart) as heart from movie m, star s where m.movie_num = s.movie_num group by m.movie_num order by heart desc, m.movie_num";
+						sql = "select m.movie_num, round(avg(s.movie_star),1) as avg, sum(s.movie_heart) as heart from movie m, star s where m.movie_num = s.movie_num group by m.movie_num order by heart desc, m.movie_num";
 						
 						pstmt = con.prepareStatement(sql);
 						
@@ -1068,7 +1068,7 @@ public class StarDAO {
 					try {
 						openConn();
 						
-						sql = "select distinct m.movie_num, m.movie_title, i.image_loc, avg(s.movie_star) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num group by m.movie_title, i.image_loc, m.movie_num order by now desc";
+						sql = "select distinct m.movie_num, m.movie_title, i.image_loc, round(avg(s.movie_star),1) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num group by m.movie_title, i.image_loc, m.movie_num order by now desc";
 						
 						pstmt = con.prepareStatement(sql);
 						
@@ -1125,7 +1125,7 @@ public class StarDAO {
 			if(genre.equals("범죄")) {
 				try {
 					openConn();
-					sql = "select m.movie_num, m.movie_genre, avg(s.movie_star) avg, count(c.movie_coment) coments from movie m, star s, coment c where s.movie_num = c.movie_num and c.movie_num = m.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_genre order by coments desc, m.movie_num";
+					sql = "select m.movie_num, m.movie_genre, round(avg(s.movie_star),1) avg, count(c.movie_coment) coments from movie m, star s, coment c where s.movie_num = c.movie_num and c.movie_num = m.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_genre order by coments desc, m.movie_num";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, "범죄");
 					rs = pstmt.executeQuery();
@@ -1145,7 +1145,7 @@ public class StarDAO {
 			}else if(genre.equals("액션")) {
 				try {
 					openConn();
-					sql = "select m.movie_num, m.movie_genre, avg(s.movie_star) avg, count(c.movie_coment) coments from movie m, star s, coment c where s.movie_num = c.movie_num and c.movie_num = m.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_genre order by coments desc, m.movie_num";
+					sql = "select m.movie_num, m.movie_genre, round(avg(s.movie_star),1) avg, count(c.movie_coment) coments from movie m, star s, coment c where s.movie_num = c.movie_num and c.movie_num = m.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_genre order by coments desc, m.movie_num";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, "액션");
 					rs = pstmt.executeQuery();
@@ -1165,7 +1165,7 @@ public class StarDAO {
 			}else if(genre.equals("다큐멘터리")) {
 				try {
 					openConn();
-					sql = "select m.movie_num, m.movie_genre, avg(s.movie_star) avg, count(c.movie_coment) coments from movie m, star s, coment c where s.movie_num = c.movie_num and c.movie_num = m.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_genre order by coments desc, m.movie_num";
+					sql = "select m.movie_num, m.movie_genre, round(avg(s.movie_star),1) avg, count(c.movie_coment) coments from movie m, star s, coment c where s.movie_num = c.movie_num and c.movie_num = m.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_genre order by coments desc, m.movie_num";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, "다큐멘터리");
 					rs = pstmt.executeQuery();
@@ -1185,7 +1185,7 @@ public class StarDAO {
 			}else if(genre.equals("로맨스")) {
 				try {
 					openConn();
-					sql = "select m.movie_num, m.movie_genre, avg(s.movie_star) avg, count(c.movie_coment) coments from movie m, star s, coment c where s.movie_num = c.movie_num and c.movie_num = m.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_genre order by coments desc, m.movie_num";
+					sql = "select m.movie_num, m.movie_genre, round(avg(s.movie_star),1) avg, count(c.movie_coment) coments from movie m, star s, coment c where s.movie_num = c.movie_num and c.movie_num = m.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_genre order by coments desc, m.movie_num";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, "로맨스");
 					rs = pstmt.executeQuery();
@@ -1205,7 +1205,7 @@ public class StarDAO {
 			}else if(genre.equals("코미디")) {
 				try {
 					openConn();
-					sql = "select m.movie_num, m.movie_genre, avg(s.movie_star) avg, count(c.movie_coment) coments from movie m, star s, coment c where s.movie_num = c.movie_num and c.movie_num = m.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_genre order by coments desc, m.movie_num";
+					sql = "select m.movie_num, m.movie_genre, round(avg(s.movie_star),1) avg, count(c.movie_coment) coments from movie m, star s, coment c where s.movie_num = c.movie_num and c.movie_num = m.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_genre order by coments desc, m.movie_num";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, "코미디");
 					rs = pstmt.executeQuery();
@@ -1233,7 +1233,7 @@ public class StarDAO {
 			if(genre.equals("범죄")) {
 				try {
 					openConn();
-					sql = "select m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, avg(s.movie_star) avg from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc order by avg desc, m.movie_num";
+					sql = "select m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, round(avg(s.movie_star),1) avg from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc order by avg desc, m.movie_num";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, "범죄");
 					rs = pstmt.executeQuery();
@@ -1253,7 +1253,7 @@ public class StarDAO {
 			}else if(genre.equals("액션")) {
 				try {
 					openConn();
-					sql = "select m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, avg(s.movie_star) avg from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc order by avg desc, m.movie_num";
+					sql = "select m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, round(avg(s.movie_star),1) avg from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc order by avg desc, m.movie_num";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, "액션");
 					rs = pstmt.executeQuery();
@@ -1273,7 +1273,7 @@ public class StarDAO {
 			}else if(genre.equals("다큐멘터리")) {
 				try {
 					openConn();
-					sql = "select m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, avg(s.movie_star) avg from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc order by avg desc, m.movie_num";
+					sql = "select m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, round(avg(s.movie_star),1) avg from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc order by avg desc, m.movie_num";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, "다큐멘터리");
 					rs = pstmt.executeQuery();
@@ -1293,7 +1293,7 @@ public class StarDAO {
 			}else if(genre.equals("로맨스")) {
 				try {
 					openConn();
-					sql = "select m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, avg(s.movie_star) avg from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc order by avg desc, m.movie_num";
+					sql = "select m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, round(avg(s.movie_star),1) avg from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc order by avg desc, m.movie_num";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, "로맨스");
 					rs = pstmt.executeQuery();
@@ -1313,7 +1313,7 @@ public class StarDAO {
 			}else if(genre.equals("코미디")) {
 				try {
 					openConn();
-					sql = "select m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, avg(s.movie_star) avg from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc order by avg desc, m.movie_num";
+					sql = "select m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, round(avg(s.movie_star),1) avg from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc order by avg desc, m.movie_num";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, "코미디");
 					rs = pstmt.executeQuery();
@@ -1341,7 +1341,7 @@ public class StarDAO {
 			if(genre.equals("범죄")) {
 				try {
 					openConn();
-					sql = "select m.movie_num, m.movie_genre, avg(s.movie_star) avg, sum(s.movie_heart) heart from movie m, star s where m.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_genre order by heart desc, m.movie_num";
+					sql = "select m.movie_num, m.movie_genre, round(avg(s.movie_star),1) avg, sum(s.movie_heart) heart from movie m, star s where m.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_genre order by heart desc, m.movie_num";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, "범죄");
 					rs = pstmt.executeQuery();
@@ -1361,7 +1361,7 @@ public class StarDAO {
 			}else if(genre.equals("액션")) {
 				try {
 					openConn();
-					sql = "select m.movie_num, m.movie_genre, avg(s.movie_star) avg, sum(s.movie_heart) heart from movie m, star s where m.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_genre order by heart desc, m.movie_num";
+					sql = "select m.movie_num, m.movie_genre, round(avg(s.movie_star),1) avg, sum(s.movie_heart) heart from movie m, star s where m.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_genre order by heart desc, m.movie_num";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, "액션");
 					rs = pstmt.executeQuery();
@@ -1381,7 +1381,7 @@ public class StarDAO {
 			}else if(genre.equals("다큐멘터리")) {
 				try {
 					openConn();
-					sql = "select m.movie_num, m.movie_genre, avg(s.movie_star) avg, sum(s.movie_heart) heart from movie m, star s where m.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_genre order by heart desc, m.movie_num";
+					sql = "select m.movie_num, m.movie_genre, round(avg(s.movie_star),1) avg, sum(s.movie_heart) heart from movie m, star s where m.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_genre order by heart desc, m.movie_num";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, "다큐멘터리");
 					rs = pstmt.executeQuery();
@@ -1401,7 +1401,7 @@ public class StarDAO {
 			}else if(genre.equals("로맨스")) {
 				try {
 					openConn();
-					sql = "select m.movie_num, m.movie_genre, avg(s.movie_star) avg, sum(s.movie_heart) heart from movie m, star s where m.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_genre order by heart desc, m.movie_num";
+					sql = "select m.movie_num, m.movie_genre, round(avg(s.movie_star),1) avg, sum(s.movie_heart) heart from movie m, star s where m.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_genre order by heart desc, m.movie_num";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, "로맨스");
 					rs = pstmt.executeQuery();
@@ -1421,7 +1421,7 @@ public class StarDAO {
 			}else if(genre.equals("코미디")) {
 				try {
 					openConn();
-					sql = "select m.movie_num, m.movie_genre, avg(s.movie_star) avg, sum(s.movie_heart) heart from movie m, star s where m.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_genre order by heart desc, m.movie_num";
+					sql = "select m.movie_num, m.movie_genre, round(avg(s.movie_star),1) avg, sum(s.movie_heart) heart from movie m, star s where m.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_num, m.movie_genre order by heart desc, m.movie_num";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, "코미디");
 					rs = pstmt.executeQuery();
@@ -1449,7 +1449,7 @@ public class StarDAO {
 					if(genre.equals("범죄")) {
 						try {
 							openConn();
-							sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, m.movie_genre, i.image_loc, avg(s.movie_star) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, m.movie_num order by now desc, m.movie_num";
+							sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, m.movie_genre, i.image_loc, round(avg(s.movie_star),1) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, m.movie_num order by now desc, m.movie_num";
 							pstmt = con.prepareStatement(sql);
 							pstmt.setString(1, "범죄");
 							rs = pstmt.executeQuery();
@@ -1469,7 +1469,7 @@ public class StarDAO {
 					}else if(genre.equals("액션")) {
 						try {
 							openConn();
-							sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, m.movie_genre, i.image_loc, avg(s.movie_star) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, m.movie_num order by now desc, m.movie_num";
+							sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, m.movie_genre, i.image_loc, round(avg(s.movie_star),1) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, m.movie_num order by now desc, m.movie_num";
 							pstmt = con.prepareStatement(sql);
 							pstmt.setString(1, "액션");
 							rs = pstmt.executeQuery();
@@ -1489,7 +1489,7 @@ public class StarDAO {
 					}else if(genre.equals("다큐멘터리")) {
 						try {
 							openConn();
-							sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, m.movie_genre, i.image_loc, avg(s.movie_star) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, m.movie_num order by now desc, m.movie_num";
+							sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, m.movie_genre, i.image_loc, round(avg(s.movie_star),1) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, m.movie_num order by now desc, m.movie_num";
 							pstmt = con.prepareStatement(sql);
 							pstmt.setString(1, "다큐멘터리");
 							rs = pstmt.executeQuery();
@@ -1509,7 +1509,7 @@ public class StarDAO {
 					}else if(genre.equals("로맨스")) {
 						try {
 							openConn();
-							sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, m.movie_genre, i.image_loc, avg(s.movie_star) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, m.movie_num order by now desc, m.movie_num";
+							sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, m.movie_genre, i.image_loc, round(avg(s.movie_star),1) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, m.movie_num order by now desc, m.movie_num";
 							pstmt = con.prepareStatement(sql);
 							pstmt.setString(1, "로맨스");
 							rs = pstmt.executeQuery();
@@ -1529,7 +1529,7 @@ public class StarDAO {
 					}else if(genre.equals("코미디")) {
 						try {
 							openConn();
-							sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, m.movie_genre, i.image_loc, avg(s.movie_star) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, m.movie_num order by now desc, m.movie_num";
+							sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, m.movie_genre, i.image_loc, round(avg(s.movie_star),1) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, m.movie_num order by now desc, m.movie_num";
 							pstmt = con.prepareStatement(sql);
 							pstmt.setString(1, "코미디");
 							rs = pstmt.executeQuery();

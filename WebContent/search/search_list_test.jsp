@@ -33,6 +33,9 @@
 	
 	.bg1, .bg2, .bg3 {
 		background-color: #fff;
+		display: none;
+		padding: 20px 0 0;
+		border-top: 1px solid #ddd;
 	}
 	
 	input[type="radio"] {
@@ -51,11 +54,7 @@
 		cursor: pointer;
 	}
 	
-	section {
-		display: none;
-		padding: 20px 0 0;
-		border-top: 1px solid #ddd;
-	}
+	
 	
 	input[type="radio"]:checked + .tab_label  {
 		
@@ -147,15 +146,19 @@
 	}
 	
 	.director {
-		width: 100px;
+		width: 100%;
 		height: 100px;
 		border-radius: 5px;
 	}
 	
 	.user {
-		width: 70px;
-		height: 70px;
+		width: 100%;
+		height: 100%;
 		border-radius: 70%;
+	}
+	
+	.col-2 {
+		padding: 0;
 	}
 	
 	.res {
@@ -275,10 +278,11 @@
 
 	<jsp:include page="../include/user_top.jsp" />
 	
+
 	<div class="result_area">
 		<div class="searched">
 			<label>"${keyword }"의 검색결과</label>
-		</div>
+		</div>		
 	</div>
 
 	<div id="wrapper">
@@ -352,7 +356,7 @@
 			<%-- 인물 탭 : 감독 이름, 감독 사진 --%>
 			<section id="content2" class="bg2">
 			
-
+			
 				<c:if test="${!empty dlist }">
 				
 					<ul class="row row-cols-2">
@@ -417,19 +421,19 @@
 										
 										<ul class="row row-cols-3">
 											<li class="col-2">
-												<img class="user" src="./image/profileupload/${list.member_image} " alt="유저 이미지" />
+												<img class="user" src="./image/profileupload/${list.member_image} " alt="이미지" />
 											</li>										
-											<li class="col-6">
+											<li class="col-7">
 												<div class="ex_whole">
 													<div class="ex_box_1">
 												    	${list.member_name}
 												    </div>
 												    <div class="ex_box_2"> 
-												    	${list.member_profile }...
+												    	${list.member_profile.substring(0,10) }...
 												    </div>
 											    </div>
 											</li>
-											<li>
+											<li class="col-3">
 												<input class="more" type="button" value="더보기" onclick="location.href='otherprofile.do?member_id=${list.member_id}'" />
 											</li>
 										</ul>
@@ -455,9 +459,13 @@
 		
 		</div>
 		
+		
+		
 	</div>
 	
 	<jsp:include page="../include/user_bottom.jsp" />
+<%-- 	<jsp:include page="${pageContext.request.contextPath }/include/user_bottom.jsp" /> --%>
+<%-- 	<jsp:include page="<%=request.getContextPath() %>/include/user_bottom.jsp" /> --%>
 	
 </body>
 </html>

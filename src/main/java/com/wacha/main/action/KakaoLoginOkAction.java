@@ -46,8 +46,7 @@ public class KakaoLoginOkAction implements Action {
 			out.println("<script> history.back(); alert('가입하지 않은 아이디입니다. 회원가입을 진행해주세요.'); </script>");
 			
 		}
-		
-		
+			
 		return forward;
 	}
 

@@ -561,6 +561,7 @@
 		
 	}
 	
+	
 	.s_id {
 		display: inline-block;
 		font-size: 15px;

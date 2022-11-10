@@ -21,6 +21,7 @@ public class SelectGenreAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		String genre = request.getParameter("genre");
+		
 		//System.out.println(genre);
 			
 		ImageDAO dao1 = ImageDAO.getInstance();

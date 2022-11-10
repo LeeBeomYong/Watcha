@@ -138,6 +138,7 @@ public class KakaoLoginAction implements Action {
 	    forward.setRedirect(true);
 	    forward.setPath("k_login.do");
 		
+	    
 		return forward;
 	}
 

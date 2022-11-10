@@ -26,6 +26,7 @@
 		margin: auto;
 	}
 	
+	
 	.result_area {
 		background-color: rgb(248, 248, 248);
 		height: 40px;

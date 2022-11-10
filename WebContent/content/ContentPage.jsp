@@ -287,33 +287,6 @@ $(function() {
 	    });
 		
 		
-		function weather() {
-			$.ajax({
-				url : "/WatchaProject/content/Weather.jsp",
-				type : "post",
-				timeout : 30000,
-				dataType : "json",
-				success : function(data,status,xhr) {
-					
-					let dataHeader = data.result.response.header.resultCode;
-					if(dataHeader == "00"){
-						console.log("성공 : ");
-						console.log(data);
-					}else{
-						console.log("실패 : ");
-						console.log(data);
-					}
-				},
-				error : function(e,status , xhr, data) {
-					console.log("error : ");
-					console.log(e);
-				}
-			});
-		}
-		
-		
-		
-		weather();
 		
 
 	}); // 제이쿼리 end 부분
@@ -325,6 +298,9 @@ $(function() {
 	    	$(".modal2").css("display","none");
 		}
     });
+	
+	
+	
     
 
     
@@ -360,9 +336,9 @@ $(function() {
 				</div>
 			<div id="topDiv_cont">
 				<ul>
-					<li>순위 ${rank} 위 /</li>
-					<li>개봉일 ${mDto.getMovie_date()} 일 /</li>
-					<li>왓챠 평점 ${avgStar}점</li>
+					<li>순위 ${rank} 위 / </li>
+					<li>&nbsp; 개봉일 ${mDto.getMovie_date()} 일 / </li>
+					<li>&nbsp; 왓챠 평점 ${avgStar}점</li>
 				</ul>
 			</div>
 				
@@ -483,7 +459,7 @@ $(function() {
 			
 			<div id="cd_cont2">
 				<span>${mDto.getMovie_date() } ${mDto.getMovie_country() } ${mDto.getMovie_genre() }</span><br>
-				<span>${mDto.getMovie_time()} ${mDto.getMovie_age()}세</span><br>
+				<span>${mDto.getMovie_time()}&nbsp; 이용 가능 연령가 : ${mDto.getMovie_age()}</span><br>
 				<span>
 				${mDto.getMovie_cont() }
 				</span>
@@ -672,7 +648,13 @@ $(function() {
 					<c:forEach items="${same}" var="same" varStatus="status">
 						<li class="same_movie_list">
 							<a title="" href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${same.getMovie_num() }">
-								<div><img alt="없음" src="${same.getMovie_imgloc()}" width="130px" height="100px"></div>
+								<c:if test="${!empty same.getMovie_imgloc() }">
+									<div><img alt="없음" src="${same.getMovie_imgloc()}" width="130px" height="100px"></div>
+								</c:if>
+								<c:if test="${empty same.getMovie_imgloc() }">
+									<div><img alt="없음" src="${pageContext.request.contextPath }/image/null.png" width="130px" height="100px"></div>
+								</c:if>
+								
 								<div>
 									<div>${same.getMovie_title()}</div>
 									<div>평균 ★ ${same.getMovie_avgstar() }</div>
@@ -699,8 +681,8 @@ $(function() {
 	      <div id="cd_youtube">
          
          <%-- 동영상 재생 부분 --%>
-      <div id="cd_youFirst">
-          <iframe id="player" type="text/html" width="300" height="300" src="https://www.youtube.com/embed/9qQuoqpw7KA?autoplay=1&mute=1" frameborder="0"></iframe>
+      <div id="cd_youFirst"><%--  --%>
+          <iframe  id="player" type="text/html" width="300" height="300" src="${mDto.getMovie_video() }?autoplay=1&mute=1" frameborder="0" autoplay></iframe>
            
               <%-- 동영상 하단 div --%>
            <div id="cd_youCont">

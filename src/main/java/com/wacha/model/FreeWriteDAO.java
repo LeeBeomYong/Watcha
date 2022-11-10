@@ -759,8 +759,8 @@ public class FreeWriteDAO {
 				
 				pstmt.setString(1, "%"+keyword+"%");
 				pstmt.setString(2, "%"+keyword+"%");
-				pstmt.setInt(2, startNo);
-				pstmt.setInt(3, endNo);
+				pstmt.setInt(3, startNo);
+				pstmt.setInt(4, endNo);
 				
 				rs = pstmt.executeQuery();
 				

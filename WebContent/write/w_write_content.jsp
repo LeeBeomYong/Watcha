@@ -93,7 +93,7 @@
 	
 	<div id="con_1">
 		<c:set var="rdto" value="${RCont }" />
-		<c:set var="dto1" value="${userProfile }"></c:set>
+		<c:set var="dto1" value="${userProfile }" />
 		<header>
 			<h2>1:1 답변</h2>
 				<br>

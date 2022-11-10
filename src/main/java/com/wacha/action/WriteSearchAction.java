@@ -13,6 +13,8 @@ import com.wacha.model.WriteDTO;
 
 public class WriteSearchAction implements Action {
 
+	
+	
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		

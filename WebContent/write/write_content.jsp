@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,16 +85,12 @@
 	#tit_btn{
 		border: none;
 		font-size: 18px;
-		font-weight: normal;
-		border-radius: 10px;
-		float: right;
-		width: 70px;
-		height: 30px;
-	}
-	#tit_btn:hover {
-		background-color: #ABABAB;
 		font-weight: bold;
+		float: right;
+		background-color: #fff;
+		margin-right: 2%;
 	}
+
 	
 </style>
 </head>

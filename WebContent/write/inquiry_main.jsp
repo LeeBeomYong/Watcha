@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+    
+    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -89,8 +91,10 @@
 			<button id="btn2" class="btn btn-outline-success" type="submit">검색</button>
 			<a class="total" href="inquiry_main.do">전체목록</a>
 			
-			<%-- 문의 등록 폼 버튼 --%>
-			<button id="btn1" onclick="event.cancelBubble=true;"><a href="write_upload.do">문의등록</a></button>
+			<c:if test="${session_id ne null }">
+				<%-- 문의 등록 폼 버튼 --%>
+				<input type="button" id="btn1" value="문의등록" onclick="location.href='write_upload.do'">
+			</c:if>
 		</form>
 		</div>
 		

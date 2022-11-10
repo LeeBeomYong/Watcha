@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+    
+    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -80,7 +82,7 @@
 		height: 40px;
 		border-radius: 5px;
 		margin-left: 39%;
-		margin-top: 5px;
+		padding: 5px;
 	}
 	
 	/* 문의 등록 버튼 글씨 */
@@ -258,7 +260,7 @@
 			
 			<%-- 문의 등록 폼 버튼 --%>
 			<c:if test="${session_id ne null }">
-				<button id="btn1" onclick="event.cancelBubble=true;"><a href="free_upload.do">✏️글쓰기</a></button>		
+				<input type="button" id="btn1" value="✏️글쓰기" onclick="location.href='free_upload.do'">	
 			</c:if>
 		</form>
 		</div>

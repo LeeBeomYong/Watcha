@@ -11,6 +11,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+
+
 public class WriteDAO {
 
 	// DB와 연동하는 객체.
@@ -589,7 +591,7 @@ public class WriteDAO {
 			}else if(field.equals("title_cont")) {
 					
 					try {
-						sql = "select count(*) from board where write_title like ? write_cont like ?";
+						sql = "select count(*) from write where write_title like ? write_cont like ?";
 						pstmt = con.prepareStatement(sql);
 						pstmt.setString(1, "%"+keyword+"%");
 						pstmt.setString(2, "%"+keyword+"%");
@@ -607,7 +609,7 @@ public class WriteDAO {
 			}else if(field.equals("writer")) {
 					
 					try {
-						sql = "select count(*) from board where write_writer like ?";
+						sql = "select count(*) from write where write_writer like ?";
 						pstmt = con.prepareStatement(sql);
 						pstmt.setString(1, "%"+keyword+"%");
 						rs = pstmt.executeQuery();
@@ -720,14 +722,14 @@ public class WriteDAO {
 				
 				try {
 					sql = "select * from (select row_number() over(order by write_num desc) rnum,"
-							+ " b.* from board b where write_title like ? or write_cont like ?) where rnum >= ? and rnum <= ?";				
+							+ " b.* from write b where write_title like ? or write_cont like ?) where rnum >= ? and rnum <= ?";				
 					
 					pstmt = con.prepareStatement(sql);
 					
 					pstmt.setString(1, "%"+keyword+"%");
 					pstmt.setString(2, "%"+keyword+"%");
-					pstmt.setInt(2, startNo);
-					pstmt.setInt(3, endNo);
+					pstmt.setInt(3, startNo);
+					pstmt.setInt(4, endNo);
 					
 					rs = pstmt.executeQuery();
 					
@@ -989,7 +991,9 @@ public class WriteDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}closeConn(rs, pstmt, con);		
+		}finally {
+			closeConn(rs, pstmt, con);
+		}	
 		
 	}
 	

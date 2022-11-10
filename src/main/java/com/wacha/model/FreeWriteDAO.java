@@ -11,6 +11,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+
+
 public class FreeWriteDAO {
 
 	// DB와 연동하는 객체.
@@ -759,8 +761,8 @@ public class FreeWriteDAO {
 				
 				pstmt.setString(1, "%"+keyword+"%");
 				pstmt.setString(2, "%"+keyword+"%");
-				pstmt.setInt(2, startNo);
-				pstmt.setInt(3, endNo);
+				pstmt.setInt(3, startNo);
+				pstmt.setInt(4, endNo);
 				
 				rs = pstmt.executeQuery();
 				

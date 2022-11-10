@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 	
 	public class WriteUploadOkAction implements Action {
 	
+		
+		
 		@Override
 		public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 			

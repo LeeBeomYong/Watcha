@@ -362,15 +362,15 @@ $(function() {
 						<div id="evalScore">
 						
 							<fieldset>
-								<input type="radio" name="reviewStar" value="5" id="rate1" ><label
+								<input type="radio" name="reviewStar" value="5" id="rate1" ><label class="lab"
 									for="rate1">★</label>
-								<input type="radio" name="reviewStar" value="4" id="rate2"><label
+								<input type="radio" name="reviewStar" value="4" id="rate2"><label class="lab"
 									for="rate2">★</label>
-								<input type="radio" name="reviewStar" value="3" id="rate3"><label
+								<input type="radio" name="reviewStar" value="3" id="rate3"><label class="lab"
 									for="rate3">★</label>
-								<input type="radio" name="reviewStar" value="2" id="rate4"><label
+								<input type="radio" name="reviewStar" value="2" id="rate4"><label class="lab"
 									for="rate4">★</label>
-								<input type="radio" name="reviewStar" value="1" id="rate5"><label
+								<input type="radio" name="reviewStar" value="1" id="rate5"><label class="lab"
 									for="rate5">★</label>
 							</fieldset>
 

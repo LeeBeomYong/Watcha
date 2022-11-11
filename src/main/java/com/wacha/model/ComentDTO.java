@@ -13,7 +13,6 @@ public class ComentDTO {
 	private String cocoment_hatelist;
 	private int cocoment_count;
 	private int member_star;
-	
 	private String user_img;
 	
 	

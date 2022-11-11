@@ -316,7 +316,7 @@
 										
 										<ul class="row row-cols-2">
 											<li class="col-3">
-												<img class="poster" src="${list.image_loc} " alt="영화 포스터" />
+												<img class="poster" src="<%=request.getContextPath()%>/image/${list.image_loc} " alt="영화 포스터" />
 											</li>										
 											<li class="col-9">
 												<div class="ex_whole">
@@ -372,7 +372,7 @@
 										
 										<ul class="row row-cols-2">
 											<li class="col-3">
-												<img class="director" src="${ilist[status.index].director_image}" alt="감독 이미지" />
+												<img class="director" src="<%=request.getContextPath()%>/image/${ilist[status.index].director_image}" alt="감독 이미지" />
 											</li>										
 											<li class="col-9">
 												<div class="ex_whole">

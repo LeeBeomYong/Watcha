@@ -247,7 +247,7 @@
 								<a class="link" href="<%=request.getContextPath()%>/more_info.do?num=${mlist[status.index].movie_num}">
 									<div class="cols">	
 										<div>
-									    	<img class="poster" src="${list.image_loc }" alt="영화 포스터 이미지" />
+									    	<img class="poster" src="<%=request.getContextPath()%>/image/${list.image_loc }" alt="영화 포스터 이미지" />
 									    </div>
 									    <div class="ex_box_1">
 									    	${mlist[status.index].movie_title}
@@ -292,7 +292,7 @@
 										
 										<ul class="row row-cols-2">
 											<li class="col-3">
-												<img class="director" src="${ilist[status.index].director_image} " alt="감독 이미지" />
+												<img class="director" src="<%=request.getContextPath()%>/image/${ilist[status.index].director_image} " alt="감독 이미지" />
 											</li>										
 											<li class="col-5">
 												<div class="ex_whole">

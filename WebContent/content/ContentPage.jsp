@@ -558,7 +558,7 @@ $(function() {
 		                     				 <div class="coment_top">
 		                                          <div>
 		                                          <c:choose>
-		                                          	<c:when test="${coment.getUserimg() != '프로필로고.jpg' }">
+		                                          	<c:when test="${coment.getUser_img() != '프로필로고.jpg' }">
 		                                          	<img alt="" width="25px" height="25px" id="idImg" src="${pageContext.request.contextPath }/image/profileupload/${coment.getUser_img()}">
 		                                          	</c:when>
 		                                          	<c:otherwise>
@@ -604,7 +604,7 @@ $(function() {
 				                     				 <div class="coment_top">
 				                                          <div>
 				                                          <c:choose>
-				                                          	<c:when test="${coment.getUserimg() != '프로필로고.jpg' }">
+				                                          	<c:when test="${coment.getUser_img() != '프로필로고.jpg' }">
 				                                          	<img alt="" width="25px" height="25px" id="idImg" src="${pageContext.request.contextPath }/image/profileupload/${coment.getUser_img()}">
 				                                          	</c:when>
 				                                          	<c:otherwise>

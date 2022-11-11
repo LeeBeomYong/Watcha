@@ -110,8 +110,8 @@
 					<c:forEach items="${list }" var="dto" begin="0" end="4">
 					<c:set var="count" value="${count + 1 }" />
 						<li id="hh">
-							<a href="<%=request.getContextPath() %>/wacha_content.do?movie_num=${dto.getMovie_num()}"><img class="img1" src="${dto.getImage_loc()}" width="175px" height="260px"></a><br>
-							<h5 >${dto.getMovie_title() }</h5>
+							<a href="<%=request.getContextPath() %>/wacha_content.do?movie_num=${dto.getMovie_num()}"><img class="img1" src="<%=request.getContextPath() %>/image/${dto.getImage_loc()}" width="175px" height="260px"></a><br>
+							<h5 style="font-size: 16px; font-weight: bold;">${dto.getMovie_title() }</h5>
 							<p id="star">평가함&nbsp;★${dto.getMovie_star() }</p>
 						</li>
 					</c:forEach>

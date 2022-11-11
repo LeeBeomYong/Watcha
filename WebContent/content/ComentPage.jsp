@@ -515,13 +515,13 @@
 					<a>
 						<div id="Coment_member">
 						<c:choose>
-							<c:when test="${not empty user_dto}">
-								<img class="raddiv" alt="없" src="${pageContext.request.contextPath}/image/${user_dto.getMember_image()}" width="30px" height="30px">
-							</c:when>
-							<c:otherwise>
-								<img class="raddiv" alt="없" src="${pageContext.request.contextPath}/image/contImg/defualtImg.png" width="30px" height="30px">
-							</c:otherwise>
-						</c:choose>
+                            <c:when test="${user_dto.getMember_image() != '프로필로고.png'}">
+                                <img class="raddiv" alt="없" src="${pageContext.request.contextPath}/image/${user_dto.getMember_image()}" width="30px" height="30px">
+                            </c:when>
+                            <c:otherwise>
+                                <img class="raddiv" alt="없" src="${pageContext.request.contextPath}/image/프로필_로고.png" width="30px" height="30px">
+                            </c:otherwise>
+                        </c:choose>
 						
 							<div>
 								<font size="4">&nbsp;${coment_dto.getMember_id()}</font> 
@@ -545,7 +545,7 @@
 					</a>
 				</div>
 				<div id="setdiv">
-					<img  alt="" src="${images[0] }" width="90" height="130">
+					<img  alt="" src="<%=request.getContextPath()%>/image/${image_dto.getImage_loc() }" width="90" height="130">
 					<div class="btn-group">
 					   <img alt="" src="${pageContext.request.contextPath}/image/contImg/morelook.png" width="20px" height="20px" class=" btn-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 					  <ul class="dropdown-menu">

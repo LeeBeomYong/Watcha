@@ -660,6 +660,7 @@ public class MovieDAO {
 				rs=pstmt.executeQuery();
 				while(rs.next()) {
 					MovieAndStarDTO movie_star_dto = new MovieAndStarDTO();
+					movie_star_dto.setMovie_num(rs.getInt(1));
 					movie_star_dto.setMovie_date(rs.getString(2));
 					movie_star_dto.setMovie_title(rs.getString(3));
 					movie_star_dto.setMovie_director(rs.getString(4));

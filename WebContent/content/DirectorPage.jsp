@@ -26,7 +26,6 @@
 		display : flex;
 		justify-content : center;
 		width: 20%;
-		background-color: gray;
 	}
 	
 	#catediv{
@@ -35,8 +34,8 @@
 	}
 	
 	#catediv div{
-		display: flex;
-		justify-content: space-around;
+		display: flex !important;
+		justify-content: flex-start;
 		align-content: center;
 	}
 	#catediv:nth-child(1){
@@ -49,8 +48,9 @@
 	}
 	
 	.movie_list{
-		height: 50%;
-		display : flex;
+		height: 40%;
+		display : flex !important;
+		justify-content : flex-start !importantt;
 		align-items: center;
 	}
 	#topdiv{
@@ -71,7 +71,7 @@
 		
 	}
 	.imgdiv{
-		flex-direction: column;
+		flex-direction: row;
 		justify-content: center !important;
 		align-items: center !important;	
 		padding: 1% 1%;
@@ -86,6 +86,12 @@
 	.bothr{
 		margin: 1% 0;
 	}
+	.imgdiv2{
+		display: flex;
+		flex-direction: column;	
+		margin-left: 5%;
+	}
+	
 </style>
 </head>
 <body>
@@ -99,13 +105,11 @@
 		<div id="topMargindiv">
 			<div id="topdiv">
 				<img alt="없음" src="${image_dto.getDirector_image()}" width="200px" height="200px">
-				<span id="direcFont">${movie_dto.getMovie_director() }</span>
+				<span id="direcFont"><b>${movie_dto.getMovie_director() }</b></span>
 			</div>
 			<span id="role">감독</span>
 			<hr>
 			<span><b>영화</b></span>
-			
-			<hr>
 		</div>
 	<!-- 영화 리스트 구간 // 네비게이션 구간  -->
 	<div id="contentDiv">
@@ -114,21 +118,23 @@
 			
 				<!-- 속성   -->
 				<div id="catediv">
-					<div>
-						<div>제작연도</div>
-						<div>제목</div>
-						<div>감독</div>
-						<div>평가</div>
-					</div>
-					<hr class="bothr">
+
 		<c:choose>
 			<c:when test="${!empty movie_list}">
 				<c:forEach items="${movie_list }" var="dto">
 					<div class="movie_list">
-						<div>${dto.getMovie_date() }</div>
-						<div class="imgdiv"><img class="mimg" alt="없음" src="${dto.getMovie_imageloc() }" width="100px" height="200px"><span>${dto.getMovie_title() }</span></div>
-						<div>${dto.getMovie_director()}</div>
-						<div>★${dto.getMovie_avgstar()}</div>
+						
+						<div class="imgdiv">
+							<img class="mimg" alt="없음" src="${dto.getMovie_imageloc() }" width="150px" height="200px">
+						</div>
+							<div class="imgdiv2">
+								<div><b>${dto.getMovie_title() }</b></div>
+								<div>
+									<div>${dto.getMovie_date() }</div>&nbsp; |&nbsp; 
+									<div>${dto.getMovie_director()}</div>
+								</div>
+								<div>평균 ★${dto.getMovie_avgstar()}</div>
+							</div>
 					</div>
 					<hr class="bothr">
 				</c:forEach>	

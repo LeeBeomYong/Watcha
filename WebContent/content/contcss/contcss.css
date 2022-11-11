@@ -9,13 +9,7 @@
 	 flex-direction: row;
 	 margin : 0 10% 0 10% !important;
 	}
-	ul {
-		display: flex;
-	}
-	li{
-	 list-style: none;
-	 
-	}
+
 	#a1{
 	 color: black;
 	 text-decoration: none !important;
@@ -83,9 +77,23 @@
 		font-size: 15px;
 		
 	}
+	ul {
+		display: flex;
+	}
+	li{
+	 list-style: none;
+	 
+	}
 	img{
 		margin: 0 !important;
 	}
+	p{
+		margin: 0 !important;
+	}
+	hr{
+		margin: 5px 0 !important;
+	}
+	
 	
 	/* 세로줄 부분 */
 	.updown {
@@ -102,13 +110,7 @@
 		margin-top: 5px !important;
 		margin-bottom: 0 !important;
 	}
-	p{
-		margin: 0 !important;
-	}
-	hr{
-		margin: 5px 0 !important;
-	}
-	
+
 	#topDiv_img{
 		border: solid white;
 	}
@@ -118,7 +120,7 @@
 	 flex-direction: column;
 	 justify-content: flex-end;
 	 color: white;
-	 z-index: 2;
+	 z-index: 0;
 	}
 	.cont2_btn :hover{
 		transform : scale(1.5); 
@@ -238,18 +240,18 @@
 	input[type=radio]{
 	    display: none;
 	}
-	label{
+	.lab{
 	    font-size: 1.5em;
 	    color: transparent;
 	    text-shadow: 0 0 0 #f0f0f0;
 	}
-	label:hover{
+	.lab:hover{
 	    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
 	}
-	label:hover ~ label{
+	.lab:hover ~ .lab{
 	    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
 	}
-	input[type=radio]:checked ~ label{
+	input[type=radio]:checked ~ .lab{
 	    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
 	}
 	

@@ -12,9 +12,16 @@ public class MovieAndStarDTO {
 	private String movie_director;
 	private String movie_imageloc;
 	private double movie_avgstar;
+	private int movie_num;
 	
 	
 	
+	public int getMovie_num() {
+		return movie_num;
+	}
+	public void setMovie_num(int movie_num) {
+		this.movie_num = movie_num;
+	}
 	public String getMovie_date() {
 		return movie_date;
 	}

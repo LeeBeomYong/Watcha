@@ -107,8 +107,8 @@
 				<c:forEach items="${list }" var="dto">
 				<c:set var="count" value="${count + 1 }" />
 					<li class="hh">
-						<a href="<%=request.getContextPath() %>/wacha_content.do?movie_num=${dto.getMovie_num()}"><img class="img1" src="${dto.getImage_loc()}" width="175px" height="260px"></a><br>
-						<h5 >&nbsp;${dto.getMovie_title() }</h5>
+						<a href="<%=request.getContextPath() %>/wacha_content.do?movie_num=${dto.getMovie_num()}"><img class="img1" src="<%=request.getContextPath() %>/image/${dto.getImage_loc()}" width="175px" height="260px"></a><br>
+						<h5 style="font-size: 16px; font-weight: bold;">&nbsp;${dto.getMovie_title() }</h5>
 						<p id="star">&nbsp;&nbsp;평가함&nbsp;★${dto.getMovie_star() }</p>
 					</li>
 					<c:if test="${count % 10 == 0 }">
@@ -131,8 +131,8 @@
 				<c:forEach items="${list2 }" var="dto2">
 				<c:set var="count2" value="${count2 + 1 }" />
 					<li class="hh">
-						<a href="<%=request.getContextPath() %>/wacha_content.do?movie_num=${dto2.getMovie_num()}"><img class="img1" src="${dto2.getImage_loc()}" width="175px" height="260px"></a><br>
-						<h5 >&nbsp;${dto2.getMovie_title() }</h5>
+						<a href="<%=request.getContextPath() %>/wacha_content.do?movie_num=${dto2.getMovie_num()}"><img class="img1" src="<%=request.getContextPath() %>/image/${dto2.getImage_loc()}" width="175px" height="260px"></a><br>
+						<h5 style="font-size: 16px; font-weight: bold;">&nbsp;${dto2.getMovie_title() }</h5>
 						<p id="star">&nbsp;&nbsp;평가함&nbsp;★${dto2.getMovie_star() }</p>
 					</li>
 					<c:if test="${count2 % 10 == 0 }">
@@ -155,8 +155,8 @@
 				<c:forEach items="${list3 }" var="dto3">
 				<c:set var="count3" value="${count3 + 1 }" />
 					<li class="hh">
-						<a href="<%=request.getContextPath() %>/wacha_content.do?movie_num=${dto3.getMovie_num()}"><img class="img1" src="${dto3.getImage_loc()}" width="175px" height="260px"></a><br>
-						<h5 >&nbsp;${dto3.getMovie_title() }</h5>
+						<a href="<%=request.getContextPath() %>/wacha_content.do?movie_num=${dto3.getMovie_num()}"><img class="img1" src="<%=request.getContextPath() %>/image/${dto3.getImage_loc()}" width="175px" height="260px"></a><br>
+						<h5 style="font-size: 16px; font-weight: bold;">&nbsp;${dto3.getMovie_title() }</h5>
 						<p id="star">&nbsp;&nbsp;평가함&nbsp;★${dto3.getMovie_star() }</p>
 					</li>
 					<c:if test="${count3 % 10 == 0 }">
@@ -180,8 +180,8 @@
 				<c:forEach items="${list4 }" var="dto4">
 				<c:set var="count4" value="${count4 + 1 }" />
 					<li class="hh">
-						<a href="<%=request.getContextPath() %>/wacha_content.do?movie_num=${dto4.getMovie_num()}"><img class="img1" src="${dto4.getImage_loc()}" width="175px" height="260px"></a><br>
-						<h5 >&nbsp;${dto4.getMovie_title() }</h5>
+						<a href="<%=request.getContextPath() %>/wacha_content.do?movie_num=${dto4.getMovie_num()}"><img class="img1" src="<%=request.getContextPath() %>/image/${dto4.getImage_loc()}" width="175px" height="260px"></a><br>
+						<h5 style="font-size: 16px; font-weight: bold;">&nbsp;${dto4.getMovie_title() }</h5>
 						<p id="star">&nbsp;&nbsp;평가함&nbsp;★${dto4.getMovie_star() }</p>
 					</li>
 					<c:if test="${count4 % 10 == 0 }">

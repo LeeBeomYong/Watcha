@@ -104,7 +104,7 @@
 	<div id="maindiv">
 		<div id="topMargindiv">
 			<div id="topdiv">
-				<img alt="없음" src="${image_dto.getDirector_image()}" width="200px" height="200px">
+				<img alt="없음" src="<%=request.getContextPath()%>/image/${image_dto.getDirector_image()}" width="200px" height="200px">
 				<span id="direcFont"><b>${movie_dto.getMovie_director() }</b></span>
 			</div>
 			<span id="role">감독</span>
@@ -125,12 +125,14 @@
 					<div class="movie_list">
 						
 						<div class="imgdiv">
-							<img class="mimg" alt="없음" src="${dto.getMovie_imageloc() }" width="150px" height="200px">
+							<a href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${dto.getMovie_num()}">
+								<img class="mimg" alt="없음" src="<%=request.getContextPath()%>/image/${dto.getMovie_imageloc() }" width="150px" height="200px">
+							</a>
 						</div>
 							<div class="imgdiv2">
 								<div><b>${dto.getMovie_title() }</b></div>
 								<div>
-									<div>${dto.getMovie_date() }</div>&nbsp; |&nbsp; 
+									<div>${dto.getMovie_date() }</div>&nbsp;&nbsp; 
 									<div>${dto.getMovie_director()}</div>
 								</div>
 								<div>평균 ★${dto.getMovie_avgstar()}</div>

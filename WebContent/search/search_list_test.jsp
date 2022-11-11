@@ -37,6 +37,7 @@
 		display: none;
 		padding: 20px 0 0;
 		border-top: 1px solid #ddd;
+		height: 70vh;
 	}
 	
 	input[type="radio"] {

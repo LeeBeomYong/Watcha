@@ -536,6 +536,7 @@ public class UserDAO {
 				dto = new UserDTO();
 				
 				dto.setMember_id(rs.getString("member_id"));
+				dto.setMember_name(rs.getString("member_name"));
 				dto.setMember_image(rs.getString("member_image"));
 				
 			}
@@ -694,9 +695,41 @@ public class UserDAO {
 		return result;
 	}
 	
+	public int autoSignUp(String id, String email, String name) {
+        int result = 0, count = 0;
+
+        try {
+            openConn();
+
+            sql = "select max(member_num) from member";
+
+            pstmt = con.prepareStatement(sql);
+
+            rs = pstmt.executeQuery();
+
+            if(rs.next()) {
+                count = rs.getInt(1) + 1;
+            }
+
+            sql = "insert into member values (?,?,?,'kakao@@','','',sysdate,default,1,?)";
+
+            pstmt = con.prepareStatement(sql);
+
+            pstmt.setInt(1, count);
+            pstmt.setString(2, id);
+            pstmt.setString(3, name);
+            pstmt.setString(4, email);
+
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeConn(rs, pstmt, con);
+        }
+        return result;
+    }
 	
-
-
+	
 	public int kakaoLogin(String k_id) {
 		
 		int result = 0;

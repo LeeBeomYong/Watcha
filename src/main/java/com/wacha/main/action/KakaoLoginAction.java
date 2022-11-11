@@ -105,6 +105,9 @@ public class KakaoLoginAction implements Action {
 		   
 		    //System.out.println("arr : "+arr.get(7));
 		    System.out.println("id : "+jsonObj2.get("id"));
+		    System.out.println("access_token : "+jsonObj.get("access_token"));
+		    System.out.println("id_token : "+jsonObj.get("id_token"));
+		    System.out.println("");
 		    
 		    request.setAttribute("k_id", "k"+jsonObj2.get("id"));
 		    

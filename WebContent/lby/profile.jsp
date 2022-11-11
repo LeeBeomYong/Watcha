@@ -17,6 +17,7 @@
 		function logout() {
 			
 			window.location.href="<%=request.getContextPath() %>/user_logout.do";
+			
 		}
 		
 		function profileupdate() {
@@ -34,7 +35,8 @@
 		}
 		function board() {
 			
-			window.location.href="<%=request.getContextPath() %>/inquiry_main.do";
+
+ 			window.location.href="<%=request.getContextPath() %>/inquiry_main.do";
 		}
 </script>
 <style type="text/css">
@@ -179,7 +181,7 @@
 		<div class="relative">
 			<div class="top">
 				<div align="right">
-					<a id="a1" href="#" data-toggle="modal" data-target="#myModal"><img alt="★" src="${pageContext.request.contextPath }/image/profile/pngwing.com.png" width="30px" height="30px"></a>				
+					<a id="a1" href="#" data-toggle="modal" data-target="#myModal"><img style="margin-right: 20px; margin-top: 20px;" alt="★" src="${pageContext.request.contextPath }/image/profile/pngwing.com.png" width="30px" height="30px"></a>				
 				</div>
 								
 			</div>
@@ -206,7 +208,7 @@
 			</div>
 			<div class="review">
 				<div class="content">
-					<div align="center">
+					<div align="left" style="margin-left: 40px;">
 						<a href ="<%=request.getContextPath() %>/review.do?member_id=<%=request.getParameter("member_id")%>">
 							<button id="btn3">
 								<p>영화</p>
@@ -236,8 +238,6 @@
 	            <h6 class="modal-h6">고객센터</h6>
 				<p class="modal-p" onclick="board()" >문의하기 / FAQ</p>
 				<hr color ="gray">
-<!-- 				<p class="modal-p" onclick="logout()" >공지사항</p> -->
-<!-- 				<hr color ="gray"> -->
 				<p class="modal-p" onclick="profileupdate()" >프로필수정</p>
 				<hr color ="gray">
 				<p class="modal-p" onclick="logout()" >로그아웃</p>
@@ -249,6 +249,9 @@
 	      </div>
 	    </div>
 	</div>
+	
+
+	
 	<br><br><br><br><br>
  	<jsp:include page = "../include/user_bottom.jsp" />
 </body>

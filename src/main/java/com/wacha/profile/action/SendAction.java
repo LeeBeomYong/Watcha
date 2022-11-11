@@ -90,7 +90,7 @@ public class SendAction implements Action {
 	    public MyAuthentication(){
 	         
 	        String id = "soopwe12@gmail.com";       // 구글 ID
-	        String pw = "csfyabkuilyqphai";          // 구글 비밀번호
+	        String pw = "lgezfcfzoabqkbrg";          // 구글 비밀번호
 	 
 	        // ID와 비밀번호를 입력한다.
 	        pa = new PasswordAuthentication(id, pw);

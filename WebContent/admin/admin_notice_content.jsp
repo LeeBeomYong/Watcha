@@ -7,6 +7,15 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sign Up Form</title>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js"></script>
+       
+        <script type="text/javascript">
+        $(function () {
+        $("textarea.autosize").on('keydown keyup', function () {
+            $(this).height(1).height( $(this).prop('scrollHeight')+12 );
+          });
+        });
+        </script>
         <style type="text/css">
         
         
@@ -187,7 +196,7 @@ label.light {
         <fieldset>
           <legend><span class="number">2</span>공지사항 내용</legend>
           
-          <textarea id="bio" name="content" rows="8" cols="25" >${dto.getNotice_content() }</textarea>
+          <textarea id="bio" name="content" class="autosize" style="overflow: hidden; min-height: 50px; " name="content" rows="8" cols="25" rows="8" cols="25" >${dto.getNotice_content() }</textarea>
         </fieldset>
      
         

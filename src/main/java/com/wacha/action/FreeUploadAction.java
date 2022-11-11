@@ -20,11 +20,10 @@ public class FreeUploadAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		// 
 		
 		FreeWriteDTO dto = new FreeWriteDTO();
 	
-		String saveFolder = "C:\\Users\\user\\git\\Watcha\\WebContent\\free_write_file";
+		String saveFolder = "C:\\NCS\\workspace(jsp)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\WatchaProject\\free_write_file";
 
 		int fileSize = 10 * 1024 * 1024;
 		
@@ -35,7 +34,6 @@ public class FreeUploadAction implements Action {
 				"UTF-8",
 				new DefaultFileRenamePolicy()
 				);
-
 		
 		String member_id = multi.getParameter("member_id").trim();
 		String free_title = multi.getParameter("free_title").trim();

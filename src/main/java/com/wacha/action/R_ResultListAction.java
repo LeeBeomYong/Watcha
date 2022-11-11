@@ -33,6 +33,7 @@ public class R_ResultListAction implements Action {
 		return forward;
 		
 		
+		
 	}
 
 }

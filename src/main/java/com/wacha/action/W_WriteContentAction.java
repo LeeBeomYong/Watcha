@@ -15,6 +15,8 @@ import com.wacha.model.W_WriteDTO;
 import com.wacha.model.WriteDAO;
 import com.wacha.model.WriteDTO;
 
+
+
 public class W_WriteContentAction implements Action {
 
 	@Override
@@ -46,8 +48,6 @@ public class W_WriteContentAction implements Action {
 		forward.setPath("write/w_write_content.jsp");
 		
 		return forward;	
-		
-		
 		
 	}
 

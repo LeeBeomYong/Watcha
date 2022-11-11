@@ -15,9 +15,12 @@ public class WriteDeleteAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		// 
 		
 		WriteDAO dao = WriteDAO.getInstance();
+
+		
+		String id = request.getParameter("id").trim();
+
 		int write_num = Integer.parseInt(request.getParameter("num").trim());
 		
 		WriteDTO dto = dao.writeContent(write_num);

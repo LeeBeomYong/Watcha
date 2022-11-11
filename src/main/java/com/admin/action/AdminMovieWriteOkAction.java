@@ -28,7 +28,9 @@ public class AdminMovieWriteOkAction implements Action {
 
 		ImageDTO dto1 = new ImageDTO();
 		// 첨부파일이 저장될 위치(경로) 설정
-		String saveFolder = "C:\\myJSP\\wrokspace(jsp)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\WatchaProject\\image";
+
+		String saveFolder = "C:\\NCS\\workspace(jsp)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\WatchaProject\\image";
+
 
 		// 첨부파일 용량 (크기)제한 -파일 업로드 최대 크기
 
@@ -57,7 +59,8 @@ public class AdminMovieWriteOkAction implements Action {
 		String movie_country = multi.getParameter("movie_country").trim();
 
 		String movie_director = multi.getParameter("movie_director").trim();
-
+		
+		String movie_video=multi.getParameter("movie_video").trim();
 		
 		  String movie_main = multi.getParameter("movie_main");
 		  
@@ -99,6 +102,7 @@ public class AdminMovieWriteOkAction implements Action {
 
 		dto.setMovie_country(movie_country);
 		
+		dto.setMovie_video(movie_video);
 		
 		
 		 dto1.setImage_loc(movie_poster);	

@@ -53,6 +53,8 @@ public class AdminMovieModifyOkAction implements Action {
 		
 		String movie_country=multi.getParameter("movie_country").trim();
 		
+		String movie_video=multi.getParameter("movie_video").trim();
+		
 		int movie_num=Integer.parseInt(multi.getParameter("movie_num").trim());
 	
 		
@@ -108,6 +110,8 @@ public class AdminMovieModifyOkAction implements Action {
 		dto.setMovie_director(movie_director);
 		
 		dto.setMovie_country(movie_country);
+		
+		dto.setMovie_video(movie_video);
 		
 		dto1.setMovie_num(movie_num);
 		

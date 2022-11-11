@@ -13,8 +13,11 @@ import com.wacha.model.WriteDTO;
 
 public class WriteSearchAction implements Action {
 
+	
+	
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
 		// 검색 폼 페이지에서 넘어온 데이터를 가지고 검색어에 해당하는 게시물들을 DB에서 조회하여 view page로 이동시키는 비지니스 로직.
 		
 		String search_field = request.getParameter("search_field").trim();

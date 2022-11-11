@@ -14,8 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 	
 	public class WriteUploadOkAction implements Action {
 	
+		
+		
 		@Override
 		public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+			
+			
 			// write 테이블에 데이터를 추가하는 비지니스 로직.
 			WriteDTO dto = new WriteDTO();
 			
@@ -45,8 +49,6 @@ import javax.servlet.http.HttpServletRequest;
 				PrintWriter out = response.getWriter();
 				
 				ActionForward forward = new ActionForward();
-				
-				
 				
 				if(res > 0) {
 					forward.setRedirect(true);

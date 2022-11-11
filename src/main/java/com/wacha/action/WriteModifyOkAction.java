@@ -11,6 +11,8 @@ import com.wacha.controller.ActionForward;
 import com.wacha.model.WriteDAO;
 import com.wacha.model.WriteDTO;
 
+
+
 public class WriteModifyOkAction implements Action {
 
 	@Override
@@ -50,12 +52,7 @@ public class WriteModifyOkAction implements Action {
 		}
 		
 		return forward;
-		 
-		
-		
-		
-		
-		
+
 		
 	}
 

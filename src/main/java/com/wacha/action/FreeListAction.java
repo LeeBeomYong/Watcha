@@ -13,7 +13,6 @@ import com.wacha.model.FreeWriteDTO;
 import com.wacha.model.NoticeDTO;
 
 
-
 public class FreeListAction implements Action {
 
 	@Override

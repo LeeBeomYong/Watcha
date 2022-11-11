@@ -637,6 +637,17 @@ height: 180px;
         	</fieldset>
         	</div>
        </div>
+
+       <div>
+             <div class="can-1-1">
+	          <fieldset >
+	          <legend><span class="number" >11</span>영화영상</legend>
+	          <label for="name"></label>
+	          <input type="text" id="name" name="movie_video" width="200px" height="150px">	
+        	</fieldset>
+        	</div>
+       </div>
+
       <div class="button-wrapper">
   <span class="label">
     Upload File
@@ -645,9 +656,10 @@ height: 180px;
     <input type="file" name="upload" id="upload" class="upload-box" placeholder="Upload File">
   
 </div>
+
        <div  class="center">       
 	          <fieldset>
-	          <legend><span class="number" >11</span>갤러리</legend>
+	          <legend><span class="number" >12</span>갤러리</legend>
 	        
  			   <div style='padding:14px'>
         <label for="files"></label>
@@ -664,7 +676,9 @@ height: 180px;
         	</fieldset>
         	</div>
 
-        <button id="id" type="submit" >Add List</button>
+
+        <button type="submit" id="id" >Add List</button>
+
       </form>
       <jsp:include page="../include/admin_bottom.jsp" />
     </body>

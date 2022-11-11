@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+    
+    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -109,6 +111,7 @@
 	#singo:hover {
 		font-weight: bold; 
 	}
+	
 </style>
 </head>
 <body>
@@ -142,7 +145,8 @@
 				<br>
 				<div id="con_4">
 					<c:if test="${dto.getFree_file() ne null }">
-						<a href="<%=request.getContextPath() %>/free_write_file/${dto.getFree_file() }">📂${dto.getFree_file() }</a>			
+<%--  <a href="<%=request.getContextPath() %>/free_write_file/${dto.getFree_file() }">📂${dto.getFree_file() }</a>	 --%>	
+						<img src="<%=request.getContextPath() %>/free_write_file/${dto.getFree_file() }">	
 					</c:if>
 				</div>
 				<div id="con_3">
@@ -466,8 +470,6 @@ $(function(){
 	
 	getList(); // 전체 리스트 호출 함수 호출
 
-	reloadDivArea(); //함수 실행
-	
 	});
 
 	

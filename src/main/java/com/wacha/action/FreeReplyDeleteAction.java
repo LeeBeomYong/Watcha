@@ -34,7 +34,6 @@ public class FreeReplyDeleteAction implements Action {
 		
 		return null;
 		
-		
 	}
 
 }

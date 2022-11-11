@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -108,6 +110,13 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <script type="text/javascript">
 	
+$(function(){
+	
+	$("#validationTextarea1").on('keydown keyup', function () {
+	  	$(this).height(1).height( $(this).prop('scrollHeight')+12 );	
+		});	
+});	
+	
 	// textarea에서 입력한 글자 만큼 세주는 함수.	
 	$(document).ready(function() {
 	    $('#validationTextarea1').on('keyup', function() {
@@ -131,7 +140,7 @@
 	
 	<div id="container">
 	
-	  <br>
+	<br>
 	  
 	  <form method="post" class="was-validated" enctype="multipart/form-data" action="<%=request.getContextPath() %>/free_upload_ok.do">
 	  	<input type="hidden" name="member_id" value="${session_id }">
@@ -152,34 +161,24 @@
 		   &nbsp;
 		   <input type="radio" name="show" value="1"> 회원공개
 		</div>		  
-		  
-<!-- 		<div>
-		  <input id="text2" placeholder="제목을 입력해주세요." name="free_title">
-		</div> -->
 
-		  <div>
-		    <input style="box-shadow:none !important;" class="form-control is-invalid" name="free_title" id="validationTextarea" placeholder="제목을 입력하세요." required>
-		  </div>	
+		<div>
+		   <input style="box-shadow:none !important;" class="form-control is-invalid" name="free_title" id="validationTextarea" placeholder="제목을 입력하세요." required>
+		</div>	
 		
 		<div id="con4">
 		  <input style="width: 100%; border-color:#c6c6c6; box-shadow-color:#000; box-shadow:none !important;" type="file" name="free_file">
 		</div>
-	
-<!-- 		<div>
-		 <textarea placeholder="내용을 입력하세요." rows="14" id="text1" class="text_1" name="free_cont"></textarea>
-		</div> -->
-		
-		  <div class="mb-3">
-		    <textarea style="box-shadow:none !important;" class="form-control is-invalid" rows="14" name="free_cont" id="validationTextarea1" placeholder="내용을 입력하세요." required></textarea>
-		  </div>	
+
+		<div class="mb-3">
+		   <textarea style="box-shadow:none !important; overflow: hidden; min-height:250px; padding-right: 2%;" class="form-control is-invalid" rows="14" name="free_cont" id="validationTextarea1" placeholder="내용을 입력하세요." required></textarea>
+		</div>	
 		  
 		  	
 		<div>
 			<span id="cnt">(0 / 1000)자 이내로 입력</span>
 		</div>
 	
-	  
-
 		</div> <%-- con1 end --%>
 		</form>
 		<br>

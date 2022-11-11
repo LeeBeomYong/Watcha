@@ -38,6 +38,7 @@ public class ResultListAction implements Action {
 		return forward;
 		
 		
+		
 	}
 
 }

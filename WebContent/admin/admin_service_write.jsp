@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>고객센터 답변해주는 페이지</title>
         	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
-        	
+        	   <script  src="https://code.jquery.com/jquery-3.6.1.js"></script>
  <style type="text/css">
  
 *, *:before, *:after {
@@ -223,8 +223,23 @@ table
     		    $("#img-preview").attr("src", noimage);
     		  }
     		}
-        
-        
+    		
+    		
+    		
+// 	        $(function () {
+//     	        $(".autosize").on('keydown keyup', function () {
+//     	            $(this).height(1).height( $(this).prop('scrollHeight')+12 );
+//     	          });
+//     	        });
+    	     
+	        
+	        $(function () {
+    	        $("#autosize").on('keydown keyup', function () {
+    	            $(this).height(1).height( $(this).prop('scrollHeight')+12 );
+    	          });
+    	        });
+	        
+	        
         </script>
         <link rel="stylesheet" href="css/normalize.css">
         <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
@@ -261,7 +276,7 @@ table
   		 	<th colspan="5">글 내용</th>
   		 </tr>
   		 <tr>
-  		 	<td colspan="5"><textarea readonly style="color: #000;">${dto.getWrite_cont() }</textarea></td>
+  		 	<td colspan="5"><textarea readonly id="autosize" style="overflow: hidden; min-height: 300px; color: #000;">${dto.getWrite_cont() }</textarea></td>
   		 </tr>
 	</table>
   </div>
@@ -273,7 +288,7 @@ table
         <fieldset>
           <legend><span class="number">1</span>답변 내용</legend>
          
-          <textarea id="bio" name="reply_cont" rows="8" cols="25" ></textarea>
+          <textarea id="bio" name="reply_cont" class="autosize" style="overflow: hidden; min-height: 50px; color: #000;" rows="8" cols="25" ></textarea>
         </fieldset>
      
         

@@ -61,12 +61,12 @@
 	
 	#div1 img {
 		position: absolute;
-		top: 300px;
+		top: 200px;
 		left: 30px;
 	}
 	#div1 h3 {
 		position: absolute;
-		top: 305px;
+		top: 205px;
  		left: 100px; 
 		color: white;
 	}
@@ -124,7 +124,7 @@
 	
 	<div align="center">
 		<div class="relative">
-			<br><br><br><br><br>
+			<br><br>
 			<c:set var="dto2" value="${userProfile }"/>
 			<div id="div1" align="left">
 				<c:if test="${!empty dto2.getMember_image() }">

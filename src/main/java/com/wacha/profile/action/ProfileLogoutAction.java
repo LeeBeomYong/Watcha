@@ -20,7 +20,7 @@ public class ProfileLogoutAction implements Action {
 		session.invalidate();
 		
 		ActionForward forward = new ActionForward();	
-		forward.setRedirect(false);
+		forward.setRedirect(true);
 		forward.setPath("main.jsp");
 		return forward;
 }

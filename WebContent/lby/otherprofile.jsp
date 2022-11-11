@@ -150,7 +150,7 @@
 			</div>
 			<div class="review">
 				<div class="content">
-					<div align="center">
+					<div align="left" style="margin-left: 40px;">
 						<a href ="<%=request.getContextPath() %>/otherreview.do?member_id=<%=request.getParameter("member_id")%>">
 							<button id="btn3">
 								<p>영화</p>

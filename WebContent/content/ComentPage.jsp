@@ -27,7 +27,7 @@
 		            	if($("coment_image",this).text() == 'null' ||$("coment_image",this) == '' ){
 		            		tmpImg="<img class=\"marginimg\" alt=\"\" src=\"${pageContext.request.contextPath}/image/contImg/defualtImg.png\" width=\"20px\" height=\"20px\">"+$("member_id",this).text();
 		            	}else{
-		            		tmpImg="<img class=\"marginimg\" alt=\"\" src=\"${pageContext.request.contextPath}/image/"+$("coment_image",this).text()+"\" width=\"20px\" height=\"20px\">"+$("member_id",this).text();
+		            		tmpImg="<img class=\"marginimg\" alt=\"\" src=\"${pageContext.request.contextPath}/image/profileupload/"+$("coment_image",this).text()+"\" width=\"20px\" height=\"20px\">"+$("member_id",this).text();
 		            	}
 		            	
 		            	let result = "<div class=\"card-body\"><ul class=\"list-group list-group-flush\">"+
@@ -146,7 +146,7 @@
 	            	if($("coment_image",this).text() == 'null' ||$("coment_image",this) == '' ){
 	            		tmpImg="<img class=\"marginimg\" alt=\"\" src=\"${pageContext.request.contextPath}/image/contImg/defualtImg.png\" width=\"20px\" height=\"20px\">"+$("member_id",this).text();
 	            	}else{
-	            		tmpImg="<img class=\"marginimg\" alt=\"\" src=\"${pageContext.request.contextPath}/image/"+$("coment_image",this).text()+"\" width=\"20px\" height=\"20px\">"+$("member_id",this).text();
+	            		tmpImg="<img class=\"marginimg\" alt=\"\" src=\"${pageContext.request.contextPath}/image/profileupload/"+$("coment_image",this).text()+"\" width=\"20px\" height=\"20px\">"+$("member_id",this).text();
 	            	}
 	            	
 	            	let result = "<div class=\"card-body\"><ul class=\"list-group list-group-flush\">"+

@@ -334,7 +334,7 @@ margin: 100px;
            <legend><span class="number">1</span>회원프로필사진</legend>
              <label for="image"></label>
   
-             <img src="<%=request.getContextPath()%>/image/${dto.getMember_image()}" width="150" height="200" > 
+             <img src="<%=request.getContextPath()%>/image/profileupload/${dto.getMember_image()}" width="150" height="200" > 
              	
     			<div id="image_container"></div>
           </fieldset>

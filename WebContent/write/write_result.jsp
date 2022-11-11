@@ -80,7 +80,7 @@
 					<td> ${dto.getWrite_title() } </td>
 					<td class="date"> ${dto.getWrite_date().substring(0, 16) } </td>
 					<td class="del" onclick="event.cancelBubble=true;">
-						<a href="<%=request.getContextPath() %>/write_delete.do?num=${dto.getWrite_num() }" onclick="return confirm('정말 삭제 하시겠습니까 ?')" style="text-decoration: none; color:red;">삭제</a>
+						<a href="<%=request.getContextPath() %>/write_delete.do?num=${dto.getWrite_num() }&id=${session_id}" onclick="return confirm('정말 삭제 하시겠습니까 ?')" style="text-decoration: none; color:red;">삭제</a>
 					</td>
 					<td class="now">
 					
@@ -136,7 +136,7 @@
 					<td> ${rdto.getW_cont() } </td>	
 					<td class="date"> ${rdto.getW_date() } </td>
 					<td class="del" onclick="event.cancelBubble=true;">
-						<a href="<%=request.getContextPath() %>/w_write_delete.do?num=${rdto.getW_num() }" onclick="return confirm('정말 삭제 하시겠습니까 ?')" style="text-decoration: none; color:red;">삭제</a>
+						<a href="<%=request.getContextPath() %>/w_write_delete.do?num=${rdto.getW_num() }&id=${session_id}" onclick="return confirm('정말 삭제 하시겠습니까 ?')" style="text-decoration: none; color:red;">삭제</a>
 					</td>
 					<td class="now">
 						<%-- 게시글 번호랑 가지고 있는 게시글 번호랑 같고, 내용이 있을때 나와라. --%>

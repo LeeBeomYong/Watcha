@@ -834,8 +834,9 @@ public class FreeWriteDAO {
 
 
 	public void updateWriteToAdmin(int freeNum) {
-		sql="update free_write set free_cont = ? where freeNum = ?";
+		sql="update free_write set free_cont = ? where free_Num = ?";
 		try {
+			openConn();
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, "관리자가 블라인드 처리한 댓글입니다.");
 			pstmt.setInt(2, freeNum);

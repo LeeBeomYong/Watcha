@@ -190,7 +190,7 @@
 					<img alt="프로필" src="${pageContext.request.contextPath }/image/profileupload/${dto.getMember_image()}" width="70px" height="70px">
 				</c:if>
 				<c:if test="${empty dto.getMember_image() }">
-					<img alt="프로필" src="${pageContext.request.contextPath }/image/profileupload/프로필_로고.png" width="70px" height="70px">
+					<img alt="프로필" src="${pageContext.request.contextPath }/image/profileupload/프로필로고.png" width="70px" height="70px">
 				</c:if>
 			</div>
 			<div class="middle">

@@ -554,15 +554,25 @@ $(function() {
 								<li class="flex_li">
 										<c:forEach items="${clist}" var="coment" begin="0" end="2">
 		                     				 <div id="coment_on">
+		                     				<a href="<%=request.getContextPath()%>/otherprofile.do?member_id=${coment.getMember_id()}"> 
 		                     				 <div class="coment_top">
 		                                          <div>
-		                                             <img alt="" width="40px" height="40px" id="idImg" src="${pageContext.request.contextPath }/image/contImg/defualtImg.png">
+		                                          <c:choose>
+		                                          	<c:when test="${!empty coment.getUser_img() }">
+		                                          	<img alt="" width="25px" height="25px" id="idImg" src="${pageContext.request.contextPath }/image/${coment.getUser_img()}">
+		                                          	</c:when>
+		                                          	<c:otherwise>
+		                                          		<img alt="" width="25px" height="25px" id="idImg" src="${pageContext.request.contextPath }/image/contImg/defualtImg.png">
+		                                          	</c:otherwise>
+		                                          </c:choose>
+		                                             
 		                                             <span>${coment.getMember_id() }</span>
 		                                          </div>
 		                                          <div>
 		                                            	<span>★ ${coment.getMember_star() }</span>
 		                                          </div>
 		                                       </div>
+		                                    </a>
 		                                       <hr>
 		                                       <%--게시글 중단 --%>
 		                                       <a href="<%=request.getContextPath()%>/wacha_coment.do?coment_num=${coment.getComent_num() }&movie_num=${coment.getMovie_num()}&session_id=${coment.getMember_id()}">
@@ -590,15 +600,25 @@ $(function() {
 											<c:forEach items="${clist}" var="coment" begin="${i.count*3}" end="${((fn:length(clist) /3)*i.count)+3}">
 			                     			 	
 			                     				 <div id="coment_on">
-			                     				 <div class="coment_top">
-			                                          <div>
-			                                             <img alt="" width="40px" height="40px" id="idImg" src="${pageContext.request.contextPath }/image/contImg/defualtImg.png">
-			                                             <span>${coment.getMember_id() }</span>
-			                                          </div>
-			                                          <div>
-			                                            	<span>★ ${coment.getMember_star() }</span>
-			                                          </div>
-			                                       </div>
+			                     				 <a href="<%=request.getContextPath()%>/otherprofile.do?member_id=${coment.getMember_id()}"> 
+				                     				 <div class="coment_top">
+				                                          <div>
+				                                          <c:choose>
+				                                          	<c:when test="${!empty coment.getUser_img() }">
+				                                          	<img alt="" width="25px" height="25px" id="idImg" src="${pageContext.request.contextPath }/image/${coment.getUser_img()}">
+				                                          	</c:when>
+				                                          	<c:otherwise>
+				                                          		<img alt="" width="25px" height="25px" id="idImg" src="${pageContext.request.contextPath }/image/contImg/defualtImg.png">
+				                                          	</c:otherwise>
+				                                          </c:choose>
+				                                             
+				                                             <span>${coment.getMember_id() }</span>
+				                                          </div>
+				                                          <div>
+				                                            	<span>★ ${coment.getMember_star() }</span>
+				                                          </div>
+				                                       </div>
+				                                   </a>
 			                                       <hr>
 			                                       <%--게시글 중단 --%>
 			                                       <a href="<%=request.getContextPath()%>/wacha_coment.do?coment_num=${coment.getComent_num() }&movie_num=${coment.getMovie_num()}&session_id=${coment.getMember_id()}">

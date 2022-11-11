@@ -125,6 +125,14 @@ public class ComentDAO {
 						dto.setCocoment_count(rs2.getInt(1));
 					}
 					
+					sql="select member_image from member where member_id = ?";
+					pstmt2=con.prepareStatement(sql);
+					pstmt2.setString(1, dto.getMember_id());
+					rs2=pstmt2.executeQuery();
+					if(rs2.next()) {
+						dto.setUser_img(rs2.getString(1));
+					}
+					
 					sql="select movie_star from star where movie_num=? and member_id=?";
 					pstmt3=con.prepareStatement(sql);
 					pstmt3.setInt(1, movie_num);
@@ -132,6 +140,7 @@ public class ComentDAO {
 					rs3=pstmt3.executeQuery();
 					if(rs3.next()) {
 						dto.setMember_star(rs3.getInt(1));
+						
 					}
 					
 				

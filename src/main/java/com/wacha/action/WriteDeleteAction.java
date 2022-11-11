@@ -33,7 +33,7 @@ public class WriteDeleteAction implements Action {
 		
 		if(res > 0) {
 			forward.setRedirect(true);
-			forward.setPath("write_result.do");			
+            forward.setPath("write_result.do?id="+id);		
 		}else {
 			out.println("<script>");
 			out.println("alert('실패')");

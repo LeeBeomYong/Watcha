@@ -33,7 +33,7 @@
 		color : black;
 		text-decoration: none !important;
 	}
-	img{
+	.rimg{
 		border-radius: 50%;
 		margin: 0 !important;
 	}
@@ -64,11 +64,11 @@
 							<a href="#">
 							<div class="comentTopDiv">
 								<div>
-									<img alt="없" src="${pageContext.request.contextPath}/image/contImg/defualtImg.png" width="30px" height="30px" >
+									<img class = "rimg" alt="없" src="${pageContext.request.contextPath}/image/contImg/defualtImg.png" width="30px" height="30px" >
 									<span>${dto.getMember_id() }</span>
 								</div>
 								<div>
-									<img alt="없" src="${pageContext.request.contextPath}/image/contImg/star.png" width="20px" height="20px">
+									<img class = "rimg" alt="없" src="${pageContext.request.contextPath}/image/contImg/star.png" width="20px" height="20px">
 									<span>${dto.getMember_star()}점</span>
 								</div>
 							</div>

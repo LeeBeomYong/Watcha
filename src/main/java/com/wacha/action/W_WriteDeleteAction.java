@@ -17,28 +17,29 @@ public class W_WriteDeleteAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// 
 		WriteDAO dao = WriteDAO.getInstance();
-		
-		int w_num = Integer.parseInt(request.getParameter("num").trim());
-		
-		W_WriteDTO dto = dao.w_writeContent(w_num);
-		
-		ActionForward forward = new ActionForward();
-		
-		PrintWriter out = response.getWriter();
-		
-		int res = dao.w_writeDelete(w_num);
-		
-		if(res > 0) {
-			forward.setRedirect(true);
-			forward.setPath("write_result.do");
-		}else {
-			out.println("<script>");
-			out.println("alert('실패')");
-			out.println("history.back()");
-			out.println("</script>");
-		}
-		
-		return forward;
+
+        int w_num = Integer.parseInt(request.getParameter("num").trim());
+        String id = request.getParameter("id").trim();
+
+        W_WriteDTO dto = dao.w_writeContent(w_num);
+
+        ActionForward forward = new ActionForward();
+
+        PrintWriter out = response.getWriter();
+
+        int res = dao.w_writeDelete(w_num);
+
+        if(res > 0) {
+            forward.setRedirect(true);
+            forward.setPath("write_result.do?id="+id);
+        }else {
+            out.println("<script>");
+            out.println("alert('실패')");
+            out.println("history.back()");
+            out.println("</script>");
+        }
+
+        return forward;
 		
 		
 		

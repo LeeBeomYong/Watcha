@@ -472,7 +472,7 @@ $(function() {
 					<ul>
 					<a href="<%=request.getContextPath()%>/wacha_director_list.do?director=${mDto.getMovie_director()}" >
 						<li class="director_actor">
-							<img alt="없" width="40px" height="40px" id="direcImg" src="${pageContext.request.contextPath}/image/${img_dto.getDirector_image().trim()}">
+							<img alt="없" width="40px" height="40px" id="direcImg" src="<%=request.getContextPath()%>/image/${img_dto.getDirector_image()}">
 							<div>
 								<span>${mDto.getMovie_director()}<br>감독</span>
 								
@@ -558,12 +558,12 @@ $(function() {
 		                     				 <div class="coment_top">
 		                                          <div>
 		                                          <c:choose>
-		                                          	<c:when test="${!empty coment.getUser_img() }">
-		                                          	<img alt="" width="25px" height="25px" id="idImg" src="${pageContext.request.contextPath }/image/${coment.getUser_img()}">
+		                                          	<c:when test="${coment.getUserimg() != '프로필로고.jpg' }">
+		                                          	<img alt="" width="25px" height="25px" id="idImg" src="${pageContext.request.contextPath }/image/profileupload/${coment.getUser_img()}">
 		                                          	</c:when>
 		                                          	<c:otherwise>
-		                                          		<img alt="" width="25px" height="25px" id="idImg" src="${pageContext.request.contextPath }/image/contImg/defualtImg.png">
-		                                          	</c:otherwise>
+                                                         <img alt="" width="25px" height="25px" id="idImg" src="${pageContext.request.contextPath }/image/프로필_로고.jpg">
+                                                    </c:otherwise>
 		                                          </c:choose>
 		                                             
 		                                             <span>${coment.getMember_id() }</span>
@@ -604,12 +604,12 @@ $(function() {
 				                     				 <div class="coment_top">
 				                                          <div>
 				                                          <c:choose>
-				                                          	<c:when test="${!empty coment.getUser_img() }">
-				                                          	<img alt="" width="25px" height="25px" id="idImg" src="${pageContext.request.contextPath }/image/${coment.getUser_img()}">
+				                                          	<c:when test="${coment.getUserimg() != '프로필로고.jpg' }">
+				                                          	<img alt="" width="25px" height="25px" id="idImg" src="${pageContext.request.contextPath }/image/profileupload/${coment.getUser_img()}">
 				                                          	</c:when>
 				                                          	<c:otherwise>
-				                                          		<img alt="" width="25px" height="25px" id="idImg" src="${pageContext.request.contextPath }/image/contImg/defualtImg.png">
-				                                          	</c:otherwise>
+		                                                         <img alt="" width="25px" height="25px" id="idImg" src="${pageContext.request.contextPath }/image/프로필_로고.jpg">
+		                                                    </c:otherwise>
 				                                          </c:choose>
 				                                             
 				                                             <span>${coment.getMember_id() }</span>
@@ -617,7 +617,7 @@ $(function() {
 				                                          <div>
 				                                            	<span>★ ${coment.getMember_star() }</span>
 				                                          </div>
-				                                       </div>
+		                                       		</div>
 				                                   </a>
 			                                       <hr>
 			                                       <%--게시글 중단 --%>
@@ -669,10 +669,10 @@ $(function() {
 						<li class="same_movie_list">
 							<a title="" href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${same.getMovie_num() }">
 								<c:if test="${!empty same.getMovie_imgloc() }">
-									<div><img alt="없음" src="${same.getMovie_imgloc()}" width="130px" height="100px"></div>
+									<div><img alt="없음" src="<%=request.getContextPath()%>/image/${same.getMovie_imgloc()}" width="130px" height="100px"></div>
 								</c:if>
 								<c:if test="${empty same.getMovie_imgloc() }">
-									<div><img alt="없음" src="${pageContext.request.contextPath }/image/null.png" width="130px" height="100px"></div>
+									<div><img alt="없음" src="<%=request.getContextPath()%>/image/${pageContext.request.contextPath }/image/null.png" width="130px" height="100px"></div>
 								</c:if>
 								
 								<div>
@@ -707,8 +707,8 @@ $(function() {
               <%-- 동영상 하단 div --%>
            <div id="cd_youCont">
               <div class="cd_youCont_div">
-                 <h5>80일간의 세계 일주</h5>
-                 <span>150년 후에도 모험은 계속된다!</span>
+                 <h5>괜찮은멘트</h5>
+                 <span>궁금하면?</span>
                  <div>
                     <img alt="없" src="${pageContext.request.contextPath }/image/contImg/wachaimg.png" width="20px" height="20px">
                     <span>왓챠 익스클루시브</span>

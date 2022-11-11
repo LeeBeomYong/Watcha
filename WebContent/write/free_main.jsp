@@ -369,40 +369,40 @@
 		</c:if>		  
 	 </table>
 	<br>
-	<%--	=====================================================================================================--%>
-		<%-- 페이징 처리 영역 --%>
-		
-		<nav>
-		  <ul class="pagination justify-content-center">
-		    <li class="page-item">
-		      <a id="link" class="page-link" href="inquiry_main.do?page=1">◀</a>
-		    </li>
+	<%--    =====================================================================================================--%>
+        <%-- 페이징 처리 영역 --%>
 
-		    <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
-				<c:if test="${i == page }">
-					<li class="page-item active" aria-current="page"><a id="link" class="page-link" href="inquiry_main.do?page=${i }">${i }</a></li>
-				</c:if>
-			
-				<c:if test="${i != page }">
-					<li class="page-item"><a id="link" class="page-link" href="inquiry_main.do?page=${i }">${i }</a></li>
-				</c:if>
-			</c:forEach>
-			
-			<c:if test="${endBlock < allPage }">
-				<li class="page-item">
-					<a id="link" class="page-link" href="inquiry_main.do?page=${endBlock + 1 }">Next</a>
-				</li>
-				<li class="page-item">
-					<a id="link"class="page-link" href="inquiry_main.do?page=${allPage }">End</a>
-				</li>
-			</c:if>
-			  <li  class="page-item">
-		      <a id="link" class="page-link" href="inquiry_main.do?page=${endBlock }">▶</a>
-		    </li>
-		  </ul>
-		</nav>
-	  </div>		
-	<%--	===================================================================================================== --%> 
+        <nav>
+          <ul class="pagination justify-content-center">
+            <li class="page-item">
+              <a id="link" class="page-link" href="free_main.do?page=1">◀</a>
+            </li>
+
+            <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
+                <c:if test="${i == page }">
+                    <li class="page-item active" aria-current="page"><a id="link" class="page-link" href="free_main.do?page=${i }">${i }</a></li>
+                </c:if>
+
+                <c:if test="${i != page }">
+                    <li class="page-item"><a id="link" class="page-link" href="free_main.do?page=${i }">${i }</a></li>
+                </c:if>
+            </c:forEach>
+
+            <c:if test="${endBlock < allPage }">
+                <li class="page-item">
+                    <a id="link" class="page-link" href="free_main.do?page=${endBlock + 1 }">Next</a>
+                </li>
+                <li class="page-item">
+                    <a id="link"class="page-link" href="free_main.do?page=${allPage }">End</a>
+                </li>
+            </c:if>
+              <li  class="page-item">
+              <a id="link" class="page-link" href="free_main.do?page=${endBlock }">▶</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    <%--    ===================================================================================================== --%>
 
 	</div>
 	<br>

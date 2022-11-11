@@ -21,7 +21,7 @@ public class FreeModifyOkAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	
 		// 첨부파일이 저장될 위치(경로) 설정.
-		String saveFolder = "C:\\NCS\\workspace(jsp)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\WatchaProject\\free_write_file";
+		String saveFolder = "C:\\Users\\by\\Desktop\\이범용_개발\\eclipse_pj\\eclipse-workspace(jsp)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\WatchaProject\\free_write_file";
 
 		int fileSize = 10 * 1024 * 1024;
 		

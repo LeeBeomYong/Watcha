@@ -44,7 +44,7 @@ public class AdminMemberContent implements Action {
 		
 		List<ContentDTO> coment= dao.userContentComentList(member_id );
 		  
-		List<WriteDTO> write = dao2.userContentWrite(member_id);
+		WriteDTO write = dao2.userContentWrite(member_id);
 		
 		
 		request.setAttribute("num_son", num_son);

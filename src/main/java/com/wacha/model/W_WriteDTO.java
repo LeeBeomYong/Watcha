@@ -9,7 +9,6 @@ public class W_WriteDTO {
 	private String w_date;
 	private String w_reply;
 	
-	
 	public String getW_reply() {
 		return w_reply;
 	}

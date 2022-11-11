@@ -1,4 +1,4 @@
-<%@page import="com.wacha.model.StarDTO"%>
+s<%@page import="com.wacha.model.StarDTO"%>
 <%@page import="com.wacha.model.StarDAO"%>
 <%@page import="com.wacha.model.MovieDTO"%>
 <%@page import="com.wacha.model.MovieDAO"%>

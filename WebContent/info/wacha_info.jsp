@@ -7,6 +7,7 @@
 <title>왓챠피디아 소개 페이지</title>
 <script type="text/javascript">
 
+
 	onload = function(){
 		
 		let button1 = document.getElementById("btn1");
@@ -45,8 +46,7 @@
 	}
 
 	#container{
-		width: 100%;
-		margin-left: 15%;
+		margin-left: 30%;
 	}
 
 	
@@ -63,7 +63,7 @@
 	}
 	
 	#boo{
-		margin-left: 15%;
+		margin-left: 20%;
 	}
 	
 </style>
@@ -88,7 +88,7 @@
 			왓챠피디아는 6억개 이상의 평가 데이터에 기반한 영화, 드라마, 도서, 웹툰 추천 서비스입니다.
 		</p>
 		<br>
-		<hr width="43%" color="#000">
+		<hr width="60%">
 		
 		<h5>🎬 영화, 드라마, 책 그리고 웹툰 까지</h5>
 		<p>
@@ -111,7 +111,7 @@
 		
 		<br>
 		
-		<hr width="43%" color="#000">
+		<hr width="60%">
 		
 		<br>
 		
@@ -125,7 +125,7 @@
 		
 		<br>
 		<br>
-		<hr width="43%" color="#000">
+		<hr width="60%">
 		
 	</div>
 		<br>

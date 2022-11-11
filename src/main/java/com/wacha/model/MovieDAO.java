@@ -16,7 +16,6 @@ import javax.sql.DataSource;
 
 public class MovieDAO {
 	
-
 	// DB와 연동하는 객체.
 		Connection con = null;
 		
@@ -135,15 +134,25 @@ public class MovieDAO {
 			return dto;
 		}
 		//
-		public List<MovieDTO>getmovieList(){
+		public List<MovieDTO>getmovieList(int page,int rowsize){
+			
 			List<MovieDTO>list= new ArrayList<MovieDTO>();
+			
+			int startNo = (page*rowsize)-(rowsize-1);
+			
+			//해당페이지 끝 번호
+			int endNo=(page*rowsize);
 			
 			try {
 				openConn();
 				
-				sql="select * from movie order by movie_num desc";
+				sql="select * from(select row_number() over(order by movie_num) rnum,b.*from movie b) where movie_num>=? and movie_num<=?";
 				
 				pstmt=con.prepareStatement(sql);
+				
+				pstmt.setInt(1, startNo);
+				
+				pstmt.setInt(2, endNo);
 				
 				rs=pstmt.executeQuery();
 				
@@ -188,7 +197,7 @@ public class MovieDAO {
 		
 		}//end
 		
-		public int insertMovie(MovieDTO dto,ImageDTO dto1) {
+		public int insertMovie(MovieDTO dto) {
 			int result=0,count=0;
 		
 			
@@ -234,19 +243,21 @@ public class MovieDAO {
 				
 				result=pstmt.executeUpdate();
 				
-				sql="insert into image values(?,?,?,?)";
-				
-				pstmt=con.prepareStatement(sql);
-				
-				pstmt.setInt(1, count);
-				
-				pstmt.setString(2,dto1.getImage_loc());
-				
-				pstmt.setString(3, dto1.getImage_temp());
-				
-				pstmt.setString(4, dto1.getDirector_image());
-				
-				result=pstmt.executeUpdate();                               
+				/*
+				 * sql="insert into image values(?,?,?,?)";
+				 * 
+				 * pstmt=con.prepareStatement(sql);
+				 * 
+				 * pstmt.setInt(1, count);
+				 * 
+				 * pstmt.setString(2,dto1.getImage_loc());
+				 * 
+				 * pstmt.setString(3, dto1.getImage_temp());
+				 * 
+				 * pstmt.setString(4, dto1.getDirector_image());
+				 * 
+				 * result=pstmt.executeUpdate();
+				 */                           
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -294,6 +305,7 @@ public class MovieDAO {
 					
 					dto.setMovie_video(rs.getString("movie_video"));
 					
+					
 				}
 				
 			} catch (SQLException e) {
@@ -311,27 +323,29 @@ public class MovieDAO {
 			try {
 				openConn();
 				
-				sql="update movie set movie_video=?, movie_title=?, movie_cont=?, movie_time=?, movie_date=?, movie_age=?, movie_genre=?, movie_director=?, movie_country=? where movie_num=?";
+				sql="update movie set movie_title=?, movie_cont=?, movie_time=?, movie_date=?, movie_age=?, movie_genre=?, movie_director=?, movie_country=?,movie_video=? where movie_num=?";
 				
 				pstmt=con.prepareStatement(sql);
 				
-				pstmt.setString(1, dto.getMovie_video());
 				
-				pstmt.setString(2, dto.getMovie_title());
 				
-				pstmt.setString(3, dto.getMovie_cont());
+				pstmt.setString(1, dto.getMovie_title());
 				
-				pstmt.setString(4, dto.getMovie_time());
+				pstmt.setString(2, dto.getMovie_cont());
 				
-				pstmt.setString(5, dto.getMovie_date());
+				pstmt.setString(3, dto.getMovie_time());
 				
-				pstmt.setString(6, dto.getMovie_age());
+				pstmt.setString(4, dto.getMovie_date());
 				
-				pstmt.setString(7, dto.getMovie_genre());
+				pstmt.setString(5, dto.getMovie_age());
 				
-				pstmt.setString(8, dto.getMovie_director());
+				pstmt.setString(6, dto.getMovie_genre());
 				
-				pstmt.setString(9, dto.getMovie_country());
+				pstmt.setString(7, dto.getMovie_director());
+				
+				pstmt.setString(8, dto.getMovie_country());
+				
+				pstmt.setString(9, dto.getMovie_video());
 				
 				pstmt.setInt(10, dto.getMovie_num());
 				
@@ -517,7 +531,7 @@ public class MovieDAO {
 			return list;
 		}	// getMovieKeywordList() end
 		
-		
+
 
 		// 키워드 : 영화 제목,감독 검색 메서드
 				public List<MovieDTO> getDirectorKeywordList(String keyword) {
@@ -1298,7 +1312,7 @@ public class MovieDAO {
 					pstmt2.setInt(1, dto.getMovie_num());
 					rs2=pstmt2.executeQuery();
 					if(rs2.next()) {
-						dto.setMovie_avgstar(rs.getDouble(1));
+						dto.setMovie_avgstar(rs2.getDouble(1));
 					}
 					
 					list.add(dto);
@@ -1342,6 +1356,29 @@ public class MovieDAO {
 				closeConn(rs, pstmt, con);
 			}return result;
 		}
+		public int getMovieCount() {
+			int count=0;
 		
+			try {
+				
+				openConn();
+				
+				sql="select count(*) from movie";
+				
+				pstmt=con.prepareStatement(sql);
+				
+				rs=pstmt.executeQuery();
+				
+				if(rs.next()) {
+					count=rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				closeConn(rs, pstmt, con);
+			}return count;			
+			
+		}
 }
 

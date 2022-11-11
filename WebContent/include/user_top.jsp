@@ -924,6 +924,7 @@
 	    		<li class="s_id"><img class="s_img" src="${pageContext.request.contextPath }/image/profileupload/${session_img }" alt="프로필" /></li>
 
 	    		<li class="s_id"><a href="<%=request.getContextPath()%>/member_page.do?member_id=${session_id }">${session_name }</a></li>
+
 	    	</ul>
 	    		
 	    </c:if>

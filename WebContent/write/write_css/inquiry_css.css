@@ -82,18 +82,21 @@
 	}
 	
 /* --------1:1 작성 문의 부분 ----------------------------------------*/	
-	
-	/* 1:1 작성 양식에서 등록 비행기 버튼 */
-	#img_a{
-		width: 30px;
-		height: 30px;
-		margin-left: 10px;
-	}
 
-	/* 1:1 작성 양식에서 등록 span 태그 */
-	#img_text{
-		font-size: 20px;
-		margin-left: 340px;
+	/* 1:1 작성 양식에서 등록 submit 버튼 */
+	#img_a{
+		border: none;
+		font-size: 18px;
+		color: #000;
+		background-color: #ECECEC;
+		width: 55px;
+		height: 30px;
+		margin-left: 35%;
+		border-radius: 5px;
+	}
+	
+	#img_a:hover{
+		background-color: #c3c3c3;
 	}
 	
 	/* 전체 목록 클릭 버튼 a태그 */
@@ -174,6 +177,8 @@
 	  background-color: #fafafa; 
 	  border-color: #ccc;
 	}
+	
+	
 	
 	
 /*------------------------------------------------------- */

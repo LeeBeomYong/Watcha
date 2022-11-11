@@ -15,6 +15,8 @@ import com.wacha.controller.ActionForward;
 import com.wacha.model.W_WriteDTO;
 import com.wacha.model.WriteDAO;
 
+
+
 public class W_WriteUploadAction implements Action {
 
 	@Override
@@ -78,7 +80,6 @@ public class W_WriteUploadAction implements Action {
 		dto.setW_id(w_id);
 		dto.setW_cont(w_cont);
 		
-		
 		WriteDAO dao = WriteDAO.getInstance();
 		
 		int res = dao.insertW_Write(dto);
@@ -101,6 +102,8 @@ public class W_WriteUploadAction implements Action {
 		}
 		
 		return forward;
+		
+		
 	}
 
 }

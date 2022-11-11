@@ -1117,6 +1117,31 @@ public class StarDAO {
 					closeConn(rs, pstmt, con);
 				}
 			}
+
+			public int avgStarRank(int movie_num) {
+				int rank=0;
+				openConn();
+				sql="select movie_num,avg(movie_star), rank() over (order by avg(movie_star) desc) "
+						+ "from star "
+						+ "group by movie_num";
+				try {
+					pstmt=con.prepareStatement(sql);
+					rs=pstmt.executeQuery();
+					while(rs.next()) {
+						if(rs.getInt(1) == movie_num) {
+							rank=rs.getInt(3);
+							break;
+						}
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					closeConn(rs, pstmt, con);
+				}
+				return rank;
+			}
+
 			
 		// 장르 - 코멘트TOp10
 		public List<StarDTO> selectGenre_com(String genre) {
@@ -1549,6 +1574,7 @@ public class StarDAO {
 					}
 					return list;
 				}
+        
 				// 평가 개수 구하기		
 				public int countStars() {
 					
@@ -1573,6 +1599,28 @@ public class StarDAO {
 					}
 					return count;			
 				}
+
+
+				public int gestarcount() {
+					int count=0;
+					sql="select count(movie_star) from star";
+					openConn();
+					try {
+						pstmt=con.prepareStatement(sql);
+						rs=pstmt.executeQuery();
+						
+						if(rs.next()) {
+							count =rs.getInt(1);
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}finally {
+						closeConn(rs, pstmt, con);
+					}
+					return count;
+				}
+
 		
 }
 

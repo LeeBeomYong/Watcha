@@ -11,8 +11,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/content/contcss/contcss.css" type="text/css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>간단한 지도 표시하기</title>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=kx5rx5kj11"></script>
 <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <script type="text/javascript" defer="defer">
+
 
 $(function() {
 	let count=0;
@@ -149,7 +154,7 @@ $(function() {
 
 				}
 			}else{
-				alert("로그인 부터 ㅠㅠ");
+				alert("로그인 후 이용해 주시기 바랍니다.");
 				if(star_chk==0){
 					$("label").css({"text-shadow":"0 0 0 #f0f0f0" , "color":"transparent"});
 					$("label").hover(function(){
@@ -204,7 +209,7 @@ $(function() {
 					}				
 			});
 			}else{
-				alert("로그인 부터 ㅠㅠ");
+				alert("로그인 후 이용해 주시기 바랍니다.");
 			}
 			
 		});
@@ -258,7 +263,7 @@ $(function() {
 			}
 				
 			}else{
-				alert("로그인 부터 ㅠㅠ");
+				alert(" 로그인 후 이용해 주시기 바랍니다.");
 			}
 			
 		});	
@@ -271,7 +276,7 @@ $(function() {
 				$(".modal_body2").css("display","block");
 		    	$(".modal2").css("display","block");
 			}else{
-				alert("로그인 부터 ㅠㅠ");
+				alert("로그인 후 이용해 주시기 바랍니다.");
 			}
 	    	
 	    });
@@ -280,31 +285,12 @@ $(function() {
 	    	$(".modal_body2").css("display","none");
 	    	$(".modal2").css("display","none");
 	    });
+		
+		
+		
 
 	}); // 제이쿼리 end 부분
 	
-	function showPopUp() {
-		if('<%=session.getAttribute("memberId")%>' != ""){
-			 //창 크기 지정
-		    var width = 500;
-		    var height = 300;
-		
-		    //pc화면기준 가운데 정렬
-		    var left = (window.screen.width / 2) - (width/2);
-		    var top = (window.screen.height / 4);
-		
-		       //윈도우 속성 지정
-		    var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
-		
-		       //연결하고싶은url
-		    const url = "${pageContext.request.contextPath}/content/MyOpinion.jsp?movie_num=${mDto.getMovie_num()}&session_id=${sessionScope.session_id}";
-		       
-		    //등록된 url 및 window 속성 기준으로 팝업창을 연다.
-		    window.open(url, "hello popup", windowStatus);
-		}else{
-			alert("로그인 부터 ㅠㅠ");
-		}
-	}
 	
     $(document).mouseup(function (e){
 		if($(".modal2").has(e.target).length === 0) {
@@ -312,8 +298,13 @@ $(function() {
 	    	$(".modal2").css("display","none");
 		}
     });
+	
+	
+	
     
 
+    
+    // 네이버 지도
 
 </script>
 
@@ -332,16 +323,22 @@ $(function() {
 	<div id="topImg">
 			<div id="imgT">
 			<%-- 상단 예매 순위 / 개봉 날짜 / 평균 별점 --%>
-			<img id="imgT_img" alt="${images[0]}" src="">
+			<img id="imgT_img" alt="" src="${pageContext.request.contextPath}/image/${images[0].trim()}">
 			<div id="topShow">
 				<div id="topDiv_img">
-					<img alt="이미지 없음" src="${pageContext.request.contextPath }/image/contImg/black_adam_content_sub.jpg" width="150px">
+					<c:if test="${!empty img_dto.getImage_loc() }">
+						<img alt="없음" src="${pageContext.request.contextPath}/image/${img_dto.getImage_loc()}" width="150px">					
+										
+					</c:if>
+					<c:if test="${empty img_dto.getImage_loc() }">
+						<img alt="" src="${pageContext.request.contextPath}/image/null.png" width="150px">	
+					</c:if>
 				</div>
 			<div id="topDiv_cont">
 				<ul>
-					<li>예매 순위 1${rank}위</li>
-					<li>개봉 날짜 /10/17${movie_date.substring(0,10)}일</li>
-					<li>왓챠 평점 ${avgStar }점</li>
+					<li>순위 ${rank} 위 / </li>
+					<li>&nbsp; 개봉일 ${mDto.getMovie_date()} 일 / </li>
+					<li>&nbsp; 왓챠 평점 ${avgStar}점</li>
 				</ul>
 			</div>
 				
@@ -395,7 +392,7 @@ $(function() {
 								<span class="cont2_btn_span">보고 싶어요</span>
 							</div>
 						</button>
-						<button id="topDiv_cont2_btn2">
+						<button id="topDiv_cont2_btn2">  
 								<div class="cont3_btn btn-open-popup2">
 									<img alt="없음" src="${pageContext.request.contextPath }/image/contImg/pen.png" width="20px" height="20px" >
 									<span class="cont2_btn_span">코멘트</span>
@@ -449,7 +446,7 @@ $(function() {
 						 <span>${coment_dto.getMovie_coment()}</span>
 					</div>
 					<div>
-					 	<button  class="btn btn-danger" onclick="javascript:showPopUp()">수정</button>&nbsp;&nbsp;|&nbsp;&nbsp;
+					 	<button  class="btn btn-danger btn-open-popup2">수정</button>&nbsp;&nbsp;|&nbsp;&nbsp;
 					 	<button  class="btn btn-danger" onclick="location.href='<%=request.getContextPath()%>/wacha_coment_delete.do?movie_num=${coment_dto.getMovie_num()}&coment_num=${coment_dto.getComent_num() }'">삭제</button>
 					</div> 
 				</div>	
@@ -457,12 +454,12 @@ $(function() {
 		<div id="cd_data">
 			<div id="cd_cont1">
 				<h4>기본정보</h4>
-				<a href="<%=request.getContextPath()%>/wacha_contentInfo.do?movie_num=1${dto.movie_num}" class="moreCont">더보기</a>
+				<a href="<%=request.getContextPath()%>/wacha_contentInfo.do?movie_num=${mDto.getMovie_num()}" class="moreCont">더보기</a>
 			</div>
 			
 			<div id="cd_cont2">
 				<span>${mDto.getMovie_date() } ${mDto.getMovie_country() } ${mDto.getMovie_genre() }</span><br>
-				<span>${mDto.getMovie_time()} ${mDto.getMovie_age()}세</span><br>
+				<span>${mDto.getMovie_time()}&nbsp; 이용 가능 연령가 : ${mDto.getMovie_age()}</span><br>
 				<span>
 				${mDto.getMovie_cont() }
 				</span>
@@ -475,15 +472,14 @@ $(function() {
 					<ul>
 					<a href="<%=request.getContextPath()%>/wacha_director_list.do?director=${mDto.getMovie_director()}" >
 						<li class="director_actor">
-							<img alt="없" width="40px" height="40px" id="direcImg" src="${pageContext.request.contextPath }/image/contImg/black_adam_director.jpg">
+							<img alt="없" width="40px" height="40px" id="direcImg" src="${pageContext.request.contextPath}/image/${img_dto.getDirector_image().trim()}">
 							<div>
 								<span>${mDto.getMovie_director()}<br>감독</span>
 								
 							</div>
 						</li>
 					</a>
-						<c:choose>
-							
+						<c:choose>			
 							<c:when test="${!empty movie_director }">
 								<c:forEach items="${movie_director}" var="dir">
 									<li class="director_actor">
@@ -546,7 +542,7 @@ $(function() {
 			 			<h4>코멘트 <span>${coment_count }+</span></h4>
 			 		</div>
 			 		
-			 		<a href="<%=request.getContextPath()%>/wacha_comentList.do?movie_num=1" class="moreCont">더보기</a> 
+			 		<a href="<%=request.getContextPath()%>/wacha_comentList.do?movie_num=${mDto.getMovie_num()}" class="moreCont">더보기</a> 
 			 	</div>
 		<%-- 코멘트 리스트 영역 --%> 	
            <%--게시글 상단 --%>
@@ -591,13 +587,8 @@ $(function() {
 						    <div class="carousel-item">
 						      	<ul>
 									<li class="flex_li">
-										<c:if test="${(((i.count-1)/3)+3)*3 < fn:length(clist)/3}">
-											<c:set var="end" value="${fn:length(clist)/3 }"/>
-										</c:if>
-										<c:if test="${(((i.count-1)/3)+3)*3 > fn:length(clist)/3}">
-											<c:set var="end" value="${(((i.count-1)/3)+3)*3}"/>
-										</c:if>
-											<c:forEach items="${clist}" var="coment" begin="${(((i.count-1)/3)+1)*3}" end="${end}">
+											<c:forEach items="${clist}" var="coment" begin="${i.count*3}" end="${((fn:length(clist) /3)*i.count)+3}">
+			                     			 	
 			                     				 <div id="coment_on">
 			                     				 <div class="coment_top">
 			                                          <div>
@@ -624,8 +615,9 @@ $(function() {
 			                                          <img alt="" src="${pageContext.request.contextPath }/image/contImg/talk.png" width="15px" height="15px">&nbsp; <span>${coment.getCocoment_count()}</span>
 			                                       </div>
 			                     				</div>
+				                     				
 			                     			</c:forEach>
-									</li>
+			                     		</li>
 								</ul>
 						    </div>
 					    </c:forEach>
@@ -638,7 +630,6 @@ $(function() {
 					    <span class="visually-hidden">Next</span>
 					  </button>
 				</div>
-	               
              
            		 </div>
                 </div>
@@ -657,7 +648,13 @@ $(function() {
 					<c:forEach items="${same}" var="same" varStatus="status">
 						<li class="same_movie_list">
 							<a title="" href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${same.getMovie_num() }">
-								<div><img alt="없음" src="${same.getMovie_imgloc()}" width="130px" height="100px"></div>
+								<c:if test="${!empty same.getMovie_imgloc() }">
+									<div><img alt="없음" src="${same.getMovie_imgloc()}" width="130px" height="100px"></div>
+								</c:if>
+								<c:if test="${empty same.getMovie_imgloc() }">
+									<div><img alt="없음" src="${pageContext.request.contextPath }/image/null.png" width="130px" height="100px"></div>
+								</c:if>
+								
 								<div>
 									<div>${same.getMovie_title()}</div>
 									<div>평균 ★ ${same.getMovie_avgstar() }</div>
@@ -684,8 +681,8 @@ $(function() {
 	      <div id="cd_youtube">
          
          <%-- 동영상 재생 부분 --%>
-      <div id="cd_youFirst">
-          <iframe id="player" type="text/html" width="300" height="300" src="https://www.youtube.com/embed/9qQuoqpw7KA?autoplay=1&mute=1" frameborder="0"></iframe>
+      <div id="cd_youFirst"><%--  --%>
+          <iframe  id="player" type="text/html" width="300" height="300" src="${mDto.getMovie_video() }?autoplay=1&mute=1" frameborder="0" autoplay></iframe>
            
               <%-- 동영상 하단 div --%>
            <div id="cd_youCont">
@@ -713,10 +710,10 @@ $(function() {
                  <div id="carouselExampleControlsNoTouching" class="mh-100 carousel slide" data-bs-touch="false" data-bs-interval="false">
 					  <div class="carousel-inner align-middle">
 					    <div class="carousel-item active">
-					      <img class="d-block w-100 mh-100" alt="${images[1]}" src="">
+					      <img class="d-block w-100 mh-100" alt="" src="${pageContext.request.contextPath}/image/${images[1].trim()}">
 					    </div>
 					    <div class="carousel-item">
-					      <img alt="${images[2]}" src="">
+					      <img alt="" src="${pageContext.request.contextPath}/image/${images[2].trim()}">
 					    </div>
 					  </div>
 					  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
@@ -731,11 +728,203 @@ $(function() {
                    <br/>
               
               </div>
+              <div id="mapdiv">
+              	<div align="center" id="mapt"><b>주변 영화관 위치</b></div>
+              	<div id="map" style="width:300px;height:300px;"></div>
+              </div>
+ 
+              
+				<script>
+				
+				var MARKER_ICON_URL = './img/sp_pins_spot_v3.png';
+				var MARKER_HIGHLIGHT_ICON_URL = './img/sp_pins_spot_v3_over.png';
+				var COLORS = ['#45ABD9', '#6154B6', '#E43736', '#44AE3F', '#F6D200', '#344554'];
+
+				var MARKER_SPRITE_X_OFFSET = 29,
+				    MARKER_SPRITE_Y_OFFSET = 50,
+				    MARKER_SPRITE_POSITION = {
+/* 				        "A0": [0, 0],
+				        "B0": [MARKER_SPRITE_X_OFFSET, 0],
+				        "C0": [MARKER_SPRITE_X_OFFSET*2, 0],
+				        "D0": [MARKER_SPRITE_X_OFFSET*3, 0],
+				        "E0": [MARKER_SPRITE_X_OFFSET*4, 0],
+				        "F0": [MARKER_SPRITE_X_OFFSET*5, 0],
+				        "G0": [MARKER_SPRITE_X_OFFSET*6, 0],
+				        "H0": [MARKER_SPRITE_X_OFFSET*7, 0],
+				        "I0": [MARKER_SPRITE_X_OFFSET*8, 0],
+
+				        "A1": [0, MARKER_SPRITE_Y_OFFSET],
+				        "B1": [MARKER_SPRITE_X_OFFSET, MARKER_SPRITE_Y_OFFSET],
+				        "C1": [MARKER_SPRITE_X_OFFSET*2, MARKER_SPRITE_Y_OFFSET],
+				        "D1": [MARKER_SPRITE_X_OFFSET*3, MARKER_SPRITE_Y_OFFSET],
+				        "E1": [MARKER_SPRITE_X_OFFSET*4, MARKER_SPRITE_Y_OFFSET],
+				        "F1": [MARKER_SPRITE_X_OFFSET*5, MARKER_SPRITE_Y_OFFSET],
+				        "G1": [MARKER_SPRITE_X_OFFSET*6, MARKER_SPRITE_Y_OFFSET],
+				        "H1": [MARKER_SPRITE_X_OFFSET*7, MARKER_SPRITE_Y_OFFSET],
+				        "I1": [MARKER_SPRITE_X_OFFSET*8, MARKER_SPRITE_Y_OFFSET],
+
+				        "A2": [0, MARKER_SPRITE_Y_OFFSET*2],
+				        "B2": [MARKER_SPRITE_X_OFFSET, MARKER_SPRITE_Y_OFFSET*2],
+				        "C2": [MARKER_SPRITE_X_OFFSET*2, MARKER_SPRITE_Y_OFFSET*2],
+				        "D2": [MARKER_SPRITE_X_OFFSET*3, MARKER_SPRITE_Y_OFFSET*2],
+				        "E2": [MARKER_SPRITE_X_OFFSET*4, MARKER_SPRITE_Y_OFFSET*2],
+				        "F2": [MARKER_SPRITE_X_OFFSET*5, MARKER_SPRITE_Y_OFFSET*2],
+				        "G2": [MARKER_SPRITE_X_OFFSET*6, MARKER_SPRITE_Y_OFFSET*2],
+				        "H2": [MARKER_SPRITE_X_OFFSET*7, MARKER_SPRITE_Y_OFFSET*2],
+				        "I2": [MARKER_SPRITE_X_OFFSET*8, MARKER_SPRITE_Y_OFFSET*2] */
+				    };
+
+				// xml 파일 로딩.
+				let xhttp = new XMLHttpRequest();
+
+				xhttp.onreadystatechange = function () {
+					
+					if(this.readyState == 4 && this.status == 200){
+					 nodeValfunc( this ); // this == xhttp 
+					}
+				}
+				xhttp.open("GET", "content/경기도영화상영관현황.xml", true);
+				xhttp.send();
+
+				function nodeValfunc( xml ) { // ( xml ) 객체 넘겨받기
+					let name, x,y;
+					let txt, numtxt, xmlDoc;
+					
+					txt = numtxt = ''; // 빈 문자열로 초기화
+					
+					
+					
+					
+					xmlDoc = xml.responseXML; 
+					
+					name = xmlDoc.getElementsByTagName("BIZPLC_NM");
+					x = xmlDoc.getElementsByTagName("X_CRDNT_VL");
+					y = xmlDoc.getElementsByTagName("Y_CRDNT_VL");
+					
+					//document.getElementById("demo").innerHTML = txt + numtxt;
+					// 실행하면 번호와 이름이 p태그에 출력된다.
+					for(i=1; i < name.length; i++){
+						if(x[i].hasChildNodes() != false && y[i].hasChildNodes() != false ){
+							txt += name[i].childNodes[0].nodeValue + " / "+ x[i].childNodes[0].nodeValue + " / "+y[i].childNodes[0].nodeValue;
+							MARKER_SPRITE_POSITION["\""+name[i].childNodes[0].nodeValue+"\""] = [parseFloat(x[i].childNodes[0].nodeValue) , parseFloat(y[i].childNodes[0].nodeValue)];
+						}
+						
+						
+					}
+					console.log(MARKER_SPRITE_POSITION);
+					
+					
+
+					/* console.log(txt); */
+					
+					
+					var map = new naver.maps.Map('map', {
+					    center: new naver.maps.LatLng(37.3595704, 127.105399),
+					    zoom: 10
+					});
+					
+					var bounds = map.getBounds(),
+					    southWest = bounds.getSW(),
+					    northEast = bounds.getNE(),
+					    lngSpan = northEast.lng() - southWest.lng(),
+					    latSpan = northEast.lat() - southWest.lat();
+					
+					var markers = [], infoWindows = [];
+					
+					for (var key in MARKER_SPRITE_POSITION) {
+					
+					    var position = new naver.maps.LatLng(
+					        southWest.lat() + (latSpan * Math.random()),
+					        southWest.lng() + (lngSpan * Math.random())
+					    );
+					
+					    var marker = new naver.maps.Marker({
+					        map: map,
+					        position: position,
+					        title: key,
+					        icon: {
+					            url: MARKER_ICON_URL,
+					            size: new naver.maps.Size(24, 37),
+					            anchor: new naver.maps.Point(12, 37),
+					            origin: new naver.maps.Point(MARKER_SPRITE_POSITION[key][0], MARKER_SPRITE_POSITION[key][1])
+					        },
+					        zIndex: 100
+					        
+					        
+					    });
+					    
+					    var infoWindow = new naver.maps.InfoWindow({
+					        content: '<div style="width:150px;text-align:center;padding:10px;">The Letter is <b>"'+ key.substr(0, 1) +'"</b>.</div>'
+					    });
+
+					    markers.push(marker);
+					    infoWindows.push(infoWindow);
+					};
+					
+					naver.maps.Event.addListener(map, 'zoom_changed', function() {
+					    updateMarkers(map, markers);
+					
+					});
+					
+					naver.maps.Event.addListener(map, 'dragend', function() {
+					    updateMarkers(map, markers);
+					});
+					
+					function updateMarkers(map, markers) {
+					
+					    var mapBounds = map.getBounds();
+					    var marker, position;
+					
+					    for (var i = 0; i < markers.length; i++) {
+					
+					        marker = markers[i]
+					        position = marker.getPosition();
+					
+					        if (mapBounds.hasLatLng(position)) {
+					            showMarker(map, marker);
+					        } else {
+					            hideMarker(map, marker);
+					        }
+					    }
+					}
+					
+					function showMarker(map, marker) {
+					
+					    if (marker.setMap()) return;
+					    marker.setMap(map);
+					}
+					
+					function hideMarker(map, marker) {
+					
+					    if (!marker.setMap()) return;
+					    marker.setMap(null);
+					}
+					
+					// 해당 마커의 인덱스를 seq라는 클로저 변수로 저장하는 이벤트 핸들러를 반환합니다.
+					function getClickHandler(seq) {
+					    return function(e) {
+					        var marker = markers[seq],
+					            infoWindow = infoWindows[seq];
+
+					        if (infoWindow.getMap()) {
+					            infoWindow.close();
+					        } else {
+					            infoWindow.open(map, marker);
+					        }
+					    }
+					}
+				}
+				
+
+				</script>
+           
+           
+           	
+           
+           
            </div>
            
-      </div>
-      
-      </div>
+      	</div>
       
 	</div>
 					<!-- 코멘트 말록 영역 -->
@@ -746,14 +935,19 @@ $(function() {
 		        	<input type="hidden" value="${mDto.getMovie_num()}" name="movie_num">
 		        	<input type="hidden" value="${chk}" name="chk">
 		      		
-		      		<div id="modal_be">
-		      			<span>${mDto.getMovie_title()}</span>
+		      		<div id="watchadiv">
+		      			<img src="./image/watchapedia2.png" alt="왓챠피디아 로고" title="왓챠피디아" width="110" height="25" />
 		      			<button type="button" class="btn-close" aria-label="Close"></button>
 		      		</div>
-		      		<div id="modal_input" class="ratio ratio-1x1">
-		      			<textarea rows="10" cols="9" name="content">${coment_dto.getMovie_coment() }</textarea>
+		      		
+		      		<div id="modal_be">
+		      			<span>${mDto.getMovie_title()}</span>
+		      			
 		      		</div>
-		      		<div>
+		      		<div id="modal_input" class="ratio ratio-1x1">
+		      			<textarea rows="10" cols="9" id="contdiv2" name="content">${coment_dto.getMovie_coment() }</textarea>
+		      		</div>
+		      		<div id="div4">
 						<c:if test="${!empty coment_dto }">
 		      				<button type="submit" class="btn btn-danger">수정</button>
 						</c:if>
@@ -762,13 +956,14 @@ $(function() {
 						</c:if>
 		      		</div>
 		      		
-		      		<div>
-		      			<img src="./image/watchapedia2.png" alt="왓챠피디아 로고" title="왓챠피디아" width="250" height="50" />
-		      		</div>
 		      </form>
 		      </div>
 	   	</div>
+		
 	
+      
+      
+      </div>
 	<jsp:include page="../include/user_bottom.jsp"/>
 </body>
 </html>

@@ -56,8 +56,6 @@ public class FreeSearchAction implements Action {
 		// 해당 페이지에서 끝 블럭
 		int endBlock = (((page - 1) / block) * block) + block;
 		
-		
-	
 		FreeWriteDAO dao = FreeWriteDAO.getInstance();
 		
 		// DB상의 검색 게시물의 수를 확인하는 메서드 호출.
@@ -95,6 +93,8 @@ public class FreeSearchAction implements Action {
 		forward.setPath("write/free_main.jsp");
 		
 		return forward;
+		
+		
 	}
 
 }

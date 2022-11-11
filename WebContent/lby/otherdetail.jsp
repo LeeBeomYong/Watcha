@@ -55,6 +55,7 @@
 		margin-right: 20px;
 	}
 	
+	
 	.img1:hover{
 		opacity: 50%;
 	}

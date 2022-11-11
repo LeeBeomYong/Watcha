@@ -12,6 +12,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 
+
 public class WriteDAO {
 
 	// DB와 연동하는 객체.
@@ -63,7 +64,7 @@ public class WriteDAO {
 				// 2단계 : lookup() 메서드를 이용하여 매칭되는
 				//        커넥션을 찾는다.
 				DataSource ds =
-					(DataSource)ctx.lookup("java:comp/env/jdbc/myoracle");
+					(DataSource)ctx.lookup("java:comp/env/jdbc/oracle");
 				
 				// 3단계 : DataSource 객체를 이용하여
 				//        커넥션을 하나 가져온다.
@@ -158,7 +159,6 @@ public class WriteDAO {
 				
 		}
 		
-	
 		
 		// write 테이블에서 전체 리스트 조회하는 메서드,
 		public List<WriteDTO> getWriteList(int page, int rowsize){
@@ -186,8 +186,8 @@ public class WriteDAO {
 					WriteDTO dto = new WriteDTO();
 					
 					dto.setWrite_num(rs.getInt("write_num"));
-					dto.setWrite_title(rs.getString("write_title"));
 					dto.setWrite_cont(rs.getString("write_cont"));
+					dto.setWrite_title(rs.getString("write_title"));
 					dto.setWrite_pwd(rs.getString("write_pwd"));
 					dto.setWrite_hit(rs.getInt("write_hit"));
 					dto.setWrite_date(rs.getString("write_date"));
@@ -345,8 +345,8 @@ public class WriteDAO {
 				pstmt = con.prepareStatement(sql);
 				
 				pstmt.setInt(1, count);
-				pstmt.setString(2, dto.getWrite_title());
-				pstmt.setString(3, dto.getWrite_cont());
+				pstmt.setString(2, dto.getWrite_cont());
+				pstmt.setString(3, dto.getWrite_title());
 				pstmt.setString(4, dto.getWrite_pwd());
 				pstmt.setString(5, dto.getWrite_radio());
 				pstmt.setString(6, dto.getMember_id());
@@ -477,8 +477,8 @@ public class WriteDAO {
 
 		//XD
 		
-		public List<WriteDTO> userContentWrite(String id) {
-			 List<WriteDTO>list=new ArrayList<WriteDTO>();
+		public WriteDTO userContentWrite(String id) {
+			WriteDTO dto = null;
 			
 			try {
 				openConn();
@@ -492,7 +492,7 @@ public class WriteDAO {
 				rs= pstmt.executeQuery();
 				
 				if(rs.next()) {
-					WriteDTO dto=new WriteDTO();
+					dto=new WriteDTO();
 					
 					dto.setWrite_num(rs.getInt("write_num"));
 					dto.setWrite_title(rs.getString("write_title"));
@@ -501,7 +501,6 @@ public class WriteDAO {
 					dto.setWrite_hit(rs.getInt("write_hit"));
 					dto.setWrite_date(rs.getString("write_date"));
 					dto.setMember_id(rs.getString("member_id"));
-					list.add(dto);
 				}
 				
 			} catch (SQLException e) {
@@ -509,8 +508,9 @@ public class WriteDAO {
 				e.printStackTrace();
 			}finally {
 				closeConn(rs, pstmt, con);
-			}return list;
+			}return dto;
 		}
+
 
 		// board 테이블의 전체 게시물의 수를 확인하는 메서드.
 		public int getWriteCount() {
@@ -591,7 +591,7 @@ public class WriteDAO {
 			}else if(field.equals("title_cont")) {
 					
 					try {
-						sql = "select count(*) from board where write_title like ? write_cont like ?";
+						sql = "select count(*) from write where write_title like ? write_cont like ?";
 						pstmt = con.prepareStatement(sql);
 						pstmt.setString(1, "%"+keyword+"%");
 						pstmt.setString(2, "%"+keyword+"%");
@@ -609,7 +609,7 @@ public class WriteDAO {
 			}else if(field.equals("writer")) {
 					
 					try {
-						sql = "select count(*) from board where write_writer like ?";
+						sql = "select count(*) from write where write_writer like ?";
 						pstmt = con.prepareStatement(sql);
 						pstmt.setString(1, "%"+keyword+"%");
 						rs = pstmt.executeQuery();
@@ -722,14 +722,14 @@ public class WriteDAO {
 				
 				try {
 					sql = "select * from (select row_number() over(order by write_num desc) rnum,"
-							+ " b.* from board b where write_title like ? or write_cont like ?) where rnum >= ? and rnum <= ?";				
+							+ " b.* from write b where write_title like ? or write_cont like ?) where rnum >= ? and rnum <= ?";				
 					
 					pstmt = con.prepareStatement(sql);
 					
 					pstmt.setString(1, "%"+keyword+"%");
 					pstmt.setString(2, "%"+keyword+"%");
-					pstmt.setInt(2, startNo);
-					pstmt.setInt(3, endNo);
+					pstmt.setInt(3, startNo);
+					pstmt.setInt(4, endNo);
 					
 					rs = pstmt.executeQuery();
 					
@@ -991,7 +991,9 @@ public class WriteDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}closeConn(rs, pstmt, con);		
+		}finally {
+			closeConn(rs, pstmt, con);
+		}	
 		
 	}
 	
@@ -1050,7 +1052,7 @@ public class WriteDAO {
 				dto = new ReplyDTO();
 				
 				dto.setReply_num(rs.getInt("reply_num"));
-				dto.setReply_cont(rs.getString("reply_cont"));
+				dto.setReply_cont(rs.getString("reply_cont").replace("\r\n","<br>"));
 				dto.setReply_date(rs.getString("reply_date"));
 				dto.setWrite_num(rs.getInt("write_num"));
 			}
@@ -1080,7 +1082,7 @@ public class WriteDAO {
 				dto = new W_ReplyDTO();
 				
 				dto.setR_num(rs.getInt("r_num"));
-				dto.setR_cont(rs.getString("r_cont"));
+				dto.setR_cont(rs.getString("r_cont").replace("\r\n","<br>"));
 				dto.setR_date(rs.getString("r_date"));
 				dto.setW_num(rs.getInt("w_num"));
 			}
@@ -1092,9 +1094,6 @@ public class WriteDAO {
 		}
 		return dto;
 	}
-	
-	
-	
 	
 	public int insertReply(ReplyDTO dto) {
 		
@@ -1172,6 +1171,8 @@ public class WriteDAO {
 		
 	}
 
+	
+	
 	
 	
 	

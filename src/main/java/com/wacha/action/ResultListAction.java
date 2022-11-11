@@ -36,6 +36,9 @@ public class ResultListAction implements Action {
 		forward.setPath("write/write_result.jsp");
 		
 		return forward;
+		
+		
+		
 	}
 
 }

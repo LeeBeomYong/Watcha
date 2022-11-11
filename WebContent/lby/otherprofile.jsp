@@ -32,7 +32,7 @@
 		height: 180px;
 	}
 	
-	.bottom {
+	.review {
 		width: 800px;
 		height: 200px;
 	}
@@ -106,7 +106,7 @@
 		border: 0;
 	}
 	
-	span {
+	#span1 {
 		font-size: 12px;
 		color : gray;
 	}
@@ -139,7 +139,7 @@
 				<div class="name">
 					<h4><strong>${dto.getMember_name() }</strong></h4>
 					<c:if test="${dto.getMember_image() == '프로필로고.png' }">
-					<h6><span style="color: red;">프로필이없음</span></h6>
+					<h6><span id="span1" style="color: red;">프로필이없음</span></h6>
 					</c:if>
 				</div>
 				<div class="taste" align="center">
@@ -148,9 +148,9 @@
 					
 				</div>
 			</div>
-			<div class="bottom">
+			<div class="review">
 				<div class="content">
-					<div align="center">
+					<div align="left" style="margin-left: 40px;">
 						<a href ="<%=request.getContextPath() %>/otherreview.do?member_id=<%=request.getParameter("member_id")%>">
 							<button id="btn3">
 								<p>영화</p>

@@ -1,4 +1,4 @@
-@charset "UTF-8";
+@charset "UTF-8";	
 
 	/* 자주하는 질문 */
 	.title-area {
@@ -81,4 +81,5 @@
 	#aa{
 		text-decoration: none;
 		color: #000;
+		
 }

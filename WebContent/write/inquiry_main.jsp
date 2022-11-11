@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+    
+    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -39,8 +41,25 @@
 	        }
 	    });
 	});
-
+	
+	$(function(){
+		
+		$("#exampleFormControlTextarea1").on('keydown keyup', function () {
+		  	$(this).height(1).height( $(this).prop('scrollHeight')+12 );	
+			});		
+	});	
 </script>
+<style type="text/css">
+
+	#con4{
+		border: 1px solid #c6c6c6;
+		width: 50%;
+		margin-left: 5px;
+		margin: 5px;
+		border-radius: 10px;
+	}
+	
+</style>
 </head>
 <body>
 	<%-- 상단 include 바 --%>
@@ -74,12 +93,14 @@
 				<option value="writer">작성자</option>
 			</select>
 				&nbsp;
-			<input class="form-control me-2" type="search" name="search_keyword" style="width: 500px; height: 35px;">
+			<input class="form-control me-2" type="search" name="search_keyword" style="width: 500px; height: 35px; margin: 0;">
 			<button id="btn2" class="btn btn-outline-success" type="submit">검색</button>
 			<a class="total" href="inquiry_main.do">전체목록</a>
 			
-			<%-- 문의 등록 폼 버튼 --%>
-			<button id="btn1" onclick="event.cancelBubble=true;"><a href="write_upload.do">문의등록</a></button>
+			<c:if test="${session_id ne null }">
+				<%-- 문의 등록 폼 버튼 --%>
+				<input type="button" id="btn1" value="문의등록" onclick="location.href='write_upload.do'">
+			</c:if>
 		</form>
 		</div>
 		
@@ -126,8 +147,10 @@
 					</c:if>
 					<%-- 게시물이 비공개인데 본인회원이랑 관리자가 아닌 경우 --%>
 					<c:if test="${dto.getWrite_radio() eq 1 && session_id ne dto.getMember_id() && 'admin' ne session_id }">
-						<tr class="tt" onclick="alert('관리자, 작성자 외 열람 불가능'); return false;">
-							<td class="no"> ${dto.getWrite_num() } </td>
+
+						<tr class="tt" onclick="alert('이 게시물은 비공개입니다.\n관리자, 작성자 외 열람 불가능'); return false;">
+							<td style="text-align: center;"> ${dto.getWrite_num() } </td>
+
 							<td class="wrt"> ${dto.getMember_id() } </td>
 							<td> 
 								${dto.getWrite_title() } 
@@ -220,10 +243,10 @@
 	  
 	  <br>
 	  <br>
-	  <form method="post" enctype="multipart/form-data" action="<%=request.getContextPath() %>/w_write_upload.do">
+	  <form method="post" class="was-validated" enctype="multipart/form-data" action="<%=request.getContextPath() %>/w_write_upload.do">
 	  
 	  	<header>
-			<h2>1:1문의(작성양식)<span id="img_text">등록</span><input type="image" src="https://cdn-icons-png.flaticon.com/512/46/46076.png" value="등록" id="img_a"></h2>
+			<h2>1:1문의(작성양식)<input type="submit" value="등록" id="img_a"></h2>
 		</header>
 		 <br>
 		 <br>
@@ -232,19 +255,19 @@
 	  	<br>
 		<div class="mb-3">
 		  <label for="exampleFormControlInput1" class="form-label">아이디</label>
-		  <input class="form-control" id="exampleFormControlInput1" placeholder="아이디 입력" value="${session_id }" style="width: 300px;" name="w_id">
+		  <input class="form-control" id="exampleFormControlInput1" placeholder="아이디 입력" value="${session_id }" style="width: 300px;" name="w_id" readonly>
 		</div>
 <!-- 		<div class="mb-3">
 		  <label class="form-label">비밀번호</label>
 		  <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="비밀번호 입력" style="width: 300px;" name="w_pwd">
 		</div> -->
-		<div class="mb-3">
-		  <label for="formFile" class="form-label">파일 업로드</label>
-		  <input class="form-control" style="width: 400px;" type="file" id="formFile" name="w_file">
-		</div>			
+			<label for="formFile" class="form-label">파일 업로드</label>
+		<div id="con4">
+		  <input style="width: 100%; border-color:#c6c6c6; box-shadow-color:#000; box-shadow:none !important;" type="file" id="formFile" name="w_file">
+		</div>				
 		<div class="mb-3">
 		  <label for="exampleFormControlTextarea1" class="form-label">문의내용</label>
-		  <textarea class="form-control" id="exampleFormControlTextarea1" rows="9" style="width: 700px; resize: none;" name="w_cont"></textarea>
+		  <textarea class="form-control is-invalid" id="exampleFormControlTextarea1" rows="9" style="width: 700px; resize: none; box-shadow:none !important;overflow: hidden; min-height:250px;" name="w_cont" required></textarea>
 		  <span id="cnt">(0 / 1000)자 이내로 입력</span>
 		</div>	
 		</form>

@@ -18,44 +18,40 @@
 		</div>
 		<hr>
 		<div>
-			기본정보
+			<font size="4"><b>기본정보</b></font>
 		<hr>
 		</div>
 		<div id="Contdiv">
 			
-			<table>
+			<table class="table">
 				<tr>
-					<th width="100px">제목</th>
-					<td>${dto.getMovie_title() }</td>
+					<th class="hh" width="100px">제목</th>
+					<td class="JJ">${dto.getMovie_title() }</td>
 				</tr>
 				<tr>
-					<th width="100px">제작 연도</th>
-					<td>${dto.getMovie_date() }</td>
+					<th class="hh" width="100px">제작 연도</th>
+					<td class="JJ">${dto.getMovie_date() }</td>
 				</tr>
 				<tr>
-					<th width="100px">국가</th>
-					<td>미국</td>
+					<th class="hh" width="100px">국가</th>
+					<td class="JJ">미국</td>
 				</tr>
 				<tr>
-					<th width="100px" >장르</th>
-					<td>액션</td>
+					<th class="hh" width="100px" >장르</th>
+					<td class="JJ">액션</td>
 				</tr>
 				<tr>
-					<th width="100px">상영시간</th>
-					<td>2시간</td>
+					<th class="hh" width="100px">상영시간</th>
+					<td class="JJ">2시간</td>
 				</tr>
 				<tr>
-					<th width="100px">연령등급</th>
-					<td>${dto.getMovie_age()}</td>
-				</tr>
-				<tr>
-					<th colspan="2">내용</th>
+					<th class="hh" width="100px">연령등급</th>
+					<td class="JJ">${dto.getMovie_age()}</td>
 				</tr>
 			</table>
 		<div id="MovieCont">
-				<p>
-					${dto.getMovie_cont() }
-				</p>
+			<div class="modiv ax"><p class="hh modiv">내용</p></div>
+			<p class="JJ zz">${dto.getMovie_cont() }</p>
 			</div>
 		</div>
 	</div>

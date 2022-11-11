@@ -327,7 +327,7 @@ $(function() {
 			<div id="topShow">
 				<div id="topDiv_img">
 					<c:if test="${!empty img_dto.getImage_loc() }">
-						<img alt="" src="${pageContext.request.contextPath}/image/${img_dto.getImage_loc()}" width="150px">					
+						<img alt="없음" src="${pageContext.request.contextPath}/image/${img_dto.getImage_loc()}" width="150px">					
 										
 					</c:if>
 					<c:if test="${empty img_dto.getImage_loc() }">
@@ -392,7 +392,7 @@ $(function() {
 								<span class="cont2_btn_span">보고 싶어요</span>
 							</div>
 						</button>
-						<button id="topDiv_cont2_btn2">
+						<button id="topDiv_cont2_btn2">  
 								<div class="cont3_btn btn-open-popup2">
 									<img alt="없음" src="${pageContext.request.contextPath }/image/contImg/pen.png" width="20px" height="20px" >
 									<span class="cont2_btn_span">코멘트</span>
@@ -446,7 +446,7 @@ $(function() {
 						 <span>${coment_dto.getMovie_coment()}</span>
 					</div>
 					<div>
-					 	<button  class="btn btn-danger" onclick="javascript:showPopUp()">수정</button>&nbsp;&nbsp;|&nbsp;&nbsp;
+					 	<button  class="btn btn-danger btn-open-popup2">수정</button>&nbsp;&nbsp;|&nbsp;&nbsp;
 					 	<button  class="btn btn-danger" onclick="location.href='<%=request.getContextPath()%>/wacha_coment_delete.do?movie_num=${coment_dto.getMovie_num()}&coment_num=${coment_dto.getComent_num() }'">삭제</button>
 					</div> 
 				</div>	
@@ -935,14 +935,19 @@ $(function() {
 		        	<input type="hidden" value="${mDto.getMovie_num()}" name="movie_num">
 		        	<input type="hidden" value="${chk}" name="chk">
 		      		
-		      		<div id="modal_be">
-		      			<span>${mDto.getMovie_title()}</span>
+		      		<div id="watchadiv">
+		      			<img src="./image/watchapedia2.png" alt="왓챠피디아 로고" title="왓챠피디아" width="110" height="25" />
 		      			<button type="button" class="btn-close" aria-label="Close"></button>
 		      		</div>
-		      		<div id="modal_input" class="ratio ratio-1x1">
-		      			<textarea rows="10" cols="9" name="content">${coment_dto.getMovie_coment() }</textarea>
+		      		
+		      		<div id="modal_be">
+		      			<span>${mDto.getMovie_title()}</span>
+		      			
 		      		</div>
-		      		<div>
+		      		<div id="modal_input" class="ratio ratio-1x1">
+		      			<textarea rows="10" cols="9" id="contdiv2" name="content">${coment_dto.getMovie_coment() }</textarea>
+		      		</div>
+		      		<div id="div4">
 						<c:if test="${!empty coment_dto }">
 		      				<button type="submit" class="btn btn-danger">수정</button>
 						</c:if>
@@ -950,9 +955,7 @@ $(function() {
 		      				<button type="submit" class="btn btn-danger">등록</button>
 						</c:if>
 		      		</div>
-		      		<div>
-		      			<img src="./image/watchapedia2.png" alt="왓챠피디아 로고" title="왓챠피디아" width="250" height="50" />
-		      		</div>
+		      		
 		      </form>
 		      </div>
 	   	</div>

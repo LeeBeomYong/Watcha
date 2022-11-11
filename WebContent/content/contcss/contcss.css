@@ -37,6 +37,7 @@
 	#imgT{
 		display: flex;
 		justify-content : center;	
+		margin-bottom: 10px;
 	}
 	#imgT_img{
 		width : 1000px;
@@ -408,7 +409,7 @@
       .modal_body2 {
        border-radius: 10px;
 		width: 400px;
-		height: 400px;
+		height: 380px;
 		z-index: 2;
 		position: absolute;
 		text-align: center;
@@ -434,6 +435,12 @@
 	 	display: flex;
 	 	justify-content: center;
 	 	align-items: center;
+	 	border: 1px solid #E6E6E6;
+		border-radius: 3%;
+	 }
+	 #modal_input textarea{
+	 	border: none;
+	 
 	 }
 	 #mapdiv{
 	 	margin-top: 150px;
@@ -446,7 +453,21 @@
 	 	background-color: black;
 	 
 	 }
-
+	
+	 #watchadiv{
+		display : flex;
+		justify-content : space-between;
+		margin-left: 10px;
+		margin-top: 10px;
+	
+	}
+	#contdiv2{
+		padding: 10px;
+	}
+	#div4{
+		margin: 0;
+	
+	}
 
 	/* 반응형 구간 */
 	@media screen and (max-width: 700px) {

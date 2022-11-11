@@ -20,7 +20,6 @@
     location.href="naver_login.do?id="+naver_id_login.getProfileData('email')+"&name="+naver_id_login.getProfileData('nickname');
     opener.parent.location.reload();
     window.close();
-    
   }
   
 </script>

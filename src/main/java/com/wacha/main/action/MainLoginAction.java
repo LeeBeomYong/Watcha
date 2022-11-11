@@ -26,6 +26,7 @@ public class MainLoginAction implements Action {
 		
 		int res = dao.LoginCheck(member_id, member_pwd);
 		
+		
 		ActionForward forward = new ActionForward();
 		
 		PrintWriter out = response.getWriter();

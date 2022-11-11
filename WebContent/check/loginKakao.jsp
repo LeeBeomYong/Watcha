@@ -6,6 +6,7 @@
     pageEncoding="UTF-8"%>
 <%
 
+
 	String id = request.getParameter("paramId");
 	String email = request.getParameter("paramEmail");
 	String name = request.getParameter("paramNickName");

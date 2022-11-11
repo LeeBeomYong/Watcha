@@ -32,6 +32,7 @@
 		height: 40px;
 	}
 	
+	
 	.bg1, .bg2, .bg3 {
 		background-color: #fff;
 		display: none;

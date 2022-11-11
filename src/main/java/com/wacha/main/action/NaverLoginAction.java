@@ -12,7 +12,6 @@ import com.wacha.model.UserDAO;
 import com.wacha.model.UserDTO;
 
 
-
 public class NaverLoginAction implements Action {
 
 	@Override

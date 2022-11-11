@@ -26,6 +26,7 @@ public class MainLoginAction implements Action {
 		
 		int res = dao.LoginCheck(member_id, member_pwd);
 		
+		
 		ActionForward forward = new ActionForward();
 		
 		PrintWriter out = response.getWriter();
@@ -34,12 +35,12 @@ public class MainLoginAction implements Action {
 			UserDTO sdto = dao.getMember(member_id);
 			
 			HttpSession session1 = request.getSession();
-			
-			HttpSession session2 = request.getSession();
-			
+						
 			session1.setAttribute("session_id", sdto.getMember_id());
 			
-			session2.setAttribute("session_img", sdto.getMember_image());
+			session1.setAttribute("session_name", sdto.getMember_name());
+			
+			session1.setAttribute("session_img", sdto.getMember_image());
 			
 			forward.setRedirect(false);
 			
@@ -48,11 +49,11 @@ public class MainLoginAction implements Action {
 			
 			UserDTO sdto = dao.getMember(member_id);
 			
-			HttpSession session1 = request.getSession();
-			
 			HttpSession session2 = request.getSession();
 			
-			session1.setAttribute("session_id", sdto.getMember_id());
+			session2.setAttribute("session_id", sdto.getMember_id());
+			
+			session2.setAttribute("session_name", sdto.getMember_name());
 			
 			session2.setAttribute("session_img", sdto.getMember_image());
 			

@@ -26,7 +26,6 @@ public class UserDAO {
 		// 쿼리문을 저장할 변수
 		String sql = null;
 		
-		
 		// 1단계 : 싱글턴 방식으로 객체를 만들기 위해서는 우선적으로
 		//        기본생성자의 접근제어자를 public이 아닌 private
 		//        으로 바꾸어 주어야 한다.
@@ -556,6 +555,7 @@ public class UserDAO {
 				dto = new UserDTO();
 				
 				dto.setMember_id(rs.getString("member_id"));
+				dto.setMember_name(rs.getString("member_name"));
 				dto.setMember_image(rs.getString("member_image"));
 				
 			}
@@ -716,9 +716,41 @@ public class UserDAO {
 		return result;
 	}
 	
+	public int autoSignUp(String id, String email, String name) {
+        int result = 0, count = 0;
+
+        try {
+            openConn();
+
+            sql = "select max(member_num) from member";
+
+            pstmt = con.prepareStatement(sql);
+
+            rs = pstmt.executeQuery();
+
+            if(rs.next()) {
+                count = rs.getInt(1) + 1;
+            }
+
+            sql = "insert into member values (?,?,?,'kakao@@','','',sysdate,default,1,?)";
+
+            pstmt = con.prepareStatement(sql);
+
+            pstmt.setInt(1, count);
+            pstmt.setString(2, id);
+            pstmt.setString(3, name);
+            pstmt.setString(4, email);
+
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeConn(rs, pstmt, con);
+        }
+        return result;
+    }
 	
-
-
+	
 	public int kakaoLogin(String k_id) {
 		
 		int result = 0;

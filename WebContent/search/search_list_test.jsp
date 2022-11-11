@@ -32,11 +32,13 @@
 		height: 40px;
 	}
 	
+	
 	.bg1, .bg2, .bg3 {
 		background-color: #fff;
 		display: none;
 		padding: 20px 0 0;
 		border-top: 1px solid #ddd;
+		height: 70vh;
 	}
 	
 	input[type="radio"] {

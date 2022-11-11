@@ -306,6 +306,7 @@ select {
 </head>
 <body>
 
+
 	<jsp:include page="./include/user_top.jsp" />
 
 	<div id="wrapper">

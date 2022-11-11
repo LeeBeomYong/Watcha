@@ -17,36 +17,27 @@ public class KakaoLoginOkAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		String k_id = request.getParameter("k_id");
+		String id = request.getParameter("id");
 		
-		String access_token = request.getParameter("access_token");
+		System.out.println(id);
 		
 		UserDAO dao = UserDAO.getInstance();
 		
-		int res = dao.kakaoLogin(k_id);
+		UserDTO dto = dao.getMember(id);
+		
+		HttpSession session = request.getSession();
+		
+		session.setAttribute("session_id", dto.getMember_id());
+		
+		session.setAttribute("session_img", dto.getMember_image());
+		
 		
 		ActionForward forward = new ActionForward();
-		PrintWriter out = response.getWriter();
 		
-		if(res>0) {
-			
-			UserDTO dto = dao.getMember(k_id);
-			
-			HttpSession session = request.getSession();
-			
-			session.setAttribute("session_id", dto.getMember_id());
-			
-			session.setAttribute("session_img", dto.getMember_image());
-			
-			request.setAttribute("ac_token", access_token);
-			
-			forward.setRedirect(false);
-			forward.setPath("main.jsp");
-		}else {
-			out.println("<script> history.back(); alert('가입하지 않은 아이디입니다. 회원가입을 진행해주세요.'); </script>");
-			
-		}
-			
+		forward.setRedirect(false);
+		
+		forward.setPath("main.jsp");
+		
 		return forward;
 	}
 

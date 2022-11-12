@@ -335,10 +335,13 @@
 	}
 
 	#cd_youCont{
-		justify-content : center;
+		justify-content : flex-start;
 		display: flex;
 		flex-direction: row;
 		align-items: center;
+	}
+	.cd_youCont_div{
+		margin-left: 50px;
 	}
 	#gallery h5{
 		padding-left: 10px;

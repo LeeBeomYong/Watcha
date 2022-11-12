@@ -706,9 +706,9 @@ $(function() {
            
               <%-- 동영상 하단 div --%>
            <div id="cd_youCont">
-              <div class="cd_youCont_div">
-                 <h5>괜찮은멘트</h5>
-                 <span>궁금하면?</span>
+              <div class="cd_youCont_div1">
+                 <h5>영화 예고편 영상</h5>
+                 <span>이 영화가 더 궁금하면?</span>
                  <div>
                     <img alt="없" src="${pageContext.request.contextPath }/image/contImg/wachaimg.png" width="20px" height="20px">
                     <span>왓챠 익스클루시브</span>

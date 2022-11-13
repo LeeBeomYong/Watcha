@@ -241,37 +241,31 @@ img {
   </div>
  <br>
  	
-		  <ul class="pagination">
-		
-		    <c:forEach begin="${startBlock }"
-	       				end="${endBlock }" var="i">
-		      
-		      <c:if test="${i == page }">
-		         <li class="page-item active" aria-current="page">
-		           <a class="page-link" href="admin_movie_list.do?page=${i }">${i }</a>
-		         </li>
-		      </c:if>
-	      
-		      <c:if test="${i != page }">
-		         <li class="page-item">
-		           <a class="page-link" href="admin_movie_list.do?page=${i }">${i }</a>
-		         </li>
-		      </c:if>
-	   		</c:forEach>
-		    
-		    <c:if test="${endBlock < allPage }">
-		      
-		       <li class="page-item">
-		      	<a class="page-link" href="admin_moive_list.do?page=${page + 1 }">Next</a>
-		      </li>
-		      
-		      
-		      <li class="page-item">
-		      	<a class="page-link" href="admin_movie_list.do?page=${allPage }">End</a>
-		      </li>
-		    </c:if>
-		  </ul>
-		
+		<%--    =====================================================================================================--%>
+        <%-- 페이징 처리 영역 --%>
+
+          <ul class="pagination justify-content-center">
+            <li class="page-item">
+              <a id="link" class="page-link" href="admin_movie_list.do?page=1">◀</a>
+            </li>
+
+            <c:forEach begin="${startBlock }" end="${endBlock }" var="i">
+                <c:if test="${i == page }">
+                    <li class="page-item active" aria-current="page"><a id="link" class="page-link" href="admin_movie_list.do?page=${i }">${i }</a></li>
+                </c:if>
+
+                <c:if test="${i != page }">
+                    <li class="page-item"><a id="link" class="page-link" href="admin_movie_list.do?page=${i }">${i }</a></li>
+                </c:if>
+            </c:forEach>
+
+              <li  class="page-item">
+              <a id="link" class="page-link" href="admin_movie_list.do?page=${endBlock }">▶</a>
+            </li>
+          </ul>
+        
+    
+    <%--    ===================================================================================================== --%>
 
 </section>
 

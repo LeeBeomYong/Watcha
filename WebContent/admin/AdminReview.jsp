@@ -128,6 +128,7 @@ tr:last-child td:last-child {
   color: #FFF;
   text-decoration: none;
   border: none;
+  
 }
 .coment_btn2{
  display: inline-block;

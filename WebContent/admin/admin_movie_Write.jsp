@@ -648,15 +648,6 @@ height: 180px;
         	</div>
        </div>
 
-      <div class="button-wrapper">
-  <span class="label">
-    Upload File
-  </span>
-  
-    <input type="file" name="upload" id="upload" class="upload-box" placeholder="Upload File">
-  
-</div>
-
        <div  class="center">       
 	          <fieldset>
 	          <legend><span class="number" >12</span>갤러리</legend>

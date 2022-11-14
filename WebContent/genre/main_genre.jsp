@@ -276,7 +276,7 @@ p {
 								<a href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${list.movie_num}">
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
-								    	<img class="poster" src="${list.image_loc}" alt="영화 포스터 이미지" />
+								    	<img class="poster" src="<%=request.getContextPath()%>/image/${list.image_loc}" alt="영화 포스터 이미지" />
 								    </div>
 								    <div class="ex_box_1">
 								    	${mlist[status.index].movie_title}
@@ -302,7 +302,7 @@ p {
 								<a href="<%=request.getContextPath()%>/movie_content.do?movie_num=${list.movie_num}">	
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
-								    	<img class="poster" src="${list.image_loc} " alt="영화 포스터 이미지" />
+								    	<img class="poster" src="<%=request.getContextPath()%>/image/${list.image_loc} " alt="영화 포스터 이미지" />
 								    </div>
 								    <div class="ex_box_1">
 								    	${mlist[status.index].movie_title}
@@ -359,7 +359,7 @@ p {
 								<a href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${mlist2[status.index].movie_num}">	
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
-								    	<img class="poster" src="${list.image_loc} " alt="영화 포스터 이미지" />
+								    	<img class="poster" src="<%=request.getContextPath()%>/image/${list.image_loc} " alt="영화 포스터 이미지" />
 								    </div>
 								    <div class="ex_box_1">
 								    	${mlist2[status.index].movie_title}
@@ -383,7 +383,7 @@ p {
 								<a href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${mlist2[status.index].movie_num}">	
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
-								    	<img class="poster" src="${list.image_loc} " alt="영화 포스터 이미지" />
+								    	<img class="poster" src="<%=request.getContextPath()%>/image/${list.image_loc} " alt="영화 포스터 이미지" />
 								    </div>
 								    <div class="ex_box_1">
 								    	${mlist2[status.index].movie_title}
@@ -439,7 +439,7 @@ p {
 								<a href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${mlist3[status.index].movie_num}">	
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
-								    	<img class="poster" src="${list.image_loc} " alt="영화 포스터 이미지" />
+								    	<img class="poster" src="<%=request.getContextPath()%>/image/${list.image_loc} " alt="영화 포스터 이미지" />
 								    </div>
 								    <div class="ex_box_1">
 								    	${mlist3[status.index].movie_title}
@@ -463,7 +463,7 @@ p {
 								<a href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${mlist3[status.index].movie_num}">	
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
-								    	<img class="poster" src="${list.image_loc} " alt="영화 포스터 이미지" />
+								    	<img class="poster" src="<%=request.getContextPath()%>/image/${list.image_loc} " alt="영화 포스터 이미지" />
 								    </div>
 								    <div class="ex_box_1">
 								    	${mlist3[status.index].movie_title}
@@ -519,7 +519,7 @@ p {
 								<a href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${mlist4[status.index].movie_num}">	
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
-								    	<img class="poster" src="${list.image_loc} " alt="영화 포스터 이미지" />
+								    	<img class="poster" src="<%=request.getContextPath()%>/image/${list.image_loc} " alt="영화 포스터 이미지" />
 								    </div>
 								    <div class="ex_box_1">
 								    	${mlist4[status.index].movie_title}
@@ -543,7 +543,7 @@ p {
 								<a href="<%=request.getContextPath()%>/wacha_content.do?movie_num=${mlist4[status.index].movie_num}">	
 									<div class="main_poster">
 										<div class="caption">${num[status.index] }</div>
-								    	<img class="poster" src="${list.image_loc} " alt="영화 포스터 이미지" />
+								    	<img class="poster" src="<%=request.getContextPath()%>/image/${list.image_loc} " alt="영화 포스터 이미지" />
 								    </div>
 								    <div class="ex_box_1">
 								    	${mlist4[status.index].movie_title}

@@ -870,11 +870,7 @@
 	    &nbsp;&nbsp;&nbsp;
 	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-	        <li class="nav-item">
-	          <a id="menu" class="nav-link" href="<%=request.getContextPath() %>/moive_main.do">영화</a>
-	        </li>
-	         &nbsp; &nbsp;&nbsp; 
-	        <li class="nav-item dropdown">
+	       <li class="nav-item dropdown">
 	          <a id="menu" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="<%=request.getContextPath() %>/wacha_info.do">소개</a>
 	          <ul class="dropdown-menu">
 	          	<li><a id="menu" class="dropdown-item" href="<%=request.getContextPath() %>/wacha_info.do">안녕?왓챠피디아</a></li>

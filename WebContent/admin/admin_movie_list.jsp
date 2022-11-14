@@ -264,6 +264,7 @@ img {
 					<a id="link" class="page-link" href="admin_movie_list.do?page=${endBlock + 1 }">Next</a>
 				</li>
 				<li class="page-item">
+					
 					<a id="link"class="page-link" href="admin_movie_list.do?page=${allPage }">End</a>
 				</li>
 			</c:if>

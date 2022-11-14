@@ -29,7 +29,7 @@ public class AdminMovieWriteOkAction implements Action {
 		ImageDTO dto1 = new ImageDTO();
 		// 첨부파일이 저장될 위치(경로) 설정
 
-		String saveFolder = "C:\\NCS\\workspace(jsp)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\WatchaProject\\image";
+		String saveFolder = "C:\\myJSP\\wrokspace(jsp)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\WatchaProject\\image";
 
 
 		// 첨부파일 용량 (크기)제한 -파일 업로드 최대 크기

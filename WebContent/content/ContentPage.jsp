@@ -183,7 +183,7 @@ $(function() {
 		// 보고 싶어요 이미지 변경
 		$("#topDiv_cont2_btn1").on("click",function(){
 			if('<%=session.getAttribute("session_id")%>' !="null" ){
-			if(count ==0 && look != 1){
+			if(count == 0 && look != 1){
 				$("#img1").attr("src","${pageContext.request.contextPath }/image/contImg/bookmark.png");
 				count=1;
 			}else if(look!=1 && count == 1){
@@ -191,6 +191,7 @@ $(function() {
 				count=0;
 			}else{
 				$("#img1").attr("src","${pageContext.request.contextPath }/image/contImg/plus.png");
+				count=0;
 			}
 				$.ajax({
 					type : "post",
@@ -237,6 +238,35 @@ $(function() {
 						alert('데이터 통신 에러');
 					}
 				});
+				if('<%=session.getAttribute("session_id")%>' !="null" ){
+					if(count == 0 && look != 1){
+						$("#img1").attr("src","${pageContext.request.contextPath }/image/contImg/bookmark.png");
+						count=1;
+					}else if(look!=1 && count == 1){
+						$("#img1").attr("src","${pageContext.request.contextPath }/image/contImg/plus.png");
+						count=0;
+					}else{
+						$("#img1").attr("src","${pageContext.request.contextPath }/image/contImg/plus.png");
+					}
+						$.ajax({
+							type : "post",
+							url : "/WatchaProject/content/WantSee.jsp",
+							data : {
+									movieNum : ${mDto.getMovie_num()},
+									memberId : '<%=session.getAttribute("session_id")%>',
+									countchk : count
+									},
+							datatype : "text",
+							success : function(data){
+								drawVisualization();
+							},
+							error : function(){
+								alert('데이터 통신 에러');
+							}				
+					});
+					}else{
+						alert("로그인 후 이용해 주시기 바랍니다.");
+					}
 				
 			}else{
 				look=0;

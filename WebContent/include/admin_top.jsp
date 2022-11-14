@@ -51,6 +51,7 @@ nav {
 		  <a class="link-1" href="<%=request.getContextPath() %>/admin_movie_list.do">영화등록</a>
 		  <a class="link-1" href="<%=request.getContextPath() %>/admin_service_answer.do">고객센터</a>
 		  <a class="link-1" href="<%=request.getContextPath() %>/admin_service_notice.do">공지사항</a>
+		  <a id = "aa" class="link-1" href="<%=request.getContextPath() %>/user_logout.do">로그아웃</a>
 	</nav>
 		
 	

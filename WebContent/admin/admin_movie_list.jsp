@@ -259,6 +259,15 @@ img {
                 </c:if>
             </c:forEach>
 
+			<c:if test="${endBlock < allPage }">
+				<li class="page-item">
+					<a id="link" class="page-link" href="admin_movie_list.do?page=${endBlock + 1 }">Next</a>
+				</li>
+				<li class="page-item">
+					
+					<a id="link"class="page-link" href="admin_movie_list.do?page=${allPage }">End</a>
+				</li>
+			</c:if>
               <li  class="page-item">
               <a id="link" class="page-link" href="admin_movie_list.do?page=${endBlock }">▶</a>
             </li>

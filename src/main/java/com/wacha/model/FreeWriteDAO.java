@@ -206,6 +206,10 @@ public class FreeWriteDAO {
 
 	public FreeWriteDTO getFreeContent(int num) {
 		
+		String sql2="";
+		PreparedStatement pstmt2=null;
+		ResultSet rs2=null;
+		
 		FreeWriteDTO dto = null;
 		
 		openConn();
@@ -231,12 +235,20 @@ public class FreeWriteDAO {
 				dto.setFree_reply_num(rs.getInt("free_reply_num"));
 				dto.setMember_id(rs.getString("member_id"));
 				
+				sql2 = "select member_image from member where member_id = ?";
+				pstmt2=con.prepareStatement(sql2);
+				pstmt2.setString(1, rs.getString(9));
+				rs2=pstmt2.executeQuery();
+				if(rs2.next()) {
+					dto.setFree_image(rs2.getString(1));
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			closeConn(rs, pstmt, con);
+			closeConn(rs2, pstmt2, con);
 			
 		}
 		return dto;

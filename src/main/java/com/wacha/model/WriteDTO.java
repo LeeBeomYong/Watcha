@@ -12,8 +12,15 @@ public class WriteDTO {
 	private String member_id;			// 글 작성자 아이디
 	private String write_radio;			// 글 비번 비공개 / 공개
 	private String write_reply;
+	private String write_image;
 
 	
+	public String getWrite_image() {
+		return write_image;
+	}
+	public void setWrite_image(String write_image) {
+		this.write_image = write_image;
+	}
 	public String getWrite_reply() {
 		return write_reply;
 	}

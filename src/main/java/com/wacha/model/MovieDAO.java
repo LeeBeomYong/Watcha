@@ -465,7 +465,7 @@ public class MovieDAO {
 			try {
 				openConn();
 				
-				sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, i.image_loc, avg(s.movie_star) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num group by m.movie_title, m.movie_date, m.movie_country, i.image_loc, m.movie_num order by now desc";
+				sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, i.image_loc, avg(s.movie_star) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num group by m.movie_title, m.movie_date, m.movie_country, i.image_loc, m.movie_num order by now desc, movie_num";
 				
 				pstmt = con.prepareStatement(sql);
 				
@@ -1144,7 +1144,7 @@ public class MovieDAO {
 				try {
 					openConn();
 					
-					sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, m.movie_genre, i.image_loc, avg(s.movie_star) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, m.movie_num order by now desc";
+					sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, m.movie_genre, i.image_loc, avg(s.movie_star) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, m.movie_num order by now desc, movie_num";
 					
 					pstmt = con.prepareStatement(sql);
 					
@@ -1172,7 +1172,7 @@ public class MovieDAO {
 				try {
 					openConn();
 					
-					sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, m.movie_genre, i.image_loc, avg(s.movie_star) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, m.movie_num order by now desc";
+					sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, m.movie_genre, i.image_loc, avg(s.movie_star) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, m.movie_num order by now desc, movie_num";
 					
 					pstmt = con.prepareStatement(sql);
 					
@@ -1200,7 +1200,7 @@ public class MovieDAO {
 				try {
 					openConn();
 					
-					sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, m.movie_genre, i.image_loc, avg(s.movie_star) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, m.movie_num order by now desc";
+					sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, m.movie_genre, i.image_loc, avg(s.movie_star) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, m.movie_num order by now desc, movie_num";
 					
 					pstmt = con.prepareStatement(sql);
 					
@@ -1228,7 +1228,7 @@ public class MovieDAO {
 				try {
 					openConn();
 					
-					sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, m.movie_genre, i.image_loc, avg(s.movie_star) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, m.movie_num order by now desc";
+					sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, m.movie_genre, i.image_loc, avg(s.movie_star) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, m.movie_num order by now desc, movie_num";
 					
 					pstmt = con.prepareStatement(sql);
 					
@@ -1256,7 +1256,7 @@ public class MovieDAO {
 				try {
 					openConn();
 					
-					sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, m.movie_genre, i.image_loc, avg(s.movie_star) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, m.movie_num order by now desc";
+					sql = "select distinct m.movie_num, m.movie_title, m.movie_date, m.movie_country, m.movie_genre, i.image_loc, avg(s.movie_star) avg, sum(s.movie_watch) now from movie m, image i, star s where m.movie_num = i.movie_num and i.movie_num = s.movie_num and m.movie_genre = ? group by m.movie_title, m.movie_date, m.movie_genre, m.movie_country, i.image_loc, m.movie_num order by now desc, movie_num";
 					
 					pstmt = con.prepareStatement(sql);
 					

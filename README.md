@@ -7,12 +7,8 @@
 
 #Site Page
 
-![git6](https://user-images.githubusercontent.com/92709439/201557430-724fb884-5c20-4098-bef3-a05c5c750c86.png)
-![git1](https://user-images.githubusercontent.com/92709439/201556478-b168dd58-21ec-4901-8ea1-2285f00b98a8.png)
-![git2](https://user-images.githubusercontent.com/92709439/201556475-0d37b236-0c73-4462-8a26-d1b00435a5b3.png)
-![git3](https://user-images.githubusercontent.com/92709439/201556473-6adfcf28-91e2-42b1-bfc9-442e37d88a0d.png)
-![git4](https://user-images.githubusercontent.com/92709439/201556488-daea865b-10b2-426b-bf0f-d95d7714df65.png)
-![git5](https://user-images.githubusercontent.com/92709439/201556487-57968d64-fdae-4754-81b8-70c2d7ffa2bf.png)
+<img src = "https://user-images.githubusercontent.com/92709439/201557430-724fb884-5c20-4098-bef3-a05c5c750c86.png" width="100%" height="100%" /><img src = "https://user-images.githubusercontent.com/92709439/201556475-0d37b236-0c73-4462-8a26-d1b00435a5b3.png" width="100%" height="100%" /><img src = "https://user-images.githubusercontent.com/92709439/201556473-6adfcf28-91e2-42b1-bfc9-442e37d88a0d.png" width="100%" height="100%" /><img src = "https://user-images.githubusercontent.com/92709439/201561873-49ee4056-d5f9-4626-96ac-f5b2cb4bf679.png" width="100%" height="100%" /><img src = "https://user-images.githubusercontent.com/92709439/201556488-daea865b-10b2-426b-bf0f-d95d7714df65.png" width="100%" height="100%" /><img src = "https://user-images.githubusercontent.com/92709439/201556487-57968d64-fdae-4754-81b8-70c2d7ffa2bf.png" width="100%" height="100%" />
+
 
 #개요
 - 영화 평가 및 추천 서비스 사이트 토이 세미프로젝트를 진행했습니다.

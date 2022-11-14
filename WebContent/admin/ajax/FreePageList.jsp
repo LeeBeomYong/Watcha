@@ -14,7 +14,7 @@
 	int cnt=(Integer.parseInt(request.getParameter("page"))-1)*10+1;
 	
 	for(FreeWriteDTO free : free_list){
-		res+="<tr><td id=\"free"+cnt+"\">"+free.getFree_num()+"</td><td>"+free.getMember_id()+"</td><td>"+free.getFree_cont()+"</td><td><button class=\"delete_btn2\" value=\""+cnt+"\">삭제</button></td></tr>";
+		res+="<tr><td id=\"free"+cnt+"\">"+free.getFree_num()+"</td><td>"+free.getMember_id()+"</td><td><a href=\"free_content.do?num="+free.getFree_num()+"\">"+free.getFree_cont()+"</a></td><td><button class=\"delete_btn2\" value=\""+cnt+"\">삭제</button></td></tr>";
 		cnt++;
 	} 
 	

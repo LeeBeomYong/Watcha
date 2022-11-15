@@ -854,6 +854,7 @@
 	
 	#naver_id_login {
 		margin-bottom: 2%;
+		wi
 	}
 
 </style>
@@ -994,7 +995,7 @@
 					
 						<div id="kakao_btn">
 							<a href="https://kauth.kakao.com/oauth/authorize?client_id=f106a112e059bfa2a2f1faeb9614402b&redirect_uri=http://localhost:8282/WatchaProject/kakao_login.do&response_type=code">
-								<img id="k_login" class="kakao" src="https://cdn-icons-png.flaticon.com/512/3669/3669973.png" alt="카카오 로그인" />
+								<img id="k_login" class="kakao" src="https://cdn-icons-png.flaticon.com/512/3669/3669973.png" alt="카카오 로그인"/>
 							</a>
 						</div>
 						
@@ -1006,7 +1007,7 @@
 							var naver_id_login = new naver_id_login("O9onbY5xPBKdN4J3lDpN", "http://localhost:8282/WatchaProject/callback.jsp");
 							var state = naver_id_login.getUniqState();
 							   
-							naver_id_login.setButton("white", 2,40);
+							naver_id_login.setButton("green", 11,48);
 							naver_id_login.setDomain("http://localhost:8282/WatchaProject/callback.jsp");
 							naver_id_login.setState(state);
 							naver_id_login.setPopup();

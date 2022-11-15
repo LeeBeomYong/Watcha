@@ -163,7 +163,7 @@
 						<h5><strong>별점분포</strong></h5><br>
 						<c:set var="member_Id2" value ="${member_Id2 }"/>
 						<input type="hidden" value="${member_Id2 }" id="chart">
-						<c:if test="${review_count < 30}">
+						<c:if test="${review_count < 50}">
 							<p class="p1" style="position:absolute; left: 40%; color: red;">평가가 너무 적어요 ㅠ.ㅠ</p>
 							<br><br>
 						</c:if>

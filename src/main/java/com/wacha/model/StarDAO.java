@@ -386,7 +386,7 @@ public class StarDAO {
 					 rs=pstmt.executeQuery();
 					 
 					 while(rs.next()) {
-						 int temp = Integer.parseInt(rs.getString("movie_time").substring(2, 3	));
+						 int temp = Integer.parseInt(rs.getString("movie_time").substring(0, 1	));
 						 sum += temp;
 					 }
 					 

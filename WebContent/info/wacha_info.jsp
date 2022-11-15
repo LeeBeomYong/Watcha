@@ -78,7 +78,7 @@
 		<br>
 		
 		<p>
-			<img class="img" src="https://oopy.lazyrockets.com/api/v2/notion/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F286da42f-a172-426b-9762-e8727bbc06e1%2F1920x886.png&amp;blockId=869ac22a-8c14-4bf2-8b18-ca92b97a135c">
+			<img class="img" src="https://images.watcha.net/updatable_images/2590/original/d7eb9109d3d48bd6daea0b3ef77ee3faae9f6bfc.png">
 		</p>
 
 		<h5 style="font-size: 20px; font-weight: bold;">

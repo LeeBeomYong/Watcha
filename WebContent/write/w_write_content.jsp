@@ -100,7 +100,7 @@
 		<header>
 			<h2>1:1 답변</h2>
 				<br>
-				<img id="pro_img" src="${pageContext.request.contextPath }/image/profileupload/${dto.getW_image()}">
+				<img id="pro_img" src="${pageContext.request.contextPath }/image/profileupload/${rdto.getW_image()}">
 				<div>
 					<b style="font-size: 19px;"> ${session_id } </b>
 					<br>

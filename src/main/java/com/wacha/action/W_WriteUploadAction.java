@@ -24,9 +24,9 @@ public class W_WriteUploadAction implements Action {
 		//  
 		
 		W_WriteDTO dto = new W_WriteDTO();
-		
-		String saveFolder = "C:\\Users\\by\\Desktop\\이범용_개발\\eclipse_pj\\eclipse-workspace(jsp)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\WatchaProject\\image\\profileupload";
-		
+		//C:\\Users\\by\\Desktop\\이범용_개발\\eclipse_pj\\eclipse-workspace(jsp)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\WatchaProject\\image\\profileupload
+		String saveFolder = "C:\\Users\\by\\Desktop\\이범용_개발\\eclipse_pj\\eclipse-workspace(jsp)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\WatchaProject\\w_write_file";
+		//C:\Users\by\Desktop\이범용_개발\eclipse_pj\eclipse-workspace(jsp)\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\WatchaProject\w_write_file
 		int fileSize = 10 * 1024 * 1024;
 		
 		MultipartRequest multi = new MultipartRequest(

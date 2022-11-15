@@ -876,6 +876,7 @@
 <!-- 	        </li> -->
 	         &nbsp; &nbsp;&nbsp; 
 	        <li class="nav-item dropdown">
+
 	          <a id="menu" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="<%=request.getContextPath() %>/wacha_info.do">소개</a>
 	          <ul class="dropdown-menu">
 	          	<li><a id="menu" class="dropdown-item" href="<%=request.getContextPath() %>/wacha_info.do">안녕?왓챠피디아</a></li>

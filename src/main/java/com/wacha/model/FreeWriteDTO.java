@@ -13,8 +13,15 @@ public class FreeWriteDTO {
 	private int free_radio;
 	private int free_reply_num;
 	private String member_id;
+	private String free_image;
 	
 	
+	public String getFree_image() {
+		return free_image;
+	}
+	public void setFree_image(String free_image) {
+		this.free_image = free_image;
+	}
 	public int getFree_reply_num() {
 		return free_reply_num;
 	}

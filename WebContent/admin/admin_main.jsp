@@ -46,7 +46,7 @@
 
 <div class="wrapper">
     <div class="typing-demo">
-      환영합니다. admin님......
+      환영합니다. admin님
     </div>
 </div>
 

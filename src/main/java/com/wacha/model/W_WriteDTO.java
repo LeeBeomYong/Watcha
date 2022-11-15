@@ -8,7 +8,14 @@ public class W_WriteDTO {
 	private String w_cont;
 	private String w_date;
 	private String w_reply;
+	private String w_image;
 	
+	public String getW_image() {
+		return w_image;
+	}
+	public void setW_image(String w_image) {
+		this.w_image = w_image;
+	}
 	public String getW_reply() {
 		return w_reply;
 	}

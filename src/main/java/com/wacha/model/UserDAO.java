@@ -393,45 +393,47 @@ public class UserDAO {
 		}
 		
 		public UserDTO UserContent(String id) {
-			UserDTO dto = null;
-			
-			try {
-				openConn();
-				
-				sql="select * from member where member_id=?";
-				
-				pstmt=con.prepareStatement(sql);
-				
-				pstmt.setString(1, id);
-				
-				rs=pstmt.executeQuery();
-				
-				if(rs.next()) {
-					dto=new UserDTO();
-					
-					dto.setMember_num(rs.getInt("member_num"));
-					
-					dto.setMember_name(rs.getString("member_name"));
-					
-					dto.setMember_id(rs.getString("member_id"));
-					
-					dto.setMember_pwd(rs.getString("member_pwd"));
-					
-					dto.setMember_birth(rs.getString("member_birth"));
-					
-					dto.setMember_profile(rs.getString("member_profile"));
-					
-					dto.setMember_image(rs.getString("member_image"));					
-					
-					dto.setMember_regdate(rs.getString("member_regdate"));
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally {
-				closeConn(rs, pstmt, con);
-			}return dto;
-		}
+            UserDTO dto = null;
+
+            try {
+                openConn();
+
+                sql="select * from member where member_id=?";
+
+                pstmt=con.prepareStatement(sql);
+
+                pstmt.setString(1, id);
+
+                rs=pstmt.executeQuery();
+
+                if(rs.next()) {
+                    dto=new UserDTO();
+
+                    dto.setMember_num(rs.getInt("member_num"));
+
+                    dto.setMember_name(rs.getString("member_name"));
+
+                    dto.setMember_id(rs.getString("member_id"));
+
+                    dto.setMember_pwd(rs.getString("member_pwd"));
+
+                    dto.setMember_birth(rs.getString("member_birth"));
+
+                    dto.setMember_profile(rs.getString("member_profile"));
+
+                    dto.setMember_image(rs.getString("member_image"));
+
+                    dto.setMember_regdate(rs.getString("member_regdate"));
+
+                    dto.setMember_use(rs.getInt("member_use"));
+                }
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }finally {
+                closeConn(rs, pstmt, con);
+            }return dto;
+        }
 
 		
 		public int updateUser(UserDTO dto) {
@@ -838,5 +840,19 @@ public class UserDAO {
 		}
 		return list;
 	}
+	public void updateAdmin(String id) {
+        sql="update member set member_use = 1 where member_id = ?";
+        openConn();
+        try {
+            pstmt=con.prepareStatement(sql);
+            pstmt.setString(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }finally {
+            closeConn(rs, pstmt, con);
+        }
+    }
 }
 

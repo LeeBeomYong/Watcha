@@ -325,7 +325,16 @@ margin: 100px;
       <c:set var="dto" value="${UserContent}" /> 
 	<jsp:include page="../include/admin_top.jsp" />
 	<br><br><br>
-      <form enctype="multipart/form-data" action="<%=request.getContextPath() %>/admin_userDelete_ok.do?id=${dto.getMember_id()}&pwd=${dto.getMember_pwd()}" method="post">
+	<c:choose>
+		<c:when test="${dto.getMember_use()  == 1 }">	
+			<form enctype="multipart/form-data" action="<%=request.getContextPath() %>/admin_userDelete_ok.do?id=${dto.getMember_id()}&pwd=${dto.getMember_pwd()}" method="post">
+		</c:when>
+		
+		<c:otherwise>
+			<form enctype="multipart/form-data" action="<%=request.getContextPath() %>/admin_userRecover_ok.do?id=${dto.getMember_id()}&pwd=${dto.getMember_pwd()}" method="post">
+		</c:otherwise>
+	</c:choose>
+      
   		<input type="hidden" name="member_num" value="${dto.getMember_num() }">
         <h1>회원상세 페이지</h1>
 	<div class="start">
@@ -404,7 +413,14 @@ margin: 100px;
 
 	
    <br><br>
-        <button type="submit">Delete</button>
+   		<c:choose>
+   			<c:when test="${dto.getMember_use() == 1 }">				
+        		<button type="submit">Delete</button>
+   			</c:when>
+   			<c:otherwise>
+   				<button type="submit">Member Recovery</button>
+   			</c:otherwise>
+   		</c:choose>
         
       </form>
       <jsp:include page="../include/admin_bottom.jsp" />

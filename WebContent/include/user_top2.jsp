@@ -330,6 +330,9 @@
 		$("#find_pwd").on("click",function(){
 			pwd_hint();
 		});
+		
+		
+		
 			
 		Kakao.init('20cd1dccdb46e0c83a3760d24c498ff8');
 		Kakao.isInitialized();
@@ -384,7 +387,8 @@
 				fail: function(error) {
 					console.log("fail", error);
 				}
-			}); 
+			});  
+		
 		
 	});
 	// 모달 레이어 클릭할 경우 모달 닫기 (값 초기화)
@@ -399,7 +403,7 @@
 			$("#span_signinId").hide();		$("#span_signinPwd").hide();
 			// 이미지 hide
 			$("#sii_checked").hide();	$("#sii_wrong").hide();
-			$("#sun_checked").hide();		$("#sui_checked").hide();	$("#sue_checked").hide();	$("#sup_checked").hide();
+			$("#sun_checked").hide();		$("#sui_checked").hide();	$("#sue_checkd").hide();	$("#sup_checked").hide();
 			$("#sun_wrong").hide();		$("#sui_wrong").hide();	$("#sue_wrong").hide();	$("#sup_wrong").hide();
 			// 버튼 활성화
 			$("#login_btn").attr("disabled", false);
@@ -463,6 +467,11 @@
 		});
 	};
 	
+	function loginWithKakao() {
+		Kakao.Auth.authorize({
+			redirectUri: encodeURI('http://localhost:8282/WatchaProject/loginKakao.jsp')
+		});
+	}
 	
 	
 	function kakaoLogout() {
@@ -730,7 +739,6 @@
 		cursor: pointer;
 		color: rgb(255, 53, 94);
 		font-weight: bold;
-		margin-top: 2%;
 	}
 	
 	.logo_short {
@@ -816,9 +824,8 @@
 	
 	.checked {
 		position: fixed;
-		margin-left: 67%;
-		margin-top: -10%;
-		
+		margin-left: -10%;
+		margin-top: 10px;
 	}
 	
 	.lbl_hint {
@@ -841,22 +848,11 @@
 	.modal_login {
 		height: 50px;
 		padding-top: 3%;
-		margin-bottom: 3%;
 	}
 	
 	.modal_hint {
 		margin-top: 5%;
 	}
-	
-	#kakao_btn {
-		margin-bottom: 2%;
-	}
-	
-	#naver_id_login {
-		margin-bottom: 2%;
-		wi
-	}
-
 </style>
 </head>
 <body>
@@ -876,7 +872,6 @@
 <!-- 	        </li> -->
 	         &nbsp; &nbsp;&nbsp; 
 	        <li class="nav-item dropdown">
-
 	          <a id="menu" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="<%=request.getContextPath() %>/wacha_info.do">소개</a>
 	          <ul class="dropdown-menu">
 	          	<li><a id="menu" class="dropdown-item" href="<%=request.getContextPath() %>/wacha_info.do">안녕?왓챠피디아</a></li>
@@ -891,13 +886,13 @@
                 게시판
               </a>
               <ul class="dropdown-menu">
-                <li><a id="menu" class="dropdown-item" href="<%=request.getContextPath() %>/free_main.do">자유게시판</a></li>
+                <li><a id="menu" class="dropdown-item" href="<%=request.getContextPath() %>/#">자유게시판</a></li>
                     <li><hr class="dropdown-divider"></li>
 
                <%-- 로그인 됨.--%>
                <c:if test="${!empty session_id }">
                     <li><a id="menu" class="dropdown-item" href="<%=request.getContextPath() %>/inquiry_main.do">Q&A / 1:1문의</a></li>
-                    <li><a id="menu" class="dropdown-item" href="<%=request.getContextPath() %>/write_result.do?id=${session_id}">문의내역</a></li>
+                    <li><a id="menu" class="dropdown-item" href="<%=request.getContextPath() %>/write_result.do">문의내역</a></li>
                </c:if>
 
                 <%-- 로그인 안됨. --%>
@@ -922,11 +917,8 @@
 	    <c:if test="${!empty session_id }">
 	    	
 	    	<ul class="session">
-
 	    		<li class="s_id"><img class="s_img" src="${pageContext.request.contextPath }/image/profileupload/${session_img }" alt="프로필" /></li>
-
-	    		<li class="s_id"><a href="<%=request.getContextPath()%>/member_page.do?member_id=${session_id }">${session_name }</a></li>
-
+	    		<li class="s_id"><a href="<%=request.getContextPath()%>/member_page.do?member_id=${session_id }">${session_id }</a></li>
 	    	</ul>
 	    		
 	    </c:if>
@@ -995,27 +987,26 @@
 						<div class="hr-sect">OR</div>
 					
 						<div id="kakao_btn">
-							<a href="https://kauth.kakao.com/oauth/authorize?client_id=f106a112e059bfa2a2f1faeb9614402b&redirect_uri=http://localhost:8282/WatchaProject/kakao_login.do&response_type=code">
-								<img id="k_login" class="kakao" src="https://cdn-icons-png.flaticon.com/512/3669/3669973.png" alt="카카오 로그인"/>
-							</a>
+							<a id="kakao_login" href=""> 
+								<img id="k_login" class="kakao" src="https://cdn-icons-png.flaticon.com/512/3669/3669973.png" alt="카카오 로그인" />
+							</a> 
 						</div>
 						
-					   <div id="naver_id_login"></div>
-					    
-						<!-- //네이버 로그인 버튼 노출 영역 -->
-						<script type="text/javascript">
-						   
-							var naver_id_login = new naver_id_login("O9onbY5xPBKdN4J3lDpN", "http://localhost:8282/WatchaProject/callback.jsp");
-							var state = naver_id_login.getUniqState();
-							   
-							naver_id_login.setButton("green", 11,48);
-							naver_id_login.setDomain("http://localhost:8282/WatchaProject/callback.jsp");
-							naver_id_login.setState(state);
-							naver_id_login.setPopup();
-							naver_id_login.init_naver_id_login();
-						   
-						</script>
+						<div id="naver_id_login"></div>
+						
+
 					
+					    <script type="text/javascript">
+        
+					    	var naver_id_login = new naver_id_login("O9onbY5xPBKdN4J3lDpN", "http://localhost:8282/WatchaProject/include/loginNaver.jsp");
+					        var state = naver_id_login.getUniqState();
+					        
+					        naver_id_login.setButton("white", 2,40);
+					        naver_id_login.setDomain("http://localhost:8282/WatchaProject/include/loginNaver.jsp");
+					        naver_id_login.setState(state);
+					        naver_id_login.setPopup();
+					        naver_id_login.init_naver_id_login();
+					    </script>
 					</form>	
 				
 				</div>
@@ -1080,7 +1071,13 @@
 						<input class="m_btn2" type="button" value="로그인" onclick="logIn()" />
 					</div>
 					
-					<!-- <div class="hr-sect">OR</div> -->
+					<div class="hr-sect">OR</div>
+					
+					<div>
+						
+						<img class="kakao" src="https://cdn-icons-png.flaticon.com/512/3669/3669973.png" alt="카카오" />
+						
+					</div>
 					
 				</div>
 			
@@ -1101,7 +1098,6 @@
 					
 					<br />
 					
-					
 					<div class="findPwd2">
 						<b class="findPwd1">비밀번호를 잊으셨나요?</b>	<br />
 						아이디를 입력해주세요. <br />
@@ -1112,7 +1108,7 @@
 									
 					<div class="modal_id">
 						<label class="label">
-							<input id="hint_id" class="text" placeholder="아이디"/>
+							<input id="hint_id" class="text" placeholder="이메일"/>
 						</label>
 					</div>	
 	
@@ -1128,7 +1124,7 @@
 				
 			</div> <%-- 비밀번호 찾기 end --%>
 			
-			<!-- <div id="bg4" class="modal1">
+			<div id="bg4" class="modal1">
 			
 				<div id="modal_content4">
 			
@@ -1151,14 +1147,12 @@
 				
 				</div>
 			
-			</div> -->
+			</div>
 				     
 	  	  &nbsp;
 	  	</div>
 	  </div>
 	</nav>
-     
-     
      
      
 	
